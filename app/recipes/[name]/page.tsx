@@ -1,46 +1,65 @@
 import fetchRecipes from "@/app/lib/data/actions/fetchRecipes";
 import Image from "next/image";
 import { unstable_noStore as noStore } from 'next/cache';
-import { Suspense } from "react";
+import './styles.css'
+import Video from "@/app/ui/video";
 
 export default async function Page({params}: {params: {name: string}}){
     noStore()
     const recipeData = await fetchRecipes(params.name)
     const recipe = recipeData[0]
-    const friendlyName = decodeURI(params.name).split(" ").map((word) => {return `${word[0].toUpperCase()}${word.substring(1)}`}).join(" ")
+    const friendlyName = recipe.name.split(" ").map((word: string) => {return `${word[0].toUpperCase()}${word.substring(1)}`}).join(" ")
     return(
-        <div>
-            <div className="flex">
-                <Suspense fallback='/chef-icon.png'>
+        <div className="">
+            <h1 className="text-center text-4xl pb-4"><strong>{friendlyName}</strong></h1>
+            <div className="inline-flex">
+                <div className="steps-box">
+                    <div className="">
+                        <Video embedId={recipe.video}></Video>
+                        <div className="pt-5">
+                            <p className="text-center pb-4"><strong className="">Steps</strong></p>
+                            {recipe.RecipeSteps.map((recipe: any, index: number) => {
+                            return(
+                                <p className="pb-5" key={index}><strong>{recipe.step_number}</strong>: {recipe.step}</p>
+                            )})}
+                            </div>
+                    </div>
+                </div>
+                <div className="info-box">
                     <Image
                         src={recipe.image || '/chef-icon.png'}
                         className="mr-2"
-                        width={250}
-                        height={250}
+                        width={260}
+                        height={260}
                         alt={`Delicious ${friendlyName}`}
                         />
-                </Suspense>
-                <table>
-                    <tbody>
-                        <tr className="text-center">
-                            <th className="text-center">Recipe Information</th>
-                        </tr>
-                        <tr>
-                            <td>Difficulty</td>
-                            <td>{recipe.difficulty}</td>
-                        </tr>
-                        <tr>
-                            <td>Length</td>
-                            <td>{recipe.length}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div>
-                {recipe.RecipeSteps.map((recipe: any, index: number) => {
-                return(
-                    <div key={index}>{recipe.step_number}: {recipe.step}</div>
-                )})}
+                    <table className="w-64 px-10">
+                        <tbody className="">
+                            <tr className="border-solid border-2 border-black">
+                                <td className="text-center " colSpan={100}><strong>Quick Info</strong></td>
+                            </tr>
+                            <tr className="border-solid border-2 border-black">
+                                <td className="border-solid border-2 border-black">Difficulty</td>
+                                <td className="text-right">{recipe.difficulty}</td>
+                            </tr>
+                            <tr className="border-solid border-2 border-black">
+                                <td className="border-solid border-2 border-black">Length</td>
+                                <td className="text-right">{recipe.length}</td>
+                            </tr>
+                            <tr className="border-solid border-2 border-black">
+                                <td className="text-center" colSpan={100}><strong>Ingredients</strong></td>
+                            </tr>
+                            {recipe.Ingredients.map((ingredient: any, index: any) => {
+                                return(
+                                    <tr key={index} className="border-solid border-2 border-black">
+                                        <td className="border-solid border-2 border-black" key={index}>{ingredient.name}</td>
+                                        <td key={`${index}-${ingredient.RecipeIngredient.quantity}`} className="text-right">{ingredient.RecipeIngredient.quantity}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     )

@@ -1,20 +1,16 @@
 'use client';
 
 import Image from "next/image"
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function TableRow(
     {
-        // onClick, 
-        // children, 
         name,
         image,
         difficulty,
         length,
         index
     }: {
-    //  onClick: any,
-    //  children: any, 
      name: string,
      image: string,
      difficulty: string,
@@ -25,7 +21,6 @@ export default function TableRow(
     const router = useRouter()
     const handleOnClick = () =>{
         router.push(`/recipes/${name}`)
-        // redirect(`/recipes/${name}`)
     }
     return (
     <tr
