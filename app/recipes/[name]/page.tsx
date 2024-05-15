@@ -1,4 +1,3 @@
-import fetchRecipes from "@/app/lib/data/actions/fetchRecipes";
 import Image from "next/image";
 import { unstable_noStore as noStore } from 'next/cache';
 import './styles.css'
@@ -6,7 +5,7 @@ import Video from "@/app/ui/video";
 
 export default async function Page({params}: {params: {name: string}}){
     noStore()
-    const recipeData = await fetchRecipes(params.name)
+    const recipeData = await (await fetch(`http://localhost:3000/api/recipes?name=${params.name}`)).json()
     const recipe = recipeData[0]
     const friendlyName = recipe.name.split(" ").map((word: string) => {return `${word[0].toUpperCase()}${word.substring(1)}`}).join(" ")
     return(

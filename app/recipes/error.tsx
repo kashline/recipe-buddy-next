@@ -17,11 +17,18 @@ export default function Error({
  
   return (
     <div className='error'>
-      <h2 className='py-6'><strong>There was an error loading the recipe!</strong></h2>
+      <h2 className='py-6'><strong>There was an error loading recipes!</strong></h2>
       <h2 className='py-6'>Please try again</h2>
       <Button
         onClick={
-          () => reset()
+          () => {
+            return {
+              redirect: {
+                destination: '/recipes',
+                permanent: true,
+              }
+            }
+          }
         }
       >
         Try again
