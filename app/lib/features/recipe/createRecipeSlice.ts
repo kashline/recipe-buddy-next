@@ -69,7 +69,7 @@ export const createRecipeSlice = createSlice({
                         return val
                     } 
                 })
-                console.log(state.steps)
+                // console.log(state.steps)
                 break;
             case 'setStep':
                 state.steps[action.payload.index!].step = action.payload.value!
