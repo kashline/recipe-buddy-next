@@ -13,12 +13,10 @@ export default function Page({
   }){
     // const name = searchParams?.name || '';
     const query = Object.keys(searchParams!).map((key, index) => {
-      if (key !== 'page'){
-        if (index === 0){
-          return `?${key}=${searchParams![key as keyof typeof searchParams]}`
-        } else {
-          return `${key}=${searchParams![key as keyof typeof searchParams]}`
-        }
+      if (index === 0){
+        return `?${key}=${searchParams![key as keyof typeof searchParams]}`
+      } else {
+        return `${key}=${searchParams![key as keyof typeof searchParams]}`
       }
     }).join('&')
     const currentPage = Number(searchParams?.page) || 1;

@@ -7,19 +7,8 @@ import _ from "lodash"
 
 export default async function GetRecipe(props?: URLSearchParams){
     try {
-        if (props == null) {
-            return await Recipe.findAll({
-                include: [
-                    {
-                        model: Ingredient
-                    },
-                    {
-                        model: RecipeStep
-                    }
-                ]
-            })
-        } else {
-            var promises: Promise<number[] | undefined>[] = []
+        var promises: Promise<number[] | undefined>[] = []
+        if (props != null) {
             props.forEach(async (value, key) => {
                 switch (key) {
                     case 'ingredients':
@@ -37,7 +26,19 @@ export default async function GetRecipe(props?: URLSearchParams){
                     default:
                         break;
                 }
-        })}
+        })} 
+        if (promises.length === 0){
+            return await Recipe.findAll({
+                include: [
+                    {
+                        model: Ingredient
+                    },
+                    {
+                        model: RecipeStep
+                    }
+                ]
+            })
+        }
         return Promise.all(promises).then((response) => {
             return findRecipeById(mergeArrays(response))
         })

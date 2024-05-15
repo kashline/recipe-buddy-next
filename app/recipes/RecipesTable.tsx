@@ -11,7 +11,7 @@ export default async function RecipesTable({
   currentPage: number;
 }) {
   noStore()
-  const recipes = await (await fetch(`http://localhost:3000/api/recipes${query}`)).json()
+  const recipes = await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json()
   try{
     const recipesPerPage = 10
     const totalPages = Math.round(recipes.length/recipesPerPage) === 0 ? 1 : Math.round(recipes.length/recipesPerPage)
