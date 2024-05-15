@@ -1,9 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next"
-import { unstable_noStore as noStore } from 'next/cache';
 import GetRecipe from "@/app/data/GetRecipe"
+import { NextRequest } from "next/server";
 
-export async function GET(request: NextApiRequest, response: NextApiResponse){
-    noStore()
+export async function GET(request: NextRequest){
     if (request.url?.split('?')[1] === undefined) { 
         return Response.json(await GetRecipe())
     } else {
