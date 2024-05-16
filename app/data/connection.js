@@ -3,6 +3,8 @@
 import * as pg from 'pg'
 import { Sequelize } from 'sequelize';
 
+const dialectOptions = process.env.ENV === 'PROD' ? {ssl:{require: true}} : null
+
 const sequelize = new Sequelize({
   username: process.env.POSTGRES_USER,
   host: process.env.POSTGRES_HOST,
@@ -12,6 +14,7 @@ const sequelize = new Sequelize({
   dialect: 'postgres',
   dialectModule: pg,
   logging: false,
+  dialectOptions: dialectOptions,
   define: {
     hooks: {
       beforeFind: (model) => {
