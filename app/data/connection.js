@@ -4,11 +4,11 @@ import * as pg from 'pg'
 import { Sequelize } from 'sequelize';
 
 const sequelize = new Sequelize({
-  username: 'postgres',
-  host: 'localhost',
-  database: 'kevinashline',
+  username: process.env.POSTGRES_USER,
+  host: process.env.POSTGRES_HOST,
+  database: process.env.POSTGRES_DATABASE,
   port: '5432',
-  password: 'uYOP9g2XtF',
+  password: process.env.POSTGRES_PASSWORD,
   dialect: 'postgres',
   dialectModule: pg,
   logging: false,
