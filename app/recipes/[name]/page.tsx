@@ -5,7 +5,7 @@ import Video from "@/app/ui/video";
 
 export default async function Page({params}: {params: {name: string}}){
     noStore()
-    const recipeData = await (await fetch(`http://localhost:3000/api/recipes?name=${params.name}`)).json()
+    const recipeData = await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json()
     const recipe = recipeData[0]
     const friendlyName = recipe.name.split(" ").map((word: string) => {return `${word[0].toUpperCase()}${word.substring(1)}`}).join(" ")
     return(
