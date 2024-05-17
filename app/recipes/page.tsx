@@ -11,7 +11,6 @@ export default function Page({
       page?: string;
     };
   }){
-    // const name = searchParams?.name || '';
     const query = Object.keys(searchParams!).map((key, index) => {
       if (index === 0){
         return `?${key}=${searchParams![key as keyof typeof searchParams]}`

@@ -4,12 +4,11 @@ import RecipeStep from "./models/RecipeStep.js"
 import RecipeIngredient from "./models/RecipeIngredient.js"
 import {Op} from "sequelize"
 import _ from "lodash"
-import sequelize from "./connection.js"
 
 export default async function GetRecipe(props?: URLSearchParams){
     try {
-        sequelize.authenticate()
         var promises: Promise<number[] | undefined>[] = []
+        const itemsPerPage = 10
         if (props != null) {
             props.forEach(async (value, key) => {
                 switch (key) {
@@ -31,6 +30,10 @@ export default async function GetRecipe(props?: URLSearchParams){
         })} 
         if (promises.length === 0){
             return await Recipe.findAll({
+                order: [
+                    ['name', "ASC"]
+                ],
+                attributes: ['name', 'difficulty', 'length', 'image'],
                 include: [
                     {
                         model: Ingredient

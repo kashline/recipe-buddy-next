@@ -1,3 +1,5 @@
+'use server'
+
 import Image from 'next/image';
 import { unstable_noStore as noStore } from 'next/cache';
 import Pagination from '../ui/pagination';
@@ -10,7 +12,6 @@ export default async function RecipesTable({
   query: string;
   currentPage: number;
 }) {
-  noStore()
   const recipes = await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json()
   try{
     const recipesPerPage = 10
@@ -69,7 +70,7 @@ export default async function RecipesTable({
   } catch(error) {
     return (
       <div>
-        uh oh mistake {String(error)}
+        There was a problem reading/parsing data from the database: {String(error)}
       </div>
     )
   }
