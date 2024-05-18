@@ -5,10 +5,13 @@ import RecipeIngredient from "./models/RecipeIngredient.js"
 import {Op} from "sequelize"
 import _ from "lodash"
 
-export default async function GetRecipe(props?: URLSearchParams){
+const itemsPerPage = 10
+
+export default async function GetRecipe(props?: URLSearchParams) {
     try {
         var promises: Promise<number[] | undefined>[] = []
-        const itemsPerPage = 10
+        const page = Number(props?.get('page') || 1)
+        const attributes: string[] = ['name', 'difficulty', 'length', 'image', 'video']
         if (props != null) {
             props.forEach(async (value, key) => {
                 switch (key) {
@@ -21,19 +24,26 @@ export default async function GetRecipe(props?: URLSearchParams){
                     case 'difficulty':
                         promises.push(findAllRecipes(key, value))
                         break;
-                    case 'legnth':
+                    case 'length':
                         promises.push(findAllRecipes(key, value))
                         break;
+                    case 'attributes':
+                        props.get('attributes')?.split(',').map((attribute) => {
+                            attributes.push(attribute)
+                        })
                     default:
                         break;
                 }
         })} 
+        // Default case no query parameters
         if (promises.length === 0){
             return await Recipe.findAll({
+                limit: itemsPerPage,
+                offset: itemsPerPage*page,
                 order: [
                     ['name', "ASC"]
                 ],
-                attributes: ['name', 'difficulty', 'length', 'image'],
+                attributes: ['name', 'difficulty', 'length', 'image', 'video'],
                 include: [
                     {
                         model: Ingredient
@@ -44,8 +54,8 @@ export default async function GetRecipe(props?: URLSearchParams){
                 ]
             })
         }
-        return Promise.all(promises).then((response) => {
-            return findRecipeById(mergeArrays(response))
+        return await Promise.all(promises).then((response) => {
+            return findRecipeById(mergeArrays(response), attributes, page)
         })
     } catch (error) {
         console.log(`There was an error in GetRecipe: ${error}`)
@@ -53,23 +63,41 @@ export default async function GetRecipe(props?: URLSearchParams){
     }
 }
 
-async function findRecipeById(ids: number[]){
+async function findRecipeById(ids: number[], attributes?: string[], page?: number){
     try{
-        return await Recipe.findAll({
+        const res = new Map()
+        const include = ids.length === 1 ? [
+            {
+                model: Ingredient
+            },
+            {
+                model: RecipeStep
+            }
+        ] : []
+        const recipes = await Recipe.findAll({
             where: {
                 id: {
                     [Op.in]: ids
                 }
             },
-            include: [
-                {
-                    model: Ingredient
-                },
-                {
-                    model: RecipeStep
-                }
-            ]
+            limit: itemsPerPage,
+            offset: itemsPerPage*(page!-1),
+            order: [
+                ['name', "ASC"]
+            ],
+            attributes: attributes,
+            include: include
         })
+        const count = await Recipe.count({
+            where: {
+                id: {
+                    [Op.in]: ids
+                }
+            }
+        })
+        res.set('recipes', recipes)
+        res.set('count', count)
+        return res
     } catch (error) {
         console.error(`There was an error in findRecipeById: ${error}`)
     }
@@ -96,7 +124,6 @@ async function findAllRecipes(key: string, value: string){
 
 async function findAllIngredients(ingredient: string){
     try{
-
         // Get ingredient IDs
         const ingredients = await Ingredient.findAll({
             attributes: [ 'id' ],
@@ -120,8 +147,6 @@ async function findAllIngredients(ingredient: string){
             })
         }))
         return new Promise<number[]> ((resolve) => {resolve(mergeArrays(recipeIds))}) 
-        // return recipeIds
-        
     } catch (error) {
         console.log(`Error in findAllIngredients: ${error}`)
     }

@@ -18,12 +18,11 @@ export default function Page({
         return `${key}=${searchParams![key as keyof typeof searchParams]}`
       }
     }).join('&')
-    const currentPage = Number(searchParams?.page) || 1;
     return(
       <div>
           <Search placeholder="Begin typing a recipe name" param="name"></Search>
           <Search placeholder="Begin typing an ingredient" param="ingredients"></Search>
-          <RecipesTable query={query} currentPage={currentPage}/>
+          <RecipesTable query={query}/>
       </div>
     )
 }

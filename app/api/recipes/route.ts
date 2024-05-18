@@ -6,6 +6,9 @@ export async function GET(request: NextRequest){
         return Response.json(await GetRecipe())
     } else {
         const { searchParams } = new URL(request.url!)
-        return Response.json(await GetRecipe(searchParams))
+        const res = await GetRecipe(searchParams)
+        return Response.json(JSON.parse(JSON.stringify(res, (key, value) => {
+            return value instanceof Map ? [...value] : value
+        })))
     }
 }

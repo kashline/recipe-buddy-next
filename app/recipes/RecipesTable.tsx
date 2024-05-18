@@ -7,26 +7,17 @@ import TableRow from './TableRow';
 
 export default async function RecipesTable({
   query,
-  currentPage,
 }: {
   query: string;
-  currentPage: number;
 }) {
-  const recipes = await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json()
+  
+  noStore()
   try{
+    const recipeData = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json())
+    const recipes: Object[] = recipeData.get('recipes')
     const recipesPerPage = 10
-    const totalPages = Math.round(recipes.length/recipesPerPage) === 0 ? 1 : Math.round(recipes.length/recipesPerPage)
-    const cursor = currentPage*recipesPerPage
-    let lowerSlice
-    let upperSlice
-    if (currentPage === 1){
-      lowerSlice = currentPage-1
-      upperSlice = currentPage+recipesPerPage-1
-    } else {
-      lowerSlice = cursor-recipesPerPage
-      upperSlice = cursor
-    }
-    const recipeSlice = recipes.slice(lowerSlice, upperSlice)
+    const recipeCount = Number(recipeData.get('count'))
+    const totalPages = Math.round(recipeCount/recipesPerPage) === 0 ? 1 : Math.round(recipeCount/recipesPerPage)
     return (
       <div className="mt-6 flow-root" >
         <div className="inline-block min-w-full align-middle" >
@@ -48,8 +39,8 @@ export default async function RecipesTable({
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white" >
-                {recipeSlice?.map((recipe: any, index: number) => (
+              <tbody className="bg-white" >   
+                {recipes?.map((recipe: any, index: number) => (
                   <TableRow 
                     difficulty={recipe.difficulty} 
                     name={recipe.name}
