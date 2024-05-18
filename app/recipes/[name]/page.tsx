@@ -4,10 +4,8 @@ import './styles.css'
 import Video from "@/app/ui/video";
 
 export default async function Page({params}: {params: {name: string}}){
-    noStore()
-    const recipeData = await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json()
-    const recipe = new Map(recipeData).get('recipes')[0]
-    console.log(recipe)
+    const recipeData: Map<string, Object[]> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json())
+    const recipe: any = recipeData.get('recipes')![0]
     const friendlyName = recipe.name.split(" ").map((word: string) => {return `${word[0].toUpperCase()}${word.substring(1)}`}).join(" ")
     return(
         <div className="">

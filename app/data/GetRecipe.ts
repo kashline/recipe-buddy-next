@@ -37,22 +37,19 @@ export default async function GetRecipe(props?: URLSearchParams) {
         })} 
         // Default case no query parameters
         if (promises.length === 0){
-            return await Recipe.findAll({
+            const res = new Map()
+            const recipes = await Recipe.findAll({
                 limit: itemsPerPage,
-                offset: itemsPerPage*page,
+                offset: itemsPerPage*(page!-1),
                 order: [
                     ['name', "ASC"]
                 ],
-                attributes: ['name', 'difficulty', 'length', 'image', 'video'],
-                include: [
-                    {
-                        model: Ingredient
-                    },
-                    {
-                        model: RecipeStep
-                    }
-                ]
+                attributes: attributes,
             })
+            const count = await Recipe.count({})
+            res.set('recipes', recipes)
+            res.set('count', count)
+            return res
         }
         return await Promise.all(promises).then((response) => {
             return findRecipeById(mergeArrays(response), attributes, page)
@@ -71,7 +68,7 @@ async function findRecipeById(ids: number[], attributes?: string[], page?: numbe
                 model: Ingredient
             },
             {
-                model: RecipeStep
+                model: RecipeStep,
             }
         ] : []
         const recipes = await Recipe.findAll({
@@ -82,9 +79,7 @@ async function findRecipeById(ids: number[], attributes?: string[], page?: numbe
             },
             limit: itemsPerPage,
             offset: itemsPerPage*(page!-1),
-            order: [
-                ['name', "ASC"]
-            ],
+            order: (ids.length === 1 ? [['name', "ASC"],[RecipeStep, "step_number", "ASC"]] : [['name', "ASC"]]),
             attributes: attributes,
             include: include
         })
