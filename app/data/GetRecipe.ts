@@ -1,7 +1,7 @@
-import Ingredient from "./models/Ingredient.js"
-import Recipe from "./models/Recipe.js"
-import RecipeStep from "./models/RecipeStep.js"
-import RecipeIngredient from "./models/RecipeIngredient.js"
+import Ingredient from "./models/Ingredient"
+import Recipe from "./models/Recipe"
+import RecipeStep from "./models/RecipeStep"
+import RecipeIngredient from "./models/RecipeIngredient"
 import {Op} from "sequelize"
 import _ from "lodash"
 

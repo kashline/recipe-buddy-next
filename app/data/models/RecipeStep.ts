@@ -1,6 +1,6 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
-import sequelize from '../connection.js'
-import Recipe from './Recipe.js';
+import sequelize from '../connection'
+import Recipe from './Recipe';
 
 /**
  * Model of a recipe's steps containing the step, step number, and associated recipe_id
@@ -14,7 +14,7 @@ RecipeStep.init({
       primaryKey: true
     },
   step: {
-    type: Sequelize.TEXT,
+    type: DataTypes.TEXT,
     allowNull: false
   },
   recipe_id: {

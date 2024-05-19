@@ -11,20 +11,6 @@ import LoggedinSidebar from "./loggedinsidebar";
 export default function Page() {
   const { user, error, isLoading } = useUser()
 
-  if (isLoading) return(
-    <div>
-      Logging you in...
-      <LoginLoading></LoginLoading>
-    </div>
-  )
-  if (error) {
-    return(
-      <div>
-        {error.message}
-      </div>
-    )
-  }
-
   return (
     <main className="flex min-h-screen flex-col p-6">
       <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">

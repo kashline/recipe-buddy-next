@@ -3,27 +3,18 @@
 import * as pg from 'pg'
 import { Sequelize } from 'sequelize';
 
-const dialectOptions = process.env.ENV === 'PROD' ? {ssl:{require: true}} : null
+const dialectOptions = process.env.ENV === 'PROD' ? {ssl:{require: true}} : undefined
 
 const sequelize = new Sequelize({
   username: process.env.POSTGRES_USER,
   host: process.env.POSTGRES_HOST,
   database: process.env.POSTGRES_DATABASE,
-  port: '5432',
+  port: 5432,
   password: process.env.POSTGRES_PASSWORD,
   dialect: 'postgres',
   dialectModule: pg,
   logging: false,
   dialectOptions: dialectOptions,
-  define: {
-    hooks: {
-      beforeFind: (model) => {
-        model.attributes = {}
-        model.attributes.exclude = ['createdAt', 'updatedAt']
-      }
-    },
-    timestamps: false
-  },
   define: {
     scopes: {
       excludeId: {

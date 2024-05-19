@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../connection.js'
+import sequelize from '../connection'
 
 /**
  * Model for an ingredient containing the ingredient name.
@@ -15,14 +15,7 @@ Ingredient.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-    // recipe_id: {
-    // type: DataTypes.INTEGER,
-    // references: {
-    //     model: Recipe,
-    //     key: 'id'
-    // }
-  // }
+  }
 }, {
   sequelize,
   modelName: 'Ingredient'

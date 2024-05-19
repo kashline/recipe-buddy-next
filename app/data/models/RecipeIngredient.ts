@@ -1,7 +1,7 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
-import sequelize from '../connection.js'
-import Ingredient from './Ingredient.js';
-import Recipe from './Recipe.js';
+import sequelize from '../connection'
+import Ingredient from './Ingredient';
+import Recipe from './Recipe';
 
 export default class RecipeIngredient extends Model {}
 
@@ -15,7 +15,7 @@ RecipeIngredient.init({
       primaryKey: true
   },
   quantity: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   recipe_id: {
@@ -35,12 +35,6 @@ RecipeIngredient.init({
 }, {
   sequelize,
   modelName: 'RecipeIngredient',
-  // indexes: [
-  //   {
-  //     unique: true,
-  //     fields: ['recipe_id', 'ingredient_id', 'quantity']
-  //   }
-  // ]
 });
 
 Recipe.belongsToMany(Ingredient, {through: RecipeIngredient, foreignKey: "recipe_id"})

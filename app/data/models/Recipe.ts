@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../connection.js'
-import Ingredient from './Ingredient.js';
+import sequelize from '../connection'
+import Ingredient from './Ingredient';
 
 /**
  * Model for a recipe.  Contains the name, difficulty, length, mealdb_id, image url, and video url.
@@ -39,4 +39,3 @@ Recipe.init({
 });
 
 Recipe.hasMany(Ingredient, { foreignKey: 'recipeId' })
-// Recipe.hasMany(Ingredient, { foreignKey: 'recipeId', as: 'FilteringIngredients' })
