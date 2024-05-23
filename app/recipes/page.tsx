@@ -1,6 +1,8 @@
 import RecipesTable from "./RecipesTable";
 import Search from "../ui/search";
 import { useSearchParams } from "next/navigation";
+import FilterDropdown from "./FilterDropdown";
+import DefaultTopbar from "../ui/defaulttopbar";
 
 export default function Page({
     searchParams,
@@ -20,8 +22,7 @@ export default function Page({
     }).join('&')
     return(
       <div>
-          <Search placeholder="Begin typing a recipe name" param="name"></Search>
-          <Search placeholder="Begin typing an ingredient" param="ingredients"></Search>
+          <FilterDropdown></FilterDropdown>
           <RecipesTable query={query}/>
       </div>
     )

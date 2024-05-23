@@ -1,13 +1,15 @@
 import { Action, combineSlices, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { createRecipeRecuder, createRecipeSlice } from './features/recipe/createRecipeSlice'
+import { profileReducer, profileSlice } from './features/profile/profileSlice';
 
 export const store = configureStore({
     reducer: {
-        createRecipe: createRecipeRecuder
+        createRecipe: createRecipeRecuder,
+        profile: profileReducer
     }
 })
 
-const rootReducer = combineSlices(createRecipeSlice)
+const rootReducer = combineSlices(createRecipeSlice, profileSlice)
 
 export const makeStore = () => {
     return configureStore({

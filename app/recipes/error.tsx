@@ -3,6 +3,7 @@
 import Button from '@/app/ui/button'
 import { useEffect } from 'react'
 import './[name]/styles.css'
+import { useRouter, usePathname } from 'next/navigation'
  
 export default function Error({
   error,
@@ -15,6 +16,8 @@ export default function Error({
     console.error(error)
   }, [error])
  
+  const router = useRouter()
+  const pathName = usePathname()
   return (
     <div className='error'>
       <h2 className='py-6'><strong>There was an error loading recipes!</strong></h2>
@@ -22,12 +25,7 @@ export default function Error({
       <Button
         onClick={
           () => {
-            return {
-              redirect: {
-                destination: '/recipes',
-                permanent: true,
-              }
-            }
+            router.replace(pathName)
           }
         }
       >

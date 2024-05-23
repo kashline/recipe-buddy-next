@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { ArrowRightIcon } from "@heroicons/react/24/outline"
 import { lusitana } from "./ui/fonts"
+import Login from "./ui/login"
 
 export default function DefaultSidebar(){
     return(
@@ -13,12 +14,7 @@ export default function DefaultSidebar(){
                     Here you can create, save, and manage your recipes in one place.  Create an account to get started, or log in if you already have an account.
                 </p>
             <div className="flex">
-            <Link
-                href="/api/auth/login"
-                className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-            >
-                <span>Login</span> <ArrowRightIcon className="w-5 md:w-6" />
-            </Link>
+            <Login></Login>
             <Link 
                 href={"/user"}>
             </Link>

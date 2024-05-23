@@ -4,6 +4,7 @@ import "./globals.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
+import { StoreProvider } from "./StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,9 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <UserProvider>
-        <SpeedInsights></SpeedInsights>
-        <Analytics></Analytics>
-        <body className={inter.className}>{children}</body>
+        <StoreProvider>
+          <SpeedInsights></SpeedInsights>
+          <Analytics></Analytics>
+          <body className={inter.className}>{children}</body>
+        </StoreProvider>
       </UserProvider>
     </html>
   );

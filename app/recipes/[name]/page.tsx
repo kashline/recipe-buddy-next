@@ -2,11 +2,12 @@ import Image from "next/image";
 import { unstable_noStore as noStore } from 'next/cache';
 import './styles.css'
 import Video from "@/app/ui/video";
+import friendifyWords from "@/app/lib/utils/wordfriendifier";
 
 export default async function Page({params}: {params: {name: string}}){
     const recipeData: Map<string, Object[]> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json())
     const recipe: any = recipeData.get('recipes')![0]
-    const friendlyName = recipe.name.split(" ").map((word: string) => {return `${word[0].toUpperCase()}${word.substring(1)}`}).join(" ")
+    const friendlyName = friendifyWords(recipe.name)
     return(
         <div className="">
             <h1 className="text-center text-4xl pb-4"><strong>{friendlyName}</strong></h1>

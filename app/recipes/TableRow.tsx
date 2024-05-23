@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { useRouter } from 'next/navigation';
+import friendifyWords from "../lib/utils/wordfriendifier";
 
 export default function TableRow(
     {
@@ -22,30 +23,31 @@ export default function TableRow(
     const handleOnClick = () =>{
         router.push(`/recipes/${name}`)
     }
+    const friendlyName = friendifyWords(name)
     return (
-    <tr
-        key={index}
-        className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
-        onClick={handleOnClick}
-    >
-        <td className="whitespace-nowrap py-3 pl-6 pr-3">
-        <div className="flex items-center gap-3">
-            <Image
-                src={image || '/chef-icon.png'}
-                className="mr-2 rounded-full"
-                width={28}
-                height={28}
-                alt={`Delicious ${name}`}
-                />
-                <p>{name}</p>
-        </div>
-        </td>
-        <td className="whitespace-nowrap px-3 py-3">
-            {difficulty}
-        </td>
-        <td className="whitespace-nowrap px-3 py-3">
-            {length}
-        </td>
-    </tr>
+        <tr
+            key={index}
+            className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
+            onClick={handleOnClick}
+        >
+            <td className="whitespace-nowrap py-3 pl-6 pr-3">
+            <div className="flex items-center gap-3">
+                <Image
+                    src={image || '/chef-icon.png'}
+                    className="mr-2 rounded-full"
+                    width={28}
+                    height={28}
+                    alt={`Delicious ${friendlyName}`}
+                    />
+                    <p>{friendlyName}</p>
+            </div>
+            </td>
+            <td className="whitespace-nowrap px-3 py-3">
+                {difficulty}
+            </td>
+            <td className="whitespace-nowrap px-3 py-3">
+                {length}
+            </td>
+        </tr>
     )
 }
