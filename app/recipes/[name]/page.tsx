@@ -5,6 +5,7 @@ import Video from "@/app/ui/video";
 import friendifyWords from "@/app/lib/utils/wordfriendifier";
 
 export default async function Page({params}: {params: {name: string}}){
+    noStore()
     const recipeData: Map<string, Object[]> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json())
     const recipe: any = recipeData.get('recipes')![0]
     const friendlyName = friendifyWords(recipe.name)

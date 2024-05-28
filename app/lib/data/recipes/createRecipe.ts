@@ -10,7 +10,9 @@ export default async function createRecipe(recipe: RecipeZype){
             console.log(err)
         })
         const res = await Recipe.findOrCreate({
-            where: {name: recipe.name},
+            where: {
+                name: recipe.name,
+            },
             defaults: {
                 name: recipe.name,
                 length: recipe.length,

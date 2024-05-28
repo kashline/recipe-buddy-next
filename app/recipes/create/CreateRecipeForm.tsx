@@ -10,13 +10,25 @@ import RecipeStepsForm from './RecipeStepsForms';
 
 export default function CreateRecipeForm(){
     const createRecipe = useAppSelector(selectCreateRecipe)
-    async function handleSubmit() {
+    const  handleSubmit = async () => {
+        const res = await fetch(
+            `/api/recipes/new`,
+            {
+                body:JSON.stringify(createRecipe),
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            }
+        )
         return (
             <div>
                 Form submitted!
             </div>
         )
       }
+      console.log(createRecipe)
     return(
         <div>
             <h1 className='text-center pb-4'><strong>Create recipe</strong></h1>

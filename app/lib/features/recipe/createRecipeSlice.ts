@@ -61,7 +61,7 @@ export const createRecipeSlice = createSlice({
       setStepField: (state, action: PayloadAction<{type: string, index?: number, value?: string}>) => {
         switch (action.payload.type) {
             case 'add':
-                state.steps.push({step_number: state.steps.length, step: ''})
+                state.steps.push({step_number: state.steps.length+1, step: ''})
                 break;
             case 'removeAtIndex':
                 state.steps = state.steps.filter((val, index) => {
