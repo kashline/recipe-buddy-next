@@ -13,7 +13,3 @@ export const POST = withApiAuthRequired(async (request: Request) => {
         return Response.json(({success: false, message: error}), {status: 500})
     }
 })
-
-function validateToken(){
-
-}

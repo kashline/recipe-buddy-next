@@ -22,7 +22,6 @@ export default function IngredientsForm(){
         fetch(`/api/recipes/ingredients?name=${query}`)
         .then((res) => res.json())
         .then((data) => {
-            console.log(data)
             setIngredients(data)
             setIsLoading(false)
         })

@@ -1,8 +1,7 @@
 import Ingredient from "@/app/data/models/Ingredient"
-import { NextApiRequest } from "next"
 import { Op } from "sequelize"
 
-export async function GET(request: NextApiRequest){
+export async function GET(request: Request){
     const { searchParams } = new URL(request.url!)
     const ingredients  = await Ingredient.findAll({
         where: {
