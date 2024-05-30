@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { useRouter } from 'next/navigation';
 import friendifyWords from "../lib/utils/wordfriendifier";
+import './TableRow.scss'
 
 export default function TableRow(
     {
@@ -27,26 +28,32 @@ export default function TableRow(
     return (
         <tr
             key={index}
-            className="w-full border-b py-3 text-sm last-of-type:border-none [&:first-child>td:first-child]:rounded-tl-lg [&:first-child>td:last-child]:rounded-tr-lg [&:last-child>td:first-child]:rounded-bl-lg [&:last-child>td:last-child]:rounded-br-lg"
+            className="table-row"
             onClick={handleOnClick}
         >
             <td className="whitespace-nowrap py-3 pl-6 pr-3">
-            <div className="flex items-center gap-3">
-                <Image
-                    src={image || '/chef-icon.png'}
-                    className="mr-2 rounded-full"
-                    width={28}
-                    height={28}
-                    alt={`Delicious ${friendlyName}`}
-                    />
-                    <p>{friendlyName}</p>
-            </div>
+                <button className="tablerowbutton">
+                    <div className="flex items-center gap-3">
+                    <Image
+                        src={image || '/chef-icon.png'}
+                        className="mr-2 rounded-full"
+                        width={28}
+                        height={28}
+                        alt={`Delicious ${friendlyName}`}
+                        />
+                        <p style={{color: 'black'}}>{friendlyName}</p>
+                    </div>
+                </button>
             </td>
             <td className="whitespace-nowrap px-3 py-3">
-                {difficulty}
+                <p style={{color: 'black'}}>
+                    {difficulty}
+                </p>
             </td>
             <td className="whitespace-nowrap px-3 py-3">
-                {length}
+                <p style={{color: 'black'}}>
+                    {length}
+                </p>
             </td>
         </tr>
     )

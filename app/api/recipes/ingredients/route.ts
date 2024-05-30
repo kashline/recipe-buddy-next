@@ -1,7 +1,15 @@
 import Ingredient from "@/app/data/models/Ingredient"
+import { NextApiRequest } from "next"
+import { Op } from "sequelize"
 
-export async function GET(){
+export async function GET(request: NextApiRequest){
+    const { searchParams } = new URL(request.url!)
     const ingredients  = await Ingredient.findAll({
+        where: {
+            name: {
+                [Op.like]: `%${searchParams.get('name')}%`
+            }
+        },
         attributes: ['name'],
         order: [
             ['name', 'ASC'],

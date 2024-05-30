@@ -28,7 +28,6 @@ export default function CreateRecipeForm(){
             </div>
         )
       }
-      console.log(createRecipe)
     return(
         <div>
             <h1 className='text-center pb-4'><strong>Create recipe</strong></h1>
