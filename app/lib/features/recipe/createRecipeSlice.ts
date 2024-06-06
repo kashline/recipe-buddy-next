@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import type { RootState } from '../../store'
 
 export interface CreateRecipeState {
@@ -6,8 +6,15 @@ export interface CreateRecipeState {
     difficulty: string,
     length: string,
     video: string,
-    ingredients: {name: string, quantity: string}[],
-    steps: {step_number: number, step: string}[]
+    image: string,
+    Ingredients: {name: string, RecipeIngredient: RecipeIngredient}[],
+    RecipeSteps: {step_number: number, step: string}[],
+    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    error: string | null
+}
+
+interface RecipeIngredient{
+    quantity: string
 }
 
 const initialState: CreateRecipeState = {
@@ -15,8 +22,11 @@ const initialState: CreateRecipeState = {
     difficulty: '',
     length: '',
     video: '',
-    ingredients: [{name: '', quantity: ''}],
-    steps: [{step_number: 1, step: ''}]
+    image: '',
+    Ingredients: [{name: '', RecipeIngredient: {quantity: ''}}],
+    RecipeSteps: [{step_number: 1, step: ''}],
+    status: 'idle',
+    error: null
 }
 
 export const createRecipeSlice = createSlice({
@@ -35,23 +45,26 @@ export const createRecipeSlice = createSlice({
       setVideo: (state, action: PayloadAction<string>) => {
         state.video = action.payload
       },
+      setImage: (state, action: PayloadAction<string>) => {
+        state.image = action.payload
+      },
       setIngredientField: (state, action: PayloadAction<{type: string, index?: number, value?: string}>) => {
         switch (action.payload.type) {
             case 'add':
-                state.ingredients.push({name: '', quantity: ''})
+                state.Ingredients.push({name: '', RecipeIngredient: {quantity: ''}})
                 break;
             case 'removeAtIndex':
-                state.ingredients = state.ingredients.filter((val, index) => {
-                    if (index !== action.payload.index || (index === 0 && state.ingredients.length === 1)){  
+                state.Ingredients = state.Ingredients.filter((val, index) => {
+                    if (index !== action.payload.index || (index === 0 && state.Ingredients.length === 1)){  
                         return val
                     } 
                 })
                 break;
             case 'setName':
-                state.ingredients[action.payload.index!].name = action.payload.value!
+                state.Ingredients[action.payload.index!].name = action.payload.value!
                 break;
             case 'setQuantity':
-                state.ingredients[action.payload.index!].quantity = action.payload.value!
+                state.Ingredients[action.payload.index!].RecipeIngredient.quantity = action.payload.value!
                 break;
             default:
                 console.error(new Error('Invalid payload type for setIngredientField'))
@@ -61,23 +74,33 @@ export const createRecipeSlice = createSlice({
       setStepField: (state, action: PayloadAction<{type: string, index?: number, value?: string}>) => {
         switch (action.payload.type) {
             case 'add':
-                state.steps.push({step_number: state.steps.length+1, step: ''})
+                state.RecipeSteps.push({step_number: state.RecipeSteps.length+1, step: ''})
                 break;
             case 'removeAtIndex':
-                state.steps = state.steps.filter((val, index) => {
-                    if (index !== action.payload.index || (index === 0 && state.steps.length === 1)){
+                state.RecipeSteps = state.RecipeSteps.filter((val, index) => {
+                    if (index !== action.payload.index || (index === 0 && state.RecipeSteps.length === 1)){
                         return val
                     } 
                 })
                 break;
             case 'setStep':
-                state.steps[action.payload.index!].step = action.payload.value!
+                state.RecipeSteps[action.payload.index!].step = action.payload.value!
                 break;
             default:
                 console.error(new Error('Invalid payload type for setStepField'))
                 break;
         }
       }
+    },
+    extraReducers(builder) {
+        builder
+        .addCase(fetchRecipe.pending, (state, action) => {
+            state.status = 'loading'
+        })
+        .addCase(fetchRecipe.fulfilled, (state, action) => {
+            state.status = 'succeeded'
+            Object.assign(state, action.payload)
+        })
     }
   })
 
@@ -87,8 +110,17 @@ export const {
     setLength,
     setIngredientField,
     setStepField,
-    setVideo 
+    setVideo,
+    setImage
 } = createRecipeSlice.actions
+
+//Thunks
+export const fetchRecipe = createAsyncThunk('recipes/fetchRecipe', async (query: string) => {
+    console.log(query)
+    const response: Map<string, Object[]> = new Map(await (await fetch(`/api/recipes?name=${query}`)).json())
+    console.log(response.get('recipes')![0])
+    return response.get('recipes')![0]
+})
 
 export const selectCreateRecipe = (state: RootState) => state.createRecipe
 

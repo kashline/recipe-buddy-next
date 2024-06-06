@@ -1,18 +1,29 @@
 import { Button } from "@mui/base"
-import React, { ChangeEvent, ChangeEventHandler } from "react"
+import React, { ChangeEvent } from "react"
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks"
 import { setIngredientField, selectCreateRecipe } from "@/app/lib/features/recipe/createRecipeSlice"
 import { AsyncTypeahead } from 'react-bootstrap-typeahead'
 import "./styles.scss"
 import Trashcan from "@/app/ui/icons/trashcan"
+import { Option } from "react-bootstrap-typeahead/types/types"
+// import "bootstrap/dist/css/bootstrap.min.css"
 
 export default function IngredientsForm(){
     const createRecipe = useAppSelector(selectCreateRecipe)
     const dispatch = useAppDispatch()
     const [isLoading, setIsLoading] = React.useState(false);
-    const [ingredients, setIngredients] = React.useState<String[]>([]);
+    const [ingredients, setIngredients] = React.useState<String[]>([])
+    const typaheadRef = React.useRef(null)
 
-    const handleSearch = (query: string, index?: number) => {
+    const handleChange = (query: Option[], index: number) => {
+        console.log(typaheadRef.current)
+        dispatch(setIngredientField({
+            type: 'setName', 
+            index: index, 
+            value: String(query[0])
+        }))
+    }
+    const handleSearch = (query: string, index: number) => {
         dispatch(setIngredientField({
             type: 'setName', 
             index: index, 
@@ -27,7 +38,7 @@ export default function IngredientsForm(){
         })
     }
     return(
-        <div className="">
+        <div>
             <table style={{}}>
                 <thead>
                     <tr >
@@ -39,26 +50,24 @@ export default function IngredientsForm(){
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    {createRecipe.ingredients.map((_, index) => {
+                <tbody style={{}}>
+                    {createRecipe.Ingredients.map((ingredient, index) => {
                         return(
-                            <tr key={index}>
-                                <td key={`${index}-name`} style={{background: "white"}}>
+                            <tr key={index} style={{}}>
+                                <td key={`${index}-name`} style={{background: "white",}}>
                                         <AsyncTypeahead 
-                                            style={{
-                                                borderRadius: "6px", 
-                                                width: '100%', 
-                                                background: 'white',
-                                            }}
-                                            placeholder="Ingredient..."
+                                            placeholder={ingredient.name !== 'undefined' ? ingredient.name : "Ingredient..."}
                                             options={ingredients!}
                                             isLoading={isLoading}
+                                            ref={typaheadRef}
+                                            defaultSelected={[createRecipe.Ingredients[index].name]}
+                                            onChange={query => handleChange(query, index)}
                                             onSearch={query => handleSearch(query, index)}
-                                            emptyLabel={`New Ingredient..${createRecipe.ingredients[index].name}`}
+                                            emptyLabel={`${createRecipe.Ingredients[index].name}`}
                                             renderMenuItemChildren={(option: any) => (
-                                                    <p style={{background: "white"}}>
-                                                        {option}
-                                                    </p>
+                                                <p style={{background: 'white'}}>
+                                                    {option}
+                                                </p>
                                             )}
                                         >
                                     </AsyncTypeahead>
@@ -68,7 +77,7 @@ export default function IngredientsForm(){
                                 className=" pl-2">
                                     <input 
                                     className="text-right rounded-md w-full" 
-                                    value={createRecipe.ingredients[index].quantity} 
+                                    value={createRecipe.Ingredients[index].RecipeIngredient.quantity} 
                                     placeholder="Quantity" 
                                     onChange={
                                         (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,9 +1,19 @@
 import { z } from 'zod'
 
+
+export const RecipeIngredientZodel = z.object({
+    id: z.number().optional(),
+    quantity: z.string(),
+    recipe_id: z.number().optional(),
+    ingredient_id: z.number().optional(),
+    name: z.string().optional()
+})
+
 const IngredientZodel = z.object({
     id: z.number().optional(),
     name: z.string({required_error: `"name" is required`}).toLowerCase().trim(),
-    quantity: z.string({required_error: `"quantity" is required`})
+    RecipeIngredient: RecipeIngredientZodel
+    // quantity: z.string({required_error: `"quantity" is required`})
 })
 
 export const RecipeStepZodel = z.object({
@@ -11,13 +21,6 @@ export const RecipeStepZodel = z.object({
     step: z.string(),
     recipe_id: z.number().optional(),
     step_number: z.number()
-})
-
-export const RecipeIngredientZodel = z.object({
-    id: z.number().optional(),
-    quantity: z.string(),
-    recipe_id: z.number(),
-    ingredient_id: z.number()
 })
 
 export const RecipeZodel = z.object({
@@ -28,8 +31,8 @@ export const RecipeZodel = z.object({
     mealdb_id: z.string().optional(),
     image: z.string().optional(),
     video: z.string().optional(),
-    ingredients: z.array(IngredientZodel),
-    steps: z.array(RecipeStepZodel)
+    Ingredients: z.array(IngredientZodel),
+    RecipeSteps: z.array(RecipeStepZodel)
 })
 
 export type RecipeZype = z.infer<typeof RecipeZodel>

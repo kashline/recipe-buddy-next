@@ -1,52 +1,37 @@
+'use client'
+
 import Dropdown from '@/app/ui/dropdown';
-import { selectCreateRecipe } from "@/app/lib/features/recipe/createRecipeSlice";
-import { useAppSelector } from "@/app/lib/hooks";
+import { selectCreateRecipe, fetchRecipe, setImage } from "@/app/lib/features/recipe/createRecipeSlice";
+import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import { setLength, setDifficulty, setName, setVideo } from '@/app/lib/features/recipe/createRecipeSlice';
 import Input from '@/app/ui/input';
 import Button from '@/app/ui/button';
-import './styles.scss'
-import IngredientsForm from './IngredientsForm';
-import RecipeStepsForm from './RecipeStepsForms';
+// import './styles.scss'
+import IngredientsForm from '../../create/IngredientsForm';
+import RecipeStepsForm from '../../create/RecipeStepsForms';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import RecipeSubmitButton from '@/app/ui/recipesubmitbutton';
 
-export default function CreateRecipeForm(){
-    const createRecipe = useAppSelector(selectCreateRecipe)
-    const [submit, setSubmit] = React.useState('idle')
-    const  handleSubmit = async () => {
-        try{
-            const res = await fetch(
-                `/api/recipes/new`,
-                {
-                    body:JSON.stringify(createRecipe),
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            if (res.status !== 200){
-                setSubmit('failed')
-            } else {
-                setSubmit('success')
-            }
-        } catch (error){
-            console.log(`There was an error sumbitting the recipe: ${error}`)
+
+
+export default function EditRecipeForm({query}: {query: string}){
+    const selectRecipe = useAppSelector(selectCreateRecipe)
+    const dispatch = useAppDispatch()
+    const fetchStatus = useAppSelector((state: any) => state.status)
+    React.useEffect(() => {
+        if (selectRecipe.status === 'idle'){
+            dispatch(fetchRecipe(query))
         }
-        return (
-            <div>
-                Form submitted!
-            </div>
-        )
-      }
+    }, [fetchStatus, dispatch])
     return(
         <div>
-            <h1 className='text-center pb-4'><strong>Create recipe</strong></h1>
+            <h1 className='text-center pb-4'><strong>Edit recipe</strong></h1>
             <div>
                 <div className='top-div'>
                     <Input setFunction={setName} label='name' required={true}></Input>
                     <Input setFunction={setVideo} label='video' required={true}></Input>
+                    <Input setFunction={setImage} label='image' required={true}></Input>
                     <div className=''>
                         <Dropdown 
                             options={['Very Short', 'Short', 'Medium', 'Long', 'Very Long']} 
@@ -71,7 +56,7 @@ export default function CreateRecipeForm(){
                         </div>
                         <RecipeStepsForm></RecipeStepsForm>
                     </div>
-                    <div className='right-div'>
+                    <div className='right-div relative'>
                         <div className='text-center pb-5'>
                             <label><strong>Ingredients</strong></label>
                         </div>
@@ -79,7 +64,7 @@ export default function CreateRecipeForm(){
                     </div>
                 </div>
             </div>
-            <RecipeSubmitButton></RecipeSubmitButton>
+            <RecipeSubmitButton/>
         </div>
     )
 }

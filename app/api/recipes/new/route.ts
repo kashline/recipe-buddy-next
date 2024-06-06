@@ -10,6 +10,7 @@ export const POST = withApiAuthRequired(async (request: Request) => {
         const recipe = await createRecipe(data)
         return (Response.json({success: true, Recipe: recipe}, {status: 200}))
     } catch (error) {
+        console.log(error)
         return Response.json(({success: false, message: error}), {status: 500})
     }
 })

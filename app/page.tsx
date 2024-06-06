@@ -10,6 +10,7 @@ import LoggedinSidebar from "./loggedinsidebar";
 import Link from "next/link";
 import Image from "next/image";
 import HomeTopbar from "./ui/hometopbar";
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default function Page() {
   const { user, error, isLoading } = useUser()

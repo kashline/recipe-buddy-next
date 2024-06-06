@@ -3,6 +3,9 @@ import { unstable_noStore as noStore } from 'next/cache';
 import './styles.css'
 import Video from "@/app/ui/video";
 import friendifyWords from "@/app/lib/utils/wordfriendifier";
+import Button from "@/app/ui/button";
+import { redirect, useRouter } from 'next/navigation';
+import Link from "next/link";
 
 export default async function Page({params}: {params: {name: string}}){
     noStore()
@@ -26,6 +29,9 @@ export default async function Page({params}: {params: {name: string}}){
                     </div>
                 </div>
                 <div className="info-box">
+                    <div style={{ height: "100%"}}>
+                        <Link style={{width: "40%", height: "100%"}} href={`${process.env.APP_URL}/recipes/${params.name}/edit`}>Edit</Link>
+                    </div>
                     <Image
                         src={recipe.image || '/chef-icon.png'}
                         className="mr-2"
@@ -59,7 +65,9 @@ export default async function Page({params}: {params: {name: string}}){
                             })}
                         </tbody>
                     </table>
+                    
                 </div>
+                
             </div>
         </div>
     )

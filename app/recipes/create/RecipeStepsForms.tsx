@@ -23,12 +23,12 @@ export default function RecipeStepsForm(){
                     </tr>
                 </thead>
                 <tbody>
-                    {createRecipe.steps.map((_, index) => {
+                    {createRecipe.RecipeSteps.map((_, index) => {
                         return(
                             <tr key={index}>
                                 <td key={`${index}-step_number`} className="pr-5 w-1">
                                         <p className="rounded-md">{index+1}</p></td>
-                                <td key={`${index}-step`} className="pl-5"><textarea className="rounded-md" placeholder="Description" value={createRecipe.steps[index].step} onChange={
+                                <td key={`${index}-step`} className="pl-5"><textarea className="rounded-md" placeholder="Description" value={createRecipe.RecipeSteps[index].step} onChange={
                                     (e: ChangeEvent<HTMLTextAreaElement>) => {
                                         dispatch(setStepField({
                                             type: 'setStep', 

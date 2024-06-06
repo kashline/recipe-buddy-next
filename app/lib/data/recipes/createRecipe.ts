@@ -35,15 +35,15 @@ export default async function createRecipe(recipe: RecipeZype){
             console.log(`Data diff detected in ${res![0].name}`)
             await res![0].save()
         }
-        recipe.ingredients.map(async (ingredient) => {
+        recipe.Ingredients.map(async (ingredient) => {
             const res = await createIngredient(ingredient)
             await createRecipeIngredient(RecipeIngredientZodel.parse({
-                quantity: ingredient.quantity,
+                quantity: ingredient.RecipeIngredient.quantity,
                 recipe_id: recipe.id,
                 ingredient_id: res?.dataValues.id
             }))
         })
-        recipe.steps.map(async (step) => {
+        recipe.RecipeSteps.map(async (step) => {
             await createRecipeStep(RecipeStepZodel.parse({
                 step: step.step,
                 recipe_id: recipe.id,
