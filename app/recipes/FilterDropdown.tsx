@@ -16,25 +16,29 @@ export default function FilterDropdown(){
         return(
             <div className="">
                 <div className="flex">
-                    <button className=" w-4 h-4" onClick={() => {setToggle(!toggle)}}>
-                        <ChevronRightIcon
-                            className=" h-4"
-                        /></button>
-                    <p className="pl-4" style={{paddingLeft: '4px', marginBottom: '4px'}}>Filters...</p>
+                    <button style={{ width: '100%', height: 4 }} onClick={() => {setToggle(!toggle)}}>
+                        <div style={{ display: 'flex'}}>
+                            <ChevronRightIcon
+                                className=" h-4"
+                            />
+                            <p className="pl-4" style={{paddingLeft: '4px'}}>Filters...</p>
+                        </div>
+                        <hr className=" h-px border-none bg-gray-400"></hr>
+                    </button>
                 </div>
-                <hr className=" h-px border-none bg-gray-400"></hr>
             </div>
         )
     }
     return(
         <div className='overflow-hidden'>
-                <div className="flex">
-                    <button className=" w-4 h-4" onClick={() => {setToggle(!toggle)}}>
+                <button style={{ width: '100%', height: 4 }} onClick={() => {setToggle(!toggle)}}>
+                    <div style={{ display: 'flex'}}>
                         <ChevronDownIcon
                             className=" h-4"
-                        /></button>
-                    <p className="pl-4" style={{paddingLeft: '4px', marginBottom: '4px'}}>Filters...</p>
-                </div>
+                        />
+                        <p className="pl-4" style={{paddingLeft: '4px'}}>Filters...</p>
+                    </div>
+                </button>
             <hr className="h-px border-none bg-gray-400"></hr>
             <div className="flex">
                 <p className="mt-auto mb-auto mr-2">Name</p>

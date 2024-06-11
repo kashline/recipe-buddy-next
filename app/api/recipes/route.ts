@@ -1,7 +1,9 @@
+import { unstable_noStore as noStore } from 'next/cache';
 import GetRecipe from "@/app/data/GetRecipe"
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest){
+    noStore()
     if (request.url?.split('?')[1] === undefined) { 
         return parseResponse(await GetRecipe())
     } else {
