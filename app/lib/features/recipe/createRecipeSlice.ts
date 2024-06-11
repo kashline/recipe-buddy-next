@@ -82,9 +82,17 @@ export const createRecipeSlice = createSlice({
                         return val
                     } 
                 })
+                validateStepNumbers(state)
+                console.log(state)
                 break;
             case 'setStep':
                 state.RecipeSteps[action.payload.index!].step = action.payload.value!
+                state.RecipeSteps.map((step, index) => {
+                    if(step.step_number !== index+1){
+                        step.step_number = index+1
+                    }
+                })
+                console.log(state.RecipeSteps[0].step_number)
                 break;
             default:
                 console.error(new Error('Invalid payload type for setStepField'))
@@ -125,3 +133,11 @@ export const fetchRecipe = createAsyncThunk('recipes/fetchRecipe', async (query:
 export const selectCreateRecipe = (state: RootState) => state.createRecipe
 
 export const createRecipeRecuder = createRecipeSlice.reducer
+
+function validateStepNumbers(state: CreateRecipeState){
+    state.RecipeSteps.map((step, index) => {
+        if(step.step_number !== index+1){
+            step.step_number = index+1
+        }
+    })
+}

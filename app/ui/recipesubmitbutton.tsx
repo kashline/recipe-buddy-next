@@ -2,13 +2,13 @@ import React from "react"
 import { useAppSelector } from "../lib/hooks"
 import { selectCreateRecipe } from "../lib/features/recipe/createRecipeSlice"
 import Button from "./button"
+import Link from "next/link"
 
 export default function RecipeSubmitButton(){
     const [submit, setSubmit] = React.useState('idle')
     const createRecipe = useAppSelector(selectCreateRecipe)
     const  handleSubmit = async () => {
         try{
-            console.log(createRecipe)
             const res = await fetch(
                 `/api/recipes/new`,
                 {
@@ -45,9 +45,16 @@ export default function RecipeSubmitButton(){
             )
         case 'success':
             return(
-                <div className=' content-center'>
-                    <Button type="submit" onClick={handleSubmit}>Submit</Button>
+                <div style={{ alignContent: 'center'}}>
+                    <Button type="submit" onClick={handleSubmit}>
+                        Submit
+                    </Button>
                     <p>Recipe submitted successfully!</p>
+                    <div style={{ display: 'flex'}}>
+                        <Link href={`/recipes/${createRecipe.name}`}>
+                            <Button>Return</Button>
+                        </Link>
+                    </div>
                 </div>
             )
         default:

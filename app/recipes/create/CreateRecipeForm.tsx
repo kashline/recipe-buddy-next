@@ -9,37 +9,9 @@ import IngredientsForm from './IngredientsForm';
 import RecipeStepsForm from './RecipeStepsForms';
 import React from 'react';
 import RecipeSubmitButton from '@/app/ui/recipesubmitbutton';
+import CancelRecipe from '@/app/ui/popups/cancelrecipe';
 
 export default function CreateRecipeForm(){
-    const createRecipe = useAppSelector(selectCreateRecipe)
-    const [submit, setSubmit] = React.useState('idle')
-    const  handleSubmit = async () => {
-        try{
-            const res = await fetch(
-                `/api/recipes/new`,
-                {
-                    body:JSON.stringify(createRecipe),
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    }
-                }
-            )
-            if (res.status !== 200){
-                setSubmit('failed')
-            } else {
-                setSubmit('success')
-            }
-        } catch (error){
-            console.log(`There was an error sumbitting the recipe: ${error}`)
-        }
-        return (
-            <div>
-                Form submitted!
-            </div>
-        )
-      }
     return(
         <div>
             <h1 className='text-center pb-4'><strong>Create recipe</strong></h1>
@@ -79,7 +51,10 @@ export default function CreateRecipeForm(){
                     </div>
                 </div>
             </div>
-            <RecipeSubmitButton></RecipeSubmitButton>
+            <div style={{display: 'flex'}}>
+                <RecipeSubmitButton></RecipeSubmitButton>
+                <CancelRecipe></CancelRecipe>
+            </div>
         </div>
     )
 }
