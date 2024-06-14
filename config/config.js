@@ -4,10 +4,7 @@ module.exports = {
       "password": "uYOP9g2XtF",
       "database": "kevinashline",
       "host": "localhost",
-      "dialect": "postgres",
-      "ssl": {
-        "require": true
-      }
+      "dialect": "postgres"
     },
     "production": {
       "username": process.env.POSTGRES_USER,
