@@ -52,7 +52,7 @@ export default function DeleteRecipe({recipeName, recipeID}:{recipeName: string,
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
-              WARNING: Deleting a recipe will remove ALL of it's data FOREVER!  Are you sure you want to delete {recipeName}?
+              WARNING: Deleting a recipe will remove ALL of it&aposs data FOREVER!  Are you sure you want to delete {recipeName}?
             </DialogContentText>
           </DialogContent>
           <DialogActions>

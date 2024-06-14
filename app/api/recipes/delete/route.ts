@@ -1,11 +1,8 @@
-import Ingredient from "@/app/data/models/Ingredient"
-import { Op } from "sequelize"
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
-import { NextApiRequest } from "next";
 import DeleteRecipe from "@/app/data/DeleteRecipe";
-import { RecipeZodel } from "@/app/lib/data/zodels/Recipe";
+import { NextRequest } from "next/server";
 
-export const DELETE = withApiAuthRequired(async (request: NextApiRequest) => {
+export const DELETE = withApiAuthRequired(async (request: NextRequest) => {
     try {
         const { searchParams } = new URL(request.url!)
         const id = searchParams.get('id');
