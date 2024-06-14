@@ -12,7 +12,10 @@ module.exports = {
       "database": process.env.POSTGRES_DATABASE,
       "host": process.env.POSTGRES_HOST,
       "port": 5432,
-      "dialect": "postgres"
+      "dialect": "postgres",
+      "ssl": {
+        "require": true
+      }
     }
 }
 
