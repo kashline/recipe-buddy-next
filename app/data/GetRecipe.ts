@@ -11,7 +11,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
     try {
         var promises: Promise<number[] | undefined>[] = []
         const page = Number(props?.get('page') || 1)
-        const attributes: string[] = ['name', 'difficulty', 'length', 'image', 'video']
+        const attributes: string[] = ['name', 'difficulty', 'length', 'image', 'video', 'id']
         if (props != null) {
             props.forEach(async (value, key) => {
                 switch (key) {
@@ -120,11 +120,12 @@ async function findAllRecipes(key: string, value: string){
 async function findAllIngredients(ingredient: string){
     try{
         // Get ingredient IDs
+        console.log(`%${ingredient.split(',')}%`)
         const ingredients = await Ingredient.findAll({
             attributes: [ 'id' ],
             where: {
                 name: {
-                    [Op.or]: ingredient.split(',')
+                    [Op.or]: {[Op.iLike]: `%${ingredient.split(',')}%`} 
                 }
             }
         })

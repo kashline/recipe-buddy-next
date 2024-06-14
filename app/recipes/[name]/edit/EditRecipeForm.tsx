@@ -5,16 +5,12 @@ import { selectCreateRecipe, fetchRecipe, setImage } from "@/app/lib/features/re
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import { setLength, setDifficulty, setName, setVideo } from '@/app/lib/features/recipe/createRecipeSlice';
 import Input from '@/app/ui/input';
-import Button from '@/app/ui/button';
-// import './styles.scss'
 import IngredientsForm from '../../create/IngredientsForm';
 import RecipeStepsForm from '../../create/RecipeStepsForms';
 import React from 'react';
 import RecipeSubmitButton from '@/app/ui/recipesubmitbutton';
-import Link from 'next/link';
-import { Popup } from '@mui/base/Unstable_Popup/Popup';
 import CancelRecipe from '@/app/ui/popups/cancelrecipe';
-import createRecipe from '@/app/lib/data/recipes/createRecipe';
+import DangerZone from '@/app/ui/dangerzone';
 
 
 
@@ -22,14 +18,12 @@ export default function EditRecipeForm({query}: {query: string}){
     const selectRecipe = useAppSelector(selectCreateRecipe)
     const dispatch = useAppDispatch()
     const fetchStatus = useAppSelector((state: any) => state.status)
-    const [cancelled, setCancelled] = React.useState(false)
-    const closeModal = () => setCancelled(false)
 
     React.useEffect(() => {
         if (selectRecipe.status === 'idle'){
             dispatch(fetchRecipe(query))
         }
-    }, [fetchStatus, dispatch])
+    }, [fetchStatus, dispatch, query, selectRecipe.status])
     return(
         <div>
             <h1 className='text-center pb-4'><strong>Edit recipe</strong></h1>
@@ -73,19 +67,10 @@ export default function EditRecipeForm({query}: {query: string}){
             <div style={{ display: 'flex'}}>
                 <RecipeSubmitButton/>
                 <CancelRecipe recipeName={selectRecipe.name}></CancelRecipe>
-                {/* <Popup open={cancelled} closeOnDocumentClick={true} onClose={closeModal}>
-                    <div className="modal">
-                    <a className="close" onClick={closeModal}>
-                        &times;
-                    </a>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae magni
-                        omnis delectus nemo, maxime molestiae dolorem numquam mollitia, voluptate
-                        ea, accusamus excepturi deleniti ratione sapiente! Laudantium, aperiam
-                        doloribus. Odit, aut.
-                    </div>
-                </Popup> */}
             </div>
-
+            <div>
+                <DangerZone recipeName={selectRecipe.name} recipeID={selectRecipe.id!}/>
+            </div>
         </div>
     )
 }

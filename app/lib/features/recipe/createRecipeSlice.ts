@@ -7,6 +7,7 @@ export interface CreateRecipeState {
     length: string,
     video: string,
     image: string,
+    id?: number,
     Ingredients: {name: string, RecipeIngredient: RecipeIngredient}[],
     RecipeSteps: {step_number: number, step: string}[],
     status: 'idle' | 'loading' | 'succeeded' | 'failed',
@@ -83,7 +84,6 @@ export const createRecipeSlice = createSlice({
                     } 
                 })
                 validateStepNumbers(state)
-                console.log(state)
                 break;
             case 'setStep':
                 state.RecipeSteps[action.payload.index!].step = action.payload.value!
@@ -92,7 +92,6 @@ export const createRecipeSlice = createSlice({
                         step.step_number = index+1
                     }
                 })
-                console.log(state.RecipeSteps[0].step_number)
                 break;
             default:
                 console.error(new Error('Invalid payload type for setStepField'))
@@ -124,9 +123,7 @@ export const {
 
 //Thunks
 export const fetchRecipe = createAsyncThunk('recipes/fetchRecipe', async (query: string) => {
-    console.log(query)
     const response: Map<string, Object[]> = new Map(await (await fetch(`/api/recipes?name=${query}`)).json())
-    console.log(response.get('recipes')![0])
     return response.get('recipes')![0]
 })
 

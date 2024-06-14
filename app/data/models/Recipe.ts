@@ -45,5 +45,3 @@ Recipe.init({
   sequelize,
   modelName: 'Recipe'
 });
-
-Recipe.hasMany(Ingredient, { foreignKey: 'recipeId' })

@@ -37,5 +37,5 @@ RecipeIngredient.init({
   modelName: 'RecipeIngredient',
 });
 
-Recipe.belongsToMany(Ingredient, {through: RecipeIngredient, foreignKey: "recipe_id"})
+Recipe.belongsToMany(Ingredient, {through: RecipeIngredient, foreignKey: "recipe_id", onDelete: 'CASCADE'})
 Ingredient.belongsToMany(Recipe, {through: RecipeIngredient, foreignKey: "ingredient_id"})
