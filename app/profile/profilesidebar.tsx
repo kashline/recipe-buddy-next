@@ -33,7 +33,7 @@ export default function ProfileSidebar(){
                     Click &quot;Continue&quot; to get started
                     <Link
                     href="/recipes"
-                    className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base px-5"
+                    className="flex items-center gap-5 self-start rounded-lg bg-blue-500 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base px-5"
                     >
                     <span>Continue</span>
                     </Link>
