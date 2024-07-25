@@ -16,19 +16,10 @@ export default function TopNav(){
                     <li 
                         className={recipesRegex.test(pathName) ? 'active' : ''}
                         style={{ 
-                            // paddingLeft: '2rem',
-                            // paddingRight: '2rem'
-                            // position: 'relative',
                         }}
                         >
                         <RecipesNavButton/>
                     </li>
-                    {/* <li className={pathName === '/profile/friends' ? 'active' : ''}>
-                        <a href="/profile/friends">Social</a>
-                    </li>
-                    <li className={pathName === '/profile/aboutus' ? 'active' : ''}>
-                        <a href="/profile/aboutus">About Us</a>
-                    </li> */}
                 </ul>
             </nav>
         </div>

@@ -34,7 +34,7 @@ export default function RecipeStepsForm(){
                                             type: 'setStep', 
                                             index: index, 
                                             value: e.target.value
-                                        }))}}></textarea><button></button></td>
+                                        }))}}></textarea></td>
                                 <td>
                                     <Button key={`${index}-delete`} onClick={() => {dispatch(setStepField({type: 'removeAtIndex', index: index}))}}>
                                         <Trashcan></Trashcan>

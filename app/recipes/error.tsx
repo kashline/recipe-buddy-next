@@ -20,7 +20,7 @@ export default function Error({
   const pathName = usePathname()
   return (
     <div className='error'>
-      <h2 className='py-6'><strong>There was an error loading recipes!</strong></h2>
+      <h2 className='py-6'><strong style={{ color: 'white' }}>There was an error loading recipes!</strong></h2>
       <h2 className='py-6'>Please try again</h2>
       <Button
         onClick={

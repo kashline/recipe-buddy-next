@@ -14,7 +14,7 @@ import CancelRecipe from '@/app/ui/popups/cancelrecipe';
 export default function CreateRecipeForm(){
     return(
         <div>
-            <h1 className='text-center pb-4'><strong>Create recipe</strong></h1>
+            <h1 style={{ textAlign: 'center', paddingBottom: 4 }}><strong style={{ color: 'white' }}>Create recipe</strong></h1>
             <div>
                 <div className='top-div'>
                     <Input setFunction={setName} label='name' required={true}></Input>
