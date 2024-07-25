@@ -3,18 +3,23 @@ import { unstable_noStore as noStore } from 'next/cache';
 import './styles.css'
 import Video from "@/app/ui/video";
 import friendifyWords from "@/app/lib/utils/wordfriendifier";
-import Button from "@/app/ui/button";
-import { redirect, useRouter } from 'next/navigation';
 import Link from "next/link";
+import RecipeOptions from "./recipeoptions";
 
 export default async function Page({params}: {params: {name: string}}){
     noStore()
     const recipeData: Map<string, Object[]> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json())
     const recipe: any = recipeData.get('recipes')![0]
     const friendlyName = friendifyWords(recipe.name)
+    console.log(params.name)
     return(
-        <div className="">
-            <h1 className="text-center text-4xl pb-4"><strong>{friendlyName}</strong></h1>
+        <div style={{ color: 'white' }}>
+            <h1 style={{ 
+                textAlign: 'center',
+                fontSize: '2.25rem',
+                lineHeight: '2.5rem',
+                paddingBottom: '1rem',
+            }}><strong style={{ color: 'white' }}>{friendlyName}</strong></h1>
             <div className="inline-flex">
                 <div className="steps-box">
                     <div className="">
@@ -23,15 +28,13 @@ export default async function Page({params}: {params: {name: string}}){
                             <p className="text-center pb-4"><strong className="">Steps</strong></p>
                             {recipe.RecipeSteps.map((recipe: any, index: number) => {
                             return(
-                                <p className="pb-5" key={index}><strong>{recipe.step_number}</strong>: {recipe.step}</p>
+                                <p className="pb-5" key={index}><strong style={{ color: 'white' }}>{recipe.step_number}</strong>: {recipe.step}</p>
                             )})}
                             </div>
                     </div>
                 </div>
                 <div className="info-box">
-                    <div style={{ height: "100%"}}>
-                        <Link style={{width: "40%", height: "100%"}} href={`${process.env.APP_URL}/recipes/${params.name}/edit`}>Edit</Link>
-                    </div>
+                    <RecipeOptions></RecipeOptions>
                     <Image
                         src={recipe.image || '/chef-icon.png'}
                         className="mr-2"
@@ -40,9 +43,9 @@ export default async function Page({params}: {params: {name: string}}){
                         alt={`Delicious ${friendlyName}`}
                         />
                     <table className="w-64 px-10">
-                        <tbody className="">
+                        <tbody>
                             <tr className="border-solid border-2 border-black">
-                                <td className="text-center " colSpan={100}><strong>Quick Info</strong></td>
+                                <td className="text-center " colSpan={100}><strong style={{ color: 'white' }}>Quick Info</strong></td>
                             </tr>
                             <tr className="border-solid border-2 border-black">
                                 <td className="border-solid border-2 border-black">Difficulty</td>
@@ -53,7 +56,7 @@ export default async function Page({params}: {params: {name: string}}){
                                 <td className="text-right">{recipe.length}</td>
                             </tr>
                             <tr className="border-solid border-2 border-black">
-                                <td className="text-center" colSpan={100}><strong>Ingredients</strong></td>
+                                <td className="text-center" colSpan={100}><strong style={{ color: 'white' }}>Ingredients</strong></td>
                             </tr>
                             {recipe.Ingredients.map((ingredient: any, index: any) => {
                                 return(

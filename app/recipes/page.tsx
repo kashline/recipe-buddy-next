@@ -1,8 +1,5 @@
 import RecipesTable from "./RecipesTable";
-import Search from "../ui/search";
-import { useSearchParams } from "next/navigation";
 import FilterDropdown from "./FilterDropdown";
-import DefaultTopbar from "../ui/defaulttopbar";
 
 export default function Page({
     searchParams,

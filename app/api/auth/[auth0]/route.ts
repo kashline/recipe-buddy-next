@@ -6,7 +6,6 @@ export const GET = handleAuth({
     login: async (req: NextApiRequest, res: NextApiResponse) => {
         try{
             const headersList = headers()
-            console.log(headersList)
             return await handleLogin(req, res, { returnTo: headersList.get('referer')! });
         } catch (e: any) {
             console.log(`Error in auth login: ${e}`)

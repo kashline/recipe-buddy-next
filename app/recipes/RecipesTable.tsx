@@ -1,6 +1,5 @@
 'use server'
 
-import Image from 'next/image';
 import { unstable_noStore as noStore } from 'next/cache';
 import Pagination from '../ui/pagination';
 import TableRow from './TableRow';

@@ -6,42 +6,40 @@ import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function FilterDropdown(){
     const [toggle, setToggle] = React.useState(false)
-    if (!toggle){
-        return(
-            <div className="">
-                <div className="flex">
-                    <button style={{ width: '100%', height: 4 }} onClick={() => {setToggle(!toggle)}}>
-                        <div style={{ display: 'flex'}}>
-                            <ChevronRightIcon
-                                className=" h-4"
-                            />
-                            <p className="pl-4" style={{paddingLeft: '4px'}}>Filters...</p>
-                        </div>
-                        <hr className=" h-px border-none bg-gray-400"></hr>
-                    </button>
-                </div>
-            </div>
-        )
-    }
     return(
-        <div className='overflow-hidden'>
-                <button style={{ width: '100%', height: 4 }} onClick={() => {setToggle(!toggle)}}>
-                    <div style={{ display: 'flex'}}>
-                        <ChevronDownIcon
-                            className=" h-4"
-                        />
-                        <p className="pl-4" style={{paddingLeft: '4px'}}>Filters...</p>
+        <div >
+                <button style={{ width: '100%', height: '2rem'}} onClick={() => {setToggle(!toggle)}}>
+                    <div style={{ display: 'flex', color: 'white', height: '100%'}}>
+                        {toggle 
+                        && <ChevronDownIcon style={{ height: 16}}/> 
+                        || <ChevronRightIcon style={{ height: 16}}/>}
+                        <p style={{ paddingBottom: '10rem'}}>Filters...</p>
                     </div>
                 </button>
-            <hr className="h-px border-none bg-gray-400"></hr>
-            <div className="flex">
-                <p className="mt-auto mb-auto mr-2">Name</p>
-                <Search placeholder="Begin typing a recipe name" param="name"></Search>
-            </div>
-            <div className="flex">
-                <p className="mt-auto mb-auto mr-2">Ingredients</p>
-                <Search placeholder="Begin typing an ingredient" param="ingredients"></Search>
-            </div>
+            <hr style={{ height: '1px', border: 'none', backgroundColor: 'white' }}></hr>
+            {toggle && 
+                <form style={{ 
+                    paddingTop: '1rem'
+                }}>
+                    <div style={{ 
+                        display: 'flex',
+                        marginBottom: '1rem'
+                    }}>
+                        <p style={{ marginTop: 'auto', marginBottom: 'auto', marginRight: '0.5rem', color: 'white' }}>Name</p>
+                        <Search placeholder="Begin typing a recipe name" param="name"></Search>
+                    </div>
+                    <div style={{
+                        display: 'flex'
+                    }}>
+                        <p style={{ 
+                            marginTop: 'auto', 
+                            marginBottom: 'auto', 
+                            marginRight: '0.5rem', 
+                            color: 'white' }}>Ingredients</p>
+                        <Search placeholder="Begin typing an ingredient" param="ingredients"></Search>
+                    </div>
+                </form>
+            }
         </div>
     )
 }

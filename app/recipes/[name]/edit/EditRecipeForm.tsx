@@ -11,6 +11,7 @@ import React from 'react';
 import RecipeSubmitButton from '@/app/ui/recipesubmitbutton';
 import CancelRecipe from '@/app/ui/popups/cancelrecipe';
 import DangerZone from '@/app/ui/dangerzone';
+import friendifyWords from '@/app/lib/utils/wordfriendifier';
 
 
 
@@ -26,27 +27,27 @@ export default function EditRecipeForm({query}: {query: string}){
     }, [fetchStatus, dispatch, query, selectRecipe.status])
     return(
         <div>
-            <h1 className='text-center pb-4'><strong>Edit recipe</strong></h1>
+            <h1 className='text-center pb-4'><strong style={{ color: 'white' }}>{selectRecipe.name ? friendifyWords(selectRecipe.name) : 'Edit Recipe'}</strong></h1>
             <div>
                 <div className='top-div'>
                     <Input setFunction={setName} label='name' required={true}></Input>
-                    <Input setFunction={setVideo} label='video' required={true}></Input>
-                    <Input setFunction={setImage} label='image' required={true}></Input>
-                    <div className=''>
+                    <Input setFunction={setVideo} label='youtube embed id' required={true}></Input>
+                    <Input setFunction={setImage} label='image url' required={true}></Input>
+                    <div style={{
+                        display: 'flex'
+                    }}>
                         <Dropdown 
                             options={['Very Short', 'Short', 'Medium', 'Long', 'Very Long']} 
                             placeholder="Select Length"
                             setFunction={setLength}
                             label='length'
-                            >
-                        </Dropdown>
+                        />
                         <Dropdown 
-                            options={['Very Easy', 'Easy', 'Medium', 'Hard', 'Very Hard']} 
+                            options={['Very Easy', 'Easy', 'medium', 'Hard', 'Very Hard']} 
                             placeholder="Select Difficulty"
                             setFunction={setDifficulty}
                             label='difficulty'
-                        >
-                        </Dropdown>
+                        />
                     </div>
                 </div>
                 <div className='form-div'>

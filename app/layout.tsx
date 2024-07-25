@@ -5,6 +5,10 @@ import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/react"
 import { StoreProvider } from "./StoreProvider";
+import "../styles/assets/css/main.css";
+import "../styles/assets/css/noscript.css";
+import DefaultTopbar from "./ui/defaulttopbar";
+import TopNav from "./ui/topnav";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +28,13 @@ export default function RootLayout({
         <StoreProvider>
           <SpeedInsights></SpeedInsights>
           <Analytics></Analytics>
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>
+            <div>
+              <DefaultTopbar/>
+              <TopNav></TopNav>
+            </div>
+            {children}
+          </body>
         </StoreProvider>
       </UserProvider>
     </html>

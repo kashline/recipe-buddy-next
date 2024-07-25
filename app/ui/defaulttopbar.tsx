@@ -2,20 +2,24 @@
 
 import { lusitana } from "./fonts";
 import ProfileButton from "./profilebutton";
+import { useRouter } from 'next/navigation';
 
 export default function DefaultTopbar(){
+    const router = useRouter()
     return(
         <div style={{display: 'flex'}}>
             <div style={{
                 display: 'flex',
                 width: "100%",
-                border: "none", 
-                backgroundColor: "",
+                border: "none",
                 justifyContent: "center",
                 alignItems: "center",
             }}>
-                <p style={{fontSize: "100%", ...lusitana.style}}>Recipe Buddy</p>
-                {/* <hr style={{height: "20px", width: "100%", border: "none", borderColor: "gray", backgroundColor: "gray"}}></hr> */}
+                <button 
+                onClick={() => {router.push('/')}}>
+                    <p style={{fontSize: "100%", color: 'white', ...lusitana.style}}>Recipe Buddy</p>
+                </button>
+                
             </div>
             <div style={{ paddingLeft: ""}}>
                 <ProfileButton></ProfileButton>
