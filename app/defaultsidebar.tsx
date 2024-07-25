@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { ArrowRightIcon } from "@heroicons/react/24/outline"
 import { lusitana } from "./ui/fonts"
 import Login from "./ui/login"
 
@@ -8,10 +7,13 @@ export default function DefaultSidebar(){
         <>
             <div>
                 <p className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}>
-                    <strong>Welcome to RecipeBuddy!</strong>
+                    <strong>Welcome to your new cooking assistant!</strong>
                 </p>
                 <p className={`${lusitana.className} text-xl text-gray-800 md:text-2xl md:leading-normal`}>
-                    Here you can create, save, and manage your recipes in one place.  Create an account to get started, or log in if you already have an account.
+                    RecipeBuddy helps you manage your recipes and even create new ones!
+                </p>
+                <p>
+                    Click below to get started
                 </p>
             <div className="flex">
             <Login></Login>

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function UnderConstruction(){
     return(
         <main className="flex min-h-screen flex-col p-6">
-            <div style={{minHeight: 'screen', display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+            <div style={{minHeight: 'screen', display: "flex", flexDirection: 'column', justifyContent: 'center', alignItems: 'center', color: 'white'}}>
                 <h1><strong>Under construction</strong></h1>
                 <Link
                     href="/"
