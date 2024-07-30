@@ -8,7 +8,7 @@ export default function RecipesNavButton(){
 
     return(
         <ClickAwayListener onClickAway={() => setState(false)}>
-            <a style={{
+            <div style={{
                 cursor: 'pointer',
                 height: '100%'
             }}
@@ -35,7 +35,7 @@ export default function RecipesNavButton(){
                         </div>
                     </div>
                 }
-            </a>
+            </div>
         </ClickAwayListener>
     )
 }

@@ -16,7 +16,6 @@ export default function IngredientsForm(){
     const typaheadRef = React.useRef(null)
 
     const handleChange = (query: Option[], index: number) => {
-        console.log(typaheadRef.current)
         dispatch(setIngredientField({
             type: 'setName', 
             index: index, 
@@ -42,35 +41,37 @@ export default function IngredientsForm(){
             <table style={{}}>
                 <thead>
                     <tr >
-                        <th scope="col" className="w-1/2" >
-                            Ingredient
+                        <th scope="col" style={{ width: '50%' }}>
+                            Ingredient Name
                         </th>
-                        <th scope="col" className="w-1/2">
+                        <th scope="col" style={{ width: '50%', textAlign: 'right' }}>
                             Quantity
                         </th>
                     </tr>
                 </thead>
-                <tbody style={{}}>
+                <tbody>
                     {createRecipe.Ingredients.map((ingredient, index) => {
                         return(
                             <tr key={index} style={{}}>
                                 <td key={`${index}-name`} style={{background: "white",}}>
-                                        <AsyncTypeahead 
-                                            placeholder={ingredient.name !== 'undefined' ? ingredient.name : "Ingredient..."}
-                                            options={ingredients!}
-                                            isLoading={isLoading}
-                                            ref={typaheadRef}
-                                            defaultSelected={[createRecipe.Ingredients[index].name]}
-                                            onChange={query => handleChange(query, index)}
-                                            onSearch={query => handleSearch(query, index)}
-                                            emptyLabel={`${createRecipe.Ingredients[index].name}`}
-                                            renderMenuItemChildren={(option: any) => (
-                                                <p style={{background: 'white'}}>
-                                                    {option}
-                                                </p>
-                                            )}
-                                        >
-                                    </AsyncTypeahead>
+                                    <AsyncTypeahead 
+                                        placeholder={
+                                            ingredient.name === 'undefined' || 
+                                            ingredient.name.length === 0
+                                            ?  "Ingredient..." : ingredient.name}
+                                        options={ingredients!}
+                                        isLoading={isLoading}
+                                        ref={typaheadRef}
+                                        defaultSelected={[createRecipe.Ingredients[index].name]}
+                                        onChange={query => handleChange(query, index)}
+                                        onSearch={query => handleSearch(query, index)}
+                                        emptyLabel={`${createRecipe.Ingredients[index].name}`}
+                                        renderMenuItemChildren={(option: any) => (
+                                            <p style={{ color: 'black' }}>
+                                                {option}
+                                            </p>
+                                        )}
+                                    />
                                 </td>
                                 <td 
                                 key={`${index}-quantity`} 
@@ -86,12 +87,11 @@ export default function IngredientsForm(){
                                                 index: index, 
                                                 value: (e.target as HTMLInputElement).value
                                     }))}}/>
-                                        <button></button>
                                     </td>
                                 <td>
                                     <Button 
                                         key={`${index}-delete`} 
-                                        className="" 
+                                        style={{ boxShadow: 'none' }}
                                         onClick={() => {dispatch(setIngredientField({type: 'removeAtIndex', index: index}))}}>
                                             <Trashcan></Trashcan>
                                     </Button>
@@ -101,7 +101,7 @@ export default function IngredientsForm(){
                     })}
                 </tbody>
             </table>
-            <Button style={{marginTop: 22, border: "solid"}} onClick={() => {dispatch(setIngredientField({type: 'add'}))}}>Add Ingredient</Button>
+            <Button style={{marginTop: 22, boxShadow: 'none' }} onClick={() => {dispatch(setIngredientField({type: 'add'}))}}>Add Ingredient</Button>
         </div>
     )
 }

@@ -1,24 +1,22 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import RecipesNavButton from './nav/RecipesNavButton'
 
 export default function TopNav(){
     const pathName = usePathname()
     const recipesRegex = new RegExp('/recipes*')
     return(
         <div>
-            <nav style={{ marginTop: '0px', overflow: 'visible'}} id={"nav"}>
+            <nav style={{ marginTop: '0px'}} id={"nav"}>
                 <ul className="links">
                     <li className={pathName === '/' ? 'active' : ''}>
                         <a href="/">Home</a>
                     </li>
-                    <li 
-                        className={recipesRegex.test(pathName) ? 'active' : ''}
-                        style={{ 
-                        }}
-                        >
-                        <RecipesNavButton/>
+                    <li className={pathName === '/recipes' ? 'active' : ''} style={{}}>
+                        <a href='/recipes'>Browse Recipes</a>
+                    </li>
+                    <li className={pathName === '/recipes/create' ? 'active' : ''}>
+                        <a href="/recipes/create">Create New Recipe</a>
                     </li>
                 </ul>
             </nav>

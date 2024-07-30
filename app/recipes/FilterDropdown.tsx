@@ -11,8 +11,8 @@ export default function FilterDropdown(){
                 <button style={{ width: '100%', height: '2rem'}} onClick={() => {setToggle(!toggle)}}>
                     <div style={{ display: 'flex', color: 'white', height: '100%'}}>
                         {toggle 
-                        && <ChevronDownIcon style={{ height: 16}}/> 
-                        || <ChevronRightIcon style={{ height: 16}}/>}
+                        && <ChevronDownIcon style={{ height: 16, marginTop: 4 }}/> 
+                        || <ChevronRightIcon style={{ height: 16, marginTop: 4 }}/>}
                         <p style={{ paddingBottom: '10rem'}}>Filters...</p>
                     </div>
                 </button>

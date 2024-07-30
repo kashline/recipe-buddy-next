@@ -2,7 +2,6 @@ import { Button } from "@mui/base"
 import React, { ChangeEvent } from "react"
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks"
 import { setStepField, selectCreateRecipe } from "@/app/lib/features/recipe/createRecipeSlice"
-
 import "./styles.scss"
 import Trashcan from "@/app/ui/icons/trashcan"
 
@@ -28,7 +27,7 @@ export default function RecipeStepsForm(){
                             <tr key={index}>
                                 <td key={`${index}-step_number`} className="pr-5 w-1">
                                         <p className="rounded-md">{index+1}</p></td>
-                                <td key={`${index}-step`} className="pl-5"><textarea className="rounded-md" placeholder="Description" value={createRecipe.RecipeSteps[index].step} onChange={
+                                <td key={`${index}-step`} style={{ paddingLeft: '1.25rem' }}><textarea className="rounded-md" placeholder="Description" value={createRecipe.RecipeSteps[index].step} onChange={
                                     (e: ChangeEvent<HTMLTextAreaElement>) => {
                                         dispatch(setStepField({
                                             type: 'setStep', 
@@ -36,7 +35,7 @@ export default function RecipeStepsForm(){
                                             value: e.target.value
                                         }))}}></textarea></td>
                                 <td>
-                                    <Button key={`${index}-delete`} onClick={() => {dispatch(setStepField({type: 'removeAtIndex', index: index}))}}>
+                                    <Button style={{ boxShadow: 'none' }} key={`${index}-delete`} onClick={() => {dispatch(setStepField({type: 'removeAtIndex', index: index}))}}>
                                         <Trashcan></Trashcan>
                                     </Button>
                                 </td>
@@ -45,7 +44,7 @@ export default function RecipeStepsForm(){
                     })}
                 </tbody>
             </table>
-            <Button className={''} onClick={() => {dispatch(setStepField({type: 'add'}))}}>Add Step</Button>
+            <Button style={{ boxShadow: 'none' }} onClick={() => {dispatch(setStepField({type: 'add'}))}}>Add Step</Button>
         </div>
     )
 }
