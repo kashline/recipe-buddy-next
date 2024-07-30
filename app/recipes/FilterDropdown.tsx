@@ -16,7 +16,7 @@ export default function FilterDropdown(){
                         <p style={{ paddingBottom: '10rem'}}>Filters...</p>
                     </div>
                 </button>
-            <hr style={{ height: '1px', border: 'none', backgroundColor: 'white' }}></hr>
+            <hr style={{ height: '1px', border: 'none', backgroundColor: 'white', margin: 'auto' }}></hr>
             {toggle && 
                 <form style={{ 
                     paddingTop: '1rem'
