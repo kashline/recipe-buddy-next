@@ -1,8 +1,11 @@
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <div className="flex h-screen  md:flex-row ">
-        <div className="p-6 w-full">{children}</div>
+      <div style={{
+        display: 'flex',
+        height: '100vh'
+      }}>
+        <div style={{ padding: '1.5rem', width: '100%' }}>{children}</div>
       </div>
     </div>
   );

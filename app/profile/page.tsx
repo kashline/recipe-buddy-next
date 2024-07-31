@@ -28,20 +28,30 @@ export default function Page(){
       )
     }
     return (
-        <div className=" text-center">
+        <div style={{ textAlign: 'center' }}>
             <p>
                 Welcome {user?.name}
             </p>
-            <div className="">
+            <div>
                 <Image                       
                 src={`${user?.picture}` || '/chef-icon.png'}
-                className="ml-auto mr-0 mt-0 mb-auto"
+                style={{ 
+                  marginLeft: 'auto',
+                  marginRight: 0,
+                  marginTop: 0,
+                  marginBottom: 'auto'
+                }}
                 width={100}
                 height={100}
                 alt={`Profile picture`}
                 />
             </div>
-            <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
+            <div style={{ 
+                marginTop: 4,
+                display: 'flex', 
+                flexGrow: 'column',
+                gap: '1rem',
+              }}>
                 <ProfileSidebar></ProfileSidebar>
             </div>
         </div>

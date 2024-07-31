@@ -6,7 +6,9 @@ export default function Cat(){
             src="/hobbes-chair.jpg"
             width={1000}
             height={760}
-            className="hidden md:block"
+            style={{
+              display: 'none',
+            }}
             alt="Images of the best food you could imagine"
           />
     )

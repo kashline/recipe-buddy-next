@@ -17,27 +17,44 @@ export default async function RecipesTable({
     const recipeCount = Number(recipeData.get('count'))
     const totalPages = Math.round(recipeCount/recipesPerPage) === 0 ? 1 : Math.round(recipeCount/recipesPerPage)
     return (
-      <div className="mt-6 flow-root" >
-        <div className="inline-block min-w-full align-middle" >
-          <div className="rounded-lg bg-gray-50 p-2 md:pt-0" >
-            <table className="hidden min-w-full text-gray-900 md:table" >
-              <thead className="rounded-lg text-left text-sm font-normal" >
+      <div style={{
+        marginTop: '1.5rem',
+        display: 'flow-root'
+      }}>
+        <div style={{
+          display: 'inline-block',
+          minWidth: '100%',
+          verticalAlign: 'middle'
+        }}>
+          <div style={{
+            borderRadius: '0.5rem',
+            backgroundColor: 'rgb(249 250 251)',
+            padding: '0.5rem',
+          }}>
+            <table style={{
+              display: 'table',
+              minWidth: '100%',
+              color: 'rgb(17 24 39)',
+            }} 
+            // className="hidden min-w-full text-gray-900 md:table" 
+            >
+              <thead >
                 <tr>
-                  <th scope="col" className="px-4 py-5 font-medium sm:pl-6" >
+                  <th scope="col">
                     Recipe
                   </th>
-                  <th scope="col" className="px-3 py-5 font-medium" >
+                  <th scope="col">
                     Difficulty
                   </th>
-                  <th scope="col" className="px-3 py-5 font-medium" >
+                  <th scope="col">
                     Length
                   </th>
-                  <th scope="col" className="relative py-3 pl-6 pr-3" >
-                    <span className="sr-only" >Edit</span>
+                  <th scope="col">
+                    <span>Edit</span>
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white" >   
+              <tbody>   
                 {recipes?.map((recipe: any, index: number) => (
                   <TableRow 
                     difficulty={recipe.difficulty} 
