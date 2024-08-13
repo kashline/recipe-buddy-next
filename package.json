@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": ""
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.5.0",
@@ -24,10 +25,7 @@
     "bootstrap": "^5.3.3",
     "clsx": "^2.1.0",
     "jose": "^5.3.0",
-    "lz-string": "^1.5.0",
-    "mysql2": "^3.10.1",
     "next": "^14.2.3",
-    "openai": "^4.53.2",
     "pg": "^8.11.5",
     "postcss-atrule-bem": "^4.0.0",
     "react": "^18.3.1",
@@ -35,10 +33,8 @@
     "react-bootstrap-typeahead": "^6.3.2",
     "react-dom": "^18",
     "react-redux": "^9.1.1",
-    "react-sortablejs": "^6.1.4",
     "reactjs-popup": "^2.0.6",
     "sequelize": "^6.37.3",
-    "sortablejs": "^1.15.2",
     "typescript-logging": "^2.2.0",
     "typescript-logging-log4ts-style": "^2.2.0",
     "use-debounce": "^10.0.0",
@@ -50,13 +46,11 @@
     "@types/pg": "^8.11.5",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/sortablejs": "^1.15.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.2",
     "eslint-plugin-react-hooks": "^4.6.2",
     "postcss": "^8",
     "sass": "^1.77.0",
-    "sequelize-cli": "^6.6.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }

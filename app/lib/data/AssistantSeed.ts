@@ -1,5 +1,3 @@
-'use server'
-
 import { AssistantZodel, AssistantZype } from "@/app/lib/data/zodels/Assistant"
 import Assistant from "@/app/data/models/Assistant"
 import OpenAI from "openai"
@@ -64,7 +62,7 @@ export default async function AssistantSeed(){
     await Assistant.sync().catch((err) => {
         console.log(err)
     })
-    assistants.map(async (assistant: AssistantZype) => {
+    return await Promise.all(assistants.map(async (assistant: AssistantZype) => {
         const dbAssistant = await Assistant.findAll({
             where: {
                 name: `${assistant.name}`
@@ -98,7 +96,7 @@ export default async function AssistantSeed(){
                 return false
             }
         }
-    })
+    }))
 }
 
 /**

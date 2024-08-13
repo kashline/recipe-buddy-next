@@ -5,14 +5,9 @@ module.exports =
         domains: ['www.themealdb.com', 'lh3.googleusercontent.com'], 
         formats: ['image/avif', 'image/webp'], 
     },
-    experimental: 
-    {
-        instrumentationHook: true
-    },
-    webpack(config){
-        config.resolve.fallback = {
-            fs: false,
-        }
-        return config
-    }
+    // Instrumentation doesn't seem to be working well with sequelize.  Waiting for non-beta support
+    // experimental: 
+    // {
+    //     instrumentationHook: true
+    // }
 }

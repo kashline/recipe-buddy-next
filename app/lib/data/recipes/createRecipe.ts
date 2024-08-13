@@ -11,7 +11,7 @@ import sequelize from "@/app/data/connection"
 
 export default async function createRecipe(recipe: RecipeZype){
     try {
-        const result = await sequelize.transaction(async t => {
+        const result = await sequelize.transaction(async () => {
             await Recipe.sync().catch((err) => {
                 console.log(err)
             })

@@ -1,7 +1,7 @@
 // 'use server'
 
-import * as pg from 'pg'
-import { Sequelize } from 'sequelize';
+const pg = require('pg');
+const { Sequelize } = require('sequelize');
 
 const dialectOptions = process.env.ENV === 'PROD' ? {ssl:{require: true}} : undefined
 
