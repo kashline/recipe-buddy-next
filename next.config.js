@@ -8,5 +8,11 @@ module.exports =
     experimental: 
     {
         instrumentationHook: true
+    },
+    webpack(config){
+        config.resolve.fallback = {
+            fs: false,
+        }
+        return config
     }
 }

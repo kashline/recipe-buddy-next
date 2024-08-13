@@ -1,3 +1,5 @@
+'use server'
+
 import { AssistantZodel, AssistantZype } from "@/app/lib/data/zodels/Assistant"
 import Assistant from "@/app/data/models/Assistant"
 import OpenAI from "openai"
