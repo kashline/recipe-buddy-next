@@ -4,13 +4,14 @@ export const POST = async (request: Request) => {
     try {
         await User.sync()
         const user = await request.json()
-        console.log(user)
         const res = await User.findOrCreate({
             where: {
                 auth0Id: user.sub
             },
             defaults: {
-                ...user
+                firstName: user.given_name,
+                lastName: user.family_name,
+                auth0Id: user.sub
             }
         })
         return Response.json({success: true, user: res[0].dataValues}, {status: 200})
