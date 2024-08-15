@@ -4,6 +4,7 @@ export const POST = async (request: Request) => {
     try {
         await User.sync()
         const user = await request.json()
+        console.log(user)
         const res = await User.findOrCreate({
             where: {
                 auth0Id: user.sub
