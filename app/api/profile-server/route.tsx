@@ -8,7 +8,7 @@ export const GET = async function ProfileServer(request: NextRequest) {
     const referer = request.nextUrl.searchParams.get("referer") as string
     const baseUrl = process.env.VERCEL_URL ? 'https://' + process.env.VERCEL_URL : 'http://localhost:3000'
     if (user !== undefined){
-        const asdf = await fetch(
+        const res = await fetch(
             `${baseUrl}/api/user/create`,
             {
                 body:JSON.stringify(user),
@@ -19,7 +19,11 @@ export const GET = async function ProfileServer(request: NextRequest) {
                 }
             }
         )
-        console.log(asdf.status)
+        console.log(res)
+        if (res.status === 200){
+            redirect(referer)
+        } else {
+            redirect(`${baseUrl}/error/userCreateError`)
+        }
     }
-    redirect(referer)
 }
