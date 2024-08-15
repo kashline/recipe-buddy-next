@@ -1,7 +1,5 @@
 'use server'
 
-import AssistantSeed from "./app/lib/data/AssistantSeed";
-
 // Instrumentation doesn't seem to be working well with sequelize.  Waiting for non-beta support
 export async function register(){
     if (process.env.NEXT_RUNTIME === 'nodejs'){
