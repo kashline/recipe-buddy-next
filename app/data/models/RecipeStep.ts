@@ -3,7 +3,7 @@ import sequelize from '../connection'
 import Recipe from './Recipe';
 
 /**
- * Model of a recipe's steps containing the step, step number, and associated recipe_id
+ * Model of a recipe's steps containing the id, step, step number, and associated recipe_id
  */
 export default class RecipeStep extends Model {}
 

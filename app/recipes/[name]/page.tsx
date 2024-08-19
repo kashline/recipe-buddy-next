@@ -1,17 +1,23 @@
 import Image from "next/image";
 import { unstable_noStore as noStore } from 'next/cache';
 import './styles.css'
-import Video from "@/app/ui/video";
 import friendifyWords from "@/app/lib/utils/wordfriendifier";
-import Link from "next/link";
 import RecipeOptions from "./recipeoptions";
+import Link from "next/link";
+import { getSession } from "@auth0/nextjs-auth0";
 
 export default async function Page({params}: {params: {name: string}}){
     noStore()
-    const recipeData: Map<string, Object[]> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json())
+    const user = await getSession()
+    console.log(user)
+    const recipeData: Map<string, Object[]> = new Map(await (await 
+        fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`, {
+            // headers: {
+            //     ...user
+            // }
+        })).json())
     const recipe: any = recipeData.get('recipes')![0]
     const friendlyName = friendifyWords(recipe.name)
-    console.log(params.name)
     return(
         <div style={{ color: 'white' }}>
             <h1 style={{ 
@@ -23,7 +29,6 @@ export default async function Page({params}: {params: {name: string}}){
             <div className="inline-flex">
                 <div className="steps-box">
                     <div className="">
-                        <Video embedId={recipe.video}></Video>
                         <div className="pt-5">
                             <p className="text-center pb-4"><strong className="">Steps</strong></p>
                             {recipe.RecipeSteps.map((recipe: any, index: number) => {
@@ -34,7 +39,7 @@ export default async function Page({params}: {params: {name: string}}){
                     </div>
                 </div>
                 <div className="info-box">
-                    <RecipeOptions></RecipeOptions>
+                    <RecipeOptions recipeId={Number(recipe.id)}></RecipeOptions>
                     <Image
                         src={recipe.image || '/chef-icon.png'}
                         className="mr-2"
@@ -55,6 +60,13 @@ export default async function Page({params}: {params: {name: string}}){
                                 <td className="border-solid border-2 border-black">Length</td>
                                 <td className="text-right">{recipe.length}</td>
                             </tr>
+                            <tr className="border-solid border-2 border-black">
+                                <td className="text-center" colSpan={100}><Link href={recipe.video}>Instructional Video Link</Link></td>
+                            </tr>
+                            {/* <tr className="border-solid border-2 border-black">
+                                <td className="border-solid border-2 border-black">Instructional Video</td>
+                                <td className="text-right"><Link href={recipe.video}>Instructional Video Link</Link></td>
+                            </tr> */}
                             <tr className="border-solid border-2 border-black">
                                 <td className="text-center" colSpan={100}><strong style={{ color: 'white' }}>Ingredients</strong></td>
                             </tr>

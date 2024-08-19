@@ -1,5 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../connection'
+import Recipe from './Recipe';
+import UserRecipe from './UserRecipe';
 
 /**
  * Model for an ingredient containing the ingredient name.

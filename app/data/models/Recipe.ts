@@ -1,6 +1,8 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../connection'
 import Ingredient from './Ingredient';
+import User from './User';
+import UserRecipe from './UserRecipe';
 
 /**
  * Model for a recipe.  Contains the name, difficulty, length, mealdb_id, image url, and video url.
