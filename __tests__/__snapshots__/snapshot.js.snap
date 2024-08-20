@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <main
+    class="is-preload"
+  >
+    <div
+      class="fade-in"
+      data-testid="wrapper"
+      id="wrapper"
+    >
+      <div
+        data-testid="intro"
+        id="intro"
+        style="padding-bottom: 25%; background-repeat: no-repeat;"
+      >
+        <div
+          style="background-color: rgba(255, 255, 255, 0.5); width: 10000px;"
+        >
+          <h1
+            style="color: black;"
+          >
+            Welcome to RecipeBuddy
+          </h1>
+          <h2
+            style="color: black;"
+          >
+            Your new cooking assistant
+          </h2>
+        </div>
+      </div>
+      <div
+        data-testid="main"
+        id="main"
+        style="background-color: white;"
+      >
+        <h2>
+          Your recipes. Your life. Your.... RecipeBuddy
+        </h2>
+        <div>
+          <p>
+            All your recipes in one place.  No more looking for recipes for hours on every other website.  Gone are the days of searching each website to see if it has recipe management features.
+          </p>
+          <h2>
+            <strong>
+              Finally, your recipes woes are solved
+            </strong>
+          </h2>
+          <a
+            href="/recipes"
+          >
+            Get started
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+`;

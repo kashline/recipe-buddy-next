@@ -1,3 +1,9 @@
+'use client'
+
+const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log(event)
+}
+
 export default function Page(){
     return (
         <div style={{ width: '100%', height: 500}}>
@@ -14,7 +20,7 @@ export default function Page(){
                     borderRadius: 10,
                     width: '100%',
                     height: '100%'
-                }}>
+                }} onClick={onClick}>
                     <div style={{
                         border: 'solid',
                         borderColor: 'white',

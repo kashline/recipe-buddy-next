@@ -17,6 +17,7 @@
     "jsx": "preserve",
     "incremental": true,
     "target": "es2022",
+    "baseUrl": "./",
     "plugins": [
       {
         "name": "next"
@@ -25,7 +26,8 @@
     "paths": {
       "@/*": [
         "./*"
-      ]
+      ],
+      "@/components/*": ["components/*"]
     }
   },
   "include": [
@@ -35,7 +37,7 @@
     ".next/types/**/*.ts",
     "app/api/auth/auth0/route.js",
     "app/data/connection.ts"
-  ],
+, "__tests__/page.test.jsx"  ],
   "exclude": [
     "node_modules"
   ]
