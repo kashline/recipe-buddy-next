@@ -35,6 +35,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
                         break;
                 }
         })} 
+
         // Default case no query parameters
         if (promises.length === 0){
             const res = new Map()
