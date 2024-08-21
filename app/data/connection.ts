@@ -3,7 +3,7 @@
 const pg = require('pg');
 const { Sequelize } = require('sequelize');
 
-const dialectOptions = process.env.ENV === 'PROD' ? {ssl:{require: true}} : undefined
+const dialectOptions = process.env.ENV !== 'DEV' ? {ssl:{require: true}} : undefined
 
 const sequelize = new Sequelize({
   username: process.env.POSTGRES_USER,
