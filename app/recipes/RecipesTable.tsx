@@ -12,12 +12,12 @@ export default async function RecipesTable({
 
   try{
     noStore()
-    console.log(`${process.env.APP_URL}/api/recipes${query}`)
     const recipeData: Map<string, Object> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json())
     const recipes: any = recipeData.get('recipes')
     const recipesPerPage = 10
     const recipeCount = Number(recipeData.get('count'))
     const totalPages = Math.round(recipeCount/recipesPerPage) === 0 ? 1 : Math.round(recipeCount/recipesPerPage)
+    console.log(recipes)
     return (
       <div style={{
         marginTop: '1.5rem',
