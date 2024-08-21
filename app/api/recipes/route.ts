@@ -7,11 +7,11 @@ export async function GET(request: NextRequest){
             return parseResponse(await GetRecipe())
     } else {
         const { searchParams } = new URL(request.url!)
-        const recipes = parseResponse(await GetRecipe(searchParams))
-        return recipes
+        const recipes = await GetRecipe(searchParams)
+        return parseResponse(recipes)
     }
     } catch (error) {
-        
+        return Response.json({status: 500, error: error})
     }
 
 }
