@@ -12,6 +12,7 @@ export default async function RecipesTable({
 
   try{
     noStore()
+    console.log(`${process.env.APP_URL}/api/recipes${query}`)
     const recipeData: Map<string, Object> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json())
     const recipes: any = recipeData.get('recipes')
     const recipesPerPage = 10
