@@ -1,7 +1,9 @@
 import GetRecipe from "@/app/data/GetRecipe"
 import { NextRequest } from "next/server";
+import { unstable_noStore as noStore } from 'next/cache';
 
 export async function GET(request: NextRequest){
+    noStore()
     // try {
         if (request.url?.split('?')[1] === undefined) { 
             console.log('asdf')
