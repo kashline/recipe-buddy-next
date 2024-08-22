@@ -79,7 +79,9 @@ export default async function RecipesTable({
     );
   } catch(error) {
     return (
-      <div>
+      <div style={{ 
+        color: 'white'
+      }}>
         There was a problem reading/parsing data from the database: {String(error)}
       </div>
     )
