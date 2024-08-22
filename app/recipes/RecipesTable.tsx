@@ -17,7 +17,6 @@ export default async function RecipesTable({
     const recipesPerPage = 10
     const recipeCount = Number(recipeData.get('count'))
     const totalPages = Math.round(recipeCount/recipesPerPage) === 0 ? 1 : Math.round(recipeCount/recipesPerPage)
-    console.log(recipes)
     return (
       <div style={{
         marginTop: '1.5rem',
