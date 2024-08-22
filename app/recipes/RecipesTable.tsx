@@ -13,6 +13,8 @@ export default async function RecipesTable({
   try{
     noStore()
     console.log(`${process.env.APP_URL}/api/recipes${query}`)
+    const asdf = await fetch(`${process.env.APP_URL}/api/recipes${query}`)
+    console.log(asdf)
     const recipeData: Map<string, Object> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json())
     console.log(`${process.env.APP_URL}/api/recipes${query}`)
     console.log(recipeData)
