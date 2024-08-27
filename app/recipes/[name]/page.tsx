@@ -47,23 +47,23 @@ export default async function Page({ params }: { params: { name: string } }) {
               </p>
               {recipe.RecipeSteps.map((recipe: any, index: number) => {
                 return (
-                  <div>
-                    <p
-                      style={{
-                        borderStyle: "solid",
-                        borderWidth: 2,
-                        borderColor: "gray",
-                        paddingLeft: 15,
-                        paddingRight: 15,
-                      }}
-                      key={index}
-                    >
-                      <strong style={{ color: "white" }}>
-                        {recipe.step_number}
-                      </strong>
-                      : {recipe.step}
-                    </p>
-                  </div>
+                //   <div key={}>
+                <p
+                    style={{
+                    borderStyle: "solid",
+                    borderWidth: 2,
+                    borderColor: "gray",
+                    paddingLeft: 15,
+                    paddingRight: 15,
+                    }}
+                    key={index}
+                >
+                    <strong style={{ color: "white" }}>
+                    {recipe.step_number}
+                    </strong>
+                    : {recipe.step}
+                </p>
+                //   </div>
                 );
               })}
             </div>
