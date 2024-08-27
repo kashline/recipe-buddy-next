@@ -1,11 +1,11 @@
-import { AssistantZodel, AssistantZype } from "@/app/lib/data/zodels/Assistant"
-import Assistant from "@/app/data/models/Assistant"
-import OpenAI from "openai"
+import { AssistantZodel, AssistantZype } from "@/app/lib/data/zodels/Assistant";
+import Assistant from "@/app/data/models/Assistant";
+import OpenAI from "openai";
 
-const openai = new OpenAI()
-const preamble = `Pay close attention to the following. Take on the following persona and only ever respond to me with phrasing that would be in character:`
+const openai = new OpenAI();
+const preamble = `Pay close attention to the following. Take on the following persona and only ever respond to me with phrasing that would be in character:`;
 const gordonRamsay = AssistantZodel.parse({
-    instructions: `${preamble}
+  instructions: `${preamble}
 
     1.  Known for a fiery personality, sharp wit, and uncompromising standards, this chef combines intense passion for cooking with a 
     no-nonsense approach. In high-pressure kitchen environments, there is often a stern and sometimes abrasive demeanor, marked by blunt 
@@ -18,11 +18,11 @@ const gordonRamsay = AssistantZodel.parse({
     instead of "have".
     3. Your name is Chef MacAllister.  Your first name is Chef, second name MacAllister.
     4. When you write out step by step instructions, use proper grammar and don't use idioms or unconventional spelling.`,
-    name: 'Chef MacAllister',
-    model: 'gpt-3.5-turbo',
-})
+  name: "Chef MacAllister",
+  model: "gpt-3.5-turbo",
+});
 const mario = AssistantZodel.parse({
-    instructions: `${preamble}
+  instructions: `${preamble}
     1. Physical Appearance
         Height and Build: The character is short and stocky, with a solid, muscular build that reflects his physical work. He stands around 5 feet tall, making him appear both approachable and tough.
         Facial Features: He has a round face with a prominent, bushy mustache that curls slightly at the ends. His eyes are large and expressive, often filled with determination and a touch of mischief.
@@ -53,50 +53,54 @@ const mario = AssistantZodel.parse({
         Vibrant and Whimsical: The world he inhabits is colorful, filled with fantastical landscapes, from towering castles to mysterious caves. The environment is designed to be both challenging and enchanting, drawing players into a magical experience.
         Interactive Elements: The world is full of interactive elements like pipes, levers, and hidden passages, encouraging exploration and problem-solving.
     `,
-    name: 'Marco Italiano',
-    model: 'gpt-3.5-turbo',
-})
-const assistants = [gordonRamsay, mario]
+  name: "Marco Italiano",
+  model: "gpt-3.5-turbo",
+});
+const assistants = [gordonRamsay, mario];
 
-export default async function AssistantSeed(){
-    await Assistant.sync().catch((err) => {
-        console.log(err)
-    })
-    return await Promise.all(assistants.map(async (assistant: AssistantZype) => {
-        const dbAssistant = await Assistant.findAll({
-            where: {
-                name: `${assistant.name}`
-            }
-        })
-        // This should never happen
-        if (dbAssistant.length > 1){
-            console.log(`Unexpected error occured in AssistantSeed. More than one assistant returned.`)
-            return false
+export default async function AssistantSeed() {
+  await Assistant.sync().catch((err) => {
+    console.log(err);
+  });
+  return await Promise.all(
+    assistants.map(async (assistant: AssistantZype) => {
+      const dbAssistant = await Assistant.findAll({
+        where: {
+          name: `${assistant.name}`,
+        },
+      });
+      // This should never happen
+      if (dbAssistant.length > 1) {
+        console.log(
+          `Unexpected error occured in AssistantSeed. More than one assistant returned.`,
+        );
+        return false;
+      }
+      // Assistant not found in database, do initial create flow
+      if (dbAssistant.length === 0) {
+        initialCreate(assistant);
+      } else {
+        // Assistant found, validate/update in both db and openai
+        if (dbAssistant[0].dataValues.openaiID !== null) {
+          // Set local assistant openaiID to db's openaiID
+          assistant.openaiID = dbAssistant[0].dataValues.openaiID;
         }
-        // Assistant not found in database, do initial create flow
-        if (dbAssistant.length === 0){
-            initialCreate(assistant)
+        if (assistant.openaiID !== undefined) {
+          const isValid = await validateData(assistant);
+          if (!isValid) {
+            createUpdateOpenAIAssistant(assistant);
+            createUpdateDBAssistant(assistant);
+            return await validateData(assistant);
+          } else {
+            return isValid;
+          }
         } else {
-            // Assistant found, validate/update in both db and openai
-            if (dbAssistant[0].dataValues.openaiID !== null){
-                // Set local assistant openaiID to db's openaiID
-                assistant.openaiID = dbAssistant[0].dataValues.openaiID
-            }
-            if (assistant.openaiID !== undefined){
-                const isValid = await validateData(assistant)
-                if (!isValid){
-                    createUpdateOpenAIAssistant(assistant)
-                    createUpdateDBAssistant(assistant)
-                    return await validateData(assistant)
-                } else {
-                    return isValid
-                }
-            } else {
-                console.log(`Error: OpenAI ID is not present!`)
-                return false
-            }
+          console.log(`Error: OpenAI ID is not present!`);
+          return false;
         }
-    }))
+      }
+    }),
+  );
 }
 
 /**
@@ -104,74 +108,77 @@ export default async function AssistantSeed(){
  * @param {AssistantZype} assistant
  * @returns {Object} OpenAI response or null if failed.
  */
-async function createUpdateOpenAIAssistant(assistant: AssistantZype){
-    try {
-        if(assistant.openaiID !== undefined){
-            const openaiAssistant = await openai.beta.assistants.retrieve(assistant.openaiID)
-            if(!await validateData(assistant)){
-                // Doing it this way instead of trying to delete the openaiID key and using spread operator
-                return await openai.beta.assistants.update(assistant.openaiID, {
-                    instructions: assistant.instructions,
-                    name: assistant.name,
-                    model: assistant.model
-                })
-            }
-            return openaiAssistant
-        } else {
-            // Doing it this way instead of trying to delete the openaiID key and using spread operator
-            return await openai.beta.assistants.create({
-                name: assistant.name,
-                instructions: assistant.instructions,
-                model: assistant.model
-            })
-        }  
-    } catch (error) {
-        console.log(`Error in create Assistant: ${error}`)
-        return null
-    }
-}
-
-/**
- * Accepts an AssistantZype object aond returns true if successful. 
- * @param {AssistantZype} assistant Assistant to create
- * @returns {boolean} True if successful.
- */
-async function createUpdateDBAssistant(assistant: AssistantZype){
-    try {
-        const dbAssistant = await Assistant.findOrCreate({
-            where: {
-                openaiID: assistant.openaiID
-            },
-            defaults: {...assistant}
-        })
-        if (!await validateData(assistant)){
-            dbAssistant[0].set({
-                ...assistant
-            })
-            dbAssistant[0].save()
-        }
-        return true
-    } catch (error) {
-        console.log(`Error writting Assistant to Postgres: ${error}`) 
-        return false
-    }
-}
-
-/**
- * Uses an Assistant object to create both the openAI assistant and the database representation of it, then validates.  
- * @param {AssistantZype} assistant Assistant to create
- * @returns {boolean} True if successful.
- */
-async function initialCreate(assistant: AssistantZype){
-    const openaiAssistant = await createUpdateOpenAIAssistant(assistant)
-    if (openaiAssistant !== null){
-        
-        assistant.openaiID = openaiAssistant.id
-        await createUpdateDBAssistant({...assistant})
+async function createUpdateOpenAIAssistant(assistant: AssistantZype) {
+  try {
+    if (assistant.openaiID !== undefined) {
+      const openaiAssistant = await openai.beta.assistants.retrieve(
+        assistant.openaiID,
+      );
+      if (!(await validateData(assistant))) {
+        // Doing it this way instead of trying to delete the openaiID key and using spread operator
+        return await openai.beta.assistants.update(assistant.openaiID, {
+          instructions: assistant.instructions,
+          name: assistant.name,
+          model: assistant.model,
+        });
+      }
+      return openaiAssistant;
     } else {
-        console.log(`Unexpected error occured in initialCreate.  createOpenAIAssistant returned null.`)
+      // Doing it this way instead of trying to delete the openaiID key and using spread operator
+      return await openai.beta.assistants.create({
+        name: assistant.name,
+        instructions: assistant.instructions,
+        model: assistant.model,
+      });
     }
-    return validateData(assistant)
+  } catch (error) {
+    console.log(`Error in create Assistant: ${error}`);
+    return null;
+  }
+}
+
+/**
+ * Accepts an AssistantZype object aond returns true if successful.
+ * @param {AssistantZype} assistant Assistant to create
+ * @returns {boolean} True if successful.
+ */
+async function createUpdateDBAssistant(assistant: AssistantZype) {
+  try {
+    const dbAssistant = await Assistant.findOrCreate({
+      where: {
+        openaiID: assistant.openaiID,
+      },
+      defaults: { ...assistant },
+    });
+    if (!(await validateData(assistant))) {
+      dbAssistant[0].set({
+        ...assistant,
+      });
+      dbAssistant[0].save();
+    }
+    return true;
+  } catch (error) {
+    console.log(`Error writting Assistant to Postgres: ${error}`);
+    return false;
+  }
+}
+
+/**
+ * Uses an Assistant object to create both the openAI assistant and the database representation of it, then validates.
+ * @param {AssistantZype} assistant Assistant to create
+ * @returns {boolean} True if successful.
+ */
+async function initialCreate(assistant: AssistantZype) {
+  const openaiAssistant = await createUpdateOpenAIAssistant(assistant);
+  if (openaiAssistant !== null) {
+    assistant.openaiID = openaiAssistant.id;
+    await createUpdateDBAssistant({ ...assistant });
+  } else {
+    console.log(
+      `Unexpected error occured in initialCreate.  createOpenAIAssistant returned null.`,
+    );
+  }
+  return validateData(assistant);
 }
 
 /**
@@ -179,25 +186,38 @@ async function initialCreate(assistant: AssistantZype){
  * @param {String} id OpenAI assistant ID
  * @returns {boolean} True when there's data parity.
  */
-async function validateData(assistant: AssistantZype){
-    try {
-        const parsedAssistant = JSON.stringify(AssistantZodel.parse(assistant))
-        const dbResponse = await Assistant.findAll({
-            where: {
-                openaiID: assistant.openaiID
-            }
-        })
-        const dbAssistant = JSON.stringify(AssistantZodel.parse(dbResponse[0]))
-        // Make the response a generic object so we can transform the 'id' key name
-        const openaiAssistant = await openai.beta.assistants.retrieve(assistant.openaiID!) as any
-        // Rename openAI's response id -> openaiID so we can compare objects.
-        Object.defineProperty(openaiAssistant, 'openaiID',
-            Object.getOwnPropertyDescriptor(openaiAssistant, 'id')!)
-        delete openaiAssistant['id']
-        const parsedOpenaiAssistant = JSON.stringify(AssistantZodel.parse(openaiAssistant))
-        return (dbAssistant === parsedOpenaiAssistant) && (dbAssistant === parsedAssistant) && (parsedOpenaiAssistant === parsedAssistant)
-    } catch (error) {
-        console.log(`There was an error validating Assistant ${assistant.openaiID} data: ${error}`)
-        return false
-    }
+async function validateData(assistant: AssistantZype) {
+  try {
+    const parsedAssistant = JSON.stringify(AssistantZodel.parse(assistant));
+    const dbResponse = await Assistant.findAll({
+      where: {
+        openaiID: assistant.openaiID,
+      },
+    });
+    const dbAssistant = JSON.stringify(AssistantZodel.parse(dbResponse[0]));
+    // Make the response a generic object so we can transform the 'id' key name
+    const openaiAssistant = (await openai.beta.assistants.retrieve(
+      assistant.openaiID!,
+    )) as any;
+    // Rename openAI's response id -> openaiID so we can compare objects.
+    Object.defineProperty(
+      openaiAssistant,
+      "openaiID",
+      Object.getOwnPropertyDescriptor(openaiAssistant, "id")!,
+    );
+    delete openaiAssistant["id"];
+    const parsedOpenaiAssistant = JSON.stringify(
+      AssistantZodel.parse(openaiAssistant),
+    );
+    return (
+      dbAssistant === parsedOpenaiAssistant &&
+      dbAssistant === parsedAssistant &&
+      parsedOpenaiAssistant === parsedAssistant
+    );
+  } catch (error) {
+    console.log(
+      `There was an error validating Assistant ${assistant.openaiID} data: ${error}`,
+    );
+    return false;
+  }
 }

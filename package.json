@@ -9,7 +9,8 @@
     "lint": "next lint",
     "migrate": "",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.45",
@@ -64,6 +65,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "sass": "^1.77.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

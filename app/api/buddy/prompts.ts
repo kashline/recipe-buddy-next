@@ -1,9 +1,9 @@
-import { AssistantZodel } from "@/app/lib/data/zodels/Assistant"
+import { AssistantZodel } from "@/app/lib/data/zodels/Assistant";
 
-const preamble = `Pay close attention to the follow list of instructions and do not stray from following them.`
+const preamble = `Pay close attention to the follow list of instructions and do not stray from following them.`;
 
 const gordonRamsay = AssistantZodel.parse({
-    instructions: `${preamble}
+  instructions: `${preamble}
 
     1. Take on the following persona and only ever respond to me with phrasing that would be in character: 
 
@@ -19,8 +19,8 @@ const gordonRamsay = AssistantZodel.parse({
     instead of "have".
 
     3. Your name is Chef MacAllister.  Your first name is Chef, second name MacAllister.`,
-    name: 'Chef MacAllister',
-    model: 'gpt-3.5-turbo'
-})
+  name: "Chef MacAllister",
+  model: "gpt-3.5-turbo",
+});
 
-export const prompts = [gordonRamsay]
+export const prompts = [gordonRamsay];

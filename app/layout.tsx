@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import { StoreProvider } from "./StoreProvider";
 import "../styles/assets/css/main.css";
 import "../styles/assets/css/noscript.css";
@@ -16,7 +16,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "RecipeBuddy",
   description: "Recipe management software.",
-
 };
 
 export default function RootLayout({
@@ -32,7 +31,7 @@ export default function RootLayout({
           <Analytics></Analytics>
           <body className={inter.className}>
             <div>
-              <DefaultTopbar/>
+              <DefaultTopbar />
               <TopNav></TopNav>
             </div>
             {children}

@@ -1,14 +1,13 @@
-'use client'
+"use client";
 
-import {StoreProvider} from '@/app/StoreProvider';
-import CreateRecipeForm from './CreateRecipeForm';
-import { withPageAuthRequired } from '@auth0/nextjs-auth0/client';
+import { StoreProvider } from "@/app/StoreProvider";
+import CreateRecipeForm from "./CreateRecipeForm";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 
- 
 export default withPageAuthRequired(function Page() {
-   return (
+  return (
     <StoreProvider>
-        <CreateRecipeForm/>
+      <CreateRecipeForm />
     </StoreProvider>
-  )
-})
+  );
+});
