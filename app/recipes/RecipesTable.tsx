@@ -12,12 +12,7 @@ export default async function RecipesTable({
 
   try{
     noStore()
-    console.log(`${process.env.APP_URL}/api/recipes${query}`)
-    const asdf = await fetch(`${process.env.APP_URL}/api/recipes${query}`)
-    console.log(asdf)
     const recipeData: Map<string, Object> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json())
-    console.log(`${process.env.APP_URL}/api/recipes${query}`)
-    console.log(recipeData)
     const recipes: any = recipeData.get('recipes')
     const recipesPerPage = 10
     const recipeCount = Number(recipeData.get('count'))
@@ -41,8 +36,7 @@ export default async function RecipesTable({
               display: 'table',
               minWidth: '100%',
               color: 'rgb(17 24 39)',
-            }} 
-            // className="hidden min-w-full text-gray-900 md:table" 
+            }}
             >
               <thead >
                 <tr>

@@ -1,6 +1,7 @@
 .tablerow{
     width: 100%;
     position: relative;
+    height: 100%;
     background-color: rgb(255, 255, 255);
     border-bottom-width: 1px;
     padding-top: 0.75rem/* 12px */;
@@ -16,8 +17,13 @@
 
 .tablerowbutton{
     position: relative;
+    display: table-cell;
     background-color: rgb(255, 255, 255);
     width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    display: table-cell;
     border-radius: 4em;
     font-size: 16px;
     cursor:pointer;

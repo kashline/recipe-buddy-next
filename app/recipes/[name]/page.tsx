@@ -1,21 +1,11 @@
 import Image from "next/image";
-import { unstable_noStore as noStore } from 'next/cache';
 import './styles.css'
 import friendifyWords from "@/app/lib/utils/wordfriendifier";
 import RecipeOptions from "./recipeoptions";
 import Link from "next/link";
-import { getSession } from "@auth0/nextjs-auth0";
 
 export default async function Page({params}: {params: {name: string}}){
-    noStore()
-    const user = await getSession()
-    console.log(user)
-    const recipeData: Map<string, Object[]> = new Map(await (await 
-        fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`, {
-            // headers: {
-            //     ...user
-            // }
-        })).json())
+    const recipeData: Map<string, Object[]> = new Map(await (await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)).json())
     const recipe: any = recipeData.get('recipes')![0]
     const friendlyName = friendifyWords(recipe.name)
     return(
@@ -26,55 +16,74 @@ export default async function Page({params}: {params: {name: string}}){
                 lineHeight: '2.5rem',
                 paddingBottom: '1rem',
             }}><strong style={{ color: 'white' }}>{friendlyName}</strong></h1>
-            <div className="inline-flex">
-                <div className="steps-box">
-                    <div className="">
-                        <div className="pt-5">
-                            <p className="text-center pb-4"><strong className="">Steps</strong></p>
-                            {recipe.RecipeSteps.map((recipe: any, index: number) => {
-                            return(
-                                <p className="pb-5" key={index}><strong style={{ color: 'white' }}>{recipe.step_number}</strong>: {recipe.step}</p>
-                            )})}
+            <div style={{
+                display: 'inline-flex'
+            }}>
+                <div style={{
+                    marginRight: 20,
+                    width: '75%',
+                    paddingRight: 15
+                }}>
+                    <div>
+                        <div style={{
+                            paddingTop: 20
+                        }}>
+                            <p style={{ textAlign: 'center', paddingBottom: 4 }}><strong style={{ color: 'white', }}>Recipe Steps</strong></p>
+                                {recipe.RecipeSteps.map((recipe: any, index: number) => {
+                                return(
+                                    <p style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'gray', paddingLeft: 15, paddingRight: 15 }} key={index}><strong style={{ color: 'white' }}>{recipe.step_number}</strong>: {recipe.step}</p>
+                                )})}
                             </div>
                     </div>
                 </div>
-                <div className="info-box">
+                <div style={{
+                    width: '25%',
+                    blockSize: 'fit-content',
+                    position: 'relative',
+                    alignContent: 'right',
+                    alignItems: 'right',
+                }}>
                     <RecipeOptions recipeId={Number(recipe.id)}></RecipeOptions>
-                    <Image
-                        src={recipe.image || '/chef-icon.png'}
-                        className="mr-2"
-                        width={260}
-                        height={260}
-                        alt={`Delicious ${friendlyName}`}
-                        />
-                    <table className="w-64 px-10">
+                    <div style={{
+                        position: 'relative',
+                        width: "100%",
+                        height: 250,
+                        paddingRight: 100
+                    }}>
+                        <Image
+                            src={recipe.image || '/chef-icon.png'}
+                            style={{
+                            }}
+                            alt={`Delicious ${friendlyName}`}
+                            fill={true}
+                            />
+                    </div>
+                    <table style={{
+                        width: '100%',
+                    }}>
                         <tbody>
-                            <tr className="border-solid border-2 border-black">
-                                <td className="text-center " colSpan={100}><strong style={{ color: 'white' }}>Quick Info</strong></td>
+                            <tr style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>
+                                <td style={{ textAlign: 'center' }} colSpan={100}><strong style={{ color: 'white' }}>Quick Info</strong></td>
                             </tr>
-                            <tr className="border-solid border-2 border-black">
-                                <td className="border-solid border-2 border-black">Difficulty</td>
-                                <td className="text-right">{recipe.difficulty}</td>
+                            <tr style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>
+                                <td style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>Difficulty</td>
+                                <td style={{ textAlign: 'right' }} >{recipe.difficulty}</td>
                             </tr>
-                            <tr className="border-solid border-2 border-black">
-                                <td className="border-solid border-2 border-black">Length</td>
-                                <td className="text-right">{recipe.length}</td>
+                            <tr style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>
+                                <td style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>Length</td>
+                                <td style={{ textAlign: 'right' }}>{recipe.length}</td>
                             </tr>
-                            <tr className="border-solid border-2 border-black">
-                                <td className="text-center" colSpan={100}><Link href={recipe.video}>Instructional Video Link</Link></td>
+                            <tr style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>
+                                <td style={{ textAlign: 'center' }} colSpan={100}><Link href={recipe.video} style={{ color: 'white' }}>Instructional Video Link</Link></td>
                             </tr>
-                            {/* <tr className="border-solid border-2 border-black">
-                                <td className="border-solid border-2 border-black">Instructional Video</td>
-                                <td className="text-right"><Link href={recipe.video}>Instructional Video Link</Link></td>
-                            </tr> */}
-                            <tr className="border-solid border-2 border-black">
-                                <td className="text-center" colSpan={100}><strong style={{ color: 'white' }}>Ingredients</strong></td>
+                            <tr style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>
+                                <td style={{ textAlign: 'center' }} colSpan={100}><strong style={{ color: 'white' }}>Ingredients</strong></td>
                             </tr>
                             {recipe.Ingredients.map((ingredient: any, index: any) => {
                                 return(
-                                    <tr key={index} className="border-solid border-2 border-black">
-                                        <td className="border-solid border-2 border-black" key={index}>{ingredient.name}</td>
-                                        <td key={`${index}-${ingredient.RecipeIngredient.quantity}`} className="text-right">{ingredient.RecipeIngredient.quantity}</td>
+                                    <tr key={index} style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }}>
+                                        <td style={{ borderStyle: 'solid', borderWidth: 2, borderColor: 'black' }} key={index}>{ingredient.name}</td>
+                                        <td key={`${index}-${ingredient.RecipeIngredient.quantity}`} style={{ textAlign: 'right' }}>{ingredient.RecipeIngredient.quantity}</td>
                                     </tr>
                                 )
                             })}

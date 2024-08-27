@@ -29,21 +29,48 @@ export default function TableRow(
         <tr
             key={index}
             className="table-row"
-            onClick={handleOnClick}
         >
-            <td className="whitespace-nowrap py-3 pl-6 pr-3">
-                <button className="tablerowbutton">
-                    <div className="flex items-center gap-3">
-                    <Image
-                        src={image || '/chef-icon.png'}
-                        className="mr-2 rounded-full"
-                        width={28}
-                        height={28}
-                        alt={`Delicious ${friendlyName}`}
-                        />
-                        <p style={{color: 'black'}}>{friendlyName}</p>
-                    </div>
-                </button>
+            <td style={{
+                height: '100px',
+            }}>
+                <div style={{
+                    height: '100%',
+                    margin: 'auto',
+                    paddingTop: '10px'
+                }}>
+                    <button 
+                    className="tablerowbutton"
+                    style={{
+                        height: '100%',
+                        width: '100%'
+                    }}
+                    onClick={handleOnClick}
+                    >
+                        <div 
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: 12,
+                                margin: 'auto'
+                            }}>
+                            <Image
+                                src={image || '/chef-icon.png'}
+                                style={{
+                                    marginRight: 2,
+                                    borderRadius: 9999,
+                                    position: 'relative',
+                                }}
+                                width={50}
+                                height={100}
+                                alt={`Delicious ${friendlyName}`}
+                                />
+                            <p style={{
+                                color: 'black',
+                                margin: 'auto'
+                                }}>{friendlyName}</p>
+                        </div>
+                    </button>
+                </div>
             </td>
             <td className="whitespace-nowrap px-3 py-3">
                 <p style={{color: 'black'}}>

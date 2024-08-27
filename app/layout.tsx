@@ -9,6 +9,7 @@ import "../styles/assets/css/main.css";
 import "../styles/assets/css/noscript.css";
 import DefaultTopbar from "./ui/defaulttopbar";
 import TopNav from "./ui/topnav";
+// import '../styles/assets/css/fontawesome-all.min.css'
 
 const inter = Inter({ subsets: ["latin"] });
 

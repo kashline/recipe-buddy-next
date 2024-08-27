@@ -121,7 +121,6 @@ async function findAllRecipes(key: string, value: string){
 async function findAllIngredients(ingredient: string){
     try{
         // Get ingredient IDs
-        console.log(`%${ingredient.split(',')}%`)
         const ingredients = await Ingredient.findAll({
             attributes: [ 'id' ],
             where: {

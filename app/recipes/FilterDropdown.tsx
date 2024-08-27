@@ -7,15 +7,18 @@ import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 export default function FilterDropdown(){
     const [toggle, setToggle] = React.useState(false)
     return(
-        <div>
-            <button style={{ width: '100%', height: '2rem'}} onClick={() => {setToggle(!toggle)}}>
-                <div style={{ display: 'flex', color: 'white', height: '100%'}}>
+        <div style={{ width: '100%', margin: 'auto'}}>
+            <button style={{ width: '100%', display: 'flex'}} onClick={() => {setToggle(!toggle)}}>
+                <div style={{ display: 'flex', color: 'white', height: '100%', alignItems: 'center'  }}>
                     {toggle 
-                    && <ChevronDownIcon style={{ height: 16, marginTop: 4 }}/> 
-                    || <ChevronRightIcon style={{ height: 16, marginTop: 4 }}/>}
-                    <p style={{ paddingBottom: '10rem', margin: 0 }}>Filters...</p>
+                    && <ChevronDownIcon style={{ height: 16, float: 'left' }}/> 
+                    || <ChevronRightIcon style={{ height: 16, float: 'left' }}/>}
+                </div>
+                <div style={{ color: 'white', alignContent: 'center' }}>
+                    <p style={{  display: 'flex',  }}>Filters...</p>
                 </div>
             </button>
+
             <hr style={{ height: '1px', border: 'none', backgroundColor: 'white', margin: 'auto' }}></hr>
             {toggle && 
                 <form style={{ 

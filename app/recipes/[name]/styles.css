@@ -1,13 +1,7 @@
-.info-box{
-    width: fit-content;
-    float: right;
-    block-size: fit-content;
-}
-
 .steps-box{
-    margin: 0px 10px 10px 0px;
+    /* margin: 0px 10px 10px 0px;
     width: auto;
-    padding-right: 15px
+    padding-right: 15px */
 }
 
 .info-table {
@@ -17,4 +11,24 @@
 .error {
     margin-top: 50%;
     text-align: center;
+}
+
+.edit {
+    display: block;
+    margin: auto;
+    height: 50%;
+}
+
+.edittooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+   
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 1;
 }
