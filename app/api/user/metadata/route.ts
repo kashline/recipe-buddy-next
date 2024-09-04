@@ -1,5 +1,5 @@
-import User from "@/app/data/models/User";
-import { getSession, withApiAuthRequired } from "@auth0/nextjs-auth0";
+import { withApiAuthRequired } from "@auth0/nextjs-auth0";
+import { getUserMetadata } from "./getUserMetadata";
 
 export const GET = withApiAuthRequired(async (request: Request) => {
   try {
@@ -14,12 +14,4 @@ export const GET = withApiAuthRequired(async (request: Request) => {
   }
 });
 
-export async function getUserMetadata() {
-  const user = await getSession();
-  const userMetadata = await User.findAll({
-    where: {
-      auth0Id: user?.user.sub,
-    },
-  });
-  return userMetadata;
-}
+

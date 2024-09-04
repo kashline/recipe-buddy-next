@@ -5,7 +5,7 @@ import RecipeIngredient from "./models/RecipeIngredient";
 import { Op } from "sequelize";
 import _ from "lodash";
 import UserRecipe from "./models/UserRecipe";
-import { getUserMetadata } from "../api/user/metadata/route";
+import { getUserMetadata } from "../api/user/metadata/getUserMetadata";
 
 // Should make this a frontend option
 const itemsPerPage = 10;
