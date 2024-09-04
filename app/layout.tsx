@@ -10,7 +10,7 @@ import "../styles/assets/css/noscript.css";
 import DefaultTopbar from "./ui/defaulttopbar";
 import TopNav from "./ui/topnav";
 import * as React from "react";
-import UserMetadata from "./userMetadata";
+import UserMetadata from "./UserMetadata";
 // import '../styles/assets/css/fontawesome-all.min.css'
 
 const inter = Inter({ subsets: ["latin"] });
