@@ -3,12 +3,7 @@ import { getSession, withApiAuthRequired } from "@auth0/nextjs-auth0";
 
 export const GET = withApiAuthRequired(async (request: Request) => {
   try {
-    const user = await getSession();
-    const userMetadata = await User.findAll({
-      where: {
-        auth0Id: user?.user.sub,
-      },
-    });
+    const userMetadata = await getUserMetadata();
     return Response.json(
       { success: true, user: userMetadata[0].dataValues },
       { status: 200 },
@@ -18,3 +13,13 @@ export const GET = withApiAuthRequired(async (request: Request) => {
     return Response.json({ success: false }, { status: 500 });
   }
 });
+
+export async function getUserMetadata() {
+  const user = await getSession();
+  const userMetadata = await User.findAll({
+    where: {
+      auth0Id: user?.user.sub,
+    },
+  });
+  return userMetadata;
+}

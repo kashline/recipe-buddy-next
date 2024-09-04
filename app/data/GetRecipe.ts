@@ -4,13 +4,17 @@ import RecipeStep from "./models/RecipeStep";
 import RecipeIngredient from "./models/RecipeIngredient";
 import { Op } from "sequelize";
 import _ from "lodash";
+import UserRecipe from "./models/UserRecipe";
+import { getUserMetadata } from "../api/user/metadata/route";
 
+// Should make this a frontend option
 const itemsPerPage = 10;
 
 export default async function GetRecipe(props?: URLSearchParams) {
   try {
     var promises: Promise<number[] | undefined>[] = [];
     const page = Number(props?.get("page") || 1);
+    let userId = null;
     const attributes: string[] = [
       "name",
       "difficulty",
@@ -21,28 +25,27 @@ export default async function GetRecipe(props?: URLSearchParams) {
     ];
     if (props != null) {
       props.forEach(async (value, key) => {
-        switch (key) {
-          case "ingredients":
-            promises.push(findAllIngredients(value));
-            break;
-          case "name":
-            promises.push(findAllRecipes(key, value));
-            break;
-          case "difficulty":
-            promises.push(findAllRecipes(key, value));
-            break;
-          case "length":
-            promises.push(findAllRecipes(key, value));
-            break;
-          case "attributes":
-            props
-              .get("attributes")
-              ?.split(",")
-              .map((attribute) => {
-                attributes.push(attribute);
-              });
-          default:
-            break;
+        if (["name", "difficulty", "length"].includes(key)) {
+          promises.push(findAllRecipes(key, value));
+          return;
+        }
+        if (key === "ingredients") {
+          promises.push(findAllIngredients(value));
+          return;
+        }
+        if (key === "attributes") {
+          props
+            .get("attributes")
+            ?.split(",")
+            .map((attribute) => {
+              attributes.push(attribute);
+            });
+          return;
+        }
+        if (key === "user") {
+          const userId = getUserMetadata();
+          // const userId = await fetch(`/user/metadata`)
+          // console.log(userId)
         }
       });
     }
@@ -55,13 +58,20 @@ export default async function GetRecipe(props?: URLSearchParams) {
         offset: itemsPerPage * (page! - 1),
         order: [["name", "ASC"]],
         attributes: attributes,
+        include: {
+          model: UserRecipe,
+          //   user !== null ? UserId: user
+        },
       });
       const count = await Recipe.count({});
       res.set("recipes", recipes);
       res.set("count", count);
       return res;
     }
+
+    // Return all the promises by merging the id arrays and finding each recipe
     return await Promise.all(promises).then((response) => {
+      // console.log(props?.get('user'))
       return findRecipeById(mergeArrays(response), attributes, page);
     });
   } catch (error) {
@@ -74,10 +84,11 @@ async function findRecipeById(
   ids: number[],
   attributes?: string[],
   page?: number,
+  userId?: number,
 ) {
   try {
     const res = new Map();
-    const include =
+    const include: any =
       ids.length === 1
         ? [
             {
@@ -88,6 +99,19 @@ async function findRecipeById(
             },
           ]
         : [];
+    if (userId !== null && userId !== undefined) {
+      include.push({
+        model: UserRecipe,
+        where: {
+          RecipeId: {
+            [Op.in]: ids,
+          },
+          UserId: userId,
+        },
+        required: false,
+      });
+    }
+
     const recipes = await Recipe.findAll({
       where: {
         id: {
@@ -113,6 +137,21 @@ async function findRecipeById(
         },
       },
     });
+    if (userId !== null) {
+    }
+    // console.log(recipes)
+    // const userRecipes = await UserRecipe.findAll({
+    //   where: {
+    //     RecipeId: {
+    //       [Op.in]: ids,
+    //     },
+    //   },
+    // });
+    // recipes.map((recipe) => {
+    //     console.log(recipe.dataValues.id)
+    //     if (recipe.dataValues.id )
+    // })
+    // console.log(`${JSON.stringify(userRecipes[0].dataValues.RecipeId)}`);
     res.set("recipes", recipes);
     res.set("count", count);
     return res;

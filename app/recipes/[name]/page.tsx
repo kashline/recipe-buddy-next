@@ -1,16 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import "./styles.css";
 import friendifyWords from "@/app/lib/utils/wordfriendifier";
 import RecipeOptions from "./recipeoptions";
 import Link from "next/link";
+import { unstable_noStore as noStore } from "next/cache";
+import * as React from "react";
+import useSWR from "swr";
 
-export default async function Page({ params }: { params: { name: string } }) {
-  const recipeData: Map<string, Object[]> = new Map(
-    await (
-      await fetch(`${process.env.APP_URL}/api/recipes?name=${params.name}`)
-    ).json(),
+export default function Page({ params }: { params: { name: string } }) {
+  noStore();
+  const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(
+    `/api/recipes?name=${params.name}`,
+    fetcher,
   );
-  const recipe: any = recipeData.get("recipes")![0];
+  if (error)
+    return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
+  if (isLoading) return <>Loading</>;
+  const recipe: any = data[0][1][0];
   const friendlyName = friendifyWords(recipe.name);
   return (
     <div style={{ color: "white" }}>
@@ -45,25 +54,33 @@ export default async function Page({ params }: { params: { name: string } }) {
               <p style={{ textAlign: "center", paddingBottom: 4 }}>
                 <strong style={{ color: "white" }}>Recipe Steps</strong>
               </p>
+              {/* Recipe Steps */}
               {recipe.RecipeSteps.map((recipe: any, index: number) => {
                 return (
-                //   <div key={}>
-                <p
-                    style={{
-                    borderStyle: "solid",
-                    borderWidth: 2,
-                    borderColor: "gray",
-                    paddingLeft: 15,
-                    paddingRight: 15,
-                    }}
-                    key={index}
-                >
-                    <strong style={{ color: "white" }}>
-                    {recipe.step_number}
-                    </strong>
-                    : {recipe.step}
-                </p>
-                //   </div>
+                  <div style={{ display: "flex" }} key={index}>
+                    <p
+                      style={{
+                        paddingLeft: 15,
+                        paddingRight: 15,
+                      }}
+                      key={index}
+                    >
+                      <strong style={{ color: "white" }}>
+                        {recipe.step_number}
+                      </strong>
+                    </p>
+                    <div style={{ width: "100%" }}>
+                      {recipe.step}
+                      <hr
+                        style={{
+                          height: "1px",
+                          border: "none",
+                          backgroundColor: "gray",
+                          width: "100%",
+                        }}
+                      ></hr>
+                    </div>
+                  </div>
                 );
               })}
             </div>

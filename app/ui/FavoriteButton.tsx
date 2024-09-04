@@ -53,7 +53,10 @@ export default function FavoriteButton({ recipeId }: { recipeId: number }) {
           }
         }
         onClick={() => {
-          console.log("asdfasf");
+          fetch(`/api/favorite/add`, {
+            method: "POST",
+            body: JSON.stringify({ userId: 2, recipeId: 259 }),
+          });
         }}
       >
         <svg

@@ -1,18 +1,18 @@
-"use server";
+"use client";
 
 import { unstable_noStore as noStore } from "next/cache";
 import Pagination from "../ui/pagination";
 import TableRow from "./TableRow";
+import useSWR from "swr";
 
-export default async function RecipesTable({ query }: { query: string }) {
+export default function RecipesTable({ query }: { query: string }) {
+  const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(`/api/recipes${query}`, fetcher);
   try {
     noStore();
-    const recipeData: Map<string, Object> = new Map(
-      await (await fetch(`${process.env.APP_URL}/api/recipes${query}`)).json(),
-    );
-    const recipes: any = recipeData.get("recipes");
+    const recipes: any = data[0][1];
     const recipesPerPage = 10;
-    const recipeCount = Number(recipeData.get("count"));
+    const recipeCount = Number(data[1][1]);
     const totalPages =
       Math.round(recipeCount / recipesPerPage) === 0
         ? 1

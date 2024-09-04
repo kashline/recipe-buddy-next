@@ -5,7 +5,6 @@ import { NextRequest } from "next/server";
 export const GET = async function (request: NextRequest) {
   const session = await getSession();
   const user = session?.user;
-  console.log(user);
   const userId = request.nextUrl.searchParams.get("UserId") as string;
   const recipeId = request.nextUrl.searchParams.get("RecipeId") as string;
   if (user === undefined) {

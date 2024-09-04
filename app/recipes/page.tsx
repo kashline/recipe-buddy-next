@@ -1,3 +1,5 @@
+"use client";
+
 import RecipesTable from "./RecipesTable";
 import FilterDropdown from "./FilterDropdown";
 

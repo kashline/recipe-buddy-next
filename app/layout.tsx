@@ -9,6 +9,8 @@ import "../styles/assets/css/main.css";
 import "../styles/assets/css/noscript.css";
 import DefaultTopbar from "./ui/defaulttopbar";
 import TopNav from "./ui/topnav";
+import * as React from "react";
+import UserMetadata from "./userMetadata";
 // import '../styles/assets/css/fontawesome-all.min.css'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,15 +29,17 @@ export default function RootLayout({
     <html lang="en">
       <UserProvider>
         <StoreProvider>
-          <SpeedInsights></SpeedInsights>
-          <Analytics></Analytics>
-          <body className={inter.className}>
-            <div>
-              <DefaultTopbar />
-              <TopNav></TopNav>
-            </div>
-            {children}
-          </body>
+          <UserMetadata>
+            <SpeedInsights></SpeedInsights>
+            <Analytics></Analytics>
+            <body className={inter.className}>
+              <div>
+                <DefaultTopbar />
+                <TopNav></TopNav>
+              </div>
+              {children}
+            </body>
+          </UserMetadata>
         </StoreProvider>
       </UserProvider>
     </html>
