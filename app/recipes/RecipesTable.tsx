@@ -10,14 +10,18 @@ export default function RecipesTable({ query }: { query: string }) {
   const { data, error, isLoading } = useSWR(`/api/recipes${query}`, fetcher);
   try {
     noStore();
-    const recipes: any = data[0][1];
-    const recipesPerPage = 10;
-    const recipeCount = Number(data[1][1]);
-    const totalPages =
-      Math.round(recipeCount / recipesPerPage) === 0
-        ? 1
-        : Math.round(recipeCount / recipesPerPage);
-    return (
+    if (isLoading) return (
+      <>Loading...</>
+    )
+    if (data !== null){ 
+      const recipes: any = data[0][1];
+      const recipesPerPage = 10;
+      const recipeCount = Number(data[1][1]);
+      const totalPages =
+        Math.round(recipeCount / recipesPerPage) === 0
+          ? 1
+          : Math.round(recipeCount / recipesPerPage);
+      return (
       <div
         style={{
           marginTop: "1.5rem",
@@ -72,7 +76,7 @@ export default function RecipesTable({ query }: { query: string }) {
           </div>
         </div>
       </div>
-    );
+    )};
   } catch (error) {
     return (
       <div
