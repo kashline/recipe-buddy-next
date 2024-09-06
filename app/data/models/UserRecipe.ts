@@ -10,11 +10,6 @@ export default class UserRecipe extends Model {}
 
 UserRecipe.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     RecipeId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -23,12 +18,11 @@ UserRecipe.init(
         key: "id",
       },
     },
-    UserId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
+    UserSub: {
+      type: DataTypes.STRING,
       references: {
         model: User,
-        key: "id",
+        key: "auth0Id",
       },
     },
   },
@@ -38,6 +32,10 @@ UserRecipe.init(
   },
 );
 
-User.belongsToMany(Recipe, { through: { model: UserRecipe } });
+User.belongsToMany(Recipe, {
+  through: { model: UserRecipe },
+  foreignKey: "UserSub",
+  sourceKey: "auth0Id",
+});
 Recipe.belongsToMany(User, { through: { model: UserRecipe } });
 Recipe.hasMany(UserRecipe);

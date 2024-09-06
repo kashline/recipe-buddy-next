@@ -6,7 +6,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
 
-export default function RecipeOptions({ recipeId }: { recipeId: number }) {
+export default function RecipeOptions({
+  recipeId,
+  favorited,
+}: {
+  recipeId: number;
+  favorited: boolean;
+}) {
   const path = usePathname();
   const { user, error, isLoading } = useUser();
   if (isLoading) return <h1>Loading...</h1>;
@@ -57,7 +63,10 @@ export default function RecipeOptions({ recipeId }: { recipeId: number }) {
           </g>
         </svg>
       </Link>
-      <FavoriteButton recipeId={recipeId} />
+      <FavoriteButton
+        recipeId={recipeId}
+        favorited={favorited}
+      />
     </div>
   );
 }

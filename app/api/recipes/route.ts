@@ -1,16 +1,9 @@
 import GetRecipe from "@/app/data/GetRecipe";
-import UserRecipe from "@/app/data/models/UserRecipe";
-import { getSession } from "@auth0/nextjs-auth0";
+import syncAllTables from "@/app/lib/utils/syncAllTables";
 import { NextRequest } from "next/server";
-import { unstable_noStore as noStore } from "next/cache";
 
 export async function GET(request: NextRequest) {
-  await UserRecipe.sync();
-  const session = await getSession();
-  //   console.log(`${session} asdfasf`)
-  if (session === null) {
-    // console.log('asdf')
-  }
+  await syncAllTables();
   if (request.url?.split("?")[1] === undefined) {
     return parseResponse(await GetRecipe());
   } else {

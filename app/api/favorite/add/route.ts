@@ -1,32 +1,36 @@
 import { NextRequest } from "next/server";
-// import { UserRecipe } from "@/app/data/models/Relationships";
 import UserRecipe from "@/app/data/models/UserRecipe";
 import { UserRecipeZodel } from "@/app/lib/data/zodels/UserRecipeZodel";
-import User from "@/app/data/models/User";
 
 export const POST = async (request: NextRequest) => {
   try {
     const data = UserRecipeZodel.parse(await request.json());
     if (data.recipeId !== undefined || data.recipeId !== null) {
-      await UserRecipe.sync();
-      //   const userId = await User.findOne({
-      //     where: {
-      //       auth0Id: data.userId,
-      //     },
-      //   });
-      //   if (userId !== null) {
       const res = await UserRecipe.findOrCreate({
         where: {
-          // UserId: userId.dataValues.id,
-          UserId: data.userId,
+          UserSub: data.userSub,
           RecipeId: data.recipeId,
         },
       });
-      //   }
+      if (!res[1]) {
+        const deleteRes = await UserRecipe.destroy({
+          where: {
+            UserSub: data.userSub,
+            RecipeId: data.recipeId,
+          },
+        });
+        return Response.json(
+          {
+            success: true,
+            message: `Successfully deleted recipe ${data.recipeId} from user ${data.userSub}'s favorites.`,
+          },
+          { status: 200 },
+        );
+      }
       return Response.json(
         {
           success: true,
-          message: `Successfully added recipe ${data.recipeId} to user ${data.userId}'s favorites.`,
+          message: `Successfully added recipe ${data.recipeId} to user ${data.userSub}'s favorites.`,
         },
         { status: 200 },
       );
@@ -36,7 +40,7 @@ export const POST = async (request: NextRequest) => {
     return Response.json(
       {
         success: false,
-        message: `There was an error adding a favorite recipe: ${error}`,
+        message: `There was an error adding or removing a favorite recipe: ${error}`,
       },
       { status: 500 },
     );

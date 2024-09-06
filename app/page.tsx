@@ -1,8 +1,13 @@
 "use client";
 
+import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 
 export default function Page() {
+  const { user, error, isLoading } = useUser();
+  if (user !== null && user !== undefined) {
+    console.log(user);
+  }
   return (
     <main className="is-preload">
       <div id="wrapper" className="fade-in" data-testid="wrapper">

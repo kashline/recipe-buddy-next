@@ -1,13 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import "./styles.css";
 import friendifyWords from "@/app/lib/utils/wordfriendifier";
-import RecipeOptions from "./recipeoptions";
-import Link from "next/link";
 import { unstable_noStore as noStore } from "next/cache";
-import * as React from "react";
-import useSWR from "swr";
+import Image from "next/image";
+import Link from "next/link";
+import useSWR, { useSWRConfig } from "swr";
+import RecipeOptions from "./recipeoptions";
+import "./styles.css";
 
 export default function Page({ params }: { params: { name: string } }) {
   noStore();
@@ -16,6 +15,8 @@ export default function Page({ params }: { params: { name: string } }) {
     `/api/recipes?name=${params.name}`,
     fetcher,
   );
+
+  const mutate = useSWRConfig();
   if (error)
     return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
   if (isLoading) return <>Loading</>;
@@ -95,7 +96,10 @@ export default function Page({ params }: { params: { name: string } }) {
             alignItems: "right",
           }}
         >
-          <RecipeOptions recipeId={Number(recipe.id)}></RecipeOptions>
+          <RecipeOptions
+            recipeId={Number(recipe.id)}
+            favorited={data[0][1][0].UserRecipes.length === 1 ? true : false}
+          ></RecipeOptions>
           <div
             style={{
               position: "relative",

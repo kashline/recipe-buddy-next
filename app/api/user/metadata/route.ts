@@ -13,5 +13,3 @@ export const GET = withApiAuthRequired(async (request: Request) => {
     return Response.json({ success: false }, { status: 500 });
   }
 });
-
-

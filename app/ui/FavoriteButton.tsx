@@ -1,30 +1,16 @@
-import * as React from "react";
-import { UserRecipeZodel } from "../lib/data/zodels/UserRecipeZodel";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
+import { useState } from "react";
 
-export default function FavoriteButton({ recipeId }: { recipeId: number }) {
+export default function FavoriteButton({
+  recipeId,
+  favorited,
+}: {
+  recipeId: number;
+  favorited: boolean;
+}) {
   const { user, error, isLoading } = useUser();
-  const [ids, setIds] = React.useState({
-    userId: user!.sub!,
-    recipeId: recipeId,
-  });
-  const [favorited, setFavorited] = React.useState(false);
-  // React.useEffect(() => {
-  //     if (!favorited){
-
-  //     }
-  //     const userRecipe = UserRecipeZodel.parse({
-  //         userId: ids.userId,
-  //         recipeId: recipeId
-  //     })
-  //     fetch(`/api/favorite/add`, {
-  //         method: 'POST',
-  //         body: JSON.stringify(userRecipe)
-  //     }).then((res: Response) => {
-  //         res.json()
-  //             .then((res: any) => {setIds(res)})})}
-  // , [ids])
+  const [favorite, setFavorite] = useState(favorited);
   if (isLoading) return <h1>Loading...</h1>;
   if (error)
     return <Link href={`/api/auth/login`}>Error! Please try again</Link>;
@@ -43,26 +29,19 @@ export default function FavoriteButton({ recipeId }: { recipeId: number }) {
       }}
     >
       <button
-        style={
-          {
-            // display: 'block',
-            // margin: 'auto',
-            // height: '50%',
-            // width: '100%',
-            // boxShadow: 'none'
-          }
-        }
+        style={{}}
         onClick={() => {
           fetch(`/api/favorite/add`, {
             method: "POST",
-            body: JSON.stringify({ userId: 2, recipeId: 259 }),
+            body: JSON.stringify({ userSub: user.sub, recipeId: recipeId }),
           });
+          setFavorite(!favorite);
         }}
       >
         <svg
           style={{ height: "75%", width: "75%" }}
           viewBox="0 0 24 24"
-          fill="none"
+          fill={favorite ? "yellow" : "none"}
           xmlns="http://www.w3.org/2000/svg"
         >
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>

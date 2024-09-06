@@ -7,7 +7,6 @@ export const GET = handleAuth({
   login: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const headersList = headers();
-      // console.log(headersList.get("referer"));
       return await handleLogin(req, res, {
         returnTo: `/api/profile-server?referer=${headersList.get("referer")}`!,
       });

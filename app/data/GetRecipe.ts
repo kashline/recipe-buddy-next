@@ -1,20 +1,22 @@
+import { getSession } from "@auth0/nextjs-auth0";
+import _ from "lodash";
+import { Op } from "sequelize";
 import Ingredient from "./models/Ingredient";
 import Recipe from "./models/Recipe";
-import RecipeStep from "./models/RecipeStep";
 import RecipeIngredient from "./models/RecipeIngredient";
-import { Op } from "sequelize";
-import _ from "lodash";
+import RecipeStep from "./models/RecipeStep";
 import UserRecipe from "./models/UserRecipe";
-import { getUserMetadata } from "../api/user/metadata/getUserMetadata";
 
 // Should make this a frontend option
 const itemsPerPage = 10;
 
 export default async function GetRecipe(props?: URLSearchParams) {
   try {
+    const session = await getSession();
+    const userSub =
+      session !== null && session !== undefined ? session.user.sub : null;
     var promises: Promise<number[] | undefined>[] = [];
     const page = Number(props?.get("page") || 1);
-    let userId = null;
     const attributes: string[] = [
       "name",
       "difficulty",
@@ -42,11 +44,6 @@ export default async function GetRecipe(props?: URLSearchParams) {
             });
           return;
         }
-        if (key === "user") {
-          const userId = getUserMetadata();
-          // const userId = await fetch(`/user/metadata`)
-          // console.log(userId)
-        }
       });
     }
 
@@ -58,10 +55,16 @@ export default async function GetRecipe(props?: URLSearchParams) {
         offset: itemsPerPage * (page! - 1),
         order: [["name", "ASC"]],
         attributes: attributes,
-        include: {
-          model: UserRecipe,
-          //   user !== null ? UserId: user
-        },
+        include:
+          userSub !== null
+            ? {
+                model: UserRecipe,
+                where: {
+                  UserSub: userSub,
+                },
+                required: false,
+              }
+            : undefined,
       });
       const count = await Recipe.count({});
       res.set("recipes", recipes);
@@ -72,7 +75,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
     // Return all the promises by merging the id arrays and finding each recipe
     return await Promise.all(promises).then((response) => {
       // console.log(props?.get('user'))
-      return findRecipeById(mergeArrays(response), attributes, page);
+      return findRecipeById(mergeArrays(response), attributes, page, userSub);
     });
   } catch (error) {
     console.log(`There was an error in GetRecipe: ${error}`);
@@ -84,7 +87,7 @@ async function findRecipeById(
   ids: number[],
   attributes?: string[],
   page?: number,
-  userId?: number,
+  userSub?: string,
 ) {
   try {
     const res = new Map();
@@ -99,19 +102,18 @@ async function findRecipeById(
             },
           ]
         : [];
-    if (userId !== null && userId !== undefined) {
+    if (userSub !== null && userSub !== undefined) {
       include.push({
         model: UserRecipe,
         where: {
           RecipeId: {
             [Op.in]: ids,
           },
-          UserId: userId,
+          UserSub: userSub,
         },
         required: false,
       });
     }
-
     const recipes = await Recipe.findAll({
       where: {
         id: {
@@ -137,21 +139,8 @@ async function findRecipeById(
         },
       },
     });
-    if (userId !== null) {
+    if (userSub !== null) {
     }
-    // console.log(recipes)
-    // const userRecipes = await UserRecipe.findAll({
-    //   where: {
-    //     RecipeId: {
-    //       [Op.in]: ids,
-    //     },
-    //   },
-    // });
-    // recipes.map((recipe) => {
-    //     console.log(recipe.dataValues.id)
-    //     if (recipe.dataValues.id )
-    // })
-    // console.log(`${JSON.stringify(userRecipes[0].dataValues.RecipeId)}`);
     res.set("recipes", recipes);
     res.set("count", count);
     return res;

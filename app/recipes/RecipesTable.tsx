@@ -10,10 +10,9 @@ export default function RecipesTable({ query }: { query: string }) {
   const { data, error, isLoading } = useSWR(`/api/recipes${query}`, fetcher);
   try {
     noStore();
-    if (isLoading) return (
-      <>Loading...</>
-    )
-    if (data !== null){ 
+
+    if (isLoading) return <>Loading...</>;
+    if (data !== null) {
       const recipes: any = data[0][1];
       const recipesPerPage = 10;
       const recipeCount = Number(data[1][1]);
@@ -22,61 +21,67 @@ export default function RecipesTable({ query }: { query: string }) {
           ? 1
           : Math.round(recipeCount / recipesPerPage);
       return (
-      <div
-        style={{
-          marginTop: "1.5rem",
-          display: "flow-root",
-        }}
-      >
         <div
           style={{
-            display: "inline-block",
-            minWidth: "100%",
-            verticalAlign: "middle",
+            marginTop: "1.5rem",
+            display: "flow-root",
           }}
         >
           <div
             style={{
-              borderRadius: "0.5rem",
-              backgroundColor: "rgb(249 250 251)",
-              padding: "0.5rem",
+              display: "inline-block",
+              minWidth: "100%",
+              verticalAlign: "middle",
             }}
           >
-            <table
+            <div
               style={{
-                display: "table",
-                minWidth: "100%",
-                color: "rgb(17 24 39)",
+                borderRadius: "0.5rem",
+                backgroundColor: "rgb(249 250 251)",
+                padding: "0.5rem",
               }}
             >
-              <thead>
-                <tr>
-                  <th scope="col">Recipe</th>
-                  <th scope="col">Difficulty</th>
-                  <th scope="col">Length</th>
-                  <th scope="col">
-                    <span>Edit</span>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {recipes?.map((recipe: any, index: number) => (
-                  <TableRow
-                    difficulty={recipe.difficulty}
-                    name={recipe.name}
-                    length={recipe.length}
-                    image={recipe.image}
-                    key={`${recipe.name}-tablerow`}
-                    index={index}
-                  ></TableRow>
-                ))}
-              </tbody>
-            </table>
-            <Pagination totalPages={totalPages} />
+              <table
+                style={{
+                  display: "table",
+                  minWidth: "100%",
+                  color: "rgb(17 24 39)",
+                }}
+              >
+                <thead>
+                  <tr>
+                    <th scope="col">Recipe</th>
+                    <th scope="col">Difficulty</th>
+                    <th scope="col">Length</th>
+                    <th scope="col">
+                      <span>Edit</span>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {recipes?.map(
+                    (recipe: any, index: number) => (
+                      console.log(recipe.UserRecipes.length),
+                      (
+                        <TableRow
+                          difficulty={recipe.difficulty}
+                          name={recipe.name}
+                          length={recipe.length}
+                          image={recipe.image}
+                          key={`${recipe.name}-tablerow`}
+                          index={index}
+                        ></TableRow>
+                      )
+                    ),
+                  )}
+                </tbody>
+              </table>
+              <Pagination totalPages={totalPages} />
+            </div>
           </div>
         </div>
-      </div>
-    )};
+      );
+    }
   } catch (error) {
     return (
       <div
