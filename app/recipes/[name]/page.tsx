@@ -98,7 +98,7 @@ export default function Page({ params }: { params: { name: string } }) {
         >
           <RecipeOptions
             recipeId={Number(recipe.id)}
-            favorited={data[0][1][0].UserRecipes.length === 1 ? true : false}
+            favorited={"UserRecipes" in data[0][1][0] && data[0][1][0].UserRecipes.length === 1 ? true : false}
           ></RecipeOptions>
           <div
             style={{
