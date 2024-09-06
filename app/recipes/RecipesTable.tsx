@@ -61,7 +61,6 @@ export default function RecipesTable({ query }: { query: string }) {
                 <tbody>
                   {recipes?.map(
                     (recipe: any, index: number) => (
-                      console.log(recipe.UserRecipes.length),
                       (
                         <TableRow
                           difficulty={recipe.difficulty}
