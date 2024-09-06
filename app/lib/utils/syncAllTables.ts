@@ -7,11 +7,18 @@ import User from "@/app/data/models/User";
 import UserRecipe from "@/app/data/models/UserRecipe";
 
 export default async function syncAllTables() {
-  await Assistant.sync();
-  await Ingredient.sync();
-  await Recipe.sync();
-  await RecipeIngredient.sync();
-  await RecipeStep.sync();
-  await User.sync();
-  await UserRecipe.sync();
+    try {
+        await Assistant.sync();
+        await Ingredient.sync();
+        await Recipe.sync();
+        await RecipeIngredient.sync();
+        await RecipeStep.sync();
+        await User.sync();
+        await UserRecipe.sync();
+        console.log(`Successfully synced all tables.`)
+    } catch (error) {
+        console.log(`Error syncing all tables: ${error}`)
+    }
+
+
 }
