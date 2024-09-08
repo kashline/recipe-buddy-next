@@ -1,6 +1,7 @@
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useState } from "react";
+import notificationOnClick from "./notificationOnClick";
 
 export default function FavoriteButton({
   recipeId,
@@ -34,8 +35,19 @@ export default function FavoriteButton({
           fetch(`/api/favorite/add`, {
             method: "POST",
             body: JSON.stringify({ userSub: user.sub, recipeId: recipeId }),
+          }).then((res: Response) => {
+            if (res.status === 200){
+              setFavorite(!favorite);
+              if (!favorite){
+                notificationOnClick('success', `Added recipe to favorites!`)
+              } else {
+                notificationOnClick('success', `Removed recipe from favorites!`)
+              }
+            }
+            else {
+              notificationOnClick(`error`, `There was an error adding recipe to favorites.  Please try again later.`)
+            }
           });
-          setFavorite(!favorite);
         }}
       >
         <svg

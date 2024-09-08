@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useSWR, { useSWRConfig } from "swr";
 import RecipeOptions from "./recipeoptions";
+import {NotificationContainer} from 'react-notifications'
 import "./styles.css";
 
 export default function Page({ params }: { params: { name: string } }) {
@@ -225,6 +226,7 @@ export default function Page({ params }: { params: { name: string } }) {
           </table>
         </div>
       </div>
+      <NotificationContainer></NotificationContainer>
     </div>
   );
 }
