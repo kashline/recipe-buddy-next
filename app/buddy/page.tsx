@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
   console.log(event);
 };
@@ -35,16 +37,17 @@ export default function Page() {
           }}
           onClick={onClick}
         >
-          <div
+          <Link
             style={{
               border: "solid",
               borderColor: "white",
               height: "80%",
               margin: 20,
             }}
+            href={`/buddy/macallister`}
           >
             <h1 style={{ color: "white" }}>Chef MacAllister</h1>
-          </div>
+          </Link>
         </button>
       </div>
     </div>
