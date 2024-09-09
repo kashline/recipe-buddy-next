@@ -6,7 +6,7 @@ import RecipeStep from "@/app/data/models/RecipeStep";
 import User from "@/app/data/models/User";
 import UserRecipe from "@/app/data/models/UserRecipe";
 
-export default async function syncAllTables() {
+async function syncAllTables() {
     try {
         await Assistant.sync();
         await Ingredient.sync();
