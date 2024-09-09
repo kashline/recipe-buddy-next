@@ -1,9 +1,7 @@
 import GetRecipe from "@/app/data/GetRecipe";
-import syncAllTables from "@/app/lib/utils/syncAllTables";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-  await syncAllTables();
   if (request.url?.split("?")[1] === undefined) {
     return parseResponse(await GetRecipe());
   } else {

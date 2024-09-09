@@ -4,8 +4,8 @@ module.exports = {
     formats: ["image/avif", "image/webp"],
   },
   // Instrumentation doesn't seem to be working well with sequelize.  Waiting for non-beta support
-  // experimental:
-  // {
-  //     instrumentationHook: true
-  // }
+  experimental:
+  {
+      instrumentationHook: true
+  }
 };

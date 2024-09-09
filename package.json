@@ -11,7 +11,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\"",
-    "count": "git ls-files | xargs wc -l"
+    "count": "git ls-files | xargs wc -l",
+    "syncAllTables": "node syncAllTables.js"
   },
   "dependencies": {
     "@ai-sdk/openai": "^0.0.45",
