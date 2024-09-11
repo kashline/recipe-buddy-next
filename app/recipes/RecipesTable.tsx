@@ -4,14 +4,13 @@ import { unstable_noStore as noStore } from "next/cache";
 import Pagination from "../ui/pagination";
 import TableRow from "./TableRow";
 import useSWR from "swr";
+import { CircularProgress } from "@mui/material";
 
 export default function RecipesTable({ query }: { query: string }) {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(`/api/recipes${query}`, fetcher);
   try {
-    noStore();
-
-    if (isLoading) return <>Loading...</>;
+    if (isLoading) return <div style={{ color: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', height: 1000}}><CircularProgress></CircularProgress>Loading Recipes...</div>;
     if (data !== null) {
       const recipes: any = data[0][1];
       const recipesPerPage = 10;
