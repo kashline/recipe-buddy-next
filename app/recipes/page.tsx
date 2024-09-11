@@ -2,8 +2,6 @@
 
 import RecipesTable from "./RecipesTable";
 import FilterDropdown from "./FilterDropdown";
-import { Suspense } from "react";
-import { CircularProgress } from "@mui/material";
 
 export default function Page({
   searchParams,
@@ -26,9 +24,7 @@ export default function Page({
   return (
     <div>
       <FilterDropdown></FilterDropdown>
-      <Suspense fallback={<CircularProgress/>}>
-        <RecipesTable query={query} />
-      </Suspense>
+      <RecipesTable query={query} />
     </div>
   );
 }

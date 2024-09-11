@@ -36,16 +36,21 @@ export default function FavoriteButton({
             method: "POST",
             body: JSON.stringify({ userSub: user.sub, recipeId: recipeId }),
           }).then((res: Response) => {
-            if (res.status === 200){
+            if (res.status === 200) {
               setFavorite(!favorite);
-              if (!favorite){
-                notificationOnClick('success', `Added recipe to favorites!`)
+              if (!favorite) {
+                notificationOnClick("success", `Added recipe to favorites!`);
               } else {
-                notificationOnClick('success', `Removed recipe from favorites!`)
+                notificationOnClick(
+                  "success",
+                  `Removed recipe from favorites!`,
+                );
               }
-            }
-            else {
-              notificationOnClick(`error`, `There was an error adding recipe to favorites.  Please try again later.`)
+            } else {
+              notificationOnClick(
+                `error`,
+                `There was an error adding recipe to favorites.  Please try again later.`,
+              );
             }
           });
         }}

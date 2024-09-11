@@ -63,10 +63,7 @@ export default function RecipeOptions({
           </g>
         </svg>
       </Link>
-      <FavoriteButton
-        recipeId={recipeId}
-        favorited={favorited}
-      />
+      <FavoriteButton recipeId={recipeId} favorited={favorited} />
     </div>
   );
 }

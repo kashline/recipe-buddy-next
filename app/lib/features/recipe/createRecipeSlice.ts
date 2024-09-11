@@ -131,10 +131,10 @@ export const createRecipeSlice = createSlice({
         Object.assign(state, action.payload);
       })
       .addCase(fetchGeneratedRecipe.fulfilled, (state, action) => {
-        console.log(action.payload.body)
+        console.log(action.payload.body);
         state.status = "succeeded";
         Object.assign(state, action.payload);
-      })
+      });
   },
 });
 
@@ -160,28 +160,30 @@ export const fetchRecipe = createAsyncThunk(
 );
 
 export const fetchGeneratedRecipe = createAsyncThunk(
-  'recipes/generatedRecipe',
+  "recipes/generatedRecipe",
   async (recipe: Object[]) => {
-    console.log(recipe)
-    return await             
-        fetch(`/api/buddy/generateRecipe`, {
-          method: 'POST',
-          body: JSON.stringify({
-              messages: [
-                  {
-                      role: 'user',
-                      content: `Take this partially completed recipe and fill in the blanks.  Only add to it do not remove anything.`
-                  }
-              ],
-              recipe: recipe
-          })
-      }).then((response) => {
-          return response.json()
-      }).then((data) => {
-        console.log(data)
-          return data
-      })
+    console.log(recipe);
+    return await fetch(`/api/buddy/generateRecipe`, {
+      method: "POST",
+      body: JSON.stringify({
+        messages: [
+          {
+            role: "user",
+            content: `Take this partially completed recipe and fill in the blanks.  Only add to it do not remove anything.`,
+          },
+        ],
+        recipe: recipe,
+      }),
     })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        return data;
+      });
+  },
+);
 
 export const selectCreateRecipe = (state: RootState) => state.createRecipe;
 

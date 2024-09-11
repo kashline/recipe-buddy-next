@@ -11,7 +11,7 @@ import DefaultTopbar from "./ui/defaulttopbar";
 import TopNav from "./ui/topnav";
 import * as React from "react";
 import UserMetadata from "./UserMetadata";
-import {ToastContainer} from 'react-toastify'
+import { ToastContainer } from "react-toastify";
 // import '../styles/assets/css/fontawesome-all.min.css'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -40,18 +40,18 @@ export default function RootLayout({
               </div>
               {children}
               <ToastContainer
-                  position="bottom-left"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="light"
-                  // transition="Bounce"
-                  />
+                position="bottom-left"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                // transition="Bounce"
+              />
             </body>
           </UserMetadata>
         </StoreProvider>

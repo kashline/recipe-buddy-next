@@ -13,7 +13,7 @@ const formatMessage = (message: VercelChatMessage) => {
   return `${message.role}: ${message.content}`;
 };
 
-const TEMPLATE = gordonRamsay.instructions
+const TEMPLATE = gordonRamsay.instructions;
 
 export const POST = withApiAuthRequired(async (req: Request) => {
   try {
