@@ -164,7 +164,7 @@ export const fetchGeneratedRecipe = createAsyncThunk(
   async (recipe: Object[]) => {
     console.log(recipe)
     return await             
-        fetch(`/api/test`, {
+        fetch(`/api/buddy/generateRecipe`, {
           method: 'POST',
           body: JSON.stringify({
               messages: [

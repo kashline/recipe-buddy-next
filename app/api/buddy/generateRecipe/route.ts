@@ -12,7 +12,7 @@ export const POST = async (req: Request) => {
     const currentMessageContent = messages[messages.length - 1].content;
     
     const {object} = await generateObject({
-        model: openai("gpt-4-turbo"),
+        model: openai("gpt-4o-mini"),
         schema: RecipeZodel,
         prompt: currentMessageContent
     })
