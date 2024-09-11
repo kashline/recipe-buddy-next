@@ -7,7 +7,6 @@ import {
   setName,
   setVideo,
   selectCreateRecipe,
-  CreateRecipeState,
 } from "@/app/lib/features/recipe/createRecipeSlice";
 
 import Input from "@/app/ui/input";

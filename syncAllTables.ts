@@ -19,6 +19,4 @@ async function syncAllTables() {
     } catch (error) {
         console.log(`Error syncing all tables: ${error}`)
     }
-
-
 }

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
+import Ingredient from "@/app/data/models/Ingredient";
 
 export interface CreateRecipeState {
   name: string;
@@ -128,7 +129,12 @@ export const createRecipeSlice = createSlice({
       .addCase(fetchRecipe.fulfilled, (state, action) => {
         state.status = "succeeded";
         Object.assign(state, action.payload);
-      });
+      })
+      .addCase(fetchGeneratedRecipe.fulfilled, (state, action) => {
+        console.log(action.payload.body)
+        state.status = "succeeded";
+        Object.assign(state, action.payload);
+      })
   },
 });
 
@@ -152,6 +158,30 @@ export const fetchRecipe = createAsyncThunk(
     return response.get("recipes")![0];
   },
 );
+
+export const fetchGeneratedRecipe = createAsyncThunk(
+  'recipes/generatedRecipe',
+  async (recipe: Object[]) => {
+    console.log(recipe)
+    return await             
+        fetch(`/api/test`, {
+          method: 'POST',
+          body: JSON.stringify({
+              messages: [
+                  {
+                      role: 'user',
+                      content: `Take this partially completed recipe and fill in the blanks.  Only add to it do not remove anything.`
+                  }
+              ],
+              recipe: recipe
+          })
+      }).then((response) => {
+          return response.json()
+      }).then((data) => {
+        console.log(data)
+          return data
+      })
+    })
 
 export const selectCreateRecipe = (state: RootState) => state.createRecipe;
 

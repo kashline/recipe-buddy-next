@@ -6,7 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import useSWR, { useSWRConfig } from "swr";
 import RecipeOptions from "./recipeoptions";
-import {NotificationContainer} from 'react-notifications'
 import "./styles.css";
 
 export default function Page({ params }: { params: { name: string } }) {
@@ -16,8 +15,6 @@ export default function Page({ params }: { params: { name: string } }) {
     `/api/recipes?name=${params.name}`,
     fetcher,
   );
-
-  const mutate = useSWRConfig();
   if (error)
     return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
   if (isLoading) return <>Loading</>;
@@ -226,7 +223,6 @@ export default function Page({ params }: { params: { name: string } }) {
           </table>
         </div>
       </div>
-      <NotificationContainer></NotificationContainer>
     </div>
   );
 }

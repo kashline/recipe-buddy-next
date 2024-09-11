@@ -7,6 +7,5 @@ const openai = new OpenAI();
 export default function createUpdateAssistants() {
   prompts.map((prompt) => {
     const assistant = AssistantZodel.parse(prompt);
-    console.log(assistant);
   });
 }
