@@ -18,9 +18,6 @@ export default function TopNav() {
           <li className={pathName === "/recipes/create" ? "active" : ""}>
             <a href="/recipes/create">Create New Recipe</a>
           </li>
-          <li className={pathName === "/recipes/buddy" ? "active" : ""}>
-            <a href="/buddy">Buddy</a>
-          </li>
         </ul>
       </nav>
     </div>
