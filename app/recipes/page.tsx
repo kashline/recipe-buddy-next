@@ -7,9 +7,16 @@ import Pagination from "../ui/pagination";
 import AnimatedLoading from "../ui/loading/animatedloading";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-// import './styles.css'
 
-export default function RecipeCard() {
+export default function Page() {
+  return (
+    <Suspense>
+      <RecipeCard/>
+    </Suspense>
+  );
+}
+
+function RecipeCard(){
   const searchParams = useSearchParams();
   const page = searchParams.get('page') || 1
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
@@ -26,14 +33,12 @@ export default function RecipeCard() {
       ? 1
       : Math.round(recipeCount / 12);
   return (
-    <div>
-      <Suspense>
-        <FilterDropdown></FilterDropdown>
-        <RecipeGrid data={recipes}></RecipeGrid>
-        <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content' }}>
-          <Pagination totalPages={totalPages} />
-        </div>
-      </Suspense>
-    </div>
+    <Suspense>
+      <FilterDropdown></FilterDropdown>
+      <RecipeGrid data={recipes}></RecipeGrid>
+      <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content' }}>
+        <Pagination totalPages={totalPages} />
+      </div>
+    </Suspense>
   );
 }
