@@ -6,6 +6,7 @@ import FilterDropdown from "../recipes/FilterDropdown";
 import Pagination from "../ui/pagination";
 import AnimatedLoading from "../ui/loading/animatedloading";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 // import './styles.css'
 
 export default function RecipeCard() {
@@ -26,11 +27,13 @@ export default function RecipeCard() {
       : Math.round(recipeCount / 12);
   return (
     <div>
-      <FilterDropdown></FilterDropdown>
-      <RecipeGrid data={recipes}></RecipeGrid>
-      <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content' }}>
-        <Pagination totalPages={totalPages} />
-      </div>
+      <Suspense>
+        <FilterDropdown></FilterDropdown>
+        <RecipeGrid data={recipes}></RecipeGrid>
+        <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content' }}>
+          <Pagination totalPages={totalPages} />
+        </div>
+      </Suspense>
     </div>
   );
 }
