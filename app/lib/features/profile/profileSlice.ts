@@ -19,7 +19,6 @@ export const profileSlice = createSlice({
   initialState,
   reducers: {
     setToggle: (state) => {
-      // console.log(state.toggle)
       state.toggle = !state.toggle;
     },
     setUser: (state) => {},
@@ -32,7 +31,6 @@ export const fetchUserMetadata = createAsyncThunk(
     const response: Map<string, Object[]> = new Map(
       await (await fetch(`/api/user/metadata`)).json(),
     );
-    // console.log(response)
     return response.get("recipes")![0];
   },
 );

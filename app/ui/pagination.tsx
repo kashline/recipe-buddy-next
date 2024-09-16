@@ -23,6 +23,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
           direction="left"
           href={createPageURL(currentPage - 1)}
           isDisabled={currentPage <= 1}
+          
         />
 
         <div className="flex -space-x-px">
@@ -79,9 +80,9 @@ function PaginationNumber({
   );
 
   return isActive || position === "middle" ? (
-    <div className={className}>{page}</div>
+    <div className={className} style={{ color: 'white' }}>{page}</div>
   ) : (
-    <Link href={href} className={className}>
+    <Link href={href} className={className} style={{ color: 'white' }}>
       {page}
     </Link>
   );
@@ -114,9 +115,9 @@ function PaginationArrow({
     );
 
   return isDisabled ? (
-    <div className={className}>{icon}</div>
+    <div className={className} style={{ color: 'white'}} >{icon}</div>
   ) : (
-    <Link className={className} href={href}>
+    <Link className={className} style={{ color: 'white'}} href={href}>
       {icon}
     </Link>
   );

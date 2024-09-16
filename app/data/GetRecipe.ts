@@ -8,7 +8,7 @@ import RecipeStep from "./models/RecipeStep";
 import UserRecipe from "./models/UserRecipe";
 
 // Should make this a frontend option
-const itemsPerPage = 10;
+// const itemsPerPage = 10;
 
 export default async function GetRecipe(props?: URLSearchParams) {
   try {
@@ -17,6 +17,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
       session !== null && session !== undefined ? session.user.sub : null;
     var promises: Promise<number[] | undefined>[] = [];
     const page = Number(props?.get("page") || 1);
+    const itemsPerPage = Number(props?.get("recipesPerPage") || 10)
     const attributes: string[] = [
       "name",
       "difficulty",
@@ -74,8 +75,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
 
     // Return all the promises by merging the id arrays and finding each recipe
     return await Promise.all(promises).then((response) => {
-      // console.log(props?.get('user'))
-      return findRecipeById(mergeArrays(response), attributes, page, userSub);
+      return findRecipeById(mergeArrays(response), itemsPerPage, attributes, page, userSub);
     });
   } catch (error) {
     console.log(`There was an error in GetRecipe: ${error}`);
@@ -85,6 +85,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
 
 async function findRecipeById(
   ids: number[],
+  itemsPerPage: number,
   attributes?: string[],
   page?: number,
   userSub?: string,

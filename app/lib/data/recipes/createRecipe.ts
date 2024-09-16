@@ -73,7 +73,6 @@ export default async function createRecipe(recipe: RecipeZype) {
         },
       });
       recipe.RecipeSteps.map(async (step) => {
-        // console.log(step.step_number)
         await createRecipeStep(
           RecipeStepZodel.parse({
             step: step.step,

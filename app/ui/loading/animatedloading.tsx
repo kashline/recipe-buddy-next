@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 
-export default function AnimatedLoading({name}: {name: string}) {
+export default function AnimatedLoading({ name }: { name: string }) {
   return (
     <div
       style={{

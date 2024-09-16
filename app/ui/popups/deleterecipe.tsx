@@ -36,7 +36,6 @@ export default function DeleteRecipe({
         setSubmit("failed");
       } else {
         setSubmit("success");
-        console.log(res);
         router.push(`/recipes/${recipeName}/edit/delete`);
       }
     } catch (error) {

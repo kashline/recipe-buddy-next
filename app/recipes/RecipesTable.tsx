@@ -1,20 +1,15 @@
 "use client";
 
-import { unstable_noStore as noStore } from "next/cache";
 import Pagination from "../ui/pagination";
 import TableRow from "./TableRow";
 import useSWR from "swr";
-import { CircularProgress } from "@mui/material";
-import AnimatedLoading from "../ui/animatedloading";
+import AnimatedLoading from "../ui/loading/animatedloading";
 
 export default function RecipesTable({ query }: { query: string }) {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(`/api/recipes${query}`, fetcher);
   try {
-    if (isLoading)
-      return (
-        <AnimatedLoading name={'Recipes'}></AnimatedLoading>
-      );
+    if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
     if (data !== null) {
       const recipes: any = data[0][1];
       const recipesPerPage = 10;
@@ -56,9 +51,6 @@ export default function RecipesTable({ query }: { query: string }) {
                     <th scope="col">Recipe</th>
                     <th scope="col">Difficulty</th>
                     <th scope="col">Length</th>
-                    <th scope="col">
-                      <span>Edit</span>
-                    </th>
                   </tr>
                 </thead>
                 <tbody>

@@ -20,6 +20,7 @@ export default function Page({ params }: { params: { name: string } }) {
   if (isLoading) return <>Loading</>;
   const recipe: any = data[0][1][0];
   const friendlyName = friendifyWords(recipe.name);
+  console.log(data);
   return (
     <div style={{ color: "white" }}>
       <h1
@@ -34,13 +35,16 @@ export default function Page({ params }: { params: { name: string } }) {
       </h1>
       <div
         style={{
-          display: "inline-flex",
+          display: "flex",
+          justifyContent: "center",
+          // alignItems: 'center',
+          flexDirection: "row",
         }}
       >
         <div
           style={{
             marginRight: 20,
-            width: "75%",
+            width: "100%",
             paddingRight: 15,
           }}
         >
@@ -87,7 +91,7 @@ export default function Page({ params }: { params: { name: string } }) {
         </div>
         <div
           style={{
-            width: "25%",
+            width: 250,
             blockSize: "fit-content",
             position: "relative",
             alignContent: "right",
@@ -106,7 +110,7 @@ export default function Page({ params }: { params: { name: string } }) {
           <div
             style={{
               position: "relative",
-              width: "100%",
+              width: 250,
               height: 250,
               paddingRight: 100,
             }}

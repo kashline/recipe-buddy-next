@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "../styles/assets/css/main.css";
+import "../styles/assets/css/noscript.css";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import { StoreProvider } from "./StoreProvider";
-import "../styles/assets/css/main.css";
-import "../styles/assets/css/noscript.css";
 import DefaultTopbar from "./ui/defaulttopbar";
 import TopNav from "./ui/topnav";
 import * as React from "react";
@@ -38,7 +38,16 @@ export default function RootLayout({
                 <DefaultTopbar />
                 <TopNav></TopNav>
               </div>
-              {children}
+              <div
+                style={{
+                  height: "100vh",
+                  paddingLeft: "5%",
+                  paddingTop: "2%",
+                  paddingRight: "4%",
+                }}
+              >
+                {children}
+              </div>
               <ToastContainer
                 position="bottom-left"
                 autoClose={5000}

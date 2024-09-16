@@ -1,30 +1,36 @@
 "use client";
 
-import RecipesTable from "./RecipesTable";
-import FilterDropdown from "./FilterDropdown";
+import useSWR from "swr";
+import RecipeGrid from "../ui/RecipeGrid";
+import FilterDropdown from "../recipes/FilterDropdown";
+import Pagination from "../ui/pagination";
+import AnimatedLoading from "../ui/loading/animatedloading";
+import { useSearchParams } from "next/navigation";
+// import './styles.css'
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    name?: string;
-    ingredients?: string;
-    page?: string;
-  };
-}) {
-  const query = Object.keys(searchParams!)
-    .map((key, index) => {
-      if (index === 0) {
-        return `?${key}=${searchParams![key as keyof typeof searchParams]}`;
-      } else {
-        return `${key}=${searchParams![key as keyof typeof searchParams]}`;
-      }
-    })
-    .join("&");
+export default function RecipeCard() {
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page') || 1
+  const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(`/api/recipes?page=${page}&recipesPerPage=12`, fetcher);
+  if (error) return <div>ERROR</div>;
+  if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
+  if (!data) {
+    return <>no data</>;
+  }
+  const recipes: any = data[0][1];
+  const recipeCount = Number(data[1][1]);
+  const totalPages =
+    Math.round(recipeCount / 12) === 0
+      ? 1
+      : Math.round(recipeCount / 12);
   return (
     <div>
       <FilterDropdown></FilterDropdown>
-      <RecipesTable query={query} />
+      <RecipeGrid data={recipes}></RecipeGrid>
+      <div style={{ marginLeft: 'auto', marginRight: 'auto', maxWidth: 'fit-content' }}>
+        <Pagination totalPages={totalPages} />
+      </div>
     </div>
   );
 }
