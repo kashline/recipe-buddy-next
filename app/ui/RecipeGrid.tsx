@@ -12,10 +12,10 @@ export default function RecipeGrid({ data }: { data: any }) {
         justifyContent: "center",
       }}
     >
-      {data.map((recipe: any) => {
+      {data.map((recipe: any, index: number) => {
         return (
           <div style={{ margin: "1%" }}>
-            <RecipeCard data={recipe}></RecipeCard>
+            <RecipeCard data={recipe} key={`RecipeCard-${index}`}></RecipeCard>
           </div>
         );
       })}
