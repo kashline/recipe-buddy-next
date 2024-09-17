@@ -1,10 +1,6 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,9 +20,7 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ],
+      "@/*": ["./*"],
       "@/components/*": ["components/*"]
     }
   },
@@ -36,9 +30,12 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/auth/auth0/route.js",
-    "app/data/connection.ts"
-, "__tests__/page.test.jsx"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "app/data/connection.ts",
+    "__tests__/page.test.jsx",
+    "syncAllTables.js",
+    "syncAllTables.js",
+    "syncAllTables.js"
+  ],
+  "exclude": ["node_modules"],
+  "typeRoots": ["../node_modules/@types", "../@types"]
 }

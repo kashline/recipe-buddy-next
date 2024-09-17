@@ -1,9 +1,10 @@
 // 'use server'
 
-const pg = require('pg');
-const { Sequelize } = require('sequelize');
+const pg = require("pg");
+const { Sequelize } = require("sequelize");
 
-const dialectOptions = process.env.ENV === 'PROD' ? {ssl:{require: true}} : undefined
+const dialectOptions =
+  process.env.ENV !== "DEV" ? { ssl: { require: true } } : undefined;
 
 const sequelize = new Sequelize({
   username: process.env.POSTGRES_USER,
@@ -11,18 +12,18 @@ const sequelize = new Sequelize({
   database: process.env.POSTGRES_DATABASE,
   port: 5432,
   password: process.env.POSTGRES_PASSWORD,
-  dialect: 'postgres',
+  dialect: "postgres",
   dialectModule: pg,
   logging: false,
   dialectOptions: dialectOptions,
   define: {
     scopes: {
       excludeId: {
-        attributes: { exclude: ['id', 'createdAt', 'updatedAt', 'mealdb_id'] }
-      }
+        attributes: { exclude: ["id", "createdAt", "updatedAt", "mealdb_id"] },
+      },
     },
-    timestamps: false
-  }
- })
+    timestamps: false,
+  },
+});
 
- export default sequelize
+export default sequelize;

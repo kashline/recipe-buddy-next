@@ -7,14 +7,13 @@ import React from "react";
 import ProfileDropdownMenu from "./profilebutton";
 import ProfileButton from "./profilebutton";
 
-export default function HomeTopbar(){
-
-    return(
-        <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
-          <Logo></Logo>
-          <div style={{width: "100%", height: "100%"}}>
-            <ProfileButton></ProfileButton>
-          </div>
-        </div>
-    )
+export default function HomeTopbar() {
+  return (
+    <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
+      <Logo></Logo>
+      <div style={{ width: "100%", height: "100%" }}>
+        <ProfileButton></ProfileButton>
+      </div>
+    </div>
+  );
 }
