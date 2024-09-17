@@ -18,9 +18,8 @@ export default function Page() {
 
 function RecipeCard(){
   const searchParams = useSearchParams();
-  const page = searchParams.get('page') || 1
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(`/api/recipes?page=${page}&recipesPerPage=12`, fetcher);
+  const { data, error, isLoading } = useSWR(`/api/recipes?${searchParams.toString()}&recipesPerPage=12`, fetcher);
   if (error) return <div>ERROR</div>;
   if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
   if (!data) {
