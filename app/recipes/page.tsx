@@ -29,9 +29,9 @@ function RecipeCards(){
   const recipes: any = data[0][1];
   const recipeCount = Number(data[1][1]);
   const totalPages =
-    Math.round(recipeCount / 12) === 0
+    Math.ceil(recipeCount / 12) === 0
       ? 1
-      : Math.round(recipeCount / 12);
+      : Math.ceil(recipeCount / 12);
   return (
     <Suspense>
       <FilterDropdown></FilterDropdown>
