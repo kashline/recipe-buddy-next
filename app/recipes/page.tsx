@@ -10,13 +10,14 @@ import { Suspense } from "react";
 
 export default function Page() {
   return (
+    // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
     <Suspense>
-      <RecipeCard/>
+      <RecipeCards/>
     </Suspense>
   );
 }
 
-function RecipeCard(){
+function RecipeCards(){
   const searchParams = useSearchParams();
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(`/api/recipes?${searchParams.toString()}&recipesPerPage=12`, fetcher);
