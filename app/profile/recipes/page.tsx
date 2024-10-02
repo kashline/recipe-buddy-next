@@ -32,6 +32,14 @@ function RecipeCards(){
     Math.ceil(recipeCount / 12) === 0
       ? 1
       : Math.ceil(recipeCount / 12);
+  if (recipes.length === 0){
+    return(
+      <div>
+        <h1>You haven't favorited any recipes yet!</h1>
+        <p>You can browse recipes and favorite them or create a new recipe then favorite it.</p>
+      </div>
+    )
+  }
   return (
     <Suspense>
       <FilterDropdown></FilterDropdown>

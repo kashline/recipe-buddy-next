@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import Ingredient from "@/app/data/models/Ingredient";
+import { arrayMove } from "@dnd-kit/sortable";
 
 export interface CreateRecipeState {
   name: string;
@@ -52,7 +53,7 @@ export const createRecipeSlice = createSlice({
     },
     setIngredientField: (
       state,
-      action: PayloadAction<{ type: string; index?: number; value?: string }>,
+      action: PayloadAction<{ type: string; index?: number; value?: string }>
     ) => {
       switch (action.payload.type) {
         case "add":
@@ -80,14 +81,14 @@ export const createRecipeSlice = createSlice({
           break;
         default:
           console.error(
-            new Error("Invalid payload type for setIngredientField"),
+            new Error("Invalid payload type for setIngredientField")
           );
           break;
       }
     },
     setStepField: (
       state,
-      action: PayloadAction<{ type: string; index?: number; value?: string }>,
+      action: PayloadAction<{ type: string; index?: number; value?: string }>
     ) => {
       switch (action.payload.type) {
         case "add":
@@ -120,6 +121,14 @@ export const createRecipeSlice = createSlice({
           break;
       }
     },
+    setStepNumbers: (state, action) => {
+      state.RecipeSteps = action.payload.items.map((step: any, index: number) => {
+        if (step.step_number !== index + 1) {
+          return ({step: step.step, step_number: index + 1})
+        }
+        return ({step: step.step, step_number: step.step_number})
+      })
+    },
   },
   extraReducers(builder) {
     builder
@@ -146,6 +155,7 @@ export const {
   setStepField,
   setVideo,
   setImage,
+  setStepNumbers,
 } = createRecipeSlice.actions;
 
 //Thunks
@@ -153,10 +163,10 @@ export const fetchRecipe = createAsyncThunk(
   "recipes/fetchRecipe",
   async (query: string) => {
     const response: Map<string, Object[]> = new Map(
-      await (await fetch(`/api/recipes?name=${query}`)).json(),
+      await (await fetch(`/api/recipes?name=${query}`)).json()
     );
     return response.get("recipes")![0];
-  },
+  }
 );
 
 export const fetchGeneratedRecipe = createAsyncThunk(
@@ -180,7 +190,7 @@ export const fetchGeneratedRecipe = createAsyncThunk(
       .then((data) => {
         return data;
       });
-  },
+  }
 );
 
 export const selectCreateRecipe = (state: RootState) => state.createRecipe;

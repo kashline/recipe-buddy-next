@@ -7,9 +7,6 @@ import RecipeIngredient from "./models/RecipeIngredient";
 import RecipeStep from "./models/RecipeStep";
 import UserRecipe from "./models/UserRecipe";
 
-// Should make this a frontend option
-// const itemsPerPage = 10;
-
 export default async function GetRecipe(props?: URLSearchParams) {
   try {
     const session = await getSession();
