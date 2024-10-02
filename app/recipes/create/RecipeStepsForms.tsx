@@ -23,7 +23,7 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { DraggableStep } from "./DraggableStep";
+import DraggableStep from "./DraggableStep";
 
 export default function RecipeStepsForm() {
   const createRecipe = useAppSelector(selectCreateRecipe);

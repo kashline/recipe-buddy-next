@@ -35,7 +35,7 @@ function RecipeCards(){
   if (recipes.length === 0){
     return(
       <div>
-        <h1>You haven't favorited any recipes yet!</h1>
+        <h1>You haven&apost favorited any recipes yet!</h1>
         <p>You can browse recipes and favorite them or create a new recipe then favorite it.</p>
       </div>
     )

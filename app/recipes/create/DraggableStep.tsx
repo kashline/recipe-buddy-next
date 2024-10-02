@@ -3,7 +3,7 @@ import { Button } from "@mui/base";
 import React, { forwardRef } from "react";
 
 // This should probably be the same component being rendered by RecipeStepsForm
-export const DraggableStep = forwardRef(
+const DraggableStep = forwardRef(
   ({ recipe, ...props }: { recipe: any }, ref: any) => {
     return (
       <div key={recipe.step_number} style={{ background: "white" }}>
@@ -26,3 +26,7 @@ export const DraggableStep = forwardRef(
     );
   }
 );
+
+DraggableStep.displayName = "DraggableStep"
+
+export default DraggableStep
