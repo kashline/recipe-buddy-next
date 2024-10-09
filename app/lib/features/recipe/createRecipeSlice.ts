@@ -1,4 +1,9 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSlice,
+  current,
+  PayloadAction,
+} from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
 import Ingredient from "@/app/data/models/Ingredient";
 import { arrayMove } from "@dnd-kit/sortable";
@@ -53,7 +58,7 @@ export const createRecipeSlice = createSlice({
     },
     setIngredientField: (
       state,
-      action: PayloadAction<{ type: string; index?: number; value?: string }>
+      action: PayloadAction<{ type: string; index?: number; value?: string }>,
     ) => {
       switch (action.payload.type) {
         case "add":
@@ -81,21 +86,24 @@ export const createRecipeSlice = createSlice({
           break;
         default:
           console.error(
-            new Error("Invalid payload type for setIngredientField")
+            new Error("Invalid payload type for setIngredientField"),
           );
           break;
       }
     },
     setStepField: (
       state,
-      action: PayloadAction<{ type: string; index?: number; value?: string }>
+      action: PayloadAction<{ type: string; index?: number; value?: string }>,
     ) => {
       switch (action.payload.type) {
         case "add":
-          state.RecipeSteps.push({
-            step_number: state.RecipeSteps.length + 1,
-            step: "",
-          });
+          state.RecipeSteps = [
+            ...state.RecipeSteps,
+            {
+              step_number: state.RecipeSteps.length + 1,
+              step: "",
+            },
+          ];
           break;
         case "removeAtIndex":
           state.RecipeSteps = state.RecipeSteps.filter((val, index) => {
@@ -110,11 +118,11 @@ export const createRecipeSlice = createSlice({
           break;
         case "setStep":
           state.RecipeSteps[action.payload.index!].step = action.payload.value!;
-          state.RecipeSteps.map((step, index) => {
-            if (step.step_number !== index + 1) {
-              step.step_number = index + 1;
-            }
-          });
+          // state.RecipeSteps.map((step, index) => {
+          //   if (step.step_number !== index + 1) {
+          //     step.step_number = index + 1;
+          //   }
+          // });
           break;
         default:
           console.error(new Error("Invalid payload type for setStepField"));
@@ -122,12 +130,27 @@ export const createRecipeSlice = createSlice({
       }
     },
     setStepNumbers: (state, action) => {
-      state.RecipeSteps = action.payload.items.map((step: any, index: number) => {
+      state.RecipeSteps = action.payload.items.map(
+        (step: any, index: number) => {
+          if (step.step_number !== index + 1) {
+            return { step: step.step, step_number: index + 1 };
+          }
+          return { step: step.step, step_number: step.step_number };
+        },
+      );
+    },
+    rearrangeSteps: (state, action) => {
+      const movedArray = arrayMove(
+        action.payload.items,
+        action.payload.oldIndex,
+        action.payload.newIndex,
+      );
+      state.RecipeSteps = movedArray.map((step: any, index: number) => {
         if (step.step_number !== index + 1) {
-          return ({step: step.step, step_number: index + 1})
+          return { step: step.step, step_number: index + 1 };
         }
-        return ({step: step.step, step_number: step.step_number})
-      })
+        return { step: step.step, step_number: step.step_number };
+      });
     },
   },
   extraReducers(builder) {
@@ -156,6 +179,7 @@ export const {
   setVideo,
   setImage,
   setStepNumbers,
+  rearrangeSteps,
 } = createRecipeSlice.actions;
 
 //Thunks
@@ -163,10 +187,10 @@ export const fetchRecipe = createAsyncThunk(
   "recipes/fetchRecipe",
   async (query: string) => {
     const response: Map<string, Object[]> = new Map(
-      await (await fetch(`/api/recipes?name=${query}`)).json()
+      await (await fetch(`/api/recipes?name=${query}`)).json(),
     );
     return response.get("recipes")![0];
-  }
+  },
 );
 
 export const fetchGeneratedRecipe = createAsyncThunk(
@@ -190,7 +214,7 @@ export const fetchGeneratedRecipe = createAsyncThunk(
       .then((data) => {
         return data;
       });
-  }
+  },
 );
 
 export const selectCreateRecipe = (state: RootState) => state.createRecipe;

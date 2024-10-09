@@ -19,6 +19,8 @@ export default function EditRecipeForm({ query }: { query: string }) {
       dispatch(fetchRecipe(query));
     }
   }, [fetchStatus, dispatch, query, selectRecipe.status]);
-  if(selectRecipe.status === "idle") return <AnimatedLoading name="Recipes"></AnimatedLoading>
-  if(selectRecipe.status === "succeeded") return <CreateRecipeForm></CreateRecipeForm>;
+  if (selectRecipe.status === "idle")
+    return <AnimatedLoading name="Recipes"></AnimatedLoading>;
+  if (selectRecipe.status === "succeeded")
+    return <CreateRecipeForm></CreateRecipeForm>;
 }

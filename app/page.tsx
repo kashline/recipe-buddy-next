@@ -6,7 +6,6 @@ import Link from "next/link";
 export default function Page() {
   const { user, error, isLoading } = useUser();
   if (user !== null && user !== undefined) {
-    console.log(user);
   }
   return (
     <main className="is-preload">

@@ -20,7 +20,6 @@ export default function Page({ params }: { params: { name: string } }) {
   if (isLoading) return <>Loading</>;
   const recipe: any = data[0][1][0];
   const friendlyName = friendifyWords(recipe.name);
-  console.log(data);
   return (
     <div style={{ color: "white" }}>
       <h1

@@ -23,39 +23,44 @@ export default function RecipeStep({
     transition,
   };
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      key={recipe.step_number}
-      {...attributes}
-      {...listeners}
-    >
-      <div>
-        <textarea
-          className="rounded-md"
-          placeholder="Description"
-          value={recipe.step}
-          key={`${recipe.step_number}-text`}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-            dispatch(
-              setStepField({
-                type: "setStep",
-                index: index,
-                value: e.target.value,
-              })
-            );
-          }}
-        ></textarea>
-        <Button
-          style={{ boxShadow: "none" }}
-          key={`${recipe.step_number}-delete`}
-          onClick={() => {
-            dispatch(setStepField({ type: "removeAtIndex", index: index }));
-          }}
-        >
-          <Trashcan></Trashcan>
-        </Button>
+    <div>
+      <p style={{ color: "white" }}>{`${index + 1}`}</p>
+      <div
+        ref={setNodeRef}
+        style={style}
+        key={recipe.step_number}
+        {...attributes}
+        {...listeners}
+        id={String(recipe.step_number)}
+      >
+        <div>
+          <textarea
+            className="rounded-md"
+            placeholder="Description"
+            style={{ color: "white", backgroundColor: "#1e252d" }}
+            value={recipe.step}
+            key={`${recipe.step_number}-text`}
+            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+              dispatch(
+                setStepField({
+                  type: "setStep",
+                  index: index,
+                  value: e.target.value,
+                }),
+              );
+            }}
+          ></textarea>
+        </div>
       </div>
+      <Button
+        style={{ boxShadow: "none" }}
+        key={`${recipe.step_number}-delete`}
+        onClick={() => {
+          dispatch(setStepField({ type: "removeAtIndex", index: index }));
+        }}
+      >
+        <Trashcan style={{ stroke: "white" }}></Trashcan>
+      </Button>
     </div>
   );
 }

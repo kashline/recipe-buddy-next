@@ -12,7 +12,7 @@ import {
 import Input from "@/app/ui/input";
 import "./styles.scss";
 import IngredientsForm from "./IngredientsForm";
-import RecipeStepsForm from "./RecipeStepsForms";
+import RecipeStepsForm from "./RecipeStepsForm";
 import React from "react";
 import RecipeSubmitButton from "@/app/ui/recipesubmitbutton";
 import CancelRecipe from "@/app/ui/popups/cancelrecipe";
@@ -22,18 +22,28 @@ import { usePathname } from "next/navigation";
 export default function CreateRecipeForm() {
   const createRecipe = useAppSelector(selectCreateRecipe);
   const pathName = usePathname();
+  const boxStyle = {
+    border: "solid",
+    padding: "25px",
+    margin: "20px",
+    borderRadius: "0.375rem",
+    borderColor: "#EEE5E9",
+    borderWidth: "1px",
+  };
   return (
-    <div>
+    <div style={{ width: "60%", marginInline: "auto" }}>
       <h1 style={{ textAlign: "center", paddingBottom: 4 }}>
-        <strong style={{ color: "white" }}>
+        <strong style={{ color: "#EEE5E9", fontSize: 45 }}>
           {pathName.includes("edit") ? "Edit Recipe" : "Create Recipe"}
         </strong>
       </h1>
       <div>
-        <div className="top-div">
+        <div className="top-div" style={{ backgroundColor: "inherit" }}>
           <Input setFunction={setName} label="name" required={true}></Input>
           <Input setFunction={setVideo} label="video" required={true}></Input>
-          <div style={{ display: "flex" }}>
+          <div
+            style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+          >
             <Dropdown
               options={["Very Short", "Short", "Medium", "Long", "Very Long"]}
               placeholder={
@@ -57,21 +67,25 @@ export default function CreateRecipeForm() {
           </div>
         </div>
         <div className="form-div">
-          <div className="left-div">
-            <div className="text-center">
+          <div style={boxStyle}>
+            <div style={{ textAlign: "center", paddingBottom: "20px" }}>
               <label>
-                <strong>Steps</strong>
-              </label>
-            </div>
-            <RecipeStepsForm></RecipeStepsForm>
-          </div>
-          <div className="right-div">
-            <div className="text-center pb-5">
-              <label>
-                <strong>Ingredients</strong>
+                <strong style={{ color: "#EEE5E9", fontSize: 25 }}>
+                  Ingredients
+                </strong>
               </label>
             </div>
             <IngredientsForm></IngredientsForm>
+          </div>
+          <div style={boxStyle}>
+            <div className="text-center">
+              <label>
+                <strong style={{ color: "#EEE5E9", fontSize: 25 }}>
+                  Steps
+                </strong>
+              </label>
+            </div>
+            <RecipeStepsForm></RecipeStepsForm>
           </div>
         </div>
       </div>

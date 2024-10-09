@@ -1,4 +1,6 @@
-export default function Trashcan() {
+import "./styles.css";
+
+export default function Trashcan(props?: any) {
   return (
     <div>
       <svg
@@ -6,8 +8,13 @@ export default function Trashcan() {
         fill="none"
         viewBox="0 0 24 24"
         strokeWidth={1.5}
-        stroke="currentColor"
-        className="w-6 h-6"
+        stroke="black"
+        style={{
+          width: "1.5rem",
+          height: "1.5rem",
+          ...props.style,
+        }}
+        className="trashcan"
       >
         <path
           strokeLinecap="round"

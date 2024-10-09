@@ -1,0 +1,4 @@
+.trashcan:hover {
+    stroke: #D64933 !important;
+    transition: 0.2s;
+}

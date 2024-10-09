@@ -32,6 +32,7 @@ export default function Input({
           marginTop: "1rem",
           width: "auto",
           paddingRight: "1rem",
+          color: "#EEE5E9",
         }}
       >
         {required ? `${friendlyLabel}` : friendlyLabel}
@@ -39,12 +40,12 @@ export default function Input({
       <input
         type="text"
         name={label}
-        className="border-solid border-2 border-black rounded-lg w-10/12"
         style={{
           border: "solid",
           borderWidth: "2",
-          borderColor: "gray",
+          borderColor: "#EEE5E9",
           borderRadius: "10px",
+          color: "white",
         }}
         onInput={(e: React.FormEvent<HTMLInputElement>) => {
           dispatch(setFunction((e.target as HTMLInputElement).value));
