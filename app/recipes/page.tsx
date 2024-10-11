@@ -12,6 +12,7 @@ export default function Page() {
   return (
     // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
     <Suspense>
+      <FilterDropdown></FilterDropdown>
       <RecipeCards />
     </Suspense>
   );
@@ -34,8 +35,7 @@ function RecipeCards() {
   const totalPages =
     Math.ceil(recipeCount / 12) === 0 ? 1 : Math.ceil(recipeCount / 12);
   return (
-    <Suspense>
-      <FilterDropdown></FilterDropdown>
+    <div>
       <RecipeGrid data={recipes}></RecipeGrid>
       <div
         style={{
@@ -46,6 +46,6 @@ function RecipeCards() {
       >
         <Pagination totalPages={totalPages} />
       </div>
-    </Suspense>
+    </div>
   );
 }

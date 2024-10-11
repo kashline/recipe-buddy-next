@@ -11,6 +11,7 @@ export default function RecipeCard({ data }: { data: any }) {
   const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
   return (
+    <div className="border">
     <Card
       sx={{
         width: "20rem",
@@ -29,6 +30,7 @@ export default function RecipeCard({ data }: { data: any }) {
           router.push(`/recipes/${data.name}`);
         }}
       >
+        
         <Image
           height={0}
           width={0}
@@ -83,5 +85,6 @@ export default function RecipeCard({ data }: { data: any }) {
         </CardContent>
       </CardActionArea>
     </Card>
+    </div>
   );
 }

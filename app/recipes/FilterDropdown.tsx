@@ -6,6 +6,7 @@ import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function FilterDropdown() {
   const [toggle, setToggle] = React.useState(false);
+  console.log(toggle)
   return (
     <div style={{ width: "100%", margin: "auto" }}>
       <button
