@@ -27,7 +27,7 @@ export default function IngredientsForm() {
         type: "setName",
         index: index,
         value: query,
-      }),
+      })
     );
     setIsLoading(true);
     fetch(`/api/recipes/ingredients?name=${query}`)
@@ -36,6 +36,15 @@ export default function IngredientsForm() {
         setIngredients(data);
         setIsLoading(false);
       });
+  };
+  const handleMenuClick = (query: string, index: number) => {
+    dispatch(
+      setIngredientField({
+        type: "setName",
+        index: index,
+        value: query,
+      })
+    );
   };
   if (selectRecipe.status === "loading")
     return <AnimatedLoading name="Ingredient"></AnimatedLoading>;
@@ -80,7 +89,6 @@ export default function IngredientsForm() {
               <div
                 key={`ingredient-container-${index}`}
                 style={{
-                  // backgroundColor: "inherit",
                   display: "flex",
                   borderRadius: "25px",
                   maxWidth: "fit-content",
@@ -125,27 +133,31 @@ export default function IngredientsForm() {
                         delete menuProps.newSelectionPrefix,
                         (
                           <Menu style={{}} {...menuProps}>
-                            {results.map(
-                              (result, index) => (
-                                console.log(typeof result),
-                                (
-                                  <div
-                                    style={{ width: "100%" }}
-                                    key={`ingredient-menuitem-${index}`}
-                                  >
-                                    <MenuItem
-                                      style={{}}
-                                      option={result}
-                                      position={index}
+                            {results.map((result, innerIndex) => (
+                              <div
+                                style={{ width: "100%" }}
+                                key={`ingredient-menuitem-${innerIndex}`}
+                              >
+                                <MenuItem
+                                  style={{}}
+                                  option={result}
+                                  position={innerIndex}
+                                  onClick={(
+                                    item: React.MouseEvent<
+                                      HTMLAnchorElement,
+                                      MouseEvent
                                     >
-                                      {typeof result === "string"
-                                        ? String(result)
-                                        : String(result.label)}
-                                    </MenuItem>
-                                  </div>
-                                )
-                              ),
-                            )}
+                                  ) => {
+                                    const target = item.target as HTMLElement;
+                                    handleMenuClick(target.innerText, index);
+                                  }}
+                                >
+                                  {typeof result === "string"
+                                    ? String(result)
+                                    : String(result.label)}
+                                </MenuItem>
+                              </div>
+                            ))}
                           </Menu>
                         )
                       )
@@ -196,7 +208,7 @@ export default function IngredientsForm() {
                           type: "setQuantity",
                           index: index,
                           value: (e.target as HTMLInputElement).value,
-                        }),
+                        })
                       );
                     }}
                   />
@@ -222,7 +234,7 @@ export default function IngredientsForm() {
                         setIngredientField({
                           type: "removeAtIndex",
                           index: index,
-                        }),
+                        })
                       );
                     }}
                   >

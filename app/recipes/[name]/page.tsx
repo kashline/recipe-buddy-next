@@ -4,7 +4,7 @@ import friendifyWords from "@/app/lib/utils/wordfriendifier";
 import { unstable_noStore as noStore } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import RecipeOptions from "./recipeoptions";
 import "./styles.css";
 
@@ -36,7 +36,6 @@ export default function Page({ params }: { params: { name: string } }) {
         style={{
           display: "flex",
           justifyContent: "center",
-          // alignItems: 'center',
           flexDirection: "row",
         }}
       >

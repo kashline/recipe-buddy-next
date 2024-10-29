@@ -12,7 +12,6 @@ import TopNav from "./ui/topnav";
 import * as React from "react";
 import UserMetadata from "./UserMetadata";
 import { ToastContainer } from "react-toastify";
-// import '../styles/assets/css/fontawesome-all.min.css'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -59,7 +58,6 @@ export default function RootLayout({
                 draggable
                 pauseOnHover
                 theme="light"
-                // transition="Bounce"
               />
             </body>
           </UserMetadata>

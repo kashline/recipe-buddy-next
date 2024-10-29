@@ -42,7 +42,7 @@ export default function CreateRecipeForm() {
           <Input setFunction={setName} label="name" required={true}></Input>
           <Input setFunction={setVideo} label="video" required={true}></Input>
           <div
-            style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
+            style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
           >
             <Dropdown
               options={["Very Short", "Short", "Medium", "Long", "Very Long"]}
@@ -83,15 +83,16 @@ export default function CreateRecipeForm() {
                 <strong style={{ color: "#EEE5E9", fontSize: 25 }}>
                   Steps
                 </strong>
+                <p style={{ color: '#EEE5E9', textAlign: 'center' }}>Click and drag descriptions to re-order steps!</p>
               </label>
             </div>
             <RecipeStepsForm></RecipeStepsForm>
           </div>
+          <div style={{ display: "flex", width: "auto", paddingBottom: '20px'}}>
+            <RecipeSubmitButton></RecipeSubmitButton>
+            <CancelRecipe></CancelRecipe>
+          </div>
         </div>
-      </div>
-      <div style={{ display: "flex", width: "auto" }}>
-        <RecipeSubmitButton></RecipeSubmitButton>
-        <CancelRecipe></CancelRecipe>
       </div>
     </div>
   );

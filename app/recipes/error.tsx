@@ -25,7 +25,7 @@ export default function Error({
           There was an error loading recipes!
         </strong>
       </h2>
-      <h2 className="py-6">Please try again</h2>
+      <h2 className="py-6" style={{ color: '#EEE5E9' }}>Please try again</h2>
       <Button
         onClick={() => {
           router.replace(pathName);
