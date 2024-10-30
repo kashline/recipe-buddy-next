@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { lusitana } from "./ui/fonts";
 import Login from "./ui/login";
 
 export default function DefaultSidebar() {
@@ -7,12 +6,12 @@ export default function DefaultSidebar() {
     <>
       <div>
         <p
-          className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
+          className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}
         >
           <strong>Welcome to your new cooking assistant!</strong>
         </p>
         <p
-          className={`${lusitana.className} text-xl text-gray-800 md:text-2xl md:leading-normal`}
+          className={`text-xl text-gray-800 md:text-2xl md:leading-normal`}
         >
           RecipeBuddy helps you manage your recipes and even create new ones!
         </p>

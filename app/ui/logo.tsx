@@ -1,11 +1,10 @@
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import { lusitana } from "./fonts";
 import Image from "next/image";
 
 export default function Logo() {
   return (
     <div
-      className={`${lusitana.className} flex-column items-center leading-none text-white`}
+      className={`flex-column items-center leading-none text-white`}
     >
       <Image
         src={"/chef-icon.png"}

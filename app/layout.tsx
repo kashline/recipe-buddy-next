@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import "../styles/assets/css/main.css";
 import "../styles/assets/css/noscript.css";
@@ -12,8 +11,6 @@ import TopNav from "./ui/topnav";
 import * as React from "react";
 import UserMetadata from "./UserMetadata";
 import { ToastContainer } from "react-toastify";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "RecipeBuddy",
@@ -32,7 +29,7 @@ export default function RootLayout({
           <UserMetadata>
             <SpeedInsights></SpeedInsights>
             <Analytics></Analytics>
-            <body className={inter.className}>
+            <body>
               <div>
                 <DefaultTopbar />
                 <TopNav></TopNav>

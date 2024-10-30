@@ -1,6 +1,5 @@
 "use client";
 
-import { lusitana } from "./fonts";
 import ProfileButton from "./profilebutton";
 import { useRouter } from "next/navigation";
 
@@ -22,7 +21,7 @@ export default function DefaultTopbar() {
             router.push("/");
           }}
         >
-          <p style={{ fontSize: "100%", color: "white", ...lusitana.style }}>
+          <p style={{ fontSize: "100%", color: "white"}}>
             Recipe Buddy
           </p>
         </button>

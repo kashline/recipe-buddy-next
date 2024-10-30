@@ -3,17 +3,9 @@
  * https://jestjs.io/docs/configuration
  */
 
-import type { Config } from "jest";
-import nextJest from "next/jest.js";
-
-const createJestConfig = nextJest({
-  // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
-  dir: "./",
-});
+import type {Config} from 'jest';
 
 const config: Config = {
-  coverageProvider: "v8",
-  testEnvironment: "jsdom",
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -34,10 +26,7 @@ const config: Config = {
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
-  moduleNameMapper: {
-    // ...
-    "^@/components/(.*)$": "<rootDir>/components/$1",
-  },
+
   // An array of regexp pattern strings used to skip coverage collection
   // coveragePathIgnorePatterns: [
   //   "/node_modules/"
@@ -207,4 +196,4 @@ const config: Config = {
   // watchman: true,
 };
 
-export default createJestConfig(config);
+export default config;

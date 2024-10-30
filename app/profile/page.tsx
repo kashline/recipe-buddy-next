@@ -9,10 +9,10 @@ export default function Page() {
   const { user, error, isLoading } = useUser();
   if (!user) {
     return (
-      <>
+      <div className="text-white">
         Please login to view this page
         <Login></Login>
-      </>
+      </div>
     );
   }
   if (isLoading) return <div>Logging you in...</div>;
@@ -20,9 +20,8 @@ export default function Page() {
     return <div>{error.message}</div>;
   }
   return (
-    <div style={{ textAlign: "center" }}>
-      <p>Welcome {user?.name}</p>
-      <div>
+    <div style={{ textAlign: "center", display: 'flex' }}>
+      <div className="w-full">
         <Image
           src={`${user?.picture}` || "/chef-icon.png"}
           style={{
@@ -30,6 +29,7 @@ export default function Page() {
             marginRight: 0,
             marginTop: 0,
             marginBottom: "auto",
+            float: 'right'
           }}
           width={100}
           height={100}
@@ -44,8 +44,10 @@ export default function Page() {
           gap: "1rem",
         }}
       >
-        <ProfileSidebar></ProfileSidebar>
+        
+        {/* <ProfileSidebar></ProfileSidebar> */}
       </div>
+      
     </div>
   );
 }

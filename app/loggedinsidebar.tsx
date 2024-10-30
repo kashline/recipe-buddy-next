@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { lusitana } from "./ui/fonts";
 import LoginLoading from "./ui/loginloading";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Logout from "./ui/logout";
@@ -21,7 +20,7 @@ export default function LoggedinSidebar() {
     <>
       <div>
         <p
-          className={`${lusitana.className} text-xl text-gray-800 md:text-3xl md:leading-normal`}
+          className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}
         >
           <strong>Welcome {user!.name}!</strong>
         </p>
