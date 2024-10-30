@@ -28,7 +28,6 @@ export default function RootLayout({
         <StoreProvider>
           <UserMetadata>
             <SpeedInsights></SpeedInsights>
-            <Analytics></Analytics>
             <body>
               <div>
                 <DefaultTopbar />
@@ -43,6 +42,7 @@ export default function RootLayout({
                 }}
               >
                 {children}
+                <Analytics/>
               </div>
               <ToastContainer
                 position="bottom-left"
