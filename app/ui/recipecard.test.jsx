@@ -12,7 +12,7 @@ jest.mock("next/navigation", () => ({
 
 describe("RecipeCard", () => {
   it("renders a recipe card", () => {
-    render(<RecipeCard data={{
+    const component = render(<RecipeCard data={{
         name: "15-minute chicken & halloumi burgers",
         difficulty: 'medium',
         id: 259,
@@ -20,5 +20,6 @@ describe("RecipeCard", () => {
         video: 'false',
         image: 'https://www.themealdb.com/images/media/meals/vdwloy1713225718.jpg'
     }}/>);
+    expect(component).toMatchSnapshot()
   });
 });
