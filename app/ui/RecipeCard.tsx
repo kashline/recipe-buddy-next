@@ -6,8 +6,9 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import chefImage from "../../public/chef-icon.png";
 import { useState } from "react";
+import { RecipeZype } from "../lib/data/zodels/Recipe";
 
-export default function RecipeCard({ data }: { data: any }) {
+export default function RecipeCard({ data }: { data: RecipeZype }) {
   const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
   return (
@@ -70,6 +71,7 @@ export default function RecipeCard({ data }: { data: any }) {
           }}
         >
           <span
+            className="recipeName"
             style={{
               wordWrap: "break-word",
               whiteSpace: "pre-line",

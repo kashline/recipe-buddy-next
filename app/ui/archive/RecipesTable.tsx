@@ -1,9 +1,9 @@
 "use client";
 
-import Pagination from "../ui/pagination";
+import Pagination from "../pagination";
 import TableRow from "./TableRow";
 import useSWR from "swr";
-import AnimatedLoading from "../ui/loading/animatedloading";
+import AnimatedLoading from "../loading/animatedloading";
 
 export default function RecipesTable({ query }: { query: string }) {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());

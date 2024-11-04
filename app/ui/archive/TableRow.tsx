@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import friendifyWords from "../lib/utils/wordfriendifier";
+import friendifyWords from "../../lib/utils/wordfriendifier";
 import "./TableRow.scss";
 
 export default function TableRow({
