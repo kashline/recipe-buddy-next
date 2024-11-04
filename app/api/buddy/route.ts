@@ -15,7 +15,7 @@ const formatMessage = (message: VercelChatMessage) => {
 
 const TEMPLATE = gordonRamsay.instructions;
 
-export const POST = withApiAuthRequired(async (req: Request) => {
+export const POST = withApiAuthRequired(async (req: Request): Promise<NextResponse> => {
   try {
     const body = await req.json();
     const messages = body.messages ?? [];
@@ -33,7 +33,7 @@ export const POST = withApiAuthRequired(async (req: Request) => {
       input: currentMessageContent,
     });
     // Not sure what's happening here, streamText doesn't appear to have toDataStreamResponse function on it.  The deprecated StreamingTextReponse is currently working.
-    return new StreamingTextResponse(stream);
+    return new NextResponse(stream);
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: e.status ?? 500 });
   }
