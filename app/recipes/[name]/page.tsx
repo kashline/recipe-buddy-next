@@ -7,6 +7,7 @@ import Link from "next/link";
 import useSWR from "swr";
 import RecipeOptions from "./recipeoptions";
 import "./styles.css";
+import AnimatedLoading from "@/app/ui/loading/animatedloading";
 
 export default function Page({ params }: { params: { name: string } }) {
   noStore();
@@ -17,7 +18,7 @@ export default function Page({ params }: { params: { name: string } }) {
   );
   if (error)
     return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
-  if (isLoading) return <>Loading</>;
+  if (isLoading) return <AnimatedLoading name="recipe"/>
   const recipe: any = data[0][1][0];
   const friendlyName = friendifyWords(recipe.name);
   return (
@@ -181,7 +182,7 @@ export default function Page({ params }: { params: { name: string } }) {
                 }}
               >
                 <td style={{ textAlign: "center" }} colSpan={100}>
-                  <Link href={recipe.video} style={{ color: "white" }}>
+                  <Link href={recipe.video !== null ? recipe.video : ''} style={{ color: "white" }}>
                     Instructional Video Link
                   </Link>
                 </td>
