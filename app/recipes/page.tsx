@@ -31,7 +31,6 @@ function RecipeCards() {
     return <>no data</>;
   }
   const recipes: any = data[0][1];
-  console.log(data)
   const recipeCount = Number(data[1][1]);
   const totalPages =
     Math.ceil(recipeCount / 12) === 0 ? 1 : Math.ceil(recipeCount / 12);

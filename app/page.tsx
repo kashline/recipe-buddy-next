@@ -21,7 +21,7 @@ export default function Page() {
           <div
             style={{
               backgroundColor: "rgba(255, 255, 255, 0.5)",
-              width: 10000,
+              maxWidth: '100vw'
             }}
           >
             <h1

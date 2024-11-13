@@ -1,10 +1,10 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import React from "react";
 
 export default function TopNav() {
   const pathName = usePathname();
-  const recipesRegex = new RegExp("/recipes*");
   return (
     <div>
       <nav style={{ marginTop: "0px" }} id={"nav"}>
@@ -12,7 +12,7 @@ export default function TopNav() {
           <li className={pathName === "/" ? "active" : ""}>
             <a href="/">Home</a>
           </li>
-          <li className={pathName === "/recipes" ? "active" : ""} style={{}}>
+          <li className={pathName === "/recipes" ? "active" : ""}>
             <a href="/recipes">Browse Recipes</a>
           </li>
           <li className={pathName === "/recipes/create" ? "active" : ""}>

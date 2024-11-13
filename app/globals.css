@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --portrait: 480px;
+  --mobileLandscape: 600px;
+  --tabletLandscape: 1024px;
+  --laptop: 1280px;
+  --desktop: 1440px;
+}
+
 input[type='number'] {
   -moz-appearance: textfield;
   appearance: textfield;
