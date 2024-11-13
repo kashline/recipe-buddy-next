@@ -12,11 +12,11 @@ export default function ProfileButton() {
   const profileSlice = useAppSelector(selectProfileSlice);
   const dispatch = useAppDispatch();
   const { user, error, isLoading } = useUser();
-  const [profileDropdown, setProfileDropdown] = React.useState(false);
-  const contextValue = {
-    profileDropdown,
-    setProfileDropdown,
-  };
+  // const [profileDropdown, setProfileDropdown] = React.useState(false);
+  // const contextValue = {
+  //   profileDropdown,
+  //   setProfileDropdown,
+  // };
   return (
     <>
       {profileSlice.toggle && <ProfileDropdown></ProfileDropdown>}
@@ -50,16 +50,15 @@ export default function ProfileButton() {
         {!user && (
           <svg
             style={{
-              height: 40,
-              width: 40,
               backgroundColor: "black",
             }}
+            height={40}
+            width={40}
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="gray"
-            className="size-6"
           >
             <path
               strokeLinecap="round"
