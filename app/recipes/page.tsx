@@ -12,7 +12,7 @@ export default function Page() {
   return (
     // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
     <Suspense>
-      <FilterDropdown></FilterDropdown>
+      <FilterDropdown />
       <RecipeCards />
     </Suspense>
   );
@@ -23,7 +23,7 @@ function RecipeCards() {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes?${searchParams.toString()}&recipesPerPage=12`,
-    fetcher,
+    fetcher
   );
   if (error) return <div>ERROR</div>;
   if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;

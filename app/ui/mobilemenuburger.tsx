@@ -36,7 +36,7 @@ export default function MobileMenuBurger() {
     );
   } else {
     return (
-      <div className="float-left relative">
+      <div className="float-left relative transition-all ease-in duration-1000 left-0">
         <button
           onClick={handleClick}
           className="px-0 hover:shadow-none py-0 shadow-none float-right"
@@ -44,7 +44,7 @@ export default function MobileMenuBurger() {
           <BurgerMenu />
         </button>
         <div
-          className="text-lavendar-blush ml-0.5 w-9 h-full z-50 absolute transition-transform ease-in duration-1000"
+          className="text-lavendar-blush ml-0.5 w-9 h-full z-50 absolute"
           ref={wrapperRef}
         >
           <button

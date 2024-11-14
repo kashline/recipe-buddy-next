@@ -18,10 +18,12 @@ import RecipeSubmitButton from "@/app/ui/recipesubmitbutton";
 import CancelRecipe from "@/app/ui/popups/cancelrecipe";
 import { useAppSelector } from "@/app/lib/hooks";
 import { usePathname } from "next/navigation";
+import useResponsiveBreakpoints from "@/app/lib/utils/useResponsiveBreakpoints";
 
 export default function CreateRecipeForm() {
   const createRecipe = useAppSelector(selectCreateRecipe);
   const pathName = usePathname();
+  const [isMobile, isPortrait] = useResponsiveBreakpoints()
   const boxStyle = {
     border: "solid",
     padding: "25px",
@@ -31,7 +33,7 @@ export default function CreateRecipeForm() {
     borderWidth: "1px",
   };
   return (
-    <div style={{ width: "60%", marginInline: "auto" }}>
+    <div style={{ width: `${isMobile ? '100%' : '60%'}`, marginInline: "auto" }}>
       <h1 style={{ textAlign: "center", paddingBottom: 4 }}>
         <strong style={{ color: "#EEE5E9", fontSize: 45 }}>
           {pathName.includes("edit") ? "Edit Recipe" : "Create Recipe"}
