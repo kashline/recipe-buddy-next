@@ -101,7 +101,7 @@ exports[`MobileMenuBurger renders the mobile menu burger 1`] = `
           </div>
         </button>
         <div
-          class="text-lavendar-blush z-50 absolute bg-gunmetal w-64 h-screen transition-all ease-in duration-300 -left-64"
+          class="text-lavendar-blush z-50 absolute bg-gunmetal w-64 h-dvh transition-all ease-in duration-300 -left-64"
         >
           <button
             class="px-0 hover:shadow-none py-0 shadow-none"
@@ -374,7 +374,7 @@ exports[`MobileMenuBurger renders the mobile menu burger 1`] = `
         </div>
       </button>
       <div
-        class="text-lavendar-blush z-50 absolute bg-gunmetal w-64 h-screen transition-all ease-in duration-300 -left-64"
+        class="text-lavendar-blush z-50 absolute bg-gunmetal w-64 h-dvh transition-all ease-in duration-300 -left-64"
       >
         <button
           class="px-0 hover:shadow-none py-0 shadow-none"
