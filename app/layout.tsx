@@ -11,7 +11,6 @@ import TopNav from "./ui/topnav";
 import * as React from "react";
 import UserMetadata from "./UserMetadata";
 import { ToastContainer } from "react-toastify";
-import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "RecipeBuddy",
@@ -61,7 +60,6 @@ export default function RootLayout({
           </UserMetadata>
         </StoreProvider>
       </UserProvider>
-
     </html>
   );
 }

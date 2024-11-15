@@ -31,7 +31,7 @@ export default function DefaultTopbar() {
         </button>
       </div>
       <div style={{ paddingLeft: "" }}>
-        <ProfileButton></ProfileButton>
+        <ProfileButton/>
       </div>
     </div>
   );

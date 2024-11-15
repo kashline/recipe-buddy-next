@@ -1,10 +1,17 @@
 import "@testing-library/jest-dom";
 import MobileMenuBurger from "./mobilemenuburger";
-import { render } from "@testing-library/react";
+import { render, act } from "@testing-library/react";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 describe("MobileMenuBurger", () => {
-  it("renders a recipe card", () => {
-    const component = render(<MobileMenuBurger/>);
-    expect(component).toMatchSnapshot()
+  it("renders the mobile menu burger", async () => {
+    const component = await act(async () =>
+      render(
+        <UserProvider>
+          <MobileMenuBurger />
+        </UserProvider>
+      )
+    );
+    expect(component).toMatchSnapshot();
   });
 });

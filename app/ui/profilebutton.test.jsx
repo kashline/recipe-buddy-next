@@ -6,13 +6,15 @@ import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 describe("ProfileButton", () => {
   it("renders a profile button", async () => {
-    const component = await act(async () => render(
-      <UserProvider>
-        <StoreProvider>
-          <ProfileButton />
-        </StoreProvider>
-      </UserProvider>
-    ));
+    const component = await act(async () =>
+      render(
+        <UserProvider>
+          <StoreProvider>
+            <ProfileButton />
+          </StoreProvider>
+        </UserProvider>
+      )
+    );
     expect(component).toMatchSnapshot();
   });
 });

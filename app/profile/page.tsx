@@ -2,7 +2,6 @@
 
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Image from "next/image";
-import ProfileSidebar from "./profilesidebar";
 import Login from "../ui/login";
 
 export default function Page() {
