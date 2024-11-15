@@ -24,6 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <UserProvider>
         <StoreProvider>
           <UserMetadata>
@@ -42,7 +45,7 @@ export default function RootLayout({
                 }}
               >
                 {children}
-                <Analytics/>
+                <Analytics />
               </div>
               <ToastContainer
                 position="bottom-left"
