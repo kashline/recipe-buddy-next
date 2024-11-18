@@ -2,6 +2,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useState } from "react";
 import notificationOnClick from "./notificationOnClick";
+import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
 
 export default function FavoriteButton({
   recipeId,
@@ -12,6 +13,7 @@ export default function FavoriteButton({
 }) {
   const { user, error, isLoading } = useUser();
   const [favorite, setFavorite] = useState(favorited);
+  const [isMobile, isPortrait] = useResponsiveBreakpoints()
   if (isLoading) return <h1>Loading...</h1>;
   if (error)
     return <Link href={`/api/auth/login`}>Error! Please try again</Link>;

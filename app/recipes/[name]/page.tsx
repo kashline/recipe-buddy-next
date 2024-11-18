@@ -8,9 +8,11 @@ import useSWR from "swr";
 import RecipeOptions from "./recipeoptions";
 import "./styles.css";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";
+import useResponsiveBreakpoints from "@/app/lib/utils/useResponsiveBreakpoints";
 
 export default function Page({ params }: { params: { name: string } }) {
   noStore();
+  const [isMobile, isPortrait] = useResponsiveBreakpoints()
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes?name=${params.name}`,
