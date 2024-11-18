@@ -7,61 +7,64 @@ import Image from "next/image";
 import chefImage from "../../public/chef-icon.png";
 import { useState } from "react";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
+import FavoriteButton from "./FavoriteButton";
 
 export default function RecipeCard({ data }: { data: RecipeZype }) {
   const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
+  const favorited =
+    "UserRecipes" in data && data.UserRecipes.length === 1 ? true : false;
   return (
     <div className="border">
-    <Card
-      sx={{
-        width: "20rem",
-        height: "25rem",
-        verticalAlign: "top",
-        backgroundColor: "black",
-      }}
-    >
-      <CardActionArea
+      <Card
         sx={{
-          height: "100%",
           width: "20rem",
-          border: "none",
-        }}
-        onClick={() => {
-          router.push(`/recipes/${data.name}`);
+          height: "25rem",
+          verticalAlign: "top",
+          backgroundColor: "black",
         }}
       >
-        
-        <Image
-          height={0}
-          width={0}
-          src={data.image || chefImage}
-          alt="tasty food"
-          sizes="100vw"
-          onLoad={() => {
-            setImageLoaded(true);
-          }}
-          style={{
-            padding: 0,
-            height: "80%",
-            width: "99%",
-            marginLeft: "auto",
-            marginRight: "auto",
-            opacity: imageLoaded ? 1 : 0,
-          }}
-        />
-        <CircularProgress
+        <CardActionArea
           sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%) !important",
-            opacity: !imageLoaded ? 1 : 0,
-            transitionDuration: "500ms",
-            transitionProperty: "opacity",
-            transitionTimingFunction: "ease-out",
+            height: "80%",
+            width: "20rem",
+            border: "none",
           }}
-        ></CircularProgress>
+          onClick={() => {
+            router.push(`/recipes/${data.name}`);
+          }}
+        >
+          <Image
+            height={0}
+            width={0}
+            src={data.image || chefImage}
+            alt="tasty food"
+            sizes="100vw"
+            onLoad={() => {
+              setImageLoaded(true);
+            }}
+            style={{
+              padding: 0,
+              height: "100%",
+              width: "99%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              opacity: imageLoaded ? 1 : 0,
+            }}
+          />
+          <CircularProgress
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%) !important",
+              opacity: !imageLoaded ? 1 : 0,
+              transitionDuration: "500ms",
+              transitionProperty: "opacity",
+              transitionTimingFunction: "ease-out",
+            }}
+          ></CircularProgress>
+        </CardActionArea>
         <CardContent
           sx={{
             textAlign: "center",
@@ -70,23 +73,24 @@ export default function RecipeCard({ data }: { data: RecipeZype }) {
             height: "20%",
           }}
         >
-          <span
-            className="recipeName"
+          <div
+            className="line-clamp-2"
             style={{
               wordWrap: "break-word",
               whiteSpace: "pre-line",
               textAlign: "center",
               width: "100%",
+              height: "80%",
               wordSpacing: "normal",
               letterSpacing: "normal",
               color: "white",
             }}
           >
             {data.name}
-          </span>
+          </div>
+          <FavoriteButton recipeId={data.id!} favorited={favorited} />
         </CardContent>
-      </CardActionArea>
-    </Card>
+      </Card>
     </div>
   );
 }

@@ -36,6 +36,8 @@
     "ai": "^3.3.6",
     "bootstrap": "^5.3.3",
     "clsx": "^2.1.0",
+    "flowbite": "^2.5.2",
+    "flowbite-react": "^0.10.2",
     "jose": "^5.3.0",
     "jquery": "^3.7.1",
     "langchain": "^0.2.18",

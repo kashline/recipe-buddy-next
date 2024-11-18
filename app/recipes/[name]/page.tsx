@@ -14,13 +14,17 @@ export default function Page({ params }: { params: { name: string } }) {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes?name=${params.name}`,
-    fetcher,
+    fetcher
   );
   if (error)
     return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
-  if (isLoading) return <AnimatedLoading name="recipe"/>
+  if (isLoading) return <AnimatedLoading name="recipe" />;
   const recipe: any = data[0][1][0];
   const friendlyName = friendifyWords(recipe.name);
+  const favorited =
+    "UserRecipes" in data[0][1][0] && data[0][1][0].UserRecipes.length === 1
+      ? true
+      : false;
   return (
     <div style={{ color: "white" }}>
       <h1
@@ -97,15 +101,7 @@ export default function Page({ params }: { params: { name: string } }) {
             alignItems: "right",
           }}
         >
-          <RecipeOptions
-            recipeId={Number(recipe.id)}
-            favorited={
-              "UserRecipes" in data[0][1][0] &&
-              data[0][1][0].UserRecipes.length === 1
-                ? true
-                : false
-            }
-          ></RecipeOptions>
+          <RecipeOptions recipeId={Number(recipe.id)} favorited={favorited} />
           <div
             style={{
               position: "relative",
@@ -182,7 +178,10 @@ export default function Page({ params }: { params: { name: string } }) {
                 }}
               >
                 <td style={{ textAlign: "center" }} colSpan={100}>
-                  <Link href={recipe.video !== null ? recipe.video : ''} style={{ color: "white" }}>
+                  <Link
+                    href={recipe.video !== null ? recipe.video : ""}
+                    style={{ color: "white" }}
+                  >
                     Instructional Video Link
                   </Link>
                 </td>

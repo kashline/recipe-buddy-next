@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { UserRecipeZodel } from "./UserRecipeZodel";
 
 export const RecipeIngredientZodel = z.object({
   id: z.number().optional(),
@@ -51,6 +52,7 @@ export const RecipeZodel = z.object({
       };
     }),
   ),
+  UserRecipes: z.array(UserRecipeZodel)
 });
 
 export type RecipeZype = z.infer<typeof RecipeZodel>;

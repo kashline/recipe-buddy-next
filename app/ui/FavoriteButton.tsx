@@ -28,9 +28,10 @@ export default function FavoriteButton({
         justifyContent: "center",
         alignItems: "center",
       }}
+      className="relative"
     >
       <button
-        style={{}}
+        className="shadow-none w-fit h-fit px-0"
         onClick={() => {
           fetch(`/api/favorite/add`, {
             method: "POST",
@@ -43,24 +44,33 @@ export default function FavoriteButton({
               } else {
                 notificationOnClick(
                   "success",
-                  `Removed recipe from favorites!`,
+                  `Removed recipe from favorites!`
                 );
               }
             } else {
               notificationOnClick(
                 `error`,
-                `There was an error adding recipe to favorites.  Please try again later.`,
+                `There was an error adding recipe to favorites.  Please try again later.`
               );
             }
           });
         }}
       >
         <svg
-          style={{ height: "75%", width: "75%" }}
+          style={{ height: "25px", width: "25px" }}
           viewBox="0 0 24 24"
           fill={favorite ? "yellow" : "none"}
           xmlns="http://www.w3.org/2000/svg"
+          data-tooltip-target="tooltip"
         >
+          <div
+            id="tooltip"
+            role="tooltip"
+            className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+          >
+            Favorite
+            <div className="tooltip-arrow" data-popper-arrow></div>
+          </div>
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g
             id="SVGRepo_tracerCarrier"
