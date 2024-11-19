@@ -37,7 +37,7 @@ export default function MobileMenuBurger() {
         <BurgerMenu />
       </button>
       <div
-        className={`text-lavendar-blush fixed z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-300 ${!menuToggle ? "-left-64" : "left-0"}`}
+        className={`text-lavendar-blush fixed z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-200 ${!menuToggle ? "-left-64" : "left-0"}`}
         ref={wrapperRef}
       >
         <button
