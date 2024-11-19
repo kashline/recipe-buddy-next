@@ -12,6 +12,7 @@ export default function Page() {
   return (
     // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
     <Suspense>
+      <h1 className="text-lavendar-blush text-4xl text-center">My Recipes</h1>
       <RecipeCards />
     </Suspense>
   );
