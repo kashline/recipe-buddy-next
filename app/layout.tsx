@@ -27,13 +27,14 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <UserProvider>
         <StoreProvider>
           <UserMetadata>
             <SpeedInsights></SpeedInsights>
             <body>
-              <Script src="../node_modules/flowbite/dist/flowbite.min.js"></Script>
+              {/* <Script src="../node_modules/flowbite/dist/flowbite.min.js"></Script> */}
               <div>
                 <DefaultTopbar />
                 <TopNav></TopNav>
