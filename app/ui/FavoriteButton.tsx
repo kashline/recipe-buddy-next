@@ -7,9 +7,11 @@ import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
 export default function FavoriteButton({
   recipeId,
   favorited,
+  recipeName,
 }: {
   recipeId: number;
   favorited: boolean;
+  recipeName: string;
 }) {
   const { user, error, isLoading } = useUser();
   const [favorite, setFavorite] = useState(favorited);
@@ -42,17 +44,17 @@ export default function FavoriteButton({
             if (res.status === 200) {
               setFavorite(!favorite);
               if (!favorite) {
-                notificationOnClick("success", `Added recipe to favorites!`);
+                notificationOnClick("success", `Added ${recipeName} to favorites!`);
               } else {
                 notificationOnClick(
                   "success",
-                  `Removed recipe from favorites!`
+                  `Removed ${recipeName} from favorites!`
                 );
               }
             } else {
               notificationOnClick(
                 `error`,
-                `There was an error adding recipe to favorites.  Please try again later.`
+                `There was an error adding ${recipeName} to favorites.  Please try again later.`
               );
             }
           });

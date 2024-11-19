@@ -10,9 +10,11 @@ import * as React from "react";
 export default function RecipeOptions({
   recipeId,
   favorited,
+  recipeName,
 }: {
   recipeId: number;
   favorited: boolean;
+  recipeName: string;
 }) {
   const path = usePathname();
   const { user, error, isLoading } = useUser();
@@ -36,7 +38,7 @@ export default function RecipeOptions({
       <Link className="h-fit justify-center align-middle mx-auto" href={`${path}/edit`}>
         <EditIcon/>
       </Link>
-      <FavoriteButton recipeId={recipeId} favorited={favorited} />
+      <FavoriteButton recipeId={recipeId} favorited={favorited} recipeName={recipeName} />
     </div>
   );
 }

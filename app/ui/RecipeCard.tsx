@@ -88,7 +88,7 @@ export default function RecipeCard({ data }: { data: RecipeZype }) {
           >
             {data.name}
           </div>
-          <FavoriteButton recipeId={data.id!} favorited={favorited} />
+          <FavoriteButton recipeId={data.id!} favorited={favorited} recipeName={data.name} />
         </CardContent>
       </Card>
     </div>

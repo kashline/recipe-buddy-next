@@ -7,19 +7,20 @@ export default function notificationOnClick(type: string, message: string) {
     case "info":
       NotificationManager.info(message);
       break;
+    // Providing toastId prevents duplicates
     case "success":
       toast.success(message, {
-        toastId: message,
+        // toastId: message,
       });
       break;
     case "warning":
       toast.warning(message, {
-        toastId: message,
+        // toastId: message,
       });
       break;
     case "error":
       toast.error(message, {
-        toastId: message,
+        // toastId: message,
       });
       break;
   }
