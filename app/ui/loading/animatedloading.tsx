@@ -11,7 +11,7 @@ export default function AnimatedLoading({ name }: { name: string }) {
         height: 1000,
       }}
     >
-      <CircularProgress></CircularProgress>
+      <CircularProgress style={{ paddingRight: "3px" }}></CircularProgress>
       {`Loading ${name}...`}
     </div>
   );

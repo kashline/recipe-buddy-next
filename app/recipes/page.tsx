@@ -25,6 +25,7 @@ function RecipeCards() {
   const searchParams = useSearchParams();
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
+    // Hard coded page number :()
     `/api/recipes?${searchParams.toString()}&recipesPerPage=12`,
     fetcher,
   );
