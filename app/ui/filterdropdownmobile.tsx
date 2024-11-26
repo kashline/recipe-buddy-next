@@ -25,7 +25,7 @@ export default function FilterDropdownMobile() {
   return (
     <div className="relative">
       <div
-        className={`fixed h-full w-full z-20 ${menuToggle ? "pointer-events-none" : ""} mx-[calc((-100vw+100%)/2)]`}
+        className={`fixed h-full w-full z-20 ${!menuToggle ? "pointer-events-none" : ""} mx-[calc((-100vw+100%)/2)]`}
       ></div>
       <div
         className={`fixed z-20 w-[90%] bg-lavendar-blush justify-center items-center flex rounded-t-lg flex-col transition-all ease-in duration-200 ${!menuToggle ? "-bottom-64" : "bottom-0"}`}

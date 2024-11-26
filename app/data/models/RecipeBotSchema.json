@@ -1,0 +1,32 @@
+{
+    "name": "RecipeSchema",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "name": {
+                "description": "The name of the recipe",
+                "type": "string"
+            },
+            "difficulty": {
+                "description": "The difficulty of the recipe from the following easiest to hardest scale: [very easy, easy, medium, hard, very hard]",
+                "type": "string",
+                "enum": ""
+            },
+            "length": {
+                "description": "The length of the recipe from the following shortest to longest scale: [very short, short, medium, short, very short]",
+                "type": ""
+            },
+            "image": {
+                "description": "An image of the recipe. Be as realistic as possible, featuring a traditional setting",
+                "type": "Image????"
+            },
+            "categories": {
+                "description": "An array of categories",
+                "type": "array",
+                "properties": {
+
+                }
+            }
+        }
+    }
+}
