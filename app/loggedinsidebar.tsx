@@ -19,9 +19,7 @@ export default function LoggedinSidebar() {
   return (
     <>
       <div>
-        <p
-          className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}
-        >
+        <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
           <strong>Welcome {user!.name}!</strong>
         </p>
         <p>Here you can create, save, and manage your recipes in one place.</p>

@@ -12,7 +12,9 @@ export default function Page() {
   return (
     // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
     <Suspense>
-      <h1 className="text-lavendar-blush text-4xl text-center">Browse Recipes</h1>
+      <h1 className="text-lavendar-blush text-4xl text-center">
+        Browse Recipes
+      </h1>
       <FilterDropdown />
       <RecipeCards />
     </Suspense>
@@ -24,7 +26,7 @@ function RecipeCards() {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes?${searchParams.toString()}&recipesPerPage=12`,
-    fetcher
+    fetcher,
   );
   if (error) return <div>ERROR</div>;
   if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
@@ -37,7 +39,7 @@ function RecipeCards() {
     Math.ceil(recipeCount / 12) === 0 ? 1 : Math.ceil(recipeCount / 12);
   return (
     <div>
-      <RecipeGrid data={recipes}></RecipeGrid>
+      <RecipeGrid data={recipes} />
       <div
         style={{
           marginLeft: "auto",

@@ -19,7 +19,7 @@ export default function Page() {
     return <div>{error.message}</div>;
   }
   return (
-    <div style={{ textAlign: "center", display: 'flex' }}>
+    <div style={{ textAlign: "center", display: "flex" }}>
       <div className="w-full">
         <Image
           src={`${user?.picture}` || "/chef-icon.png"}
@@ -28,7 +28,7 @@ export default function Page() {
             marginRight: 0,
             marginTop: 0,
             marginBottom: "auto",
-            float: 'right'
+            float: "right",
           }}
           width={100}
           height={100}
@@ -43,10 +43,8 @@ export default function Page() {
           gap: "1rem",
         }}
       >
-        
         {/* <ProfileSidebar></ProfileSidebar> */}
       </div>
-      
     </div>
   );
 }

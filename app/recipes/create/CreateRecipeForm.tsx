@@ -23,7 +23,7 @@ import useResponsiveBreakpoints from "@/app/lib/utils/useResponsiveBreakpoints";
 export default function CreateRecipeForm() {
   const createRecipe = useAppSelector(selectCreateRecipe);
   const pathName = usePathname();
-  const [isMobile, isPortrait] = useResponsiveBreakpoints()
+  const [isMobile, isPortrait] = useResponsiveBreakpoints();
   const boxStyle = {
     border: "solid",
     padding: "25px",
@@ -33,7 +33,9 @@ export default function CreateRecipeForm() {
     borderWidth: "1px",
   };
   return (
-    <div style={{ width: `${isMobile ? '100%' : '60%'}`, marginInline: "auto" }}>
+    <div
+      style={{ width: `${isMobile ? "100%" : "60%"}`, marginInline: "auto" }}
+    >
       <h1 style={{ textAlign: "center", paddingBottom: 4 }}>
         <strong style={{ color: "#EEE5E9", fontSize: 45 }}>
           {pathName.includes("edit") ? "Edit Recipe" : "Create Recipe"}
@@ -44,7 +46,11 @@ export default function CreateRecipeForm() {
           <Input setFunction={setName} label="name" required={true}></Input>
           <Input setFunction={setVideo} label="video" required={true}></Input>
           <div
-            style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flexWrap: "wrap",
+            }}
           >
             <Dropdown
               options={["Very Short", "Short", "Medium", "Long", "Very Long"]}
@@ -85,12 +91,16 @@ export default function CreateRecipeForm() {
                 <strong style={{ color: "#EEE5E9", fontSize: 25 }}>
                   Steps
                 </strong>
-                <p style={{ color: '#EEE5E9', textAlign: 'center' }}>Click and drag descriptions to re-order steps!</p>
+                <p style={{ color: "#EEE5E9", textAlign: "center" }}>
+                  Click and drag descriptions to re-order steps!
+                </p>
               </label>
             </div>
             <RecipeStepsForm></RecipeStepsForm>
           </div>
-          <div style={{ display: "flex", width: "auto", paddingBottom: '20px'}}>
+          <div
+            style={{ display: "flex", width: "auto", paddingBottom: "20px" }}
+          >
             <RecipeSubmitButton></RecipeSubmitButton>
             <CancelRecipe></CancelRecipe>
           </div>

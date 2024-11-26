@@ -21,7 +21,9 @@ export default function ProfileSidebar() {
 
           <strong className="text-white">Welcome {user!.name}!</strong>
         </p>
-        <p className="text-white">Here you can create, save, and manage your recipes in one place.</p>
+        <p className="text-white">
+          Here you can create, save, and manage your recipes in one place.
+        </p>
         {/* <div
           style={{
             display: "flex",

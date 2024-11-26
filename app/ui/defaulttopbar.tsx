@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 
 export default function DefaultTopbar() {
   const router = useRouter();
-  const [isMobile, isPortrait] = useResponsiveBreakpoints()
+  const [isMobile, isPortrait] = useResponsiveBreakpoints();
   return (
     <div style={{ display: "flex" }}>
-      {isMobile && <MobileMenuBurger/>}
+      {isMobile && <MobileMenuBurger />}
       <div
         style={{
           display: "flex",
@@ -25,13 +25,11 @@ export default function DefaultTopbar() {
             router.push("/");
           }}
         >
-          <p style={{ fontSize: "100%", color: "white"}}>
-            Recipe Buddy
-          </p>
+          <p style={{ fontSize: "100%", color: "white" }}>Recipe Buddy</p>
         </button>
       </div>
       <div style={{ paddingLeft: "" }}>
-        <ProfileButton/>
+        <ProfileButton />
       </div>
     </div>
   );

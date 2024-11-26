@@ -13,4 +13,4 @@ export default function useResponsiveBreakpoints() {
     setIsPortrait(initPortrait);
   }, [initMobile, initPortrait]);
   return [isMobile, isPortrait];
-};
+}

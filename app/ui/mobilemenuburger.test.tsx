@@ -9,8 +9,8 @@ describe("MobileMenuBurger", () => {
       render(
         <UserProvider>
           <MobileMenuBurger />
-        </UserProvider>
-      )
+        </UserProvider>,
+      ),
     );
     expect(component).toMatchSnapshot();
   });

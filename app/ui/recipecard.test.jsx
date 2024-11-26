@@ -27,7 +27,7 @@ describe("RecipeCard", () => {
                 "https://www.themealdb.com/images/media/meals/vdwloy1713225718.jpg",
             }}
           />
-        </UserProvider>
+        </UserProvider>,
       );
     });
     expect(component).toMatchSnapshot();

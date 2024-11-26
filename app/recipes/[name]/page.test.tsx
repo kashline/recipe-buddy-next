@@ -1,20 +1,24 @@
 import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
-import Page from './page'
+import Page from "./page";
 
 jest.mock("next/navigation", () => ({
   useRouter() {
     return {
-      prefetch: () => null
+      prefetch: () => null,
     };
-  }
+  },
 }));
 
 describe("RecipeCard", () => {
   it("renders the recipe details page", () => {
-    const component = render(<Page params={{
-        name: "15-minute chicken & halloumi burgers",
-    }}/>);
-    expect(component).toMatchSnapshot()
+    const component = render(
+      <Page
+        params={{
+          name: "15-minute chicken & halloumi burgers",
+        }}
+      />,
+    );
+    expect(component).toMatchSnapshot();
   });
 });

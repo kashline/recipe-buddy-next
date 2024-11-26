@@ -5,14 +5,10 @@ export default function DefaultSidebar() {
   return (
     <>
       <div>
-        <p
-          className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}
-        >
+        <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
           <strong>Welcome to your new cooking assistant!</strong>
         </p>
-        <p
-          className={`text-xl text-gray-800 md:text-2xl md:leading-normal`}
-        >
+        <p className={`text-xl text-gray-800 md:text-2xl md:leading-normal`}>
           RecipeBuddy helps you manage your recipes and even create new ones!
         </p>
         <p>Click below to get started</p>

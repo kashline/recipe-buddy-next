@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom";
 import { act, render } from "@testing-library/react";
-import RecipeOptions from './recipeoptions'
+import RecipeOptions from "./recipeoptions";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 describe("recipeoptions", () => {
@@ -9,7 +9,7 @@ describe("recipeoptions", () => {
       render(
         <UserProvider>
           <RecipeOptions recipeId={259} favorited={true} />
-        </UserProvider>
+        </UserProvider>,
       );
     });
     expect(component).toMatchSnapshot();

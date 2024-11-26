@@ -35,10 +35,17 @@ export default function RecipeOptions({
         gridAutoFlow: "column",
       }}
     >
-      <Link className="h-fit justify-center align-middle mx-auto" href={`${path}/edit`}>
-        <EditIcon/>
+      <Link
+        className="h-fit justify-center align-middle mx-auto"
+        href={`${path}/edit`}
+      >
+        <EditIcon />
       </Link>
-      <FavoriteButton recipeId={recipeId} favorited={favorited} recipeName={recipeName} />
+      <FavoriteButton
+        recipeId={recipeId}
+        favorited={favorited}
+        recipeName={recipeName}
+      />
     </div>
   );
 }

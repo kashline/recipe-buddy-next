@@ -12,8 +12,8 @@ describe("ProfileButton", () => {
           <StoreProvider>
             <ProfileButton />
           </StoreProvider>
-        </UserProvider>
-      )
+        </UserProvider>,
+      ),
     );
     expect(component).toMatchSnapshot();
   });

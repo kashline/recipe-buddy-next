@@ -9,7 +9,7 @@ describe("FavoriteButton", () => {
       render(
         <UserProvider>
           <FavoriteButton recipeId={259} favorited={true} />
-        </UserProvider>
+        </UserProvider>,
       );
     });
     expect(component).toMatchSnapshot();

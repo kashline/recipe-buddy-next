@@ -7,9 +7,9 @@ it("renders homepage unchanged", async () => {
     return render(
       <UserProvider>
         <Page />
-      </UserProvider>
+      </UserProvider>,
     );
-  })
+  });
 
   expect(container).toMatchSnapshot();
 });

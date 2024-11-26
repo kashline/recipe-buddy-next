@@ -52,7 +52,7 @@ export const RecipeZodel = z.object({
       };
     }),
   ),
-  UserRecipes: z.array(UserRecipeZodel)
+  UserRecipes: z.array(UserRecipeZodel),
 });
 
 export type RecipeZype = z.infer<typeof RecipeZodel>;

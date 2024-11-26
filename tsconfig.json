@@ -34,8 +34,10 @@
     "__tests__/page.test.jsx",
     "syncAllTables.js",
     "syncAllTables.js",
-    "syncAllTables.js"
-, "app/api/buddy/route-old.old", "app/ui/favoritebutton.test.jsx"  ],
+    "syncAllTables.js",
+    "app/api/buddy/route-old.old",
+    "app/ui/favoritebutton.test.jsx"
+  ],
   "exclude": ["node_modules"],
   "typeRoots": ["../node_modules/@types", "../@types"]
 }

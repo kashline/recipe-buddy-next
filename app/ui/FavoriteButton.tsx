@@ -15,7 +15,7 @@ export default function FavoriteButton({
 }) {
   const { user, error, isLoading } = useUser();
   const [favorite, setFavorite] = useState(favorited);
-  const [isMobile, isPortrait] = useResponsiveBreakpoints()
+  const [isMobile, isPortrait] = useResponsiveBreakpoints();
   if (isLoading) return <h1>Loading...</h1>;
   if (error)
     return <Link href={`/api/auth/login`}>Error! Please try again</Link>;
@@ -44,17 +44,20 @@ export default function FavoriteButton({
             if (res.status === 200) {
               setFavorite(!favorite);
               if (!favorite) {
-                notificationOnClick("success", `Added ${recipeName} to favorites!`);
+                notificationOnClick(
+                  "success",
+                  `Added ${recipeName} to favorites!`,
+                );
               } else {
                 notificationOnClick(
                   "success",
-                  `Removed ${recipeName} from favorites!`
+                  `Removed ${recipeName} from favorites!`,
                 );
               }
             } else {
               notificationOnClick(
                 `error`,
-                `There was an error adding ${recipeName} to favorites.  Please try again later.`
+                `There was an error adding ${recipeName} to favorites.  Please try again later.`,
               );
             }
           });

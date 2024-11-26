@@ -16,7 +16,7 @@ export default function Page({ params }: { params: { name: string } }) {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes?name=${params.name}`,
-    fetcher
+    fetcher,
   );
   if (error)
     return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
@@ -66,7 +66,11 @@ export default function Page({ params }: { params: { name: string } }) {
           />
         </div>
         <div className="py-4">
-          <RecipeOptions recipeId={Number(recipe.id)} favorited={favorited} recipeName={recipe.name} />
+          <RecipeOptions
+            recipeId={Number(recipe.id)}
+            favorited={favorited}
+            recipeName={recipe.name}
+          />
         </div>
         <table
           style={{

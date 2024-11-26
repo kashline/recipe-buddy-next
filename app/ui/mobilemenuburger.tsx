@@ -1,7 +1,6 @@
 import React from "react";
 import BurgerMenu from "./icons/burgermenu";
 import { usePathname } from "next/navigation";
-import LogoutIcon from "./icons/logouticon";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import LogoutButton from "./buttons/logoutbutton";
 import LoginButton from "./buttons/loginbutton";

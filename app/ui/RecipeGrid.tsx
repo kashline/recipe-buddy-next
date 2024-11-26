@@ -14,7 +14,11 @@ export default function RecipeGrid({ data }: { data: any }) {
     >
       {data.map((recipe: any, index: number) => {
         return (
-          <div style={{ margin: "1%" }} key={`RecipeGrid-${index}`} className="py-2">
+          <div
+            style={{ margin: "1%" }}
+            key={`RecipeGrid-${index}`}
+            className="py-2"
+          >
             <RecipeCard data={recipe} key={`RecipeCard-${index}`}></RecipeCard>
           </div>
         );
