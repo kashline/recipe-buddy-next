@@ -21,10 +21,17 @@
                 "type": "Image????"
             },
             "categories": {
-                "description": "An array of categories",
+                "description": "An array of categories the recipe belongs to.",
                 "type": "array",
                 "properties": {
 
+                }
+            },
+            "ingredients":{
+                "description": "An array of the ingredients that make up the recipe.",
+                "type": "array",
+                "properties": {
+                    
                 }
             }
         }
