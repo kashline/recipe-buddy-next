@@ -21,7 +21,7 @@ export default function FavoriteButton({
     return <Link href={`/api/auth/login`}>Error! Please try again</Link>;
   if (!user)
     return (
-      <Link href={`/api/auth/login`}>
+      <Link href={`/api/auth/login`} className="text-lavendar-blush">
         Please log in to edit and favorite recipies!
       </Link>
     );
