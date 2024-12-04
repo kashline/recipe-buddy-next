@@ -38,6 +38,21 @@ function RecipeCards() {
   const recipeCount = Number(data[1][1]);
   const totalPages =
     Math.ceil(recipeCount / 12) === 0 ? 1 : Math.ceil(recipeCount / 12);
+  if (recipeCount === 0) {
+    return (
+      <div className="flex-col h-screen w-full">
+        <p className="text-lavendar-blush justify-center text-center mx-auto mt-[50%]">
+          We couldn&apos;t find any recipes matching your current filters
+        </p>
+        <p className="text-lavendar-blush justify-center text-center mx-auto mt-[50%]">
+          Change your filters or{" "}
+          <a className="text-lavendar-blush" href="/recipes/create">
+            create a new recipe
+          </a>
+        </p>
+      </div>
+    );
+  }
   return (
     <div>
       <RecipeGrid data={recipes} />
