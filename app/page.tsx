@@ -49,12 +49,10 @@ export default function Page() {
             backgroundColor: "white",
           }}
         >
-          <h2>Your recipes. Your life. Your.... RecipeBuddy</h2>
+          <h2>Thousands of recipes at your fingertips.</h2>
           <div>
             <p>
-              All your recipes in one place. No more looking for recipes for
-              hours on every other website. Gone are the days of searching each
-              website to see if it has recipe management features.
+              Browse from our collection of recipes from all over the world.
             </p>
             <h2>
               <strong>Finally, your recipes woes are solved</strong>

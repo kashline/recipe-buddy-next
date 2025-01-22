@@ -21,7 +21,6 @@ Recipe.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    // *** Changed name to title
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,14 +30,12 @@ Recipe.init(
     difficulty: {
       type: DataTypes.STRING,
     },
-    // *** Replaced length with prep/cook time
     preparationTime: {
       type: DataTypes.INTEGER,
     },
     cookingTime: {
       type: DataTypes.INTEGER,
     },
-    // *** Removed mealdb_id
     image: {
       type: DataTypes.STRING,
     },
@@ -50,6 +47,9 @@ Recipe.init(
     },
     servings: {
       type: DataTypes.INTEGER
+    },
+    owner: {
+      type: DataTypes.STRING
     }
   },
   {
