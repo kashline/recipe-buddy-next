@@ -11,6 +11,7 @@ jest.mock("next/navigation", () => ({
   useSearchParams: () => ({
     get: () => {},
   }),
+  usePathname: () => "",
 }));
 
 describe("RecipeCard", () => {

@@ -55,39 +55,9 @@ export default function FilterDropdown() {
                 marginBottom: "1rem",
               }}
             >
-              <p
-                style={{
-                  marginTop: "auto",
-                  marginBottom: "auto",
-                  marginRight: "0.5rem",
-                  color: "white",
-                }}
-              >
-                Name
-              </p>
               <Search
-                placeholder="Begin typing a recipe name"
-                param="name"
-              ></Search>
-            </div>
-            <div
-              style={{
-                display: "flex",
-              }}
-            >
-              <p
-                style={{
-                  marginTop: "auto",
-                  marginBottom: "auto",
-                  marginRight: "0.5rem",
-                  color: "white",
-                }}
-              >
-                Ingredients
-              </p>
-              <Search
-                placeholder="Begin typing an ingredient"
-                param="ingredients"
+                placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
+                param="term"
               ></Search>
             </div>
           </form>

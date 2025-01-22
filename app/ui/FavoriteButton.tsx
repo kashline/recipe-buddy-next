@@ -8,14 +8,19 @@ export default function FavoriteButton({
   recipeId,
   favorited,
   recipeName,
+  size,
 }: {
   recipeId: number;
   favorited: boolean;
   recipeName: string;
+  size?: string;
 }) {
   const { user, error, isLoading } = useUser();
   const [favorite, setFavorite] = useState(favorited);
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
+  if (!size){
+    size = isMobile ? "25px" : "50px";
+  }
   if (isLoading) return <h1>Loading...</h1>;
   if (error)
     return <Link href={`/api/auth/login`}>Error! Please try again</Link>;
@@ -46,25 +51,25 @@ export default function FavoriteButton({
               if (!favorite) {
                 notificationOnClick(
                   "success",
-                  `Added ${recipeName} to favorites!`,
+                  `Added ${recipeName} to favorites!`
                 );
               } else {
                 notificationOnClick(
                   "success",
-                  `Removed ${recipeName} from favorites!`,
+                  `Removed ${recipeName} from favorites!`
                 );
               }
             } else {
               notificationOnClick(
                 `error`,
-                `There was an error adding ${recipeName} to favorites.  Please try again later.`,
+                `There was an error adding ${recipeName} to favorites.  Please try again later.`
               );
             }
           });
         }}
       >
         <svg
-          style={{ height: "25px", width: "25px" }}
+          style={{ height: size, width: size }}
           viewBox="0 0 24 24"
           fill={favorite ? "yellow" : "none"}
           xmlns="http://www.w3.org/2000/svg"

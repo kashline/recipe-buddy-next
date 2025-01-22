@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
 import Ingredient from "./Ingredient";
 import Recipe from "./Recipe";

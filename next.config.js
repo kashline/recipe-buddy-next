@@ -4,6 +4,7 @@ module.exports = {
       "www.themealdb.com",
       "lh3.googleusercontent.com",
       "www.foodandwine.com",
+      "recipebuddy-images.s3.us-west-1.amazonaws.com",
     ],
     formats: ["image/avif", "image/webp"],
   },

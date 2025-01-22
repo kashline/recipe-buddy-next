@@ -2,7 +2,7 @@
 
 import Button from "@/app/ui/button";
 import { useEffect } from "react";
-import "./[name]/styles.css";
+import "./[id]/styles.css";
 import { useRouter, usePathname } from "next/navigation";
 
 export default function Error({

@@ -8,6 +8,7 @@ import chefImage from "../../public/chef-icon.png";
 import { useState } from "react";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
 import FavoriteButton from "./FavoriteButton";
+import friendifyWords from "../lib/utils/wordfriendifier";
 
 export default function RecipeCard({ data }: { data: RecipeZype }) {
   const router = useRouter();
@@ -31,15 +32,16 @@ export default function RecipeCard({ data }: { data: RecipeZype }) {
             border: "none",
           }}
           onClick={() => {
-            router.push(`/recipes/${data.name}`);
+            router.push(`/recipes/${data.id}`);
           }}
         >
           <Image
             height={0}
             width={0}
-            src={data.image || chefImage}
+            src={data.image === "undefined" || data.image === null ? chefImage : data.image}
             alt="tasty food"
             sizes="100vw"
+            priority
             onLoad={() => {
               setImageLoaded(true);
             }}
@@ -86,12 +88,13 @@ export default function RecipeCard({ data }: { data: RecipeZype }) {
               color: "white",
             }}
           >
-            {data.name}
+            {friendifyWords(data.title)}
           </div>
           <FavoriteButton
             recipeId={data.id!}
             favorited={favorited}
-            recipeName={data.name}
+            recipeName={data.title}
+            size="25px"
           />
         </CardContent>
       </Card>

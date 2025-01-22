@@ -17,16 +17,18 @@ export default async function GetRecipe(props?: URLSearchParams) {
     const favorited = Boolean(props?.get("favorited") || false);
     const itemsPerPage = Number(props?.get("recipesPerPage") || 10);
     const attributes: string[] = [
-      "name",
+      "title",
       "difficulty",
-      "length",
+      "preparationTime",
+      "cookingTime",
       "image",
       "video",
       "id",
+      "description",
     ];
     if (props != null) {
       props.forEach(async (value, key) => {
-        if (["name", "difficulty", "length"].includes(key)) {
+        if (["title", "difficulty", "preparationTime", "cookingTime", "id"].includes(key)) {
           promises.push(findAllRecipes(key, value));
           return;
         }
@@ -52,7 +54,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
       const recipes = await Recipe.findAll({
         limit: itemsPerPage,
         offset: itemsPerPage * (page! - 1),
-        order: [["name", "ASC"]],
+        order: [["title", "ASC"]],
         attributes: attributes,
         include:
           userSub !== null
@@ -99,7 +101,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
   }
 }
 
-async function findRecipeById(
+export async function findRecipeById(
   ids: number[],
   itemsPerPage: number,
   favorited: boolean,
@@ -143,10 +145,10 @@ async function findRecipeById(
       order:
         ids.length === 1
           ? [
-              ["name", "ASC"],
+              ["title", "ASC"],
               [RecipeStep, "step_number", "ASC"],
             ]
-          : [["name", "ASC"]],
+          : [["title", "ASC"]],
       attributes: attributes,
       include: include,
     });

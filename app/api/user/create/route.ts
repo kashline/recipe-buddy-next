@@ -1,8 +1,10 @@
 import User from "@/app/data/models/User";
+import UserRecipe from "@/app/data/models/UserRecipe";
 
 export const POST = async (request: Request) => {
   try {
     await User.sync();
+    await UserRecipe.sync();
     const user = await request.json();
     const res = await User.findOrCreate({
       where: {

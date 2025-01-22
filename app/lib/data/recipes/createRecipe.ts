@@ -22,15 +22,18 @@ export default async function createRecipe(recipe: RecipeZype) {
       });
       const res = await Recipe.findOrCreate({
         where: {
-          name: recipe.name,
+          title: recipe.title,
         },
         defaults: {
-          name: recipe.name,
-          length: recipe.length,
+          title: recipe.title,
+          description: recipe.description,
+          preparationTime: recipe.preparationTime,
+          cookingTime: recipe.cookingTime,
           difficulty: recipe.difficulty,
-          mealdb_id: recipe.mealdb_id || undefined,
           image: recipe.image || undefined,
           video: recipe.video || undefined,
+          tags: recipe.tags || undefined,
+          servings: recipe.servings
         },
         include: [{ model: RecipeStep }, { model: Ingredient }],
       }).catch((err) => {
@@ -75,9 +78,10 @@ export default async function createRecipe(recipe: RecipeZype) {
       recipe.RecipeSteps.map(async (step) => {
         await createRecipeStep(
           RecipeStepZodel.parse({
-            step: step.step,
+            description: step.description,
             recipe_id: recipe.id,
             step_number: step.step_number,
+            ingredients: step.ingredients || undefined,
           }),
         );
       });

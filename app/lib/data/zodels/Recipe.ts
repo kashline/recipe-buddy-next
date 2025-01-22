@@ -6,21 +6,21 @@ export const RecipeIngredientZodel = z.object({
   quantity: z.string(),
   recipe_id: z.number().optional(),
   ingredient_id: z.number().optional(),
-  name: z.string().optional(),
 });
 
-const IngredientZodel = z.object({
+export const IngredientZodel = z.object({
   id: z.number().optional(),
   name: z.string({ required_error: `"name" is required` }).toLowerCase().trim(),
+  tags: z.array(z.string()).optional(),
   RecipeIngredient: RecipeIngredientZodel,
-  // quantity: z.string({required_error: `"quantity" is required`})
 });
 
 export const RecipeStepZodel = z.object({
   id: z.number().optional(),
-  step: z.string(),
+  description: z.string(),
   recipe_id: z.number().optional(),
   step_number: z.number(),
+  ingredients: z.array(z.string()).optional()
 });
 
 export const RecipeZodel = z.object({
@@ -28,13 +28,11 @@ export const RecipeZodel = z.object({
     .number()
     .nullish()
     .transform((x) => x ?? null),
-  name: z.string({ required_error: `"name" is required` }).toLowerCase().trim(),
+  title: z.string({ required_error: `"name" is required` }).toLowerCase().trim(),
+  description: z.string({required_error: 'description is required'}),
   difficulty: z.string({ required_error: `"difficulty" is required` }),
-  length: z.string({ required_error: `"length" is required` }),
-  mealdb_id: z
-    .string()
-    .nullish()
-    .transform((x) => x ?? null),
+  preparationTime: z.string({required_error: 'preparationTime is required'}),
+  cookingTime: z.string({required_error: 'cookingTime is required'}),
   image: z
     .string()
     .nullish()
@@ -43,6 +41,8 @@ export const RecipeZodel = z.object({
     .string()
     .nullish()
     .transform((x) => x ?? null),
+  tags: z.array(z.string()),
+  servings: z.number({required_error: 'number of servings is required'}),
   Ingredients: z.array(IngredientZodel),
   RecipeSteps: z.array(RecipeStepZodel).transform((steps) =>
     steps.map((step, index) => {

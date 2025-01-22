@@ -6,8 +6,8 @@ import React from "react";
 export default function TopNav() {
   const pathName = usePathname();
   return (
-    <div>
-      <nav style={{ marginTop: "0px" }} id={"nav"}>
+    <div className="">
+      <nav style={{ marginTop: "0px" }} id={"nav"} className="">
         <ul className="links">
           <li className={pathName === "/" ? "active" : ""}>
             <a href="/">Home</a>

@@ -1,22 +1,37 @@
-import GetRecipe from "@/app/data/GetRecipe";
-import { NextRequest } from "next/server";
+import { findRecipeById } from "@/app/data/GetRecipe";
+import { parseResponse } from "@/app/lib/utils/parseResponse";
+import { NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
-  if (request.url?.split("?")[1] === undefined) {
-    return parseResponse(await GetRecipe());
-  } else {
-    const { searchParams } = new URL(request.url!);
-    const recipes = await GetRecipe(searchParams);
-    return parseResponse(recipes);
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const attributes: string[] = [
+      "title",
+      "difficulty",
+      "preparationTime",
+      "cookingTime",
+      "image",
+      "video",
+      "id",
+      "description",
+    ];
+    const slug = await params;
+    const recipe = await findRecipeById(
+      [Number(slug.id)],
+      1,
+      false,
+      attributes,
+      1
+    );
+    return parseResponse(recipe);
+  } catch (error) {
+    return NextResponse.json(
+      {
+        message: `There was an error ${error}`,
+      },
+      { status: 500 }
+    );
   }
-}
-
-function parseResponse(res: any) {
-  return Response.json(
-    JSON.parse(
-      JSON.stringify(res, (key, value) => {
-        return value instanceof Map ? [...value] : value;
-      }),
-    ),
-  );
 }

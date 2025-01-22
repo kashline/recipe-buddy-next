@@ -15,7 +15,7 @@ describe("RecipeCard", () => {
     const component = render(
       <Page
         params={{
-          name: "15-minute chicken & halloumi burgers",
+          id: "12",
         }}
       />,
     );

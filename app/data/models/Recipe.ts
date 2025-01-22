@@ -21,29 +21,39 @@ Recipe.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    // *** Changed name to title
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
+    description: { type: DataTypes.STRING(512) },
     difficulty: {
       type: DataTypes.STRING,
     },
-    length: {
-      type: DataTypes.STRING,
+    // *** Replaced length with prep/cook time
+    preparationTime: {
+      type: DataTypes.INTEGER,
     },
-    mealdb_id: {
-      type: DataTypes.STRING,
+    cookingTime: {
+      type: DataTypes.INTEGER,
     },
+    // *** Removed mealdb_id
     image: {
       type: DataTypes.STRING,
     },
     video: {
       type: DataTypes.STRING,
     },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING)
+    },
+    servings: {
+      type: DataTypes.INTEGER
+    }
   },
   {
     sequelize,
     modelName: "Recipe",
-  },
+  }
 );

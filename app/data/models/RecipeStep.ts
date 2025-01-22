@@ -1,4 +1,4 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
 import Recipe from "./Recipe";
 
@@ -14,7 +14,7 @@ RecipeStep.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    step: {
+    description: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -28,6 +28,9 @@ RecipeStep.init(
     step_number: {
       type: DataTypes.INTEGER,
     },
+    ingredients: {
+      type: DataTypes.ARRAY(DataTypes.JSON)
+    }
   },
   {
     sequelize,

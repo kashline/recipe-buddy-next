@@ -2,42 +2,80 @@
 
 import useSWR from "swr";
 import RecipeGrid from "../ui/RecipeGrid";
-import FilterDropdown from "../recipes/FilterDropdown";
 import Pagination from "../ui/pagination";
 import AnimatedLoading from "../ui/loading/animatedloading";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import Search from "../ui/search";
+import * as React from "react";
 
 export default function Page() {
   return (
-    // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
     <Suspense>
+      <RedirectWrapper />
+    </Suspense>
+  );
+}
+
+// This is literally just to get past the suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+function RedirectWrapper() {
+  const pathName = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const createQueryString = React.useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+  React.useEffect(() => {
+    if (searchParams.size === 0) {
+      router.push(
+        `${pathName}?${createQueryString("page", "1")}&${createQueryString("recipesPerPage", "12")}`
+      );
+    }
+  }, [searchParams, createQueryString, pathName, router]);
+  if (searchParams.size === 0) {
+    return <></>;
+  }
+  return (
+    <>
       <h1 className="text-lavendar-blush text-4xl text-center">
         Browse Recipes
       </h1>
-      <FilterDropdown />
+      <div className="w-4/5 mx-auto pb-5">
+        <Search
+          placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
+          param="term"
+        />
+      </div>
       <RecipeCards />
-    </Suspense>
+    </>
   );
 }
 
 function RecipeCards() {
   const searchParams = useSearchParams();
+  const recipesPerPage = Number(searchParams.get("recipesPerPage"));
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
-    // Hard coded page number :()
-    `/api/recipes?${searchParams.toString()}&recipesPerPage=12`,
-    fetcher,
+    `/api/recipes/search/fuzzy/?${searchParams.toString()}`,
+    fetcher
   );
   if (error) return <div>ERROR</div>;
   if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
   if (!data) {
     return <>no data</>;
   }
-  const recipes: any = data[0][1];
-  const recipeCount = Number(data[1][1]);
+  const recipes: any = data.data.rows;
+  const recipeCount = Number(data.data.count);
   const totalPages =
-    Math.ceil(recipeCount / 12) === 0 ? 1 : Math.ceil(recipeCount / 12);
+    Math.ceil(recipeCount / recipesPerPage) === 0
+      ? 1
+      : Math.ceil(recipeCount / recipesPerPage);
   if (recipeCount === 0) {
     return (
       <div className="flex-col h-screen w-full">

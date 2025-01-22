@@ -17,6 +17,9 @@ Ingredient.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    tags: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+    }
   },
   {
     sequelize,

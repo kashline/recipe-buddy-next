@@ -7,6 +7,7 @@ import Pagination from "@/app/ui/pagination";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import Search from "@/app/ui/search";
 
 export default function Page() {
   return (
@@ -23,7 +24,7 @@ function RecipeCards() {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes?${searchParams.toString()}&recipesPerPage=12&favorited=true`,
-    fetcher,
+    fetcher
   );
   if (error) return <div>ERROR</div>;
   if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
@@ -47,8 +48,13 @@ function RecipeCards() {
   }
   return (
     <Suspense>
-      <FilterDropdown></FilterDropdown>
-      <RecipeGrid data={recipes}></RecipeGrid>
+      <div className="w-4/5 mx-auto pb-5">
+        <Search
+          placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
+          param="term"
+        ></Search>
+      </div>
+      <RecipeGrid data={recipes}/>
       <div
         style={{
           marginLeft: "auto",
