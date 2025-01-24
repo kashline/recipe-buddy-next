@@ -18,7 +18,7 @@ describe("RecipeCard", () => {
         <UserProvider>
           <RecipeCard
             data={{
-              name: "15-minute chicken & halloumi burgers",
+              title: "15-minute chicken & halloumi burgers",
               difficulty: "medium",
               id: 259,
               length: "long",

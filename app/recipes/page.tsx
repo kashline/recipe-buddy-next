@@ -45,14 +45,14 @@ function RedirectWrapper() {
     }
   }, [searchParams, createQueryString, pathName, router]);
 
-  if (searchParams.size === 0) {
-    return <></>;
-  }
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes/search/fuzzy/?${searchParams.toString()}`,
     fetcher
   );
+  if (searchParams.size === 0) {
+    return <></>;
+  }
   if (error) return <div>ERROR</div>;
   if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
   if (!data) {
@@ -64,10 +64,7 @@ function RedirectWrapper() {
         <Helmet>
           <meta property="og:url" content={`${url}`} />
           <meta property="og:type" content="article" />
-          <meta
-            property="og:title"
-            content={``}
-          />
+          <meta property="og:title" content={``} />
           <meta
             property="og:description"
             content="How much does culture influence creative thinking?"
