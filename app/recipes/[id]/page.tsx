@@ -12,10 +12,10 @@ import RecipeQuickInfo from "@/app/ui/recipequickinfo";
 import React from "react";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 
-export default function Page({ params }: { params: Promise<{ id: string }> }) {
+export default function Page({ params }: { params: { id: string } }) {
   noStore();
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
-  const { id } = React.use(params);
+  const id = params.id;
   const [url, setUrl] = React.useState("");
   React.useEffect(() => {
     setUrl(window.location.href);

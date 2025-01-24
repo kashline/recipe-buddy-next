@@ -16,7 +16,7 @@ jest.mock("next/navigation", () => ({
 describe("RecipeCard", () => {
   it("renders the recipe details page", () => {
     Object.assign(global, { TextDecoder, TextEncoder });
-    const component = render(<Page params={Promise.resolve({ id: "12" })} />);
+    const component = render(<Page params={{ id: "12" }} />);
     expect(component).toMatchSnapshot();
   });
 });
