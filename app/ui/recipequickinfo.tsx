@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
 import friendifyWords from "../lib/utils/wordfriendifier";
-import RecipeOptions from "../recipes/[id]/recipeoptions";
+import RecipeOptions from "./recipeoptions";
 import Image from "next/image";
 import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
 import * as React from "react";
@@ -51,9 +51,8 @@ export default function RecipeQuickInfo({
       </div>
       <div className="py-4">
         <RecipeOptions
-          recipeId={Number(recipe.id)}
+          recipe={recipe}
           favorited={favorited}
-          recipeName={recipe.title}
         />
       </div>
       <div className="text-lavendar-blush text-center text-xl py-5 mx-auto">

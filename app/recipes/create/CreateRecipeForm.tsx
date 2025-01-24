@@ -43,7 +43,7 @@ export default function CreateRecipeForm() {
       </h1>
       <div>
         <div className="top-div" style={{ backgroundColor: "inherit" }}>
-          <Input setFunction={setName} label="name" required={true}></Input>
+          <Input setFunction={setName} label="title" required={true}></Input>
           <Input setFunction={setVideo} label="video" required={true}></Input>
           <div
             style={{

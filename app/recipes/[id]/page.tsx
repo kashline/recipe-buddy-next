@@ -6,20 +6,21 @@ import useSWR from "swr";
 import "./styles.css";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";
 import useResponsiveBreakpoints from "@/app/lib/utils/useResponsiveBreakpoints";
-import {
-  RecipeStepZype,
-  RecipeZype,
-} from "@/app/lib/data/zodels/Recipe";
+import { RecipeStepZype, RecipeZype } from "@/app/lib/data/zodels/Recipe";
 import IngredientsTable from "@/app/ui/ingredientstable";
 import RecipeQuickInfo from "@/app/ui/recipequickinfo";
+import React from "react";
+import { HelmetProvider, Helmet } from "react-helmet-async";
 
-export default function Page({ params }: { params: { id: string } }) {
+export default function Page({ params }: { params: Promise<{ id: string }> }) {
   noStore();
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(
-    `/api/recipes/${params.id}`,
-    fetcher
-  );
+  const { id } = React.use(params);
+  const [url, setUrl] = React.useState("");
+  React.useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
+  const { data, error, isLoading } = useSWR(`/api/recipes/${id}`, fetcher);
   if (error)
     return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
   if (isLoading) return <AnimatedLoading name="recipe" />;
@@ -31,6 +32,21 @@ export default function Page({ params }: { params: { id: string } }) {
       : false;
   return (
     <div style={{ color: "white" }}>
+      <HelmetProvider>
+        <Helmet>
+          <meta property="og:url" content={`${url}`} />
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content={`${recipe.title}`} />
+          <meta
+            property="og:description"
+            content={`${recipe.description}`}
+          />
+          <meta
+            property="og:image"
+            content={`${recipe.image}`}
+          />
+        </Helmet>
+      </HelmetProvider>
       <div
         style={{
           textAlign: "center",
@@ -42,7 +58,15 @@ export default function Page({ params }: { params: { id: string } }) {
       >
         <strong className="text-lavendar-blush">{friendlyName}</strong>
       </div>
-      <RecipeQuickInfo recipe={recipe} favorited={favorited}/>
+      <div>
+        <p className="mx-auto text-center">Submitted by: {recipe.owner}</p>
+        {recipe.aigenerated && (
+          <p className="mx-auto text-center border-non-photo-blue border-solid border-2 w-fit px-2">
+            Some or all of this recipe was created using AI
+          </p>
+        )}
+      </div>
+      <RecipeQuickInfo recipe={recipe} favorited={favorited} />
       <div className="flex">
         <div
           style={{
@@ -81,8 +105,8 @@ export default function Page({ params }: { params: { id: string } }) {
                           {step.description}
                         </div>
                         <IngredientsTable
-                            data={step.ingredients!}
-                          ></IngredientsTable>
+                          data={step.ingredients!}
+                        ></IngredientsTable>
                       </div>
                     </div>
                     <hr

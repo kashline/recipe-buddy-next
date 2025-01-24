@@ -5,92 +5,12 @@ exports[`RecipeCard renders the recipe details page 1`] = `
   "asFragment": [Function],
   "baseElement": <body>
     <div>
-      <h1
-        class="text-lavendar-blush text-4xl text-center"
-      >
-        Browse Recipes
-      </h1>
-      <div
-        class="w-4/5 mx-auto pb-5"
-      >
-        <div
-          class="relative flex flex-1 flex-shrink-0"
-        >
-          <label
-            class="sr-only"
-            for="search"
-          >
-            Search
-          </label>
-          <input
-            class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-            placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
-            value=""
-          />
-          <svg
-            aria-hidden="true"
-            class="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900"
-            data-slot="icon"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </div>
-      </div>
       <div>
         ERROR
       </div>
     </div>
   </body>,
   "container": <div>
-    <h1
-      class="text-lavendar-blush text-4xl text-center"
-    >
-      Browse Recipes
-    </h1>
-    <div
-      class="w-4/5 mx-auto pb-5"
-    >
-      <div
-        class="relative flex flex-1 flex-shrink-0"
-      >
-        <label
-          class="sr-only"
-          for="search"
-        >
-          Search
-        </label>
-        <input
-          class="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
-          placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
-          value=""
-        />
-        <svg
-          aria-hidden="true"
-          class="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900"
-          data-slot="icon"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </div>
-    </div>
     <div>
       ERROR
     </div>

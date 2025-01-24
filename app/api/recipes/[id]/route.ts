@@ -16,6 +16,8 @@ export async function GET(
       "video",
       "id",
       "description",
+      "owner",
+      "aigenerated",
     ];
     const slug = await params;
     const recipe = await findRecipeById(

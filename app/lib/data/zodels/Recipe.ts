@@ -43,6 +43,8 @@ export const RecipeZodel = z.object({
     .transform((x) => x ?? null),
   tags: z.array(z.string()),
   servings: z.number({required_error: 'number of servings is required'}),
+  owner: z.string({required_error: 'Recipe owner is required.'}),
+  aigenerated: z.boolean(),
   Ingredients: z.array(IngredientZodel),
   RecipeSteps: z.array(RecipeStepZodel).transform((steps) =>
     steps.map((step, index) => {

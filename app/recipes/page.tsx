@@ -8,6 +8,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Search from "../ui/search";
 import * as React from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { RecipeZype } from "../lib/data/zodels/Recipe";
 
 export default function Page() {
   return (
@@ -22,6 +24,10 @@ function RedirectWrapper() {
   const pathName = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [url, setUrl] = React.useState("");
+  React.useEffect(() => {
+    setUrl(window.location.href);
+  }, []);
   const createQueryString = React.useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
@@ -38,28 +44,10 @@ function RedirectWrapper() {
       );
     }
   }, [searchParams, createQueryString, pathName, router]);
+
   if (searchParams.size === 0) {
     return <></>;
   }
-  return (
-    <>
-      <h1 className="text-lavendar-blush text-4xl text-center">
-        Browse Recipes
-      </h1>
-      <div className="w-4/5 mx-auto pb-5">
-        <Search
-          placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
-          param="term"
-        />
-      </div>
-      <RecipeCards />
-    </>
-  );
-}
-
-function RecipeCards() {
-  const searchParams = useSearchParams();
-  const recipesPerPage = Number(searchParams.get("recipesPerPage"));
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(
     `/api/recipes/search/fuzzy/?${searchParams.toString()}`,
@@ -70,8 +58,54 @@ function RecipeCards() {
   if (!data) {
     return <>no data</>;
   }
-  const recipes: any = data.data.rows;
-  const recipeCount = Number(data.data.count);
+  return (
+    <>
+      <HelmetProvider>
+        <Helmet>
+          <meta property="og:url" content={`${url}`} />
+          <meta property="og:type" content="article" />
+          <meta
+            property="og:title"
+            content={``}
+          />
+          <meta
+            property="og:description"
+            content="How much does culture influence creative thinking?"
+          />
+          <meta
+            property="og:image"
+            content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
+          />
+        </Helmet>
+      </HelmetProvider>
+      <h1 className="text-lavendar-blush text-4xl text-center">
+        Browse Recipes
+      </h1>
+      <div className="w-4/5 mx-auto pb-5">
+        <Search
+          placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
+          param="term"
+        />
+      </div>
+      <RecipeCards
+        recipes={data.data.rows}
+        recipeCount={Number(data.data.count)}
+      />
+    </>
+  );
+}
+
+function RecipeCards({
+  recipes,
+  recipeCount,
+}: {
+  recipes: any[];
+  recipeCount: number;
+}) {
+  const searchParams = useSearchParams();
+  const recipesPerPage = Number(searchParams.get("recipesPerPage"));
+  // const recipes: any = data.data.rows;
+  // const recipeCount = Number(data.data.count);
   const totalPages =
     Math.ceil(recipeCount / recipesPerPage) === 0
       ? 1

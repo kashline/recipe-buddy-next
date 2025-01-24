@@ -50,7 +50,10 @@ Recipe.init(
     },
     owner: {
       type: DataTypes.STRING
-    }
+    },
+    aigenerated: {
+      type: DataTypes.BOOLEAN
+    },
   },
   {
     sequelize,

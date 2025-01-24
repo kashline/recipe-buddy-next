@@ -6,4 +6,4 @@ export const UserZodel = z.object({
   lastName: z.string(),
 });
 
-export type RecipeZype = z.infer<typeof UserZodel>;
+export type UserZype = z.infer<typeof UserZodel>;
