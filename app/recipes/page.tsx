@@ -8,8 +8,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Search from "../ui/search";
 import * as React from "react";
-import { Helmet, HelmetProvider } from "react-helmet-async";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
+import Head from "next/head";
 
 export default function Page() {
   return (
@@ -60,21 +60,19 @@ function RedirectWrapper() {
   }
   return (
     <>
-      <HelmetProvider>
-        <Helmet>
-          <meta property="og:url" content={`${url}`} />
-          <meta property="og:type" content="article" />
-          <meta property="og:title" content={``} />
-          <meta
-            property="og:description"
-            content="How much does culture influence creative thinking?"
-          />
-          <meta
-            property="og:image"
-            content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
-          />
-        </Helmet>
-      </HelmetProvider>
+      <Head>
+        <meta property="og:url" content={`${url}`} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={``} />
+        <meta
+          property="og:description"
+          content="How much does culture influence creative thinking?"
+        />
+        <meta
+          property="og:image"
+          content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg"
+        />
+      </Head>
       <h1 className="text-lavendar-blush text-4xl text-center">
         Browse Recipes
       </h1>

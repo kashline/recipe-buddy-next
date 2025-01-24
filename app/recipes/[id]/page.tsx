@@ -10,7 +10,7 @@ import { RecipeStepZype, RecipeZype } from "@/app/lib/data/zodels/Recipe";
 import IngredientsTable from "@/app/ui/ingredientstable";
 import RecipeQuickInfo from "@/app/ui/recipequickinfo";
 import React from "react";
-import { HelmetProvider, Helmet } from "react-helmet-async";
+import Head from "next/head";
 
 export default function Page({ params }: { params: { id: string } }) {
   noStore();
@@ -32,21 +32,13 @@ export default function Page({ params }: { params: { id: string } }) {
       : false;
   return (
     <div style={{ color: "white" }}>
-      <HelmetProvider>
-        <Helmet>
-          <meta property="og:url" content={`${url}`} />
-          <meta property="og:type" content="article" />
-          <meta property="og:title" content={`${recipe.title}`} />
-          <meta
-            property="og:description"
-            content={`${recipe.description}`}
-          />
-          <meta
-            property="og:image"
-            content={`${recipe.image}`}
-          />
-        </Helmet>
-      </HelmetProvider>
+      <Head>
+        <meta property="og:url" content={`${url}`} key={`url`} />
+        <meta property="og:type" content="article" key={`type`} />
+        <meta property="og:title" content={`${recipe.title}`} key={`title`} />
+        <meta property="og:description" content={`${recipe.description}`} key={`description`} />
+        <meta property="og:image" content={`${recipe.image}`} key={`image`}/>
+      </Head>
       <div
         style={{
           textAlign: "center",
