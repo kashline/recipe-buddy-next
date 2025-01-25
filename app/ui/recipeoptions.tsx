@@ -17,6 +17,7 @@ import {
   TwitterShareButton,
 } from "react-share";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
+import { env } from "process";
 
 export default function RecipeOptions({
   recipe,
@@ -51,7 +52,6 @@ export default function RecipeOptions({
           gridAutoColumns: "minmax(0, 1fr)",
           gridAutoFlow: "column",
         }}
-        // className="mx-auto"
       >
         <Link
           className="h-fit justify-center align-middle mx-auto"
@@ -73,13 +73,13 @@ export default function RecipeOptions({
         >
           <EmailIcon size={shareSize} className="pb-0" />
         </EmailShareButton>
-        <FacebookShareButton url={`https://recipebuddy.us/recipes/5`} hashtag={`#recipebuddy.us`}>
+        <FacebookShareButton url={`${url}`} hashtag={`#recipebuddy.us`}>
           <FacebookIcon size={shareSize} />
         </FacebookShareButton>
-        {/* <PinterestShareButton url={`${path}`} media={`${recipe.image}`} description={body}>
+        <PinterestShareButton url={`${path}`} media={`${recipe.image}`} description={body}>
           <PinterestIcon size={shareSize} />
         </PinterestShareButton>
-        <TwitterShareButton url={`${path}`}>
+        {/* <TwitterShareButton url={`${path}`}>
           <TwitterIcon size={shareSize}/>
         </TwitterShareButton> */}
       </div>
