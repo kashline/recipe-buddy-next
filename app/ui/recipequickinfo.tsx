@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
 import friendifyWords from "../lib/utils/wordfriendifier";
@@ -50,10 +52,7 @@ export default function RecipeQuickInfo({
         />
       </div>
       <div className="py-4">
-        <RecipeOptions
-          recipe={recipe}
-          favorited={favorited}
-        />
+        <RecipeOptions recipe={recipe} favorited={favorited} />
       </div>
       <div className="text-lavendar-blush text-center text-xl py-5 mx-auto">
         <span>{recipe.description}</span>

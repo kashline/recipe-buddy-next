@@ -1,5 +1,7 @@
 import { findRecipeById } from "@/app/data/GetRecipe";
+import getRecipeById from "@/app/data/getRecipeById";
 import { parseResponse } from "@/app/lib/utils/parseResponse";
+import { getSession } from "@auth0/nextjs-auth0";
 import { NextResponse } from "next/server";
 
 export async function GET(
@@ -20,14 +22,13 @@ export async function GET(
       "aigenerated",
     ];
     const slug = await params;
-    const recipe = await findRecipeById(
-      [Number(slug.id)],
-      1,
-      false,
-      attributes,
-      1
-    );
-    return parseResponse(recipe);
+    const { searchParams } = new URL(request.url!);
+    const userSub = searchParams.get('userSub')
+    // console.log(slug.id)
+    const recipe = await getRecipeById(Number(slug.id), userSub ? userSub : null)
+    return  NextResponse.json({
+      data: recipe
+    })
   } catch (error) {
     return NextResponse.json(
       {

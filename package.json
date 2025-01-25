@@ -55,6 +55,7 @@
     "react-toastify": "^10.0.5",
     "reactjs-popup": "^2.0.6",
     "sequelize": "^6.37.3",
+    "server-only": "^0.0.1",
     "sharp": "^0.33.5",
     "swr": "^2.2.5",
     "typescript-logging": "^2.2.0",

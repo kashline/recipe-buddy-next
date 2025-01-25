@@ -134,6 +134,7 @@ export async function findRecipeById(
         required: favorited,
       });
     }
+    // console.log(include)
     const recipes = await Recipe.findAll({
       where: {
         id: {
@@ -151,6 +152,7 @@ export async function findRecipeById(
           : [["title", "ASC"]],
       attributes: attributes,
       include: include,
+      logging: console.log
     });
     const count = await Recipe.count({
       where: {
