@@ -14,8 +14,6 @@ import { ToastContainer } from "react-toastify";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "RecipeBuddy",
-  description: "Recipe management software.",
 };
 
 export default function RootLayout({
