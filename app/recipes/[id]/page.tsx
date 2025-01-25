@@ -9,6 +9,38 @@ import React from "react";
 import Head from "next/head";
 import { getSession } from "@auth0/nextjs-auth0";
 import { env } from "process";
+import type { Metadata, ResolvingMetadata } from 'next'
+
+type Props = {
+  params: Promise<{ id: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
+
+export async function generateMetadata(
+  { params, searchParams }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  // read route params
+  const id = (await params).id
+ 
+  // fetch data
+  const { data } = await fetch(`${env.APP_URL}/api/recipes/${id}`).then((res) => res.json())
+  const recipe: RecipeZype = data
+ 
+  // optionally access and extend (rather than replace) parent metadata
+  // const previousImages = (await parent).openGraph?.images || []
+ 
+  return {
+    title: recipe.title,
+    openGraph: {
+      images: [recipe.image!],
+      description: recipe.description,
+      url: `${env.APP_URL}/recipes/${id}`,
+      type: 'article',
+      title: `${friendifyWords(recipe.title)}`
+    },
+  }
+}
 
 export default async function Page({ params }: { params: { id: string } }) {
   // noStore();
@@ -49,17 +81,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     return (
       // <></>
       <div style={{ color: "white" }}>
-        <Head>
-          <meta property="og:url" content={`${env.APP_URL}/recipes/${id}`} key={`url`} />
-          <meta property="og:type" content="article" key={`type`} />
-          <meta property="og:title" content={`${recipe.title}`} key={`title`} />
-          <meta
-            property="og:description"
-            content={`${recipe.description}`}
-            key={`description`}
-          />
-          <meta property="og:image" content={`${recipe.image}`} key={`image`} />
-        </Head>
         <div
           style={{
             textAlign: "center",
