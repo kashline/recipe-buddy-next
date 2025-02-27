@@ -55,10 +55,10 @@ export default function FilterDropdown() {
                 marginBottom: "1rem",
               }}
             >
-              <Search
+              {/* <Search
                 placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
                 param="term"
-              ></Search>
+              ></Search> */}
             </div>
           </form>
         )}

@@ -11,13 +11,11 @@ import {
   EmailShareButton,
   FacebookIcon,
   FacebookShareButton,
-  PinterestIcon,
-  PinterestShareButton,
   TwitterIcon,
   TwitterShareButton,
 } from "react-share";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
-import { env } from "process";
+import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
 
 export default function RecipeOptions({
   recipe,
@@ -30,7 +28,8 @@ export default function RecipeOptions({
   const body = "I wanted to share this awesome recipe with you. You can find full details below along with thousands of other recipes on recipebuddy.us!"
   const subject = "Check out this recipe I found on RecipeBuddy!"
   const { user, error, isLoading } = useUser();
-  const shareSize = 75;
+  const [isMobile] = useResponsiveBreakpoints()
+  const shareSize = isMobile ? 50 : 75;
   const [url, setUrl] = React.useState('');
   React.useEffect(() => {
     setUrl(window.location.href);
@@ -52,6 +51,7 @@ export default function RecipeOptions({
           gridAutoColumns: "minmax(0, 1fr)",
           gridAutoFlow: "column",
         }}
+        className="w-1/2 mx-auto"
       >
         <Link
           className="h-fit justify-center align-middle mx-auto"
@@ -76,12 +76,9 @@ export default function RecipeOptions({
         <FacebookShareButton url={`${url}`} hashtag={`#recipebuddy.us`}>
           <FacebookIcon size={shareSize} />
         </FacebookShareButton>
-        <PinterestShareButton url={`${path}`} media={`${recipe.image}`} description={body}>
-          <PinterestIcon size={shareSize} />
-        </PinterestShareButton>
-        {/* <TwitterShareButton url={`${path}`}>
+        <TwitterShareButton url={`${path}`}>
           <TwitterIcon size={shareSize}/>
-        </TwitterShareButton> */}
+        </TwitterShareButton>
       </div>
     </div>
   );

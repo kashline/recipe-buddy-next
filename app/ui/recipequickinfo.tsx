@@ -73,7 +73,6 @@ export default function RecipeQuickInfo({
           >
             <div
               className="text-center hover:cursor-pointer"
-              // colSpan={100}
               onClick={() => {
                 setIsQiToggle(!isQiToggle);
               }}

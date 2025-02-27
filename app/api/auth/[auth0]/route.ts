@@ -1,5 +1,5 @@
 import User from "@/app/data/models/User";
-import { handleAuth, handleLogin } from "@auth0/nextjs-auth0";
+import { handleAuth, handleLogin, handleLogout } from "@auth0/nextjs-auth0";
 import { NextApiRequest, NextApiResponse } from "next";
 import { headers } from "next/headers";
 
@@ -14,6 +14,11 @@ export const GET = handleAuth({
       console.log(`Error in auth login: ${e}`);
       res.status(e.status || 500).end();
     }
+  },
+  logout: async (req: NextApiRequest, res: NextApiResponse) => {
+    return await handleLogout(req, res, {
+      returnTo: `/`
+    })
   },
   signup: handleLogin({
     authorizationParams: {

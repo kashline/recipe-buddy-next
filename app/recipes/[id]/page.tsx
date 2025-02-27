@@ -28,8 +28,6 @@ export async function generateMetadata(
   const recipe: RecipeZype = data
  
   // optionally access and extend (rather than replace) parent metadata
-  // const previousImages = (await parent).openGraph?.images || []
- 
   return {
     title: recipe.title,
     openGraph: {
@@ -43,14 +41,6 @@ export async function generateMetadata(
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  // noStore();
-  // const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
-
-  // const [url, setUrl] = React.useState("");
-  // React.useEffect(() => {
-  //   setUrl(window.location.href);
-  // }, []);
-  // const data = await fetch(`/api/recipes/${id}`);
   try {
     const id = Number(params.id);
     const user = await getSession();
@@ -66,7 +56,6 @@ export default async function Page({ params }: { params: { id: string } }) {
       "owner",
       "aigenerated",
     ];
-    // const slug =  params;
     const { data } = await (
       await fetch(
         `${env.APP_URL}/api/recipes/${id}${user !== null ? `?userSub=${user!.user.sub}` : ``}`
@@ -77,9 +66,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const friendlyName = friendifyWords(recipe.title);
     const favorited =
       "UserRecipes" in recipe && recipe.UserRecipes.length === 1 ? true : false;
-    // console.log(favorited)
     return (
-      // <></>
       <div style={{ color: "white" }}>
         <div
           style={{
@@ -163,12 +150,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </div>
       </div>
     );
-    // return parseResponse(recipe);
   } catch (error) {
-    return <>There was an error</>;
+    return <p className="text-lavendar-blush">There was an error</p>;
   }
-  // const res = await data.json()
-  // if (error)
-  //   return <div style={{ color: "white" }}>ERROR {JSON.stringify(error)}</div>;
-  // if (isLoading) return <AnimatedLoading name="recipe" />;
 }

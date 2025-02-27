@@ -19,8 +19,8 @@ export default function Page() {
     return <div>{error.message}</div>;
   }
   return (
-    <div style={{ textAlign: "center", display: "flex" }}>
-      <div className="w-full">
+    <div>
+      <div className="mx-auto justify-center max-w-fit">
         <Image
           src={`${user?.picture}` || "/chef-icon.png"}
           style={{
@@ -28,13 +28,18 @@ export default function Page() {
             marginRight: 0,
             marginTop: 0,
             marginBottom: "auto",
-            float: "right",
+            float: "left",
           }}
-          width={100}
-          height={100}
+          width={250}
+          height={250}
           alt={`Profile picture`}
         />
+        <p className="text-lavendar-blush text-center text-3xl">{user.name}</p>
       </div>
+      {/* <h2 className="text-lavendar-blush font-thin text-center">
+        Welcome {user.name?.split(" ")[0]}!
+      </h2> */}
+      
       <div
         style={{
           marginTop: 4,
