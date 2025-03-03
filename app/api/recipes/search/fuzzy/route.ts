@@ -3,6 +3,7 @@ import Recipe from "@/app/data/models/Recipe";
 import { Op } from "sequelize";
 import { parseResponse } from "@/app/lib/utils/parseResponse";
 import { getSession } from "@auth0/nextjs-auth0";
+import UserRecipe from "@/app/data/models/UserRecipe";
 
 export async function GET(request: NextRequest) {
   if (request.url?.split("?")[1] === undefined) {
@@ -19,7 +20,7 @@ export async function GET(request: NextRequest) {
       const page = Number(searchParams.get("page"));
       const itemsPerPage = Number(searchParams.get("recipesPerPage"));
       const session = await getSession();
-      const favorited = searchParams.get("favorited")
+      const favorited = searchParams.get("favorited") === "true";
       if (page === null || itemsPerPage === null) {
         return NextResponse.json(
           {
@@ -41,7 +42,13 @@ export async function GET(request: NextRequest) {
         ...(term && {
           where: {
             [Op.or]: whereClause,
-            
+          },
+        }),
+        ...(favorited && {
+          include: {
+            model: UserRecipe,
+            where: { UserSub: session?.user.sub },
+            required: true,
           },
         }),
         limit: itemsPerPage,
@@ -49,6 +56,7 @@ export async function GET(request: NextRequest) {
       });
       return parseResponse({ data: data });
     } catch (error) {
+      console.log(error);
       return NextResponse.json(
         {
           message: `There was an error ${error}`,

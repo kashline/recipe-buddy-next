@@ -1,20 +1,28 @@
 "use client";
 
-import useSWR from "swr";
-import RecipeGrid from "@/app/ui/RecipeGrid";
-import Pagination from "@/app/ui/pagination";
-import AnimatedLoading from "@/app/ui/loading/animatedloading";
-import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
-import Search from "@/app/ui/search";
-import { favoriteSVG } from "@/app/ui/FavoriteButton";
 import SearchWithCards from "@/app/ui/searchWithCards";
+import { useUser } from "@auth0/nextjs-auth0/client";
+import Login from "@/app/ui/login";
 
 export default function Page() {
+  const { user, error, isLoading } = useUser();
+  if (!user) {
+    return (
+      <div className="text-white">
+        Please login to view this page
+        <Login></Login>
+      </div>
+    );
+  }
+  if (isLoading) return <div>Logging you in...</div>;
+  if (error) {
+    return <div>{error.message}</div>;
+  }
   return (
     // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
     <Suspense>
-      <SearchWithCards title="My Recipes" favorited={true}/>
+      <SearchWithCards title="My Recipes" favorited={true} />
     </Suspense>
   );
 }
