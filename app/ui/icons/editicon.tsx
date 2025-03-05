@@ -1,11 +1,11 @@
 import useResponsiveBreakpoints from "@/app/lib/utils/useResponsiveBreakpoints";
 
-export default function EditIcon() {
-  const [isMobile, isPortrait] = useResponsiveBreakpoints();
-  const size = isMobile ? "25px" : "50px";
+export default function EditIcon(props?: any) {
+  // const [isMobile, isPortrait] = useResponsiveBreakpoints();
+  // const size = isMobile ? "25px" : "50px";
   return (
     <svg
-      style={{ height: size, width: size }}
+      // style={{ height: size, width: size }}
       fill="white"
       version="1.1"
       id="Capa_1"
@@ -13,6 +13,7 @@ export default function EditIcon() {
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="0 0 494.936 494.936"
       xmlSpace="preserve"
+      {...props}
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g

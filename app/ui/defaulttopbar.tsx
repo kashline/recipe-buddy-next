@@ -1,16 +1,14 @@
 "use client";
 
-import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
 import MobileMenuBurger from "./mobilemenuburger";
 import ProfileButton from "./profilebutton";
 import { useRouter } from "next/navigation";
 
 export default function DefaultTopbar() {
   const router = useRouter();
-  const [isMobile, isPortrait] = useResponsiveBreakpoints();
   return (
     <div style={{ display: "flex" }}>
-      {isMobile && <MobileMenuBurger />}
+      <MobileMenuBurger/>
       <div
         style={{
           display: "flex",

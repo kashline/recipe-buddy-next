@@ -1,63 +1,105 @@
 "use client";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
-import Link from "next/link";
-
 export default function Page() {
-  const { user, error, isLoading } = useUser();
-  if (user !== null && user !== undefined) {
-  }
   return (
     <main className="is-preload">
-      <div id="wrapper" className="fade-in" data-testid="wrapper">
+      <div
+        className="h-svh"
+        style={{
+          background: `url(${process.env.NEXT_PUBLIC_BASE_URL}/burger.png)`,
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          opacity: ".65",
+        }}
+      >
         <div
           style={{
-            paddingBottom: "25%",
-            backgroundRepeat: "no-repeat",
+            backgroundColor: "rgba(255, 255, 255, 0.5)",
+            maxWidth: "100vw",
           }}
-          id="intro"
-          data-testid="intro"
+          className="flex justify-center my-auto mx-auto"
         >
-          <div
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.5)",
-              maxWidth: "100vw",
-            }}
-          >
-            <h1
-              style={{
-                color: "black",
-              }}
-            >
-              Welcome to RecipeBuddy
+          <h1 className="text-8xl text-gunmetal">Welcome to RecipeBuddy</h1>
+        </div>
+      </div>
+
+      <div
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          maxWidth: "100vw",
+        }}
+        className="flex h-28 bg-gradient-to-br from-black via-gunmetal to-black"
+      >
+        <h1 className="text-4xl text-gray-400 mx-auto my-auto justify-center">
+          Browse, edit, and save your favorite recipes
+        </h1>
+        <div></div>
+      </div>
+
+      <div
+        className="h-svh"
+        style={{
+          background: `url(${process.env.NEXT_PUBLIC_BASE_URL}/browse-with-favorite.png)`,
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          opacity: ".65",
+        }}
+      >
+        <div className="w-fit bg-gunmetal opacity-85 ml-[15%] pt-[10%] bg-clip-content">
+          <div className="border-4 px-2 py-2 rounded-md border-black">
+            <h1 className="text-non-photo-blue text-8xl">
+              Search <br /> easy
             </h1>
-            <h2
-              style={{
-                color: "black",
-                WebkitTextStrokeWidth: "1px",
-                WebkitTextStrokeColor: "white",
-              }}
-            >
-              Your new cooking assistant
-            </h2>
+            <span className="text-lavendar-blush text-2xl">
+              Search by regions, <br /> tags, ingredients and more
+            </span>
           </div>
         </div>
-        <div
-          id="main"
-          data-testid="main"
-          style={{
-            backgroundColor: "white",
-          }}
-        >
-          <h2>Thousands of recipes at your fingertips.</h2>
-          <div>
-            <p>
-              Browse from our collection of recipes from all over the world.
-            </p>
-            <h2>
-              <strong>Finally, your recipes woes are solved</strong>
-            </h2>
-            <Link href={"/recipes"}>Get started</Link>
+        <div className="w-fit bg-gunmetal opacity-85 ml-[55%] bg-clip-content">
+          <div className="border-4 px-2 py-2 rounded-md border-black">
+            <h1 className="text-non-photo-blue text-8xl">
+              Your <br /> recipes
+            </h1>
+            <span className="text-lavendar-blush text-2xl">
+              Quickly favorite any recipe <br /> to browse your own curated list
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          backgroundColor: "rgba(255, 255, 255, 0.5)",
+          maxWidth: "100vw",
+        }}
+        className="flex h-28 bg-gradient-to-br from-black via-gunmetal to-black"
+      >
+        <p className="text-4xl text-gray-400 mx-auto my-auto justify-center">
+          Create and share with friends!
+        </p>
+      </div>
+      <div
+        style={{
+          background: `url(${process.env.NEXT_PUBLIC_BASE_URL}/fb-share.png)`,
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          opacity: ".65",
+        }}
+        className="h-svh"
+      >
+        <div className="w-full h-full flex opacity-85 justify-center ">
+          <div className="border-4 bg-gunmetal px-2 py-2 rounded-md border-black my-auto">
+            <h1 className="text-non-photo-blue text-8xl">
+              Share <br /> everything
+            </h1>
+            <span className="text-lavendar-blush text-2xl">
+              Share your creations with friends and family
+            </span>
           </div>
         </div>
       </div>

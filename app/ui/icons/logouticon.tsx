@@ -1,4 +1,4 @@
-export default function LogoutIcon() {
+export default function LogoutIcon(props? : any) {
   return (
     <svg
       className=""

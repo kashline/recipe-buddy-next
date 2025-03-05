@@ -1,9 +1,16 @@
+"use client";
+
 import React from "react";
 import BurgerMenu from "./icons/burgermenu";
-import { usePathname } from "next/navigation";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import LogoutButton from "./buttons/logoutbutton";
 import LoginButton from "./buttons/loginbutton";
+import HomeIcon from "./icons/sidebaricons/homeicon";
+import EditIcon from "./icons/editicon";
+import MenuIcon from "./icons/sidebaricons/menuicon";
+import BurgerMenuButton from "./burgermenubutton";
+import ProfileIcon from "./icons/profileicon";
+import RecipeIcon from "./icons/recipeicon";
 
 export default function MobileMenuBurger() {
   const [menuToggle, setMenuToggle] = React.useState(false);
@@ -11,88 +18,60 @@ export default function MobileMenuBurger() {
   const handleClick = () => {
     setMenuToggle(!menuToggle);
   };
-  const pathName = usePathname();
-  function useOutsideClick(ref: React.RefObject<HTMLInputElement>) {
+  const wrapperRef = React.useRef<HTMLInputElement>(null);
+  React.useEffect(() => {
     const handleClickOutside = (event: any) => {
-      if (ref.current && !ref.current.contains(event.target)) {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setMenuToggle(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    React.useEffect(() => {
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    });
-  }
-  const wrapperRef = React.useRef<HTMLInputElement>(null);
-  useOutsideClick(wrapperRef);
+  });
   return (
-    <div className="float-left relative">
+    <div className={`float-left relative`}>
       <button
         onClick={handleClick}
-        className="px-0 hover:shadow-none py-0 shadow-none float-right"
+        className={`px-0 hover:shadow-none py-0 shadow-none float-right ${!menuToggle ? "visible" : "invisible"}`}
       >
         <BurgerMenu />
       </button>
       <div
-        className={`text-lavendar-blush fixed z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-200 ${!menuToggle ? "-left-64" : "left-0"}`}
+        className={`text-lavendar-blush gap-10 fixed z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-200 border-solid border-gray-500 border-2 rounded-lg ${!menuToggle ? "-left-64" : "left-0"}`}
         ref={wrapperRef}
       >
-        <button
-          onClick={handleClick}
-          className="px-0 hover:shadow-none py-0 shadow-none"
-        >
-          <BurgerMenu />
-        </button>
         <nav className="">
-          <ul className="links">
-            <li className={pathName === "/" ? "active" : ""}>
-              <a
-                href="/"
-                className="text-lavendar-blush hover:text-non-photo-blue"
-              >
-                Home
-              </a>
-            </li>
-            <li className={pathName === "/recipes" ? "active" : ""}>
-              <a
-                href="/recipes"
-                className="text-lavendar-blush hover:text-non-photo-blue"
-              >
-                Browse Recipes
-              </a>
-            </li>
-            <li className={pathName === "/recipes/create" ? "active" : ""}>
-              <a
-                href="/recipes/create"
-                className="text-lavendar-blush hover:text-non-photo-blue"
-              >
-                Create New Recipe
-              </a>
-            </li>
+          <ul className="">
+            <BurgerMenuButton
+              title="Home"
+              href="/"
+              Icon={HomeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+            />
+            <BurgerMenuButton
+              title="Browse Recipes"
+              href="/recipes"
+              Icon={MenuIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+            />
+            <BurgerMenuButton
+              title="New Recipe"
+              href="/recipes/create"
+              Icon={EditIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+            />
           </ul>
           {user && (
             <div>
               {" "}
               <hr className="h-0.5 border-b-lavendar-blush" />
               <ul>
-                <li>
-                  <a
-                    href="/profile"
-                    className="text-lavendar-blush hover:text-non-photo-blue"
-                  >
-                    My Profile
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/profile/recipes"
-                    className="text-lavendar-blush hover:text-non-photo-blue"
-                  >
-                    My Recipes
-                  </a>
-                </li>
+                <BurgerMenuButton
+                  title="Profile"
+                  href="/profile/"
+                  Icon={ProfileIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+                />
+                <BurgerMenuButton
+                  title="My Recipes"
+                  href="/profile/recipes"
+                  Icon={RecipeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+                />
               </ul>
               <LogoutButton />
             </div>

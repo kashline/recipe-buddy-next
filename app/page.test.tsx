@@ -12,12 +12,5 @@ describe("Page", () => {
         </UserProvider>,
       );
     });
-
-    const heading = screen.getByRole("heading", { level: 1 });
-
-    expect(heading).toBeInTheDocument();
-    expect(screen.getByTestId("wrapper")).toBeInTheDocument();
-    expect(screen.getByTestId("intro")).toBeInTheDocument();
-    expect(screen.getByTestId("main")).toBeInTheDocument();
   });
 });

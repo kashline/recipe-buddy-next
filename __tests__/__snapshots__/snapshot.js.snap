@@ -6,52 +6,112 @@ exports[`renders homepage unchanged 1`] = `
     class="is-preload"
   >
     <div
-      class="fade-in"
-      data-testid="wrapper"
-      id="wrapper"
+      class="h-svh"
+      style="background: url(undefined/burger.png); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; opacity: 0.65;"
     >
       <div
-        data-testid="intro"
-        id="intro"
-        style="padding-bottom: 25%; background-repeat: no-repeat;"
+        class="flex justify-center my-auto mx-auto"
+        style="background-color: rgba(255, 255, 255, 0.5); max-width: 100vw;"
+      >
+        <h1
+          class="text-8xl text-gunmetal"
+        >
+          Welcome to RecipeBuddy
+        </h1>
+      </div>
+    </div>
+    <div
+      class="flex h-28 bg-gradient-to-br from-black via-gunmetal to-black"
+      style="background-color: rgba(255, 255, 255, 0.5); max-width: 100vw;"
+    >
+      <h1
+        class="text-4xl text-gray-400 mx-auto my-auto justify-center"
+      >
+        Browse, edit, and save your favorite recipes
+      </h1>
+      <div />
+    </div>
+    <div
+      class="h-svh"
+      style="background: url(undefined/browse-with-favorite.png); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; opacity: 0.65;"
+    >
+      <div
+        class="w-fit bg-gunmetal opacity-85 ml-[15%] pt-[10%] bg-clip-content"
       >
         <div
-          style="background-color: rgba(255, 255, 255, 0.5); max-width: 100vw;"
+          class="border-4 px-2 py-2 rounded-md border-black"
         >
           <h1
-            style="color: black;"
+            class="text-non-photo-blue text-8xl"
           >
-            Welcome to RecipeBuddy
+            Search 
+            <br />
+             easy
           </h1>
-          <h2
-            style="color: black;"
+          <span
+            class="text-lavendar-blush text-2xl"
           >
-            Your new cooking assistant
-          </h2>
+            Search by regions, 
+            <br />
+             tags, ingredients and more
+          </span>
         </div>
       </div>
       <div
-        data-testid="main"
-        id="main"
-        style="background-color: white;"
+        class="w-fit bg-gunmetal opacity-85 ml-[55%] bg-clip-content"
       >
-        <h2>
-          Thousands of recipes at your fingertips.
-        </h2>
-        <div>
-          <p>
-            Browse from our collection of recipes from all over the world.
-          </p>
-          <h2>
-            <strong>
-              Finally, your recipes woes are solved
-            </strong>
-          </h2>
-          <a
-            href="/recipes"
+        <div
+          class="border-4 px-2 py-2 rounded-md border-black"
+        >
+          <h1
+            class="text-non-photo-blue text-8xl"
           >
-            Get started
-          </a>
+            Your 
+            <br />
+             recipes
+          </h1>
+          <span
+            class="text-lavendar-blush text-2xl"
+          >
+            Quickly favorite any recipe 
+            <br />
+             to browse your own curated list
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="flex h-28 bg-gradient-to-br from-black via-gunmetal to-black"
+      style="background-color: rgba(255, 255, 255, 0.5); max-width: 100vw;"
+    >
+      <p
+        class="text-4xl text-gray-400 mx-auto my-auto justify-center"
+      >
+        Create and share with friends!
+      </p>
+    </div>
+    <div
+      class="h-svh"
+      style="background: url(undefined/fb-share.png); background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; opacity: 0.65;"
+    >
+      <div
+        class="w-full h-full flex opacity-85 justify-center "
+      >
+        <div
+          class="border-4 bg-gunmetal px-2 py-2 rounded-md border-black my-auto"
+        >
+          <h1
+            class="text-non-photo-blue text-8xl"
+          >
+            Share 
+            <br />
+             everything
+          </h1>
+          <span
+            class="text-lavendar-blush text-2xl"
+          >
+            Share your creations with friends and family
+          </span>
         </div>
       </div>
     </div>
