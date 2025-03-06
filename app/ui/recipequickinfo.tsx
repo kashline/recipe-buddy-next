@@ -92,10 +92,10 @@ export default function RecipeQuickInfo({
             </div>
           </div>
           <div
-            className={`overflow-hidden transition-all ease-in duration-200 ${isQiToggle ? "max-h-96" : "max-h-0"}`}
+            className={`overflow-hidden transition-all ease-in duration-200  ${isQiToggle ? "max-h-96" : "max-h-0"}`}
           >
             {/* {isQiToggle && ( */}
-            <table>
+            <table className="w-full">
               <tbody>
                 <tr
                   style={{
@@ -205,7 +205,7 @@ export default function RecipeQuickInfo({
             className={`overflow-hidden transition-all ease-in duration-500`}
             style={isIngToggle ? { maxHeight: 1024 } : { maxHeight: 0 }}
           >
-            <table className="mb-0">
+            <table className="mb-0 w-full">
               <tbody>
                 {recipe.Ingredients.map((ingredient: any, index: any) => {
                   return (

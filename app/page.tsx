@@ -1,10 +1,14 @@
 "use client";
 
+import useResponsiveBreakpoints from "./lib/utils/useResponsiveBreakpoints";
+import RandomRecipeCard from "./ui/randomrecipecard";
+
 export default function Page() {
+  const [isMobile, isPortrait] = useResponsiveBreakpoints();
   return (
-    <main className="is-preload">
+    <main className="is-preload ">
       <div
-        className="h-svh"
+        className="h-svh "
         style={{
           background: `url(${process.env.NEXT_PUBLIC_BASE_URL}/burger.png)`,
           backgroundAttachment: "fixed",
@@ -21,8 +25,15 @@ export default function Page() {
           }}
           className="flex justify-center my-auto mx-auto"
         >
-          <h1 className="text-8xl text-gunmetal">Welcome to RecipeBuddy</h1>
+          <h1 className={`text-6xl text-gunmetal`}>
+            Welcome to RecipeBuddy
+          </h1>
         </div>
+        {/* <div className="bg-clip-content flex justify-center mx-auto">
+          <div className="pt-[10%]">
+            <RandomRecipeCard />
+          </div>
+        </div> */}
       </div>
 
       <div
@@ -49,26 +60,31 @@ export default function Page() {
           opacity: ".65",
         }}
       >
-        <div className="w-fit bg-gunmetal opacity-85 ml-[15%] pt-[10%] bg-clip-content">
-          <div className="border-4 px-2 py-2 rounded-md border-black">
-            <h1 className="text-non-photo-blue text-8xl">
-              Search <br /> easy
-            </h1>
-            <span className="text-lavendar-blush text-2xl">
-              Search by regions, <br /> tags, ingredients and more
-            </span>
+        {!isMobile && (
+          <div>
+            <div className="w-fit bg-gunmetal opacity-85 ml-[15%] pt-[10%] bg-clip-content">
+              <div className="border-4 px-2 py-2 rounded-md border-black">
+                <h1 className="text-non-photo-blue text-8xl">
+                  Search <br /> easy
+                </h1>
+                <span className="text-lavendar-blush text-2xl">
+                  Search by regions, <br /> tags, ingredients and more
+                </span>
+              </div>
+            </div>
+            <div className="w-fit bg-gunmetal opacity-85 ml-[55%] bg-clip-content">
+              <div className="border-4 px-2 py-2 rounded-md border-black">
+                <h1 className="text-non-photo-blue text-8xl">
+                  Your <br /> recipes
+                </h1>
+                <span className="text-lavendar-blush text-2xl">
+                  Quickly favorite any recipe <br /> to browse your own curated
+                  list
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="w-fit bg-gunmetal opacity-85 ml-[55%] bg-clip-content">
-          <div className="border-4 px-2 py-2 rounded-md border-black">
-            <h1 className="text-non-photo-blue text-8xl">
-              Your <br /> recipes
-            </h1>
-            <span className="text-lavendar-blush text-2xl">
-              Quickly favorite any recipe <br /> to browse your own curated list
-            </span>
-          </div>
-        </div>
+        )}
       </div>
       <div
         style={{
@@ -92,16 +108,18 @@ export default function Page() {
         }}
         className="h-svh"
       >
-        <div className="w-full h-full flex opacity-85 justify-center ">
-          <div className="border-4 bg-gunmetal px-2 py-2 rounded-md border-black my-auto">
-            <h1 className="text-non-photo-blue text-8xl">
-              Share <br /> everything
-            </h1>
-            <span className="text-lavendar-blush text-2xl">
-              Share your creations with friends and family
-            </span>
+        {!isMobile && (
+          <div className="w-full h-full flex opacity-85 justify-center ">
+            <div className="border-4 bg-gunmetal px-2 py-2 rounded-md border-black my-auto">
+              <h1 className="text-non-photo-blue text-8xl">
+                Share <br /> everything
+              </h1>
+              <span className="text-lavendar-blush text-2xl">
+                Share your creations with friends and family
+              </span>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </main>
   );

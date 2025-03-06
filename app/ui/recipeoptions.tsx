@@ -25,12 +25,13 @@ export default function RecipeOptions({
   favorited: boolean;
 }) {
   const path = usePathname();
-  const body = "I wanted to share this awesome recipe with you. You can find full details below along with thousands of other recipes on recipebuddy.us!"
-  const subject = "Check out this recipe I found on RecipeBuddy!"
+  const body =
+    "I wanted to share this awesome recipe with you. You can find full details below along with thousands of other recipes on recipebuddy.us!";
+  const subject = "Check out this recipe I found on RecipeBuddy!";
   const { user, error, isLoading } = useUser();
-  const [isMobile] = useResponsiveBreakpoints()
+  const [isMobile] = useResponsiveBreakpoints();
   const shareSize = isMobile ? 50 : 75;
-  const [url, setUrl] = React.useState('');
+  const [url, setUrl] = React.useState("");
   React.useEffect(() => {
     setUrl(window.location.href);
   }, []);
@@ -57,7 +58,7 @@ export default function RecipeOptions({
           className="h-fit justify-center align-middle mx-auto"
           href={`${path}/edit`}
         >
-          <EditIcon />
+          <EditIcon style={{ width: "25px", height: '25px' }} />
         </Link>
         <FavoriteButton
           recipeId={recipe.id!}
@@ -66,18 +67,14 @@ export default function RecipeOptions({
         />
       </div>
       <div className={`mx-auto justify-center items-center flex h-32`}>
-        <EmailShareButton
-          url={`${url}`}
-          subject={subject}
-          body={body}
-        >
+        <EmailShareButton url={`${url}`} subject={subject} body={body}>
           <EmailIcon size={shareSize} className="pb-0" />
         </EmailShareButton>
         <FacebookShareButton url={`${url}`} hashtag={`#recipebuddy.us`}>
           <FacebookIcon size={shareSize} />
         </FacebookShareButton>
         <TwitterShareButton url={`${path}`}>
-          <TwitterIcon size={shareSize}/>
+          <TwitterIcon size={shareSize} />
         </TwitterShareButton>
       </div>
     </div>

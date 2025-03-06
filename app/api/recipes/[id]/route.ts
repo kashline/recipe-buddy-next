@@ -24,7 +24,6 @@ export async function GET(
     const slug = await params;
     const { searchParams } = new URL(request.url!);
     const userSub = searchParams.get('userSub')
-    // console.log(slug.id)
     const recipe = await getRecipeById(Number(slug.id), userSub ? userSub : null)
     return  NextResponse.json({
       data: recipe

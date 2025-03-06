@@ -6,7 +6,7 @@ exports[`AnimatedLoading renders animatedloading 1`] = `
   "baseElement": <body>
     <div>
       <div
-        style="color: white; display: flex; justify-content: center; align-items: center; height: 1000px;"
+        style="color: white; display: flex; justify-content: center; align-items: center;"
       >
         <span
           class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-18lrjg1-MuiCircularProgress-root"
@@ -33,7 +33,7 @@ exports[`AnimatedLoading renders animatedloading 1`] = `
   </body>,
   "container": <div>
     <div
-      style="color: white; display: flex; justify-content: center; align-items: center; height: 1000px;"
+      style="color: white; display: flex; justify-content: center; align-items: center;"
     >
       <span
         class="MuiCircularProgress-root MuiCircularProgress-indeterminate MuiCircularProgress-colorPrimary css-18lrjg1-MuiCircularProgress-root"
