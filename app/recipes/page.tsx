@@ -13,9 +13,9 @@ import SearchWithCards from "../ui/searchWithCards";
 
 export default function Page() {
   return (
-    <Suspense>
-      <RedirectWrapper />
-    </Suspense>
+    <>
+      <SearchWithCards title="Browse Recipes" favorited={false} />
+    </>
   );
 }
 
@@ -44,12 +44,12 @@ function RedirectWrapper() {
 
   return (
     <>
-      <SearchWithCards title="Browse Recipes" favorited={false}/>
+      <SearchWithCards title="Browse Recipes" favorited={false} />
       {/* <Head> */}
-        {/* <meta property="og:url" content={`${url}`} /> */}
-        {/* <meta property="og:type" content="article" />
+      {/* <meta property="og:url" content={`${url}`} /> */}
+      {/* <meta property="og:type" content="article" />
         <meta property="og:title" content={``} /> */}
-        {/* <meta
+      {/* <meta
           property="og:description"
           content="How much does culture influence creative thinking?"
         />
