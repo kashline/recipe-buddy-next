@@ -14,7 +14,9 @@ import SearchWithCards from "../ui/searchWithCards";
 export default function Page() {
   return (
     <>
-      <SearchWithCards title="Browse Recipes" favorited={false} />
+      <Suspense>
+        <SearchWithCards title="Browse Recipes" favorited={false} />
+      </Suspense>
     </>
   );
 }
@@ -73,55 +75,55 @@ function RedirectWrapper() {
   );
 }
 
-function RecipeCards({ searchTerm }: { searchTerm: string }) {
-  const searchParams = useSearchParams();
-  const recipesPerPage = Number(searchParams.get("recipesPerPage"));
-  const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(
-    `/api/recipes/search/fuzzy/?${searchParams.toString()}&term=${searchTerm}`,
-    fetcher
-  );
-  if (searchParams.size === 0) {
-    return <></>;
-  }
-  if (error) return <div>ERROR</div>;
-  if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
-  if (!data) {
-    return <>no data</>;
-  }
-  const recipes: any = data.data.rows;
-  const recipeCount = Number(data.data.count);
-  const totalPages =
-    Math.ceil(recipeCount / recipesPerPage) === 0
-      ? 1
-      : Math.ceil(recipeCount / recipesPerPage);
-  if (recipeCount === 0) {
-    return (
-      <div className="flex-col h-screen w-full">
-        <p className="text-lavendar-blush justify-center text-center mx-auto mt-[50%]">
-          We couldn&apos;t find any recipes matching your current filters
-        </p>
-        <p className="text-lavendar-blush justify-center text-center mx-auto mt-[50%]">
-          Change your filters or{" "}
-          <a className="text-lavendar-blush" href="/recipes/create">
-            create a new recipe
-          </a>
-        </p>
-      </div>
-    );
-  }
-  return (
-    <div>
-      <RecipeGrid data={recipes} />
-      <div
-        style={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          maxWidth: "fit-content",
-        }}
-      >
-        <Pagination totalPages={totalPages} />
-      </div>
-    </div>
-  );
-}
+// function RecipeCards({ searchTerm }: { searchTerm: string }) {
+//   const searchParams = useSearchParams();
+//   const recipesPerPage = Number(searchParams.get("recipesPerPage"));
+//   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
+//   const { data, error, isLoading } = useSWR(
+//     `/api/recipes/search/fuzzy/?${searchParams.toString()}&term=${searchTerm}`,
+//     fetcher
+//   );
+//   if (searchParams.size === 0) {
+//     return <></>;
+//   }
+//   if (error) return <div>ERROR</div>;
+//   if (isLoading) return <AnimatedLoading name={"Recipes"}></AnimatedLoading>;
+//   if (!data) {
+//     return <>no data</>;
+//   }
+//   const recipes: any = data.data.rows;
+//   const recipeCount = Number(data.data.count);
+//   const totalPages =
+//     Math.ceil(recipeCount / recipesPerPage) === 0
+//       ? 1
+//       : Math.ceil(recipeCount / recipesPerPage);
+//   if (recipeCount === 0) {
+//     return (
+//       <div className="flex-col h-screen w-full">
+//         <p className="text-lavendar-blush justify-center text-center mx-auto mt-[50%]">
+//           We couldn&apos;t find any recipes matching your current filters
+//         </p>
+//         <p className="text-lavendar-blush justify-center text-center mx-auto mt-[50%]">
+//           Change your filters or{" "}
+//           <a className="text-lavendar-blush" href="/recipes/create">
+//             create a new recipe
+//           </a>
+//         </p>
+//       </div>
+//     );
+//   }
+//   return (
+//     <div>
+//       <RecipeGrid data={recipes} />
+//       <div
+//         style={{
+//           marginLeft: "auto",
+//           marginRight: "auto",
+//           maxWidth: "fit-content",
+//         }}
+//       >
+//         <Pagination totalPages={totalPages} />
+//       </div>
+//     </div>
+//   );
+// }
