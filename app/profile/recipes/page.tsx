@@ -3,19 +3,18 @@
 import { Suspense } from "react";
 import SearchWithCards from "@/app/ui/searchWithCards";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import Login from "@/app/ui/login";
 
 export default function Page() {
   const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div className="text-lavendar-blush mx-auto">Logging you in...</div>;
   if (!user) {
     return (
-      <div className="text-white">
-        Please login to view this page
-        <Login></Login>
+      <div className="text-lavendar-blush">
+        You must be logged in to view this page
       </div>
     );
   }
-  if (isLoading) return <div>Logging you in...</div>;
   if (error) {
     return <div>{error.message}</div>;
   }

@@ -3,7 +3,7 @@ import LogoutIcon from "../icons/logouticon";
 export default function LogoutButton(props?: any) {
   return (
     <div
-      className="w-full h-10 bottom-0 absolute border-solid border-chili-red hover:border-red-800 border"
+      className="w-full h-10 bottom-0 absolute border-solid border-chili-red hover:border-red-800 border mb-6"
       {...props}
     >
       <a className="flex text-lavendar-blush" href="/api/auth/logout">

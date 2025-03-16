@@ -222,19 +222,19 @@ exports[`MobileMenuBurger renders the mobile menu burger 1`] = `
               </a>
             </ul>
             <div
-              class="w-full h-10 bottom-0 absolute border-solid"
+              class="w-full h-10 bottom-0 absolute border-solid border-green-400 border-2 hover:border-green-600 mb-6"
             >
               <a
                 class="flex text-lavendar-blush"
                 href="/api/auth/login"
               >
                 <p
-                  class="ml-3"
+                  class="ml-3 my-auto"
                 >
                   Login
                 </p>
                 <div
-                  class="pt-1 ml-auto pr-2"
+                  class="pt-1 ml-auto pr-2 my-auto"
                 >
                   <svg
                     fill="#eee5e9"
@@ -484,19 +484,19 @@ exports[`MobileMenuBurger renders the mobile menu burger 1`] = `
             </a>
           </ul>
           <div
-            class="w-full h-10 bottom-0 absolute border-solid"
+            class="w-full h-10 bottom-0 absolute border-solid border-green-400 border-2 hover:border-green-600 mb-6"
           >
             <a
               class="flex text-lavendar-blush"
               href="/api/auth/login"
             >
               <p
-                class="ml-3"
+                class="ml-3 my-auto"
               >
                 Login
               </p>
               <div
-                class="pt-1 ml-auto pr-2"
+                class="pt-1 ml-auto pr-2 my-auto"
               >
                 <svg
                   fill="#eee5e9"

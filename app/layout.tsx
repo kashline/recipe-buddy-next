@@ -12,8 +12,7 @@ import * as React from "react";
 import UserMetadata from "./UserMetadata";
 import { ToastContainer } from "react-toastify";
 
-export const metadata: Metadata = {
-};
+export const metadata: Metadata = {};
 
 export default function RootLayout({
   children,
@@ -30,12 +29,10 @@ export default function RootLayout({
         <StoreProvider>
           <UserMetadata>
             <SpeedInsights></SpeedInsights>
-            <body className="h-svh">
+            <body className="">
               {/* <Script src="../node_modules/flowbite/dist/flowbite.min.js"></Script> */}
-              <div>
-                <DefaultTopbar />
-                {/* <TopNav></TopNav> */}
-              </div>
+              <DefaultTopbar />
+              {/* <TopNav></TopNav> */}
               <div
                 style={{
                   // height: "100vh",

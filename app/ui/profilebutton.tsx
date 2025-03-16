@@ -7,20 +7,16 @@ import {
   setToggle,
 } from "../lib/features/profile/profileSlice";
 import { useAppSelector, useAppDispatch } from "../lib/hooks";
+import Link from "next/link";
 
 export default function ProfileButton() {
   const profileSlice = useAppSelector(selectProfileSlice);
   const dispatch = useAppDispatch();
   const { user, error, isLoading } = useUser();
-  // const [profileDropdown, setProfileDropdown] = React.useState(false);
-  // const contextValue = {
-  //   profileDropdown,
-  //   setProfileDropdown,
-  // };
   return (
     <>
       {profileSlice.toggle && <ProfileDropdown></ProfileDropdown>}
-      <button
+      <Link
         style={{
           float: "right",
           width: 40,
@@ -30,9 +26,7 @@ export default function ProfileButton() {
           marginRight: 2,
           marginTop: 2,
         }}
-        onClick={() => {
-          dispatch(setToggle());
-        }}
+        href={'/profile'}
       >
         {user && (
           <Image
@@ -67,7 +61,7 @@ export default function ProfileButton() {
             />
           </svg>
         )}
-      </button>
+      </Link>
     </>
   );
 }
