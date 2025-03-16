@@ -9,14 +9,20 @@ import Ingredient from "@/app/data/models/Ingredient";
 import { arrayMove } from "@dnd-kit/sortable";
 
 export interface CreateRecipeState {
-  name: string;
+  title: string;
   difficulty: string;
-  length: string;
+  description: string;
+  preparationTime: number;
+  cookingTime: number;
+  tags: string[];
+  servings: number;
+  owner: string;
+  aigenerated: boolean;
   video: string;
   image: string;
   id?: number;
   Ingredients: { name: string; RecipeIngredient: RecipeIngredient }[];
-  RecipeSteps: { step_number: number; step: string }[];
+  RecipeSteps: { step_number: number; description: string, ingredients: string[] }[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
@@ -26,13 +32,19 @@ interface RecipeIngredient {
 }
 
 const initialState: CreateRecipeState = {
-  name: "",
-  difficulty: "",
-  length: "",
+  title: "",
+  difficulty: "very short",
+  description: "",
+  preparationTime: 0,
+  cookingTime: 0,
+  tags: [],
+  servings: 0,
+  owner: "",
+  aigenerated: false,
   video: "",
   image: "",
   Ingredients: [{ name: "", RecipeIngredient: { quantity: "" } }],
-  RecipeSteps: [{ step_number: 1, step: "" }],
+  RecipeSteps: [{ step_number: 1, description: "", ingredients: [] }],
   status: "idle",
   error: null,
 };
@@ -41,14 +53,32 @@ export const createRecipeSlice = createSlice({
   name: "createRecipe",
   initialState,
   reducers: {
-    setName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload;
+    setTitle: (state, action: PayloadAction<string>) => {
+      state.title = action.payload;
     },
     setDifficulty: (state, action: PayloadAction<string>) => {
       state.difficulty = action.payload;
     },
-    setLength: (state, action: PayloadAction<string>) => {
-      state.length = action.payload;
+    setDescription: (state, action: PayloadAction<string>) => {
+      state.description = action.payload;
+    },
+    setPreparationTime: (state, action: PayloadAction<string>) => {
+      state.preparationTime = parseFloat(action.payload);
+    },
+    setCookingTime: (state, action: PayloadAction<string>) => {
+      state.cookingTime = parseFloat(action.payload);
+    },
+    setTags: (state, action: PayloadAction<string[]>) => {
+      state.tags = action.payload;
+    },
+    setServings: (state, action: PayloadAction<string>) => {
+      state.servings = parseFloat(action.payload);
+    },
+    setOwner: (state, action: PayloadAction<string>) => {
+      state.owner = action.payload;
+    },
+    setAIGenerated: (state, action: PayloadAction<boolean>) => {
+      state.aigenerated = action.payload;
     },
     setVideo: (state, action: PayloadAction<string>) => {
       state.video = action.payload;
@@ -101,7 +131,8 @@ export const createRecipeSlice = createSlice({
             ...state.RecipeSteps,
             {
               step_number: state.RecipeSteps.length + 1,
-              step: "",
+              description: "",
+              ingredients: [],
             },
           ];
           break;
@@ -117,12 +148,7 @@ export const createRecipeSlice = createSlice({
           validateStepNumbers(state);
           break;
         case "setStep":
-          state.RecipeSteps[action.payload.index!].step = action.payload.value!;
-          // state.RecipeSteps.map((step, index) => {
-          //   if (step.step_number !== index + 1) {
-          //     step.step_number = index + 1;
-          //   }
-          // });
+          state.RecipeSteps[action.payload.index!].description = action.payload.value!;
           break;
         default:
           console.error(new Error("Invalid payload type for setStepField"));
@@ -147,9 +173,9 @@ export const createRecipeSlice = createSlice({
       );
       state.RecipeSteps = movedArray.map((step: any, index: number) => {
         if (step.step_number !== index + 1) {
-          return { step: step.step, step_number: index + 1 };
+          return { description: step.description, step_number: index + 1, ingredients: step.ingredients };
         }
-        return { step: step.step, step_number: step.step_number };
+        return { description: step.description, step_number: step.step_number, ingredients: step.ingredients };
       });
     },
   },
@@ -163,7 +189,6 @@ export const createRecipeSlice = createSlice({
         Object.assign(state, action.payload);
       })
       .addCase(fetchGeneratedRecipe.fulfilled, (state, action) => {
-        console.log(action.payload.body);
         state.status = "succeeded";
         Object.assign(state, action.payload);
       });
@@ -172,8 +197,14 @@ export const createRecipeSlice = createSlice({
 
 export const {
   setDifficulty,
-  setName,
-  setLength,
+  setTitle,
+  setPreparationTime,
+  setCookingTime,
+  setAIGenerated,
+  setOwner,
+  setServings,
+  setTags,
+  setDescription,
   setIngredientField,
   setStepField,
   setVideo,

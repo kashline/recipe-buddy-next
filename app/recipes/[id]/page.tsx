@@ -65,7 +65,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     const recipe: RecipeZype = data;
     const friendlyName = friendifyWords(recipe.title);
     const favorited =
-      "UserRecipes" in recipe && recipe.UserRecipes.length === 1 ? true : false;
+      "UserRecipes" in recipe && recipe.UserRecipes?.length === 1 ? true : false;
     return (
       <div style={{ color: "white" }}>
         <div
@@ -128,7 +128,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                             </div>
                             <IngredientsTable
                               data={step.ingredients!}
-                            ></IngredientsTable>
+                            />
                           </div>
                         </div>
                         <hr

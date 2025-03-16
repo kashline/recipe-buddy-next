@@ -6,7 +6,7 @@ import {
   selectCreateRecipe,
   rearrangeSteps,
 } from "@/app/lib/features/recipe/createRecipeSlice";
-import "./styles.scss";
+// import "./styles.scss";
 import RecipeStep from "./RecipeStep";
 import {
   DndContext,
@@ -20,6 +20,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import IngredientsTable from "@/app/ui/ingredientstable";
 
 export default function RecipeStepsForm() {
   const createRecipe = useAppSelector(selectCreateRecipe);
@@ -43,7 +44,7 @@ export default function RecipeStepsForm() {
           items: items,
           oldIndex: items.findIndex((i) => active.id === i.step_number),
           newIndex: items.findIndex((i) => over.id === i.step_number),
-        }),
+        })
       );
     }
   };
@@ -52,7 +53,7 @@ export default function RecipeStepsForm() {
     setItems(createRecipe.RecipeSteps);
   }, [createRecipe.RecipeSteps]);
   return (
-    <div className="steps-form">
+    <div className="">
       <DndContext
         sensors={sensors}
         collisionDetection={closestCenter}
@@ -61,19 +62,23 @@ export default function RecipeStepsForm() {
         <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
           {items.map((id, index) => {
             return (
-              <RecipeStep
-                key={index}
-                index={index}
-                recipe={id}
-                createRecipe={createRecipe}
-                setStepField={setStepField}
-                dispatch={dispatch}
-              />
+              <div key={index}>
+                <RecipeStep
+                  key={index}
+                  index={index}
+                  recipe={id}
+                  createRecipe={createRecipe}
+                  setStepField={setStepField}
+                  dispatch={dispatch}
+                />
+                <IngredientsTable data={id.ingredients!} />
+              </div>
             );
           })}
         </SortableContext>
       </DndContext>
       <Button
+        className="text-lavendar-blush hover:text-non-photo-blue pl-2"
         style={{ boxShadow: "none" }}
         onClick={() => {
           dispatch(setStepField({ type: "add" }));

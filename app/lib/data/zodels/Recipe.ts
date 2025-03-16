@@ -31,8 +31,8 @@ export const RecipeZodel = z.object({
   title: z.string({ required_error: `"name" is required` }).toLowerCase().trim(),
   description: z.string({required_error: 'description is required'}),
   difficulty: z.string({ required_error: `"difficulty" is required` }),
-  preparationTime: z.string({required_error: 'preparationTime is required'}),
-  cookingTime: z.string({required_error: 'cookingTime is required'}),
+  preparationTime: z.number({required_error: 'preparationTime is required'}),
+  cookingTime: z.number({required_error: 'cookingTime is required'}),
   image: z
     .string()
     .nullish()
@@ -43,8 +43,8 @@ export const RecipeZodel = z.object({
     .transform((x) => x ?? null),
   tags: z.array(z.string()),
   servings: z.number({required_error: 'number of servings is required'}),
-  owner: z.string({required_error: 'Recipe owner is required.'}),
-  aigenerated: z.boolean(),
+  owner: z.string({required_error: 'Recipe owner is required.'}).optional(),
+  aigenerated: z.boolean().optional(),
   Ingredients: z.array(IngredientZodel),
   RecipeSteps: z.array(RecipeStepZodel).transform((steps) =>
     steps.map((step, index) => {
@@ -54,7 +54,7 @@ export const RecipeZodel = z.object({
       };
     }),
   ),
-  UserRecipes: z.array(UserRecipeZodel),
+  UserRecipes: z.array(UserRecipeZodel).optional(),
 });
 
 export type RecipeZype = z.infer<typeof RecipeZodel>;

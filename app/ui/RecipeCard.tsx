@@ -14,7 +14,7 @@ export default function RecipeCard({ data }: { data: RecipeZype }) {
   const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
   const favorited =
-    "UserRecipes" in data && data.UserRecipes.length === 1 ? true : false;
+    "UserRecipes" in data && data.UserRecipes?.length === 1 ? true : false;
   return (
     <div className="border">
       <Card

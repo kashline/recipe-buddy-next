@@ -39,7 +39,7 @@ export default function RootLayout({
               <div
                 style={{
                   // height: "100vh",
-                  paddingLeft: "5%",
+                  paddingLeft: "4%",
                   paddingTop: "2%",
                   paddingRight: "4%",
                 }}

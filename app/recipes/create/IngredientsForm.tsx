@@ -10,8 +10,7 @@ import { Button } from "@mui/base";
 import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 import Trashcan from "@/app/ui/icons/trashcan";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";
-
-import "./styles.scss";
+import './typeahead.css'
 
 export default function IngredientsForm() {
   const [isLoading, setIsLoading] = React.useState(false);
@@ -20,14 +19,13 @@ export default function IngredientsForm() {
 
   const selectRecipe = useAppSelector(selectCreateRecipe);
   const dispatch = useAppDispatch();
-
   const handleChange = (query: string, index: number) => {
     dispatch(
       setIngredientField({
         type: "setName",
         index: index,
         value: query,
-      }),
+      })
     );
     setIsLoading(true);
     fetch(`/api/recipes/ingredients?name=${query}`)
@@ -43,7 +41,7 @@ export default function IngredientsForm() {
         type: "setName",
         index: index,
         value: query,
-      }),
+      })
     );
   };
   if (selectRecipe.status === "loading")
@@ -117,12 +115,11 @@ export default function IngredientsForm() {
                     emptyLabel={"Start typing to search"}
                     allowNew={true}
                     inputProps={{
+                      className:
+                        "text-lavendar-blush bg-gunmetal rounded-md w-full",
                       style: {
                         height: "35px",
-                        borderRadius: "25px",
                         width: "100%",
-                        borderColor: "#EEE5E9",
-                        color: "white",
                       },
                     }}
                     renderMenu={(results, menuProps) =>
@@ -132,9 +129,10 @@ export default function IngredientsForm() {
                         delete menuProps.paginationText,
                         delete menuProps.newSelectionPrefix,
                         (
-                          <Menu style={{}} {...menuProps}>
+                          <Menu className="h-28 z-10" style={{}} {...menuProps}>
                             {results.map((result, innerIndex) => (
                               <div
+                                className="bg-lavendar-blush"
                                 style={{ width: "100%" }}
                                 key={`ingredient-menuitem-${innerIndex}`}
                               >
@@ -146,7 +144,7 @@ export default function IngredientsForm() {
                                     item: React.MouseEvent<
                                       HTMLAnchorElement,
                                       MouseEvent
-                                    >,
+                                    >
                                   ) => {
                                     const target = item.target as HTMLElement;
                                     handleMenuClick(target.innerText, index);
@@ -185,19 +183,8 @@ export default function IngredientsForm() {
                   }}
                 >
                   <input
-                    className="quantity-input"
+                    className="w-full text-right rounded-md bg-gunmetal text-lavendar-blush"
                     type="text"
-                    style={{
-                      textAlign: "right",
-                      borderRadius: "25px",
-                      width: "100%",
-                      paddingRight: "20px",
-                      backgroundColor: "inherit",
-                      color: "white",
-                      border: "solid",
-                      borderColor: "#EEE5E9",
-                      height: "35px",
-                    }}
                     value={
                       selectRecipe.Ingredients[index].RecipeIngredient.quantity
                     }
@@ -208,7 +195,7 @@ export default function IngredientsForm() {
                           type: "setQuantity",
                           index: index,
                           value: (e.target as HTMLInputElement).value,
-                        }),
+                        })
                       );
                     }}
                   />
@@ -234,11 +221,11 @@ export default function IngredientsForm() {
                         setIngredientField({
                           type: "removeAtIndex",
                           index: index,
-                        }),
+                        })
                       );
                     }}
                   >
-                    <Trashcan style={{ stroke: "white" }}></Trashcan>
+                    <Trashcan style={{ stroke: "#eee5e9" }} />
                   </Button>
                 </div>
               </div>
@@ -247,6 +234,7 @@ export default function IngredientsForm() {
         </div>
       </div>
       <Button
+        className="text-lavendar-blush hover:text-non-photo-blue"
         style={{ marginTop: 22, boxShadow: "none", color: "whitesmoke" }}
         onClick={() => {
           dispatch(setIngredientField({ type: "add" }));

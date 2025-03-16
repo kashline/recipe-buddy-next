@@ -1,8 +1,9 @@
 import React from "react";
-import { useAppSelector } from "../lib/hooks";
-import { selectCreateRecipe } from "../lib/features/recipe/createRecipeSlice";
+import { useAppDispatch, useAppSelector } from "../lib/hooks";
+import { selectCreateRecipe, setOwner } from "../lib/features/recipe/createRecipeSlice";
 import Button from "./button";
 import Link from "next/link";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function RecipeSubmitButton() {
   const [submit, setSubmit] = React.useState("idle");
@@ -29,10 +30,10 @@ export default function RecipeSubmitButton() {
   switch (submit) {
     case "idle":
       return (
-        <div className=" content-center">
-          <Button type="submit" onClick={handleSubmit}>
+        <div className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8">
+          <button className="" type="submit" onClick={handleSubmit}>
             Submit
-          </Button>
+          </button>
         </div>
       );
     case "failed":
@@ -46,13 +47,13 @@ export default function RecipeSubmitButton() {
       );
     case "success":
       return (
-        <div style={{ alignContent: "center" }}>
-          <Button type="submit" onClick={handleSubmit}>
+        <div className="text-center flex">
+          <button type="submit" onClick={handleSubmit}>
             Submit
-          </Button>
+          </button>
           <p>Recipe submitted successfully!</p>
           <div style={{ display: "flex" }}>
-            <Link href={`/recipes/${createRecipe.name}`}>
+            <Link href={`/recipes/${createRecipe.title}`}>
               <Button>Return</Button>
             </Link>
           </div>

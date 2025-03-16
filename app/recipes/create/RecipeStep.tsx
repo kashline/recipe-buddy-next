@@ -23,22 +23,22 @@ export default function RecipeStep({
     transition,
   };
   return (
-    <div>
-      <p style={{ color: "white" }}>{`${index + 1}`}</p>
+    <div className="flex gap-2 justify-center pt-4">
+      <p className="my-auto" style={{ color: "white" }}>{`${index + 1}`}</p>
       <div
         ref={setNodeRef}
+        className="w-full"
         style={style}
         key={recipe.step_number}
         {...attributes}
         {...listeners}
         id={String(recipe.step_number)}
       >
-        <div>
+        <div className="w-full">
           <textarea
-            className="rounded-md"
+            className="rounded-md bg-gunmetal text-lavendar-blush w-full"
             placeholder="Description"
-            style={{ color: "white", backgroundColor: "#1e252d" }}
-            value={recipe.step}
+            value={recipe.description}
             key={`${recipe.step_number}-text`}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
               dispatch(
@@ -46,7 +46,7 @@ export default function RecipeStep({
                   type: "setStep",
                   index: index,
                   value: e.target.value,
-                }),
+                })
               );
             }}
           ></textarea>
@@ -59,7 +59,7 @@ export default function RecipeStep({
           dispatch(setStepField({ type: "removeAtIndex", index: index }));
         }}
       >
-        <Trashcan style={{ stroke: "white" }}></Trashcan>
+        <Trashcan style={{ stroke: "#eee5e9" }}></Trashcan>
       </Button>
     </div>
   );

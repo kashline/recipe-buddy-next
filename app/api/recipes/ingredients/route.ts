@@ -18,7 +18,6 @@ export async function GET(request: Request) {
         return ingredient.dataValues.name
           .split(" ")
           .map((word: string) => {
-            console.log(word)
             return `${word[0].toUpperCase()}${word.slice(1)}`;
           })
           .join(" ");
@@ -30,5 +29,4 @@ export async function GET(request: Request) {
       error: error
     })
   }
-
 }

@@ -24,7 +24,6 @@ Recipe.init(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
     },
     description: { type: DataTypes.STRING(512) },
     difficulty: {

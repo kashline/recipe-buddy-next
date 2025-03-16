@@ -2,9 +2,9 @@
 
 import Dropdown from "@/app/ui/dropdown";
 import {
-  setLength,
+  // setLength,
   setDifficulty,
-  setName,
+  // setName,
   setVideo,
   selectCreateRecipe,
 } from "@/app/lib/features/recipe/createRecipeSlice";
@@ -43,7 +43,7 @@ export default function CreateRecipeForm() {
       </h1>
       <div>
         <div className="top-div" style={{ backgroundColor: "inherit" }}>
-          <Input setFunction={setName} label="title" required={true}></Input>
+          {/* <Input setFunction={setName} label="title" required={true} props={{style: {color: 'black'}}}></Input> */}
           <Input setFunction={setVideo} label="video" required={true}></Input>
           <div
             style={{
@@ -52,7 +52,7 @@ export default function CreateRecipeForm() {
               flexWrap: "wrap",
             }}
           >
-            <Dropdown
+            {/* <Dropdown
               options={["Very Short", "Short", "Medium", "Long", "Very Long"]}
               placeholder={
                 createRecipe.length !== ""
@@ -61,7 +61,7 @@ export default function CreateRecipeForm() {
               }
               setFunction={setLength}
               label="length"
-            ></Dropdown>
+            ></Dropdown> */}
             <Dropdown
               options={["Very Easy", "Easy", "Medium", "Hard", "Very Hard"]}
               placeholder={
