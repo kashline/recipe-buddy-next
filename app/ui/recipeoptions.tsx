@@ -54,12 +54,12 @@ export default function RecipeOptions({
         }}
         className="w-1/2 mx-auto"
       >
-        <Link
+        {/* <Link
           className="h-fit justify-center align-middle mx-auto"
           href={`${path}/edit`}
         >
           <EditIcon style={{ width: "25px", height: '25px' }} />
-        </Link>
+        </Link> */}
         <FavoriteButton
           recipeId={recipe.id!}
           favorited={favorited}
