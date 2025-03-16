@@ -6,7 +6,6 @@ import { RecipeStepZype, RecipeZype } from "@/app/lib/data/zodels/Recipe";
 import IngredientsTable from "@/app/ui/ingredientstable";
 import RecipeQuickInfo from "@/app/ui/recipequickinfo";
 import React from "react";
-import Head from "next/head";
 import { getSession } from "@auth0/nextjs-auth0";
 import { env } from "process";
 import type { Metadata, ResolvingMetadata } from 'next'

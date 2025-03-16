@@ -43,25 +43,38 @@ function RecipeCards({
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-
+      
       return params.toString();
     },
     [searchParams]
   );
   React.useEffect(() => {
-    if (searchParams.size === 0) {
+    if (searchParams.get('recipesPerPage') === null && searchParams.get('page') === null) {
       router.push(
         `${pathName}?${createQueryString("page", "1")}&${createQueryString("recipesPerPage", "12")}`
       );
+    } else {
+      if (searchParams.get('recipesPerPage') === null){
+        router.push(
+          `${pathName}?${createQueryString("recipesPerPage", "12")}`
+        );
+      }
+      if (searchParams.get('page') === null){
+        router.push(
+          `${pathName}?${createQueryString("page", "1")}`
+        );
+      }
     }
+
+
   }, [searchParams, createQueryString, pathName, router]);
-  // const searchParams = useSearchParams();
   const recipesPerPage = Number(searchParams.get("recipesPerPage"));
+  const page = Number(searchParams.get('page') || 1)
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const stem =
     searchTerm === ""
-      ? `/api/recipes/search/fuzzy/?${searchParams.toString()}&favorited=${favorited}`
-      : `/api/recipes/search/fuzzy/?${searchParams.toString()}&term=${searchTerm}&favorited=${favorited}`;
+      ? `/api/recipes/search/fuzzy/?page=${page}&recipesPerPage=${recipesPerPage}&favorited=${favorited}`
+      : `/api/recipes/search/fuzzy/?page=${page}&recipesPerPage=${recipesPerPage}&term=${searchTerm}&favorited=${favorited}`;
   const { data, error, isLoading } = useSWR(stem, fetcher);
   if (searchParams.size === 0) {
     return <></>;
