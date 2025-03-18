@@ -21,7 +21,7 @@ export default function RecipeQuickInfo({
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
   const [isQiToggle, setIsQiToggle] = React.useState(false);
   const [isIngToggle, setIsIngToggle] = React.useState(false);
-  const maxIngredientHeight = `${recipe.Ingredients.length*28+2}px`
+  const maxIngredientHeight = recipe.Ingredients.length*28+2
   return (
     <div
       style={{
@@ -203,8 +203,8 @@ export default function RecipeQuickInfo({
             </div>
           </div>
           <div
-            className={`overflow-hidden transition-height ease-in-out duration-700 ${isIngToggle ? `max-h-[${recipe.Ingredients.length*28+2}px]` : "max-h-0"}`}
-            // style={isIngToggle ? { maxHeight: 1024 } : { maxHeight: 0 }}
+            className={`overflow-hidden transition-height ease-in-out duration-700`}
+            style={isIngToggle ? { maxHeight: maxIngredientHeight } : { maxHeight: 0 }}
           >
             <table className="mb-0 w-full">
               <tbody>
