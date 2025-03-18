@@ -1,9 +1,16 @@
 import React from "react";
 import "./styles/Button.css";
+import { twMerge } from "tailwind-merge";
 
 export default function Button(props: any) {
+  const className = props.className
+    ? twMerge(
+        `text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8`,
+        props.className
+      )
+    : `text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8`;
   return (
-    <button className="button" {...props}>
+    <button  {...props} className={`${className}`}>
       {props.children}
     </button>
   );

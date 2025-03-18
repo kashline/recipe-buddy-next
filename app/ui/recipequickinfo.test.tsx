@@ -3,8 +3,9 @@ import { render, act } from "@testing-library/react";
 import RecipeQuickInfo from "./recipequickinfo";
 import { RecipeZodel, RecipeZype } from "../lib/data/zodels/Recipe";
 import { UserProvider } from "@auth0/nextjs-auth0/client";
+import { StoreProvider } from "../StoreProvider";
 
-const data: RecipeZype = {
+export const RecipeMock: RecipeZype = {
   id: 1,
   title: "stuffed cabbage rolls (golubtsi)",
   description:
@@ -299,7 +300,9 @@ describe("RecipeQuickInfo", () => {
     const component = await act(async () => {
       render(
         <UserProvider>
-          <RecipeQuickInfo recipe={data} favorited={true} />
+          <StoreProvider>
+            <RecipeQuickInfo recipe={RecipeMock} favorited={true} />
+          </StoreProvider>
         </UserProvider>
       );
     });

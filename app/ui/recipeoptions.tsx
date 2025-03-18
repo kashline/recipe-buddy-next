@@ -16,6 +16,11 @@ import {
 } from "react-share";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
 import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
+import { useAppDispatch, useAppSelector } from "../lib/hooks";
+import {
+  fetchRecipe,
+  selectCreateRecipe,
+} from "../lib/features/recipe/createRecipeSlice";
 
 export default function RecipeOptions({
   recipe,
@@ -32,10 +37,24 @@ export default function RecipeOptions({
   const [isMobile] = useResponsiveBreakpoints();
   const shareSize = isMobile ? 50 : 75;
   const [url, setUrl] = React.useState("");
+  const selectRecipe = useAppSelector(selectCreateRecipe);
+  const dispatch = useAppDispatch();
+
+  const fetchStatus = useAppSelector((state: any) => state.status);
+  React.useEffect(() => {
+    if (selectRecipe.status === "idle") {
+      dispatch(fetchRecipe(String(recipe.id)));
+    }
+  }, [fetchStatus, dispatch, recipe.id, selectRecipe.status]);
   React.useEffect(() => {
     setUrl(window.location.href);
   }, []);
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading)
+    return (
+      <div className=" w-full flex">
+        <h1 className="text-lavendar-blush mx-auto">Loading...</h1>
+      </div>
+    );
   if (error)
     return <Link href={`/api/auth/login`}>Error! Please try again</Link>;
   if (!user)
@@ -54,12 +73,14 @@ export default function RecipeOptions({
         }}
         className="w-1/2 mx-auto"
       >
-        {/* <Link
-          className="h-fit justify-center align-middle mx-auto"
-          href={`${path}/edit`}
-        >
-          <EditIcon style={{ width: "25px", height: '25px' }} />
-        </Link> */}
+        {user!.sub === recipe.owner && (
+          <Link
+            className="h-fit justify-center align-middle mx-auto"
+            href={`${path}/edit`}
+          >
+            <EditIcon style={{ width: "25px", height: "25px" }} />
+          </Link>
+        )}
         <FavoriteButton
           recipeId={recipe.id!}
           favorited={favorited}

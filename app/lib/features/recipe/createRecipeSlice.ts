@@ -217,10 +217,8 @@ export const {
 export const fetchRecipe = createAsyncThunk(
   "recipes/fetchRecipe",
   async (query: string) => {
-    const response: Map<string, Object[]> = new Map(
-      await (await fetch(`/api/recipes?name=${query}`)).json(),
-    );
-    return response.get("recipes")![0];
+    const res = await (await fetch(`/api/recipes/${query}`)).json()
+    return res.data
   },
 );
 

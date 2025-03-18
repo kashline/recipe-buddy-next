@@ -59,6 +59,7 @@
     "server-only": "^0.0.1",
     "sharp": "^0.33.5",
     "swr": "^2.2.5",
+    "tailwind-merge": "^3.0.2",
     "typescript-logging": "^2.2.0",
     "typescript-logging-log4ts-style": "^2.2.0",
     "use-debounce": "^10.0.0",
