@@ -11,9 +11,9 @@ export const POST = async (request: Request) => {
         auth0Id: user.sub,
       },
       defaults: {
-        firstName: user.given_name,
-        lastName: user.family_name,
-        auth0Id: user.sub,
+        firstName: user.given_name || "",
+        lastName: user.family_name || "",
+        auth0Id: user.sub || `${crypto.randomUUID()}`,
       },
     });
     return Response.json(
