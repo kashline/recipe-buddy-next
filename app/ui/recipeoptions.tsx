@@ -73,7 +73,7 @@ export default function RecipeOptions({
         <FacebookShareButton url={`${url}`} hashtag={`#recipebuddy.us`}>
           <FacebookIcon size={shareSize} />
         </FacebookShareButton>
-        <TwitterShareButton url={`${path}`}>
+        <TwitterShareButton url={`${url}`}>
           <TwitterIcon size={shareSize} />
         </TwitterShareButton>
       </div>
