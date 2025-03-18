@@ -1,0 +1,24 @@
+import "@testing-library/jest-dom";
+import { render, act } from "@testing-library/react";
+import SearchWithCards from "./searchWithCards";
+
+jest.mock("next/navigation", () => ({
+    useRouter() {
+      return {
+        prefetch: () => null,
+      };
+    },
+    useSearchParams: () => ({
+      get: () => {},
+    }),
+    usePathname: () => "",
+  }));
+
+describe("SearchWithCards", () => {
+  it("renders the SearchWithCards component", async () => {
+    const component = await act(async () => {
+      render(<SearchWithCards title="Recipes" favorited/>);
+    });
+    expect(component).toMatchSnapshot();
+  });
+});

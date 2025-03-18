@@ -1,21 +1,12 @@
-import ProfileDropdown from "./profiledropdown";
 import Image from "next/image";
 import React from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import {
-  selectProfileSlice,
-  setToggle,
-} from "../lib/features/profile/profileSlice";
-import { useAppSelector, useAppDispatch } from "../lib/hooks";
 import Link from "next/link";
 
 export default function ProfileButton() {
-  const profileSlice = useAppSelector(selectProfileSlice);
-  const dispatch = useAppDispatch();
   const { user, error, isLoading } = useUser();
   return (
     <>
-      {profileSlice.toggle && <ProfileDropdown></ProfileDropdown>}
       <Link
         style={{
           float: "right",
@@ -26,7 +17,7 @@ export default function ProfileButton() {
           marginRight: 2,
           marginTop: 2,
         }}
-        href={'/profile'}
+        href={"/profile"}
       >
         {user && (
           <Image

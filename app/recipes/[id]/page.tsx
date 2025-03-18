@@ -8,24 +8,26 @@ import RecipeQuickInfo from "@/app/ui/recipequickinfo";
 import React from "react";
 import { getSession } from "@auth0/nextjs-auth0";
 import { env } from "process";
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata, ResolvingMetadata } from "next";
 
 type Props = {
-  params: Promise<{ id: string }>
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
-}
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
 
 export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
   // read route params
-  const id = (await params).id
- 
+  const id = (await params).id;
+
   // fetch data
-  const { data } = await fetch(`${env.APP_URL}/api/recipes/${id}`).then((res) => res.json())
-  const recipe: RecipeZype = data
- 
+  const { data } = await fetch(`${env.APP_URL}/api/recipes/${id}`).then((res) =>
+    res.json()
+  );
+  const recipe: RecipeZype = data;
+
   // optionally access and extend (rather than replace) parent metadata
   return {
     title: recipe.title,
@@ -33,10 +35,10 @@ export async function generateMetadata(
       images: [recipe.image!],
       description: recipe.description,
       url: `${env.APP_URL}/recipes/${id}`,
-      type: 'article',
-      title: `${friendifyWords(recipe.title)}`
+      type: "article",
+      title: `${friendifyWords(recipe.title)}`,
     },
-  }
+  };
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -64,7 +66,9 @@ export default async function Page({ params }: { params: { id: string } }) {
     const recipe: RecipeZype = data;
     const friendlyName = friendifyWords(recipe.title);
     const favorited =
-      "UserRecipes" in recipe && recipe.UserRecipes?.length === 1 ? true : false;
+      "UserRecipes" in recipe && recipe.UserRecipes?.length === 1
+        ? true
+        : false;
     return (
       <div style={{ color: "white" }}>
         <div
@@ -125,9 +129,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                             <div className="w-full flex my-auto">
                               {step.description}
                             </div>
-                            <IngredientsTable
-                              data={step.ingredients!}
-                            />
+                            <IngredientsTable data={step.ingredients!} />
                           </div>
                         </div>
                         <hr

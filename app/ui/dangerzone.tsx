@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Button from "./button";
 import ChevronRightIcon from "@heroicons/react/24/outline/ChevronRightIcon";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import DeleteRecipe from "./popups/deleterecipe";
@@ -57,7 +56,7 @@ export default function DangerZone({
         <DeleteRecipe
           recipeName={recipeName}
           recipeID={recipeID}
-        ></DeleteRecipe>
+        />
       </div>
     </div>
   );

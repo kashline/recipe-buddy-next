@@ -2,7 +2,6 @@
 // not sure how to do it
 
 import notificationOnClick from "./notificationOnClick";
-import { screen } from "@testing-library/react";
 
 // This isn't actually testing anything other than calling the function
 test("test all notification types", async () => {

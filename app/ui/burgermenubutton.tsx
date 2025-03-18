@@ -4,15 +4,13 @@ export default function BurgerMenuButton({
   Icon,
   href,
   title
-//   props,
 }: {
   Icon: React.JSX.Element;
   href: string;
   title: string
-//   props: any;
 }) {
   return (
-    <a href={href} className={`text-lavendar-blush hover:text-non-photo-blue`}>
+    <a href={href} className={`text-lavendar-blush hover:text-non-photo-blue`} >
       <li
         className={`flex gap-2 hover:border-solid hover:border-non-photo-blue hover:border-2 border-2 border-transparent rounded-lg w-full my-auto h-14`}
       >

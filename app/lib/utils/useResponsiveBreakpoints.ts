@@ -3,7 +3,6 @@ import { useMediaQuery } from "react-responsive";
 
 // Creates state objects for responsive design breakpoints using useEffect so we don't run into hydration errors from SSR
 export default function useResponsiveBreakpoints() {
-  // 980 because that's what the html template uses :(
   const initMobile = useMediaQuery({ query: "(max-width: 980px)" });
   const initPortrait = useMediaQuery({ query: "(orientation: portrait)" });
   const [isMobile, setIsMobile] = React.useState(false);

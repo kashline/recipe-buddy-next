@@ -4,26 +4,9 @@ import { NextResponse } from "next/server";
 import { Sequelize } from "sequelize";
 
 export async function GET(
-//   request: Request,
-//   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // const attributes: string[] = [
-    //   "title",
-    //   "difficulty",
-    //   "preparationTime",
-    //   "cookingTime",
-    //   "image",
-    //   "video",
-    //   "id",
-    //   "description",
-    //   "owner",
-    //   "aigenerated",
-    // ];
-    // const slug = await params;
-    // const { searchParams } = new URL(request.url!);
-    // const userSub = searchParams.get('userSub')
-    const recipe = await Recipe.findAll({ order: [ Sequelize.fn('RANDOM') ], limit: 1})
+    const recipe = await Recipe.findOne({ order: [ Sequelize.fn('RANDOM') ], limit: 1})
     return  NextResponse.json({
       data: recipe
     })

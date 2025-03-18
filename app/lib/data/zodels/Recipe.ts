@@ -20,6 +20,7 @@ export const RecipeStepZodel = z.object({
   description: z.string(),
   recipe_id: z.number().optional(),
   step_number: z.number(),
+  // This needs to be an array of objects!!!
   ingredients: z.array(z.string()).optional()
 });
 

@@ -1,0 +1,26 @@
+import "@testing-library/jest-dom";
+import { render, act } from "@testing-library/react";
+import Page from "../page";
+
+jest.mock("next/navigation", () => ({
+    useRouter() {
+      return {
+        prefetch: () => null,
+      };
+    },
+    useSearchParams: () => ({
+      get: () => {},
+    }),
+    usePathname: () => "",
+  }));
+
+describe("Create Recipe Page", () => {
+  it("renders the Create Recipe Page", async () => {
+    const component = await act(async () => {
+      render(
+        <Page/>
+      );
+    });
+    expect(component).toMatchSnapshot();
+  });
+});

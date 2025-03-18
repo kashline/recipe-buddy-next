@@ -1,7 +1,6 @@
 import "@testing-library/jest-dom";
-import { render } from "@testing-library/react";
-import Page from "./page";
-import { act } from "react";
+import { act, render } from "@testing-library/react";
+import Pagination from "./pagination";
 
 jest.mock("next/navigation", () => ({
   useRouter() {
@@ -15,9 +14,11 @@ jest.mock("next/navigation", () => ({
   usePathname: () => "",
 }));
 
-describe("RecipeCard", () => {
-  it("renders the recipe details page", async () => {
-    const component = await act(() => render(<Page />));
+describe("Pagination", () => {
+  it("renders the Pagination component", async () => {
+    const component = await act(async () => {
+      render(<Pagination totalPages={1} />);
+    });
     expect(component).toMatchSnapshot();
   });
 });

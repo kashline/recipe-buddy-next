@@ -1,6 +1,6 @@
 "use client";
 
-import Dropdown from "@/app/ui/dropdown";
+// import Dropdown from "@/app/ui/dropdown";
 import {
   // setLength,
   setDifficulty,
@@ -11,8 +11,8 @@ import {
 
 import Input from "@/app/ui/input";
 import "./styles.scss";
-import IngredientsForm from "./IngredientsForm";
-import RecipeStepsForm from "./RecipeStepsForm";
+import IngredientsForm from "../../recipes/create/IngredientsForm";
+import RecipeStepsForm from "../../recipes/create/RecipeStepsForm";
 import React from "react";
 import RecipeSubmitButton from "@/app/ui/recipesubmitbutton";
 import CancelRecipe from "@/app/ui/popups/cancelrecipe";
@@ -62,7 +62,7 @@ export default function CreateRecipeForm() {
               setFunction={setLength}
               label="length"
             ></Dropdown> */}
-            <Dropdown
+            {/* <Dropdown
               options={["Very Easy", "Easy", "Medium", "Hard", "Very Hard"]}
               placeholder={
                 createRecipe.difficulty !== ""
@@ -71,7 +71,7 @@ export default function CreateRecipeForm() {
               }
               setFunction={setDifficulty}
               label="difficulty"
-            ></Dropdown>
+            ></Dropdown> */}
           </div>
         </div>
         <div className="form-div">

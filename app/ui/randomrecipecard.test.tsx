@@ -1,0 +1,14 @@
+import "@testing-library/jest-dom";
+import { render, act } from "@testing-library/react";
+import RandomRecipeCard from "./randomrecipecard";
+
+describe("RandomRecipeCard", () => {
+  it("renders a RandomRecipeCard", async () => {
+    const component = await act(async () =>
+      render(
+        <RandomRecipeCard/>
+      ),
+    );
+    expect(component).toMatchSnapshot();
+  });
+});

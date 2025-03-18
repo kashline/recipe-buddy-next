@@ -1,4 +1,3 @@
-import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
 export default function Logo() {
@@ -9,7 +8,6 @@ export default function Logo() {
         width={100}
         height={760}
         alt="Amazing cartoon chef that insipires you to cook."
-        // className="bg-black"
       />
       <p className="text-[19px] text-black">RecipeBuddy</p>
     </div>

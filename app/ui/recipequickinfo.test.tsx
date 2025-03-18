@@ -1,0 +1,308 @@
+import "@testing-library/jest-dom";
+import { render, act } from "@testing-library/react";
+import RecipeQuickInfo from "./recipequickinfo";
+import { RecipeZodel, RecipeZype } from "../lib/data/zodels/Recipe";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
+
+const data: RecipeZype = {
+  id: 1,
+  title: "stuffed cabbage rolls (golubtsi)",
+  description:
+    "Traditional Russian stuffed cabbage rolls, known as Golubtsi, are a delightful and hearty dish. These rolls are made by enveloping a mixture of meat, rice, and vegetables with cabbage leaves, then simmering them in a tomato sauce. A comforting and satisfying meal perfect for family dinners.",
+  difficulty: "Medium",
+  preparationTime: 40,
+  cookingTime: 75,
+  image:
+    "https://recipebuddy-images.s3.us-west-1.amazonaws.com/49ab5e012fb0787d334d7946e08788ee.png",
+  video: "undefined",
+  tags: ["Russian", "Traditional", "Stuffed", "Main Course"],
+  servings: 4,
+  owner: "RecipeBuddy",
+  aigenerated: true,
+  Ingredients: [
+    {
+      id: 10,
+      name: "garlic",
+      tags: ["spice"],
+      RecipeIngredient: {
+        id: 9,
+        quantity: "2 cloves, minced",
+        recipe_id: 1,
+        ingredient_id: 10,
+      },
+    },
+    {
+      id: 9,
+      name: "vegetable oil",
+      tags: ["oil"],
+      RecipeIngredient: {
+        id: 8,
+        quantity: "2 tbsp",
+        recipe_id: 1,
+        ingredient_id: 9,
+      },
+    },
+    {
+      id: 1,
+      name: "cabbage",
+      tags: ["vegetable"],
+      RecipeIngredient: {
+        id: 1,
+        quantity: "1 large",
+        recipe_id: 1,
+        ingredient_id: 1,
+      },
+    },
+    {
+      id: 8,
+      name: "black pepper",
+      tags: ["seasoning"],
+      RecipeIngredient: {
+        id: 10,
+        quantity: "to taste",
+        recipe_id: 1,
+        ingredient_id: 8,
+      },
+    },
+    {
+      id: 7,
+      name: "salt",
+      tags: ["seasoning"],
+      RecipeIngredient: {
+        id: 3,
+        quantity: "to taste",
+        recipe_id: 1,
+        ingredient_id: 7,
+      },
+    },
+    {
+      id: 2,
+      name: "ground beef",
+      tags: ["meat"],
+      RecipeIngredient: {
+        id: 5,
+        quantity: "500g",
+        recipe_id: 1,
+        ingredient_id: 2,
+      },
+    },
+    {
+      id: 6,
+      name: "onion",
+      tags: ["vegetable"],
+      RecipeIngredient: {
+        id: 6,
+        quantity: "1 medium, chopped",
+        recipe_id: 1,
+        ingredient_id: 6,
+      },
+    },
+    {
+      id: 4,
+      name: "rice",
+      tags: ["grains"],
+      RecipeIngredient: {
+        id: 7,
+        quantity: "1 cup",
+        recipe_id: 1,
+        ingredient_id: 4,
+      },
+    },
+    {
+      id: 5,
+      name: "tomato sauce",
+      tags: ["sauce"],
+      RecipeIngredient: {
+        id: 4,
+        quantity: "400ml",
+        recipe_id: 1,
+        ingredient_id: 5,
+      },
+    },
+    {
+      id: 3,
+      name: "ground pork",
+      tags: ["meat"],
+      RecipeIngredient: {
+        id: 2,
+        quantity: "250g",
+        recipe_id: 1,
+        ingredient_id: 3,
+      },
+    },
+  ],
+  RecipeSteps: [
+    {
+      id: 91,
+      description:
+        "Carefully remove the core of the cabbage. Submerge the whole cabbage in a pot of boiling salted water. Cook until the outer leaves are soft, about 3-4 minutes, then peel them off and cool. Repeat until you have enough leaves.",
+      recipe_id: 1,
+      step_number: 1,
+      ingredients: [
+        `{
+          name: "cabbage",
+          quantity: "1",
+          unit: "large",
+        },
+        {
+          name: "water",
+          quantity: "",
+          unit: "",
+        },`,
+      ],
+    },
+    {
+      id: 92,
+      description: "Cook the rice until half-done, drain it and set aside.",
+      recipe_id: 1,
+      step_number: 2,
+      ingredients: [
+        `{
+          name: "rice",
+          quantity: "1",
+          unit: "cup",
+        },
+        {
+          name: "water",
+          quantity: "",
+          unit: "",
+        },`,
+      ],
+    },
+    {
+      id: 94,
+      description:
+        "In a pan, heat vegetable oil over medium heat. Add chopped onion and garlic, sauté until soft and fragrant.",
+      recipe_id: 1,
+      step_number: 3,
+      ingredients: [
+        `{
+          name: "vegetable oil",
+          quantity: "2",
+          unit: "tbsp",
+        },
+        {
+          name: "onion",
+          quantity: "1",
+          unit: "medium",
+        },
+        {
+          name: "garlic",
+          quantity: "2",
+          unit: "cloves",
+        },`,
+      ],
+    },
+    {
+      id: 93,
+      description:
+        "In a large bowl, combine the ground beef, ground pork, half-cooked rice, sautéed onions and garlic. Season with salt and black pepper.",
+      recipe_id: 1,
+      step_number: 4,
+      ingredients: [
+        `{
+          name: "ground beef",
+          quantity: "500",
+          unit: "g",
+        },
+        {
+          name: "ground pork",
+          quantity: "250",
+          unit: "g",
+        },
+        {
+          name: "rice",
+          quantity: "1",
+          unit: "cup",
+        },
+        {
+          name: "salt",
+          quantity: "to taste",
+          unit: "",
+        },
+        {
+          name: "black pepper",
+          quantity: "to taste",
+          unit: "",
+        },`,
+      ],
+    },
+    {
+      id: 97,
+      description:
+        "Place a portion of meat mixture onto each cabbage leaf, fold in the sides, and roll up. Secure with a toothpick if necessary.",
+      recipe_id: 1,
+      step_number: 5,
+      ingredients: [
+        `{
+          name: "cabbage",
+          quantity: "multiple",
+          unit: "leaves",
+        },`,
+      ],
+    },
+    {
+      id: 96,
+      description:
+        "Place stuffed cabbage rolls in a large pot. Pour tomato sauce over the rolls and add just enough water to cover them. Bring to a simmer.",
+      recipe_id: 1,
+      step_number: 6,
+      ingredients: [
+        `{
+          name: "tomato sauce",
+          quantity: "400",
+          unit: "ml",
+        },
+        {
+          name: "water",
+          quantity: "as needed",
+          unit: "",
+        },`,
+      ],
+    },
+    {
+      id: 95,
+      description:
+        "Cover the pot and simmer the rolls slowly on low heat for about 1 hour. Taste and adjust seasoning if necessary.",
+      recipe_id: 1,
+      step_number: 7,
+      ingredients: [
+        `{
+          name: "salt",
+          quantity: "to taste",
+          unit: "",
+        },
+        {
+          name: "black pepper",
+          quantity: "to taste",
+          unit: "",
+        },`,
+      ],
+    },
+  ],
+};
+
+jest.mock("next/navigation", () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+  useSearchParams: () => ({
+    get: () => {},
+  }),
+  usePathname: () => "",
+}));
+
+describe("RecipeQuickInfo", () => {
+  it("renders the RecipeQuickInfo component", async () => {
+    const component = await act(async () => {
+      render(
+        <UserProvider>
+          <RecipeQuickInfo recipe={data} favorited={true} />
+        </UserProvider>
+      );
+    });
+    expect(component).toMatchSnapshot();
+  });
+});

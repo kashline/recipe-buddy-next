@@ -18,7 +18,6 @@ export default function Page() {
   if (error) {
     return <div>{error.message}</div>;
   }
-  console.log(user)
   return (
     <div>
       <div className="mx-auto justify-center max-w-fit">
