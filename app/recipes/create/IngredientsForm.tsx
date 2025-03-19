@@ -6,7 +6,7 @@ import {
   setIngredientField,
 } from "@/app/lib/features/recipe/createRecipeSlice";
 import { useAppSelector, useAppDispatch } from "@/app/lib/hooks";
-import { Button } from "@mui/base";
+import Button from "@/app/ui/button";
 import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 import Trashcan from "@/app/ui/icons/trashcan";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";

@@ -1,6 +1,6 @@
 import { ChangeEvent } from "react";
 import Trashcan from "@/app/ui/icons/trashcan";
-import { Button } from "@mui/base";
+import Button from "@/app/ui/button";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
