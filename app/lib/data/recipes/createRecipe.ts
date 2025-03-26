@@ -13,13 +13,15 @@ import RecipeIngredient from "@/app/data/models/RecipeIngredient";
 import Ingredient from "@/app/data/models/Ingredient";
 import _ from "lodash";
 import sequelize from "@/app/data/connection";
+import Test from "../../../data/models/Test";
 
 export default async function createRecipe(recipe: RecipeZype) {
   try {
+    await Recipe.sync().catch((err) => {
+      console.log(err);
+    });
     const result = await sequelize.transaction(async () => {
-      await Recipe.sync().catch((err) => {
-        console.log(err);
-      });
+
       const res = await Recipe.create({
         title: recipe.title,
         description: recipe.description,
@@ -31,13 +33,12 @@ export default async function createRecipe(recipe: RecipeZype) {
         tags: recipe.tags || undefined,
         servings: recipe.servings,
         owner: recipe.owner,
-        aigenerated: String(recipe.aigenerated),
-        // include: [{ model: RecipeStep }, { model: Ingredient }],
+        aigenerated: recipe.aigenerated,
       }).catch((err) => {
         console.log(err);
-        throw err
+        throw err;
       });
-      const recipeId = res.dataValues.id
+      const recipeId = res.dataValues.id;
       // const recipeResponse = res![0];
       // console.log(recipeResponse)
       // const recipeResponseZodel = RecipeZodel.parse(recipeResponse);
@@ -55,14 +56,13 @@ export default async function createRecipe(recipe: RecipeZype) {
       // }
       // Destroy all associated RecipeIngredients because it's easier than managing updates :/
 
+      //   RecipeIngredient.destroy({
+      //     where: {
+      //       recipe_id: recipe.id,
+      //     },
+      //   });
 
-
-    //   RecipeIngredient.destroy({
-    //     where: {
-    //       recipe_id: recipe.id,
-    //     },
-    //   });
-      recipe.Ingredients.map(async (ingredient) => {
+      recipe.Ingredients!.map(async (ingredient) => {
         const res = await createIngredient(ingredient);
         await createRecipeIngredient(
           RecipeIngredientZodel.parse({
@@ -72,13 +72,15 @@ export default async function createRecipe(recipe: RecipeZype) {
           })
         );
       });
-    //   // Destroy all associated RecipeSteps because it's easier than managing updates :/
-    //   RecipeStep.destroy({
-    //     where: {
-    //       recipe_id: recipe.id,
-    //     },
-    //   });
-      recipe.RecipeSteps.map(async (step) => {
+
+      //   // Destroy all associated RecipeSteps because it's easier than managing updates :/
+      //   RecipeStep.destroy({
+      //     where: {
+      //       recipe_id: recipe.id,
+      //     },
+      //   });
+
+      recipe.RecipeSteps!.map(async (step) => {
         await createRecipeStep(
           RecipeStepZodel.parse({
             description: step.description,
@@ -88,8 +90,9 @@ export default async function createRecipe(recipe: RecipeZype) {
           })
         );
       });
-    // });
-    })
+
+      // });
+    });
     return Promise.resolve(result);
   } catch (error) {
     console.log(`There was an error in createRecipe: ${error}`);

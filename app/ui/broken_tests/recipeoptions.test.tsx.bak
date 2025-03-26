@@ -1,0 +1,18 @@
+import "@testing-library/jest-dom";
+import { act, render } from "@testing-library/react";
+import RecipeOptions from "../recipeoptions";
+import { RecipeMock } from "./recipequickinfo.test.tsx.bak";
+import { StoreProvider } from "../../StoreProvider";
+
+describe("recipeoptions", () => {
+  it("renders the options div", async () => {
+    const component = await act(async () => {
+      render(
+        <StoreProvider>
+          <RecipeOptions recipe={RecipeMock} favorited={true} />
+        </StoreProvider>
+      );
+    });
+    expect(component).toMatchSnapshot();
+  });
+});

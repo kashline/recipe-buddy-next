@@ -1,8 +1,10 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
 import Link from "next/link";
 import { useState } from "react";
 import notificationOnClick from "./notificationOnClick";
 import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
+import { useUser } from "@auth0/nextjs-auth0";
+import useSWR from "swr";
+import React from "react";
 
 export default function FavoriteButton({
   recipeId,
@@ -15,21 +17,32 @@ export default function FavoriteButton({
   recipeName: string;
   size?: string;
 }) {
-  const { user, error, isLoading } = useUser();
-  const [favorite, setFavorite] = useState(favorited);
+  const { user } = useUser();
+  const [favorite, setFavorite] = useState(false);
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
+  const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(
+    `/api/favorite/get?RecipeId=${recipeId}`,
+    fetcher,
+    {
+      revalidateOnFocus: false,
+      refreshInterval: 30000,
+    }
+  );
+  React.useEffect(() => {setFavorite(data ? data.success : false)}, [data])
   if (!size) {
     size = isMobile ? "25px" : "50px";
   }
   if (isLoading) return <h1>Loading...</h1>;
   if (error)
-    return <Link href={`/api/auth/login`}>Error! Please try again</Link>;
+    return <Link href={`/auth/login`}>Error! Please try again</Link>;
   if (!user)
     return (
-      <Link href={`/api/auth/login`} className="text-lavendar-blush">
+      <Link href={`/auth/login`} className="text-lavendar-blush">
         Please log in to edit and favorite recipies!
       </Link>
     );
+  
   return (
     <div
       style={{

@@ -2,7 +2,7 @@
 
 import React from "react";
 import BurgerMenu from "./icons/burgermenu";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import LogoutButton from "./buttons/logoutbutton";
 import LoginButton from "./buttons/loginbutton";
 import HomeIcon from "./icons/sidebaricons/homeicon";

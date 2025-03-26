@@ -3,7 +3,6 @@
 import Link from "next/link";
 
 const onClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-  // console.log(event);
 };
 
 export default function Page() {

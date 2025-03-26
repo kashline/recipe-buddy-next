@@ -3,7 +3,6 @@
 import * as React from "react";
 import IngredientsForm from "./IngredientsForm";
 import RecipeStepsForm from "./RecipeStepsForm";
-import { TagsInput } from "react-tag-input-component";
 import {
   setCookingTime,
   setDescription,
@@ -17,16 +16,24 @@ import {
 import { selectCreateRecipe } from "@/app/lib/features/recipe/createRecipeSlice";
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import "./styles.css";
-import { useUser, withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import CancelRecipe from "@/app/ui/popups/cancelrecipe";
 
-export default withPageAuthRequired(function Page() {
+export default function Page() {
   const selectRecipe = useAppSelector(selectCreateRecipe);
-  const { user } = useUser();
+  const { user, isLoading, error } = useUser();
   const dispatch = useAppDispatch();
   const [submit, setSubmit] = React.useState("idle");
   const [formValid, setFormValid] = React.useState(true);
-
+  if (isLoading) {
+    return <>Loading</>;
+  }
+  if (!user) {
+    return <>You must login</>;
+  }
+  if (error) {
+    return <>error</>;
+  }
   const handleChange = (val: any, setFunction: Function) => {
     if (selectRecipe.owner === "") {
       dispatch(setOwner(user!.sub!));
@@ -190,7 +197,7 @@ export default withPageAuthRequired(function Page() {
                 }
               )}
             </select>
-            <div>
+            {/* <div>
               <label className="text-lavendar-blush my-auto pr-2 font-sans">
                 Tags:
               </label>
@@ -202,7 +209,7 @@ export default withPageAuthRequired(function Page() {
                 name="tags"
                 placeHolder="Enter tags..."
               />
-            </div>
+            </div> */}
           </div>
           <div className="border-t-2 border-black mt-4">
             <h1 className="text-4xl text-center text-lavendar-blush pt-2">
@@ -244,7 +251,7 @@ export default withPageAuthRequired(function Page() {
               </button>
             </div>
             <div>
-              <CancelRecipe/>
+              <CancelRecipe />
             </div>
           </div>
           <div className="text-center h-8">
@@ -261,4 +268,4 @@ export default withPageAuthRequired(function Page() {
       </div>
     </div>
   );
-});
+}

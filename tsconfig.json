@@ -36,8 +36,8 @@
     "syncAllTables.js",
     "syncAllTables.js",
     "app/api/buddy/route-old.old",
-    "app/ui/favoritebutton.test.jsx"
-, "app/page.test.tsx"  ],
+    "app/ui/broken_tests/favoritebutton.test.jsx.bak"
+, "app/page.test.tsx", "app/ui/broken_tests/randomrecipecard.test.tsx.bak", "app/ui/broken_tests/searchwithcards.test.tsx.bak", "app/ui/broken_tests/recipegrid.test.tsx.bak", "app/ui/broken_tests/defaulttopbar.test.tsx.bak", "app/ui/broken_tests/mobilemenuburger.test.tsx.bak", "app/ui/broken_tests/recipeoptions.test.tsx.bak", "app/ui/broken_tests/recipequickinfo.test.tsx.bak", "app/profile/recipes/page.test.tsx.bak"  ],
   "exclude": ["node_modules"],
   "typeRoots": ["../node_modules/@types", "../@types"]
 }

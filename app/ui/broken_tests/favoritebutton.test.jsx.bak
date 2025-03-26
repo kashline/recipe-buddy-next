@@ -1,0 +1,19 @@
+import "@testing-library/jest-dom";
+import { act, render } from "@testing-library/react";
+import FavoriteButton from "../FavoriteButton";
+
+jest.mock('@auth0/nextjs-auth0', () => ({
+  // Mock the necessary functions or components
+  withApiAuthRequired: jest.fn(handler => handler),
+  getSession: jest.fn(),
+  // ... other mocks
+}));
+
+describe("FavoriteButton", () => {
+  it("renders the favorite button", async () => {
+    const component = await act(async () => {
+      render(<FavoriteButton recipeId={259} favorited={true} />);
+    });
+    expect(component).toMatchSnapshot();
+  });
+});

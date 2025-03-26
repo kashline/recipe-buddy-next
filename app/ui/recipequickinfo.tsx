@@ -21,7 +21,7 @@ export default function RecipeQuickInfo({
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
   const [isQiToggle, setIsQiToggle] = React.useState(false);
   const [isIngToggle, setIsIngToggle] = React.useState(false);
-  const maxIngredientHeight = recipe.Ingredients.length*28+2
+  const maxIngredientHeight = recipe.Ingredients!.length*28+2
   return (
     <div
       style={{
@@ -208,7 +208,7 @@ export default function RecipeQuickInfo({
           >
             <table className="mb-0 w-full">
               <tbody>
-                {recipe.Ingredients.map((ingredient: any, index: any) => {
+                {recipe.Ingredients!.map((ingredient: any, index: any) => {
                   return (
                     <tr
                       key={index}

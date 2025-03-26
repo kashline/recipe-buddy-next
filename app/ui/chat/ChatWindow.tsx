@@ -14,7 +14,7 @@ import { IntermediateStep } from "./IntermediateStep";
 
 export function ChatWindow(props: {
   endpoint: string;
-  emptyStateComponent: ReactElement;
+  emptyStateComponent: ReactElement<any>;
   placeholder?: string;
   titleText?: string;
   emoji?: string;

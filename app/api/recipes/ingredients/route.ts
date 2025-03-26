@@ -13,20 +13,22 @@ export async function GET(request: Request) {
       attributes: ["name"],
       order: [["name", "ASC"]],
     });
-    return Response.json(
-      ingredients.map((ingredient) => {
+    return Response.json({
+      data: ingredients.map((ingredient) => {
         return ingredient.dataValues.name
           .split(" ")
           .map((word: string) => {
             return `${word[0].toUpperCase()}${word.slice(1)}`;
           })
           .join(" ");
-      })
-    );
+      }),
+      status: 200,
+    });
   } catch (error) {
     return Response.json({
       status: 500,
-      error: error
-    })
+      error: error,
+      data: [],
+    });
   }
 }

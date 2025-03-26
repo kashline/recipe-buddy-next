@@ -1,0 +1,39 @@
+import "@testing-library/jest-dom";
+import { render, act } from "@testing-library/react";
+import RecipeCard from "../RecipeCard";
+
+jest.mock("next/navigation", () => ({
+  useRouter() {
+    return {
+      prefetch: () => null,
+    };
+  },
+}));
+
+jest.mock('@auth0/nextjs-auth0', () => ({
+  // Mock the necessary functions or components
+  withApiAuthRequired: jest.fn(handler => handler),
+  getSession: jest.fn(),
+
+}));
+
+describe("RecipeCard", () => {
+  it("renders a recipe card", async () => {
+    const component = await act(async () => {
+      render(
+        <RecipeCard
+          data={{
+            title: "15-minute chicken & halloumi burgers",
+            difficulty: "medium",
+            id: 259,
+            length: "long",
+            video: "false",
+            image:
+              "https://www.themealdb.com/images/media/meals/vdwloy1713225718.jpg",
+          }}
+        />
+      );
+    });
+    expect(component).toMatchSnapshot();
+  });
+});

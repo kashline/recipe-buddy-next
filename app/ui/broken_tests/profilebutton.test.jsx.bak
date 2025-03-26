@@ -1,0 +1,17 @@
+import "@testing-library/jest-dom";
+import { render, act } from "@testing-library/react";
+import ProfileButton from "../profilebutton";
+import { StoreProvider } from "../../StoreProvider";
+
+describe("ProfileButton", () => {
+  it("renders a profile button", async () => {
+    const component = await act(async () =>
+      render(
+        <StoreProvider>
+          <ProfileButton />
+        </StoreProvider>
+      )
+    );
+    expect(component).toMatchSnapshot();
+  });
+});

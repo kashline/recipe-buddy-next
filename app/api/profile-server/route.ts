@@ -1,9 +1,9 @@
-import { getSession } from "@auth0/nextjs-auth0";
+import { auth0 } from "@/lib/auth0";
 import { redirect } from "next/navigation";
 import { NextRequest } from "next/server";
 
 export const GET = async function ProfileServer(request: NextRequest) {
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = session?.user;
   const referer = request.nextUrl.searchParams.get("referer") as string;
   const baseUrl = process.env.BASEURL

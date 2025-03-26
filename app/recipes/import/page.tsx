@@ -6,10 +6,8 @@ export default function Page() {
   const [url, setUrl] = React.useState<string>("");
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUrl(e.target.value);
-    console.log(url);
   };
   React.useEffect(() => {
-    console.log(url);
   });
   return (
     <div>

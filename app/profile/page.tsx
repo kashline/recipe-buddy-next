@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import Image from "next/image";
 import Login from "../ui/login";
 
@@ -16,7 +16,7 @@ export default function Page() {
   }
   if (isLoading) return <div>Logging you in...</div>;
   if (error) {
-    return <div>{error.message}</div>;
+    return <div>{error}</div>;
   }
   return (
     <div>
@@ -36,10 +36,6 @@ export default function Page() {
         />
         <p className="text-lavendar-blush text-center text-3xl">{user.name}</p>
       </div>
-      {/* <h2 className="text-lavendar-blush font-thin text-center">
-        Welcome {user.name?.split(" ")[0]}!
-      </h2> */}
-      
       <div
         style={{
           marginTop: 4,
@@ -48,7 +44,6 @@ export default function Page() {
           gap: "1rem",
         }}
       >
-        {/* <ProfileSidebar></ProfileSidebar> */}
       </div>
     </div>
   );

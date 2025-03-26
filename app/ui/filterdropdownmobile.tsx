@@ -7,7 +7,7 @@ export default function FilterDropdownMobile() {
   const handleClick = () => {
     setMenuToggle(!menuToggle);
   };
-  function useOutsideClick(ref: React.RefObject<HTMLInputElement>) {
+  function useOutsideClick(ref: React.RefObject<HTMLInputElement | null>) {
     const handleClickOutside = (event: any) => {
       if (ref.current && !ref.current.contains(event.target)) {
         setMenuToggle(false);

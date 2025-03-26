@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
@@ -10,13 +11,13 @@ export default function TopNav() {
       <nav style={{ marginTop: "0px" }} id={"nav"} className="">
         <ul className="links">
           <li className={pathName === "/" ? "active" : ""}>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
           </li>
           <li className={pathName === "/recipes" ? "active" : ""}>
-            <a href="/recipes">Browse Recipes</a>
+            <Link href="/recipes">Browse Recipes</Link>
           </li>
           <li className={pathName === "/recipes/create" ? "active" : ""}>
-            <a href="/recipes/create">Create New Recipe</a>
+            <Link href="/recipes/create">Create New Recipe</Link>
           </li>
         </ul>
       </nav>

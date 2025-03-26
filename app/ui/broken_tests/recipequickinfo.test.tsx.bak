@@ -1,9 +1,8 @@
 import "@testing-library/jest-dom";
 import { render, act } from "@testing-library/react";
-import RecipeQuickInfo from "./recipequickinfo";
-import { RecipeZodel, RecipeZype } from "../lib/data/zodels/Recipe";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { StoreProvider } from "../StoreProvider";
+import RecipeQuickInfo from "../recipequickinfo";
+import { RecipeZodel, RecipeZype } from "../../lib/data/zodels/Recipe";
+import { StoreProvider } from "../../StoreProvider";
 
 export const RecipeMock: RecipeZype = {
   id: 1,
@@ -299,11 +298,9 @@ describe("RecipeQuickInfo", () => {
   it("renders the RecipeQuickInfo component", async () => {
     const component = await act(async () => {
       render(
-        <UserProvider>
-          <StoreProvider>
-            <RecipeQuickInfo recipe={RecipeMock} favorited={true} />
-          </StoreProvider>
-        </UserProvider>
+        <StoreProvider>
+          <RecipeQuickInfo recipe={RecipeMock} favorited={true} />
+        </StoreProvider>
       );
     });
     expect(component).toMatchSnapshot();

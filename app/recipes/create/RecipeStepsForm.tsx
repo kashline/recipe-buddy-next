@@ -83,6 +83,7 @@ export default function RecipeStepsForm() {
         onClick={() => {
           dispatch(setStepField({ type: "add" }));
         }}
+        type={'button'}
       >
         Add Step
       </Button>

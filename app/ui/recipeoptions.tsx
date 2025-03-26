@@ -2,7 +2,7 @@
 
 import FavoriteButton from "@/app/ui/FavoriteButton";
 import EditIcon from "@/app/ui/icons/editicon";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -49,20 +49,27 @@ export default function RecipeOptions({
   React.useEffect(() => {
     setUrl(window.location.href);
   }, []);
-  if (isLoading)
+  if (isLoading) {
     return (
       <div className=" w-full flex">
         <h1 className="text-lavendar-blush mx-auto">Loading...</h1>
       </div>
     );
-  if (error)
-    return <Link href={`/api/auth/login`}>Error! Please try again</Link>;
-  if (!user)
+  }
+  if (error) {
+    console.log(error);
     return (
-      <Link href={`/api/auth/login`} style={{ color: "white" }}>
+      <Link href={`/auth/login`}>Error! Please try again {`${error}`}</Link>
+    );
+  }
+  if (!user) {
+    return (
+      <Link href={`/auth/login`} style={{ color: "white" }}>
         Please log in to edit and favorite recipies!
       </Link>
     );
+  }
+
   return (
     <div className="">
       <div

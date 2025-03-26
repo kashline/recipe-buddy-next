@@ -1,7 +1,4 @@
-import { findRecipeById } from "@/app/data/GetRecipe";
 import getRecipeById from "@/app/data/getRecipeById";
-import { parseResponse } from "@/app/lib/utils/parseResponse";
-import { getSession } from "@auth0/nextjs-auth0";
 import { NextResponse } from "next/server";
 
 export async function GET(

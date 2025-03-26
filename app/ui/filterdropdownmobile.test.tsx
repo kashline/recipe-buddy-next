@@ -1,6 +1,5 @@
 import "@testing-library/jest-dom";
 import { act, render } from "@testing-library/react";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
 import FilterDropdownMobile from "./filterdropdownmobile";
 import { StoreProvider } from "../StoreProvider";
 
@@ -20,11 +19,9 @@ describe("FilterDropdownMobile", () => {
   it("renders the mobile filter dropdown", async () => {
     const component = await act(async () => {
       render(
-        <UserProvider>
-          <StoreProvider>
-            <FilterDropdownMobile />
-          </StoreProvider>
-        </UserProvider>,
+        <StoreProvider>
+          <FilterDropdownMobile />
+        </StoreProvider>
       );
     });
     expect(component).toMatchSnapshot();

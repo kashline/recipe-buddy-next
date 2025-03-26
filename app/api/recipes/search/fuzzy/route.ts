@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import Recipe from "@/app/data/models/Recipe";
 import { Op } from "sequelize";
 import { parseResponse } from "@/app/lib/utils/parseResponse";
-import { getSession } from "@auth0/nextjs-auth0";
 import UserRecipe from "@/app/data/models/UserRecipe";
+import { auth0 } from "@/lib/auth0";
+import { RecipeZodel } from "../../../../lib/data/zodels/Recipe";
+import { count } from "console";
 
 export async function GET(request: NextRequest) {
   if (request.url?.split("?")[1] === undefined) {
@@ -19,7 +21,7 @@ export async function GET(request: NextRequest) {
       const term = searchParams.get("term");
       const page = Number(searchParams.get("page"));
       const itemsPerPage = Number(searchParams.get("recipesPerPage"));
-      const session = await getSession();
+      const session = await auth0.getSession();
       const favorited = searchParams.get("favorited") === "true";
       if (page === null || itemsPerPage === null) {
         return NextResponse.json(
@@ -54,7 +56,10 @@ export async function GET(request: NextRequest) {
         limit: itemsPerPage,
         offset: itemsPerPage * (page! - 1),
       });
-      return parseResponse({ data: data });
+      const recipes = data.rows.map((row) => {
+        return RecipeZodel.parse(row.dataValues);
+      });
+      return Response.json({ status: 200, recipes: recipes, success: true, count: data.count });
     } catch (error) {
       console.log(error);
       return NextResponse.json(

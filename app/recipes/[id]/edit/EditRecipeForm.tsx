@@ -8,8 +8,9 @@ import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import React from "react";
 import CreateRecipeForm from "../../create/CreateRecipeForm";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import Button from "@/app/ui/button";
+import Link from "next/link";
 
 export default function EditRecipeForm({ query }: { query: string }) {
   const selectRecipe = useAppSelector(selectCreateRecipe);
@@ -30,7 +31,7 @@ export default function EditRecipeForm({ query }: { query: string }) {
           <h1 className="text-lavendar-blush text-4xl mx-auto my-auto">
             You can&apos;t edit recipes you don&apos;t own!
           </h1>
-          <a href="/recipes" className="mx-auto"><Button>Back</Button></a>
+          <Link href="/recipes" className="mx-auto"><Button>Back</Button></Link>
         </div>
       );
     }

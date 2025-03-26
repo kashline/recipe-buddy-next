@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import { selectCreateRecipe, setOwner } from "../lib/features/recipe/createRecipeSlice";
 import Button from "./button";
 import Link from "next/link";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 
 export default function RecipeSubmitButton() {
   const [submit, setSubmit] = React.useState("idle");

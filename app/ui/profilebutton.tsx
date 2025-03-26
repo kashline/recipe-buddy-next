@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
 
 export default function ProfileButton() {

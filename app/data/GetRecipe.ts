@@ -1,4 +1,3 @@
-import { getSession } from "@auth0/nextjs-auth0";
 import _ from "lodash";
 import { Op } from "sequelize";
 import Ingredient from "./models/Ingredient";
@@ -6,10 +5,11 @@ import Recipe from "./models/Recipe";
 import RecipeIngredient from "./models/RecipeIngredient";
 import RecipeStep from "./models/RecipeStep";
 import UserRecipe from "./models/UserRecipe";
+import { auth0 } from "@/lib/auth0";
 
 export default async function GetRecipe(props?: URLSearchParams) {
   try {
-    const session = await getSession();
+    const session = await auth0.getSession();
     const userSub =
       session !== null && session !== undefined ? session.user.sub : null;
     var promises: Promise<number[] | undefined>[] = [];
@@ -92,7 +92,7 @@ export default async function GetRecipe(props?: URLSearchParams) {
         favorited,
         attributes,
         page,
-        userSub,
+        userSub ? userSub : undefined,
       );
     });
   } catch (error) {

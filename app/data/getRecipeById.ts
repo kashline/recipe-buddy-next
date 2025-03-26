@@ -33,8 +33,7 @@ export default async function getRecipeById(
       ],
       include: include,
     });
-    // console.log(recipes)
-    return recipes;
+    return recipes?.dataValues;
   } catch (error) {
     console.error(`There was an error in getRecipeById: ${error}`);
   }

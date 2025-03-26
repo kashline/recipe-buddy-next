@@ -6,9 +6,9 @@ import { RecipeStepZype, RecipeZype } from "@/app/lib/data/zodels/Recipe";
 import IngredientsTable from "@/app/ui/ingredientstable";
 import RecipeQuickInfo from "@/app/ui/recipequickinfo";
 import React from "react";
-import { getSession } from "@auth0/nextjs-auth0";
 import { env } from "process";
 import type { Metadata, ResolvingMetadata } from "next";
+import { auth0 } from "@/lib/auth0";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -41,10 +41,11 @@ export async function generateMetadata(
   };
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   try {
     const id = Number(params.id);
-    const user = await getSession();
+    const user = await auth0.getSession();
     const attributes: string[] = [
       "title",
       "difficulty",
@@ -108,7 +109,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                   <strong style={{ color: "white" }}>Instructions</strong>
                 </p>
                 {/* Recipe Steps */}
-                {recipe.RecipeSteps.map(
+                {recipe.RecipeSteps!.map(
                   (step: RecipeStepZype, index: number) => {
                     return (
                       <div key={index}>
@@ -152,6 +153,6 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
     );
   } catch (error) {
-    return <p className="text-lavendar-blush">There was an error</p>;
+    return <p className="text-lavendar-blush">There was an error: {`${error}`}</p>;
   }
 }

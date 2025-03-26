@@ -58,6 +58,7 @@ export default function RecipeStep({
         onClick={() => {
           dispatch(setStepField({ type: "removeAtIndex", index: index }));
         }}
+        type={'button'}
       >
         <Trashcan style={{ stroke: "#eee5e9" }}></Trashcan>
       </Button>

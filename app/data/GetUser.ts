@@ -1,10 +1,10 @@
-import { getSession } from "@auth0/nextjs-auth0";
 import User from "@/app/data/models/User";
 import sequelize from "@/app/data/connection";
 import { redirect } from "next/navigation";
+import { auth0 } from "@/lib/auth0";
 
 export default async function GetUser() {
-  const session = await getSession();
+  const session = await auth0.getSession();
   const user = session?.user;
   if (user !== undefined) {
     await sequelize.sync();

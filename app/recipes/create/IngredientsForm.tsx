@@ -31,7 +31,7 @@ export default function IngredientsForm() {
     fetch(`/api/recipes/ingredients?name=${query}`)
       .then((res) => res.json())
       .then((data) => {
-        setIngredients(data);
+        setIngredients(data.data.length !== 0 ? data.data : [""]);
         setIsLoading(false);
       });
   };
@@ -104,10 +104,9 @@ export default function IngredientsForm() {
                     width: "53%",
                   }}
                 >
-                  {/* Ingredient Typeahead */}
                   <Typeahead
                     placeholder={"Ingredient..."}
-                    options={ingredients !== undefined ? ingredients : [""]}
+                    options={ingredients}
                     isLoading={isLoading}
                     ref={typaheadRef}
                     defaultSelected={[ingredient.name]}
@@ -216,6 +215,7 @@ export default function IngredientsForm() {
                       paddingLeft: 0,
                       paddingRight: 10,
                     }}
+                    type={'button'}
                     onClick={() => {
                       dispatch(
                         setIngredientField({
@@ -239,6 +239,7 @@ export default function IngredientsForm() {
         onClick={() => {
           dispatch(setIngredientField({ type: "add" }));
         }}
+        type={'button'}
       >
         Add Ingredient
       </Button>

@@ -5,6 +5,7 @@ import AnimatedLoading from "./loading/animatedloading";
 import RecipeGrid from "./RecipeGrid";
 import Search from "./search";
 import * as React from "react";
+import Link from "next/link";
 
 export default function SearchWithCards({
   title,
@@ -84,8 +85,8 @@ function RecipeCards({
   if (!data) {
     return <>no data</>;
   }
-  const recipes: any = data.data.rows;
-  const recipeCount = Number(data.data.count);
+  const recipes: any = data.recipes;
+  const recipeCount = Number(data.count);
   const totalPages =
     Math.ceil(recipeCount / recipesPerPage) === 0
       ? 1
@@ -98,9 +99,9 @@ function RecipeCards({
         </p>
         <p className="text-lavendar-blush justify-center text-center mx-auto mt-[50%]">
           Change your filters or{" "}
-          <a className="text-lavendar-blush" href="/recipes/create">
+          <Link className="text-lavendar-blush" href="/recipes/create">
             create a new recipe
-          </a>
+          </Link>
         </p>
       </div>
     );
