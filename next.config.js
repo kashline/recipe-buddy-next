@@ -6,6 +6,7 @@ module.exports = {
       "www.foodandwine.com",
       "recipebuddy-images.s3.us-west-1.amazonaws.com",
       "s.gravatar.com",
+      "recipebuddy.us.auth0.com"
     ],
     formats: ["image/avif", "image/webp"],
   },
