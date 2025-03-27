@@ -21,15 +21,9 @@ export default function FavoriteButton({
   const [favorite, setFavorite] = useState(false);
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
-  if (!user)
-    return (
-      <Link href={`/auth/login`} className="text-lavendar-blush">
-        Please log in to edit and favorite recipies!
-      </Link>
-    );
   const { data, error, isLoading } = useSWR(
     `/api/favorite/get?RecipeId=${recipeId}`,
-    fetcher,
+    user ? fetcher : null,
     {
       revalidateOnFocus: false,
       refreshInterval: 30000,
@@ -38,6 +32,12 @@ export default function FavoriteButton({
   React.useEffect(() => {
     setFavorite(data ? data.success : false);
   }, [data]);
+  if (!user)
+    return (
+      <Link href={`/auth/login`} className="text-lavendar-blush">
+        Please log in to edit and favorite recipies!
+      </Link>
+    );
   if (!size) {
     size = isMobile ? "25px" : "50px";
   }
