@@ -21,6 +21,7 @@ import {
   selectCreateRecipe,
 } from "../lib/features/recipe/createRecipeSlice";
 import { Session } from "next-auth";
+import { signIn } from "next-auth/react";
 
 export default function RecipeOptions({
   recipe,
@@ -51,9 +52,9 @@ export default function RecipeOptions({
   }, []);
   if (!user) {
     return (
-      <Link href={`/auth/login`} className="relative flex justify-center items-center text-lavendar-blush">
+      <button onClick={() => signIn()} className="relative flex mx-auto items-center text-lavendar-blush hover:text-non-photo-blue">
         Please log in to edit and favorite recipies!
-      </Link>
+      </button>
     );
   }
 

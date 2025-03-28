@@ -8,6 +8,7 @@ import useSWR from "swr";
 import React from "react";
 import { Session } from "next-auth";
 import FavoriteIcon from "@/app/ui/icons/favoriteicon";
+import { signIn } from "next-auth/react";
 
 export default function FavoriteButton({
   recipeId,
@@ -37,9 +38,9 @@ export default function FavoriteButton({
   }, [data]);
   if (!user)
     return (
-      <Link href={`/auth/login`} className="text-lavendar-blush">
+      <button onClick={() => signIn()} className="text-lavendar-blush hover:text-non-photo-blue">
         Please log in to edit and favorite recipies!
-      </Link>
+      </button>
     );
   if (!size) {
     size = isMobile ? "25px" : "50px";
