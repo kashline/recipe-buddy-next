@@ -29,7 +29,7 @@ export default function RecipeOptions({
   recipe: RecipeZype;
   session: Session | null;
 }) {
-  const user = session?.user
+  const user = session?.user;
   const path = usePathname();
   const body =
     "I wanted to share this awesome recipe with you. You can find full details below along with thousands of other recipes on recipebuddy.us!";
@@ -88,11 +88,13 @@ export default function RecipeOptions({
             <EditIcon style={{ width: "25px", height: "25px" }} />
           </Link>
         )}
-        <FavoriteButton
-          recipeId={recipe.id!}
-          session={session}
-          recipeName={recipe.title}
-        />
+        <div className="relative flex justify-center items-center">
+          <FavoriteButton
+            recipeId={recipe.id!}
+            session={session}
+            recipeName={recipe.title}
+          />
+        </div>
       </div>
       <div className={`mx-auto justify-center items-center flex h-32`}>
         <EmailShareButton url={`${url}`} subject={subject} body={body}>
