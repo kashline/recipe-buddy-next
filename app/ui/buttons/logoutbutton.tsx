@@ -5,7 +5,7 @@ import { signOut } from "next-auth/react";
 export default function LogoutButton(props?: any) {
   return (
     <div
-      className="w-full h-10 bottom-0 absolute border-solid border-chili-red hover:border-red-800 border mb-6"
+      className="w-full h-10 bottom-0 absolute border-solid border-chili-red hover:border-red-800 border"
       {...props}
     >
       <button className="flex text-lavendar-blush w-full" onClick={() => signOut()}>
