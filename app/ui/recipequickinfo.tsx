@@ -155,7 +155,7 @@ export default function RecipeQuickInfo({
                   </td>
                   <td style={{ textAlign: "right" }}>{recipe.cookingTime}</td>
                 </tr>
-                <tr
+                {/* <tr
                   style={{
                     borderStyle: "solid",
                     borderWidth: 2,
@@ -170,7 +170,7 @@ export default function RecipeQuickInfo({
                       Instructional Video Link
                     </Link>
                   </td>
-                </tr>
+                </tr> */}
               </tbody>
             </table>
             {/* )} */}
