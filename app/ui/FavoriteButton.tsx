@@ -45,7 +45,7 @@ export default function FavoriteButton({
     size = isMobile ? "25px" : "50px";
   }
   if (isLoading) return <h1>Loading...</h1>;
-  if (error) return <Link href={`/auth/login`}>Error! Please try again</Link>;
+  if (error) return <Link href={`/auth/login`} >Error! Please try again</Link>;
   return (
     <div>
       <button
