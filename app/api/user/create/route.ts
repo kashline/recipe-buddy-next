@@ -8,12 +8,14 @@ export const POST = async (request: Request) => {
     const user = await request.json();
     const res = await User.findOrCreate({
       where: {
-        auth0Id: user.sub,
+        sub: user.sub,
       },
       defaults: {
-        firstName: user.given_name || "",
-        lastName: user.family_name || "",
-        auth0Id: user.sub || `${crypto.randomUUID()}`,
+        name: user.name || "",
+        email: user.email || "",
+        image: user.picture || `${crypto.randomUUID()}`,
+        emailVerified: user.email_verified,
+        sub: user.sub,
       },
     });
     return Response.json(
@@ -22,7 +24,7 @@ export const POST = async (request: Request) => {
     );
   } catch (error) {
     console.log(
-      `There was an error during profile-server callback user creation: ${error}`,
+      `There was an error during callback user creation: ${error}`,
     );
     return Response.json({ success: false }, { status: 500 });
   }

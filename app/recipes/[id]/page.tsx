@@ -8,7 +8,7 @@ import RecipeQuickInfo from "@/app/ui/recipequickinfo";
 import React from "react";
 import { env } from "process";
 import type { Metadata, ResolvingMetadata } from "next";
-import { auth0 } from "@/lib/auth0";
+import { auth } from "@/auth";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -45,7 +45,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   try {
     const id = Number(params.id);
-    const user = await auth0.getSession();
+    const session = await auth();
+    const user = session?.user;
     const attributes: string[] = [
       "title",
       "difficulty",
@@ -60,10 +61,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     ];
     const { data } = await (
       await fetch(
-        `${env.APP_URL}/api/recipes/${id}${user !== null ? `?userSub=${user!.user.sub}` : ``}`
+        `${env.APP_URL}/api/recipes/${id}${user !== undefined ? `?userSub=${user!.email}` : ``}`
       )
     ).json();
-
+    
     const recipe: RecipeZype = data;
     const friendlyName = friendifyWords(recipe.title);
     const favorited =
@@ -91,7 +92,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
             </p>
           )}
         </div>
-        <RecipeQuickInfo recipe={recipe} favorited={favorited} />
+        <RecipeQuickInfo recipe={recipe} session={session} />
         <div className="flex">
           <div
             style={{
@@ -153,6 +154,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
       </div>
     );
   } catch (error) {
-    return <p className="text-lavendar-blush">There was an error: {`${error}`}</p>;
+    return (
+      <p className="text-lavendar-blush">There was an error: {`${error}`}</p>
+    );
   }
 }

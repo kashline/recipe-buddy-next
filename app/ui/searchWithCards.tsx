@@ -1,3 +1,5 @@
+"use client";
+
 import Pagination from "./pagination";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSWR from "swr";
@@ -6,13 +8,16 @@ import RecipeGrid from "./RecipeGrid";
 import Search from "./search";
 import * as React from "react";
 import Link from "next/link";
+import { Session } from "next-auth";
 
 export default function SearchWithCards({
   title,
   favorited,
+  session,
 }: {
   title: string;
   favorited: boolean;
+  session: Session | null;
 }) {
   const [searchTerm, setSearchTerm] = React.useState("");
   return (
@@ -25,7 +30,7 @@ export default function SearchWithCards({
           setState={setSearchTerm}
         />
       </div>
-      <RecipeCards searchTerm={searchTerm} favorited={favorited} />
+      <RecipeCards searchTerm={searchTerm} favorited={favorited} session={session} />
     </>
   );
 }
@@ -33,9 +38,11 @@ export default function SearchWithCards({
 function RecipeCards({
   searchTerm,
   favorited,
+  session,
 }: {
   searchTerm: string;
   favorited: boolean;
+  session: Session | null;
 }) {
   const pathName = usePathname();
   const router = useRouter();
@@ -44,33 +51,30 @@ function RecipeCards({
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set(name, value);
-      
+
       return params.toString();
     },
     [searchParams]
   );
   React.useEffect(() => {
-    if (searchParams.get('recipesPerPage') === null && searchParams.get('page') === null) {
+    if (
+      searchParams.get("recipesPerPage") === null &&
+      searchParams.get("page") === null
+    ) {
       router.push(
         `${pathName}?${createQueryString("page", "1")}&${createQueryString("recipesPerPage", "12")}`
       );
     } else {
-      if (searchParams.get('recipesPerPage') === null){
-        router.push(
-          `${pathName}?${createQueryString("recipesPerPage", "12")}`
-        );
+      if (searchParams.get("recipesPerPage") === null) {
+        router.push(`${pathName}?${createQueryString("recipesPerPage", "12")}`);
       }
-      if (searchParams.get('page') === null){
-        router.push(
-          `${pathName}?${createQueryString("page", "1")}`
-        );
+      if (searchParams.get("page") === null) {
+        router.push(`${pathName}?${createQueryString("page", "1")}`);
       }
     }
-
-
   }, [searchParams, createQueryString, pathName, router]);
   const recipesPerPage = Number(searchParams.get("recipesPerPage"));
-  const page = Number(searchParams.get('page') || 1)
+  const page = Number(searchParams.get("page") || 1);
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
   const stem =
     searchTerm === ""
@@ -108,7 +112,7 @@ function RecipeCards({
   }
   return (
     <div>
-      <RecipeGrid data={recipes} />
+      <RecipeGrid session={session} data={recipes} />
       <div
         style={{
           marginLeft: "auto",

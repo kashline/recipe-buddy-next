@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
 
 /**
- * Model for an ingredient containing the ingredient name.
+ * Model for a user
  */
 export default class User extends Model {}
 
@@ -13,22 +13,18 @@ User.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    auth0Id: {
+    sub: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
+    name: DataTypes.STRING,
+    email: { type: DataTypes.STRING, unique: true },
+    emailVerified: DataTypes.BOOLEAN,
+    image: DataTypes.TEXT,
   },
   {
     sequelize,
     modelName: "User",
-  },
+  }
 );

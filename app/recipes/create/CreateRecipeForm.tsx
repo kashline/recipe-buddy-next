@@ -16,27 +16,30 @@ import {
 import { selectCreateRecipe } from "@/app/lib/features/recipe/createRecipeSlice";
 import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import "./styles.css";
-import { useUser } from "@auth0/nextjs-auth0";
 import CancelRecipe from "@/app/ui/popups/cancelrecipe";
+import { Session } from "next-auth";
 
-export default function Page() {
+export default function Page({ session }: { session: Session | null }) {
   const selectRecipe = useAppSelector(selectCreateRecipe);
-  const { user, isLoading, error } = useUser();
   const dispatch = useAppDispatch();
   const [submit, setSubmit] = React.useState("idle");
   const [formValid, setFormValid] = React.useState(true);
-  if (isLoading) {
-    return <>Loading</>;
+  if (!session){
+    return(<div className="text-lavendar-blush">You must be logged in to view this page!</div>)
   }
-  if (!user) {
-    return <>You must login</>;
-  }
-  if (error) {
-    return <>error</>;
-  }
+  const user = session.user
+  // if (isLoading) {
+  //   return <>Loading</>;
+  // }
+  // if (!user) {
+  //   return <>You must login</>;
+  // }
+  // if (error) {
+  //   return <>error</>;
+  // }
   const handleChange = (val: any, setFunction: Function) => {
     if (selectRecipe.owner === "") {
-      dispatch(setOwner(user!.sub!));
+      dispatch(setOwner(user!.email!));
     }
     dispatch(setFunction(val));
   };

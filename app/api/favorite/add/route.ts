@@ -1,21 +1,25 @@
 import { NextRequest } from "next/server";
 import UserRecipe from "@/app/data/models/UserRecipe";
 import { UserRecipeZodel } from "@/app/lib/data/zodels/UserRecipeZodel";
+import { auth } from "@/auth";
+import User from "@/app/data/models/User";
 
 export const POST = async (request: NextRequest) => {
   try {
     const data = UserRecipeZodel.parse(await request.json());
+    const session = await auth();
     if (data.recipeId !== undefined || data.recipeId !== null) {
+      console.log(session?.user?.email)
       const res = await UserRecipe.findOrCreate({
         where: {
-          UserSub: data.userSub,
+          UserEmail: session?.user?.email,
           RecipeId: data.recipeId,
         },
       });
       if (!res[1]) {
         const deleteRes = await UserRecipe.destroy({
           where: {
-            UserSub: data.userSub,
+            UserEmail: session?.user?.email,
             RecipeId: data.recipeId,
           },
         });
@@ -24,7 +28,7 @@ export const POST = async (request: NextRequest) => {
             success: true,
             message: `Successfully deleted recipe ${data.recipeId} from user ${data.userSub}'s favorites.`,
           },
-          { status: 200 },
+          { status: 200 }
         );
       }
       return Response.json(
@@ -32,7 +36,7 @@ export const POST = async (request: NextRequest) => {
           success: true,
           message: `Successfully added recipe ${data.recipeId} to user ${data.userSub}'s favorites.`,
         },
-        { status: 200 },
+        { status: 200 }
       );
     }
   } catch (error) {
@@ -42,7 +46,7 @@ export const POST = async (request: NextRequest) => {
         success: false,
         message: `There was an error adding or removing a favorite recipe: ${error}`,
       },
-      { status: 500 },
+      { status: 500 }
     );
   }
 };

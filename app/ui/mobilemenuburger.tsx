@@ -2,7 +2,6 @@
 
 import React from "react";
 import BurgerMenu from "./icons/burgermenu";
-import { useUser } from "@auth0/nextjs-auth0";
 import LogoutButton from "./buttons/logoutbutton";
 import LoginButton from "./buttons/loginbutton";
 import HomeIcon from "./icons/sidebaricons/homeicon";
@@ -11,10 +10,11 @@ import MenuIcon from "./icons/sidebaricons/menuicon";
 import BurgerMenuButton from "./burgermenubutton";
 import ProfileIcon from "./icons/profileicon";
 import RecipeIcon from "./icons/recipeicon";
+import { Session } from "next-auth";
 
-export default function MobileMenuBurger() {
+export default function MobileMenuBurger({session}: {session: Session|null}) {
   const [menuToggle, setMenuToggle] = React.useState(false);
-  const { user, error, isLoading } = useUser();
+  const user = session?.user
   const handleClick = () => {
     setMenuToggle(!menuToggle);
   };

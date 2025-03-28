@@ -1,12 +1,12 @@
+'use server'
+
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { useUser } from "@auth0/nextjs-auth0";
+import { auth } from "@/auth";
 
-export default function ProfileSidebar() {
-  const { user, error, isLoading } = useUser();
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+export default async function ProfileSidebar() {
+  const session = await auth()
+  const user = session?.user
   return (
     <>
       <div>

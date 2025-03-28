@@ -2,11 +2,11 @@
 
 import createRecipe from "@/app/lib/data/recipes/createRecipe";
 import { RecipeZodel } from "@/app/lib/data/zodels/Recipe";
-import { auth0 } from "../../../../lib/auth0";
+import { auth } from "@/auth";
 
 export const POST = async (request: Request) => {
   try {
-    const session = await auth0.getSession();
+    const session = await auth()
     if (!session) {
       return Response.json({
         success: false,

@@ -20,7 +20,7 @@ export default async function getRecipeById(
           {
             model: RecipeStep,
           },
-          { model: UserRecipe, where: { RecipeId: id, UserSub: userSub }, required: false },
+          { model: UserRecipe, where: { RecipeId: id, UserEmail: userSub }, required: false },
         ]
       : [{ model: Ingredient }, { model: RecipeStep }];
     const recipes = await Recipe.findOne({

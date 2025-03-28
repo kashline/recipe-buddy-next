@@ -3,9 +3,9 @@ import Recipe from "@/app/data/models/Recipe";
 import { Op } from "sequelize";
 import { parseResponse } from "@/app/lib/utils/parseResponse";
 import UserRecipe from "@/app/data/models/UserRecipe";
-import { auth0 } from "@/lib/auth0";
 import { RecipeZodel } from "../../../../lib/data/zodels/Recipe";
 import { count } from "console";
+import { auth } from "../../../../../auth";
 
 export async function GET(request: NextRequest) {
   if (request.url?.split("?")[1] === undefined) {
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       const term = searchParams.get("term");
       const page = Number(searchParams.get("page"));
       const itemsPerPage = Number(searchParams.get("recipesPerPage"));
-      const session = await auth0.getSession();
+      const session = await auth();
       const favorited = searchParams.get("favorited") === "true";
       if (page === null || itemsPerPage === null) {
         return NextResponse.json(
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
         ...(favorited && {
           include: {
             model: UserRecipe,
-            where: { UserSub: session?.user.sub },
+            where: { UserEmail: session?.user?.email },
             required: true,
           },
         }),

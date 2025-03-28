@@ -1,23 +1,25 @@
+'use client'
+
 import Link from "next/link";
 import { useState } from "react";
 import notificationOnClick from "./notificationOnClick";
 import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
-import { useUser } from "@auth0/nextjs-auth0";
 import useSWR from "swr";
 import React from "react";
+import { Session } from "next-auth";
 
 export default function FavoriteButton({
   recipeId,
-  favorited,
   recipeName,
+  session,
   size,
 }: {
   recipeId: number;
-  favorited: boolean;
   recipeName: string;
+  session: Session|null;
   size?: string;
 }) {
-  const { user } = useUser();
+  const user = session?.user
   const [favorite, setFavorite] = useState(false);
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
@@ -58,7 +60,7 @@ export default function FavoriteButton({
         onClick={() => {
           fetch(`/api/favorite/add`, {
             method: "POST",
-            body: JSON.stringify({ userSub: user.sub, recipeId: recipeId }),
+            body: JSON.stringify({ userSub: user.email, recipeId: recipeId }),
           }).then((res: Response) => {
             if (res.status === 200) {
               setFavorite(!favorite);

@@ -1,15 +1,17 @@
-"use client";
+"use server";
 
+import { auth } from "@/auth";
 import dynamic from "next/dynamic";
 
 const DynamicSearchWithCards = dynamic(() => import("../ui/searchWithCards"), {
   loading: () => <p>Loading...</p>,
 });
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth()
   return (
     <>
-      <DynamicSearchWithCards title="Browse Recipes" favorited={false} />
+      <DynamicSearchWithCards session={session} title="Browse Recipes" favorited={false} />
     </>
   );
 }

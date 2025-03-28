@@ -28,7 +28,7 @@ export default function RandomRecipeCard() {
       <div className="flex">
         <h1 className="text-lavendar-blush text-2xl">Random recipe!</h1>
       </div>
-      <RecipeCard data={data.data[0]} />
+      {/* <RecipeCard data={data.data[0]} /> */}
     </div>
   );
 }

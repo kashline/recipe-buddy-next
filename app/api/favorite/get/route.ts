@@ -1,10 +1,10 @@
 import User from "@/app/data/models/User";
-import { auth0 } from "@/lib/auth0";
 import { NextRequest } from "next/server";
 import UserRecipe from "../../../data/models/UserRecipe";
+import { auth } from "@/auth";
 
 export const GET = async function (request: NextRequest) {
-  const session = await auth0.getSession();
+  const session = await auth()
   const user = session?.user;
   const recipeId = request.nextUrl.searchParams.get("RecipeId") as string;
   if (user === undefined) {
@@ -14,7 +14,7 @@ export const GET = async function (request: NextRequest) {
     );
   }
   const favorited = await UserRecipe.findOne({
-    where: { UserSub: user.sub, RecipeId: recipeId },
+    where: { UserEmail: user.email, RecipeId: recipeId },
   });
   if (!favorited?.dataValues) {
     return Response.json({

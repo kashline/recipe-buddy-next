@@ -1,8 +1,15 @@
 "use client";
 
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "@/app/ui/RecipeCard";
+import { Session } from "next-auth";
 
-export default function RecipeGrid({ data }: { data: any }) {
+export default function RecipeGrid({
+  data,
+  session,
+}: {
+  data: any;
+  session: Session | null;
+}) {
   return (
     <div
       style={{
@@ -19,7 +26,11 @@ export default function RecipeGrid({ data }: { data: any }) {
             key={`RecipeGrid-${index}`}
             className="py-2"
           >
-            <RecipeCard data={recipe} key={`RecipeCard-${index}`}></RecipeCard>
+            <RecipeCard
+              session={session}
+              data={recipe}
+              key={`RecipeCard-${index}`}
+            ></RecipeCard>
           </div>
         );
       })}

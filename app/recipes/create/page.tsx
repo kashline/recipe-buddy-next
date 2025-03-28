@@ -1,15 +1,17 @@
-"use client";
+"use server";
 
 import * as React from "react";
 import CreateRecipeForm from "./CreateRecipeForm";
+import { auth } from "@/auth";
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth()
   return (
     <div className="justify-center">
       <h1 className="flex w-full justify-center text-lavendar-blush text-4xl pb-2">
         Create Recipe
       </h1>
-      <CreateRecipeForm/>
+      <CreateRecipeForm session={session}/>
     </div>
   );
 };

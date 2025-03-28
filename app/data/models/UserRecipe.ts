@@ -18,24 +18,24 @@ UserRecipe.init(
         key: "id",
       },
     },
-    UserSub: {
+    UserEmail: {
       type: DataTypes.STRING,
       references: {
         model: User,
-        key: "auth0Id",
+        key: "email",
       },
     },
   },
   {
     sequelize,
     modelName: "UserRecipe",
-  },
+  }
 );
 
 User.belongsToMany(Recipe, {
   through: { model: UserRecipe },
-  foreignKey: "UserSub",
-  sourceKey: "auth0Id",
+  foreignKey: "UserEmail",
+  sourceKey: "email",
 });
 Recipe.belongsToMany(User, { through: { model: UserRecipe } });
 Recipe.hasMany(UserRecipe);

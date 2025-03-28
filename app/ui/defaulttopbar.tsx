@@ -1,14 +1,15 @@
-"use client";
+"use server";
 
+import Link from "next/link";
 import MobileMenuBurger from "./mobilemenuburger";
 import ProfileButton from "./profilebutton";
-import { useRouter } from "next/navigation";
+import { auth } from "../../auth";
 
-export default function DefaultTopbar() {
-  const router = useRouter();
+export default async function DefaultTopbar() {
+  const session = await auth()
   return (
     <div style={{ display: "flex", position: 'sticky', top: 0 }} className="bg-gradient-to-tr from-black via-gunmetal to-black z-10 h-[42px]">
-      <MobileMenuBurger/>
+      <MobileMenuBurger session={session}/>
       <div
         style={{
           display: "flex",
@@ -18,13 +19,11 @@ export default function DefaultTopbar() {
           alignItems: "center",
         }}
       >
-        <button
-          onClick={() => {
-            router.push("/");
-          }}
+        <Link
+          href={'/'}
         >
           <p style={{ fontSize: "100%", color: "white" }}>Recipe Buddy</p>
-        </button>
+        </Link>
       </div>
       <div style={{ paddingLeft: "" }}>
         <ProfileButton />

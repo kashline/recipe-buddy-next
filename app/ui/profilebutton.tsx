@@ -1,10 +1,13 @@
+'use server'
+
 import Image from "next/image";
 import React from "react";
-import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
+import { auth } from "../../auth";
 
-export default function ProfileButton() {
-  const { user, error, isLoading } = useUser();
+export default async function ProfileButton() {
+  const session = await auth()
+  const user = session?.user
   return (
     <>
       <Link
@@ -21,7 +24,7 @@ export default function ProfileButton() {
       >
         {user && (
           <Image
-            src={`${user?.picture}` || "/chef-icon.png"}
+            src={`${user?.image}` || "/chef-icon.png"}
             style={{
               height: 40,
               maxWidth: 40,

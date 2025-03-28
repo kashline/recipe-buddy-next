@@ -9,8 +9,15 @@ import { useState } from "react";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
 import FavoriteButton from "./FavoriteButton";
 import friendifyWords from "../lib/utils/wordfriendifier";
+import { Session } from "next-auth";
 
-export default function RecipeCard({ data }: { data: RecipeZype }) {
+export default function RecipeCard({
+  data,
+  session,
+}: {
+  data: RecipeZype;
+  session: Session | null;
+}) {
   const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
   const favorited =
@@ -38,7 +45,11 @@ export default function RecipeCard({ data }: { data: RecipeZype }) {
           <Image
             height={0}
             width={0}
-            src={data.image === "undefined" || data.image === null ? chefImage : data.image}
+            src={
+              data.image === "undefined" || data.image === null
+                ? chefImage
+                : data.image
+            }
             alt="tasty food"
             sizes="100vw"
             priority
@@ -92,9 +103,9 @@ export default function RecipeCard({ data }: { data: RecipeZype }) {
           </div>
           <FavoriteButton
             recipeId={data.id!}
-            favorited={favorited}
             recipeName={data.title}
             size="25px"
+            session={session}
           />
         </CardContent>
       </Card>

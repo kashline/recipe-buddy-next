@@ -1,10 +1,10 @@
 import DeleteRecipe from "@/app/data/DeleteRecipe";
+import { auth } from "@/auth";
 import { NextRequest } from "next/server";
-import { auth0 } from "../../../../lib/auth0";
 
 export const DELETE = async (request: NextRequest) => {
   try {
-    const session = await auth0.getSession();
+    const session = await auth()
     if (!session) {
       return Response.json({
         success: false,

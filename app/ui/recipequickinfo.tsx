@@ -9,19 +9,20 @@ import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
 import * as React from "react";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
+import { Session } from "next-auth";
 
 export default function RecipeQuickInfo({
   recipe,
-  favorited,
+  session,
 }: {
   recipe: RecipeZype;
-  favorited: boolean;
+  session: Session | null;
 }) {
   const friendlyName = friendifyWords(recipe.title);
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
   const [isQiToggle, setIsQiToggle] = React.useState(false);
   const [isIngToggle, setIsIngToggle] = React.useState(false);
-  const maxIngredientHeight = recipe.Ingredients!.length*28+2
+  const maxIngredientHeight = recipe.Ingredients!.length * 28 + 2;
   return (
     <div
       style={{
@@ -53,7 +54,7 @@ export default function RecipeQuickInfo({
         />
       </div>
       <div className="py-4">
-        <RecipeOptions recipe={recipe} favorited={favorited} />
+        <RecipeOptions recipe={recipe} session={session} />
       </div>
       <div className="text-lavendar-blush text-center text-xl py-5 mx-auto">
         <span>{recipe.description}</span>
@@ -204,7 +205,11 @@ export default function RecipeQuickInfo({
           </div>
           <div
             className={`overflow-hidden transition-height ease-in-out duration-700`}
-            style={isIngToggle ? { maxHeight: maxIngredientHeight } : { maxHeight: 0 }}
+            style={
+              isIngToggle
+                ? { maxHeight: maxIngredientHeight }
+                : { maxHeight: 0 }
+            }
           >
             <table className="mb-0 w-full">
               <tbody>

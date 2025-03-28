@@ -2,7 +2,6 @@
 
 import FavoriteButton from "@/app/ui/FavoriteButton";
 import EditIcon from "@/app/ui/icons/editicon";
-import { useUser } from "@auth0/nextjs-auth0";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import * as React from "react";
@@ -21,19 +20,20 @@ import {
   fetchRecipe,
   selectCreateRecipe,
 } from "../lib/features/recipe/createRecipeSlice";
+import { Session } from "next-auth";
 
 export default function RecipeOptions({
   recipe,
-  favorited,
+  session,
 }: {
   recipe: RecipeZype;
-  favorited: boolean;
+  session: Session | null;
 }) {
+  const user = session?.user
   const path = usePathname();
   const body =
     "I wanted to share this awesome recipe with you. You can find full details below along with thousands of other recipes on recipebuddy.us!";
   const subject = "Check out this recipe I found on RecipeBuddy!";
-  const { user, error, isLoading } = useUser();
   const [isMobile] = useResponsiveBreakpoints();
   const shareSize = isMobile ? 50 : 75;
   const [url, setUrl] = React.useState("");
@@ -49,19 +49,19 @@ export default function RecipeOptions({
   React.useEffect(() => {
     setUrl(window.location.href);
   }, []);
-  if (isLoading) {
-    return (
-      <div className=" w-full flex">
-        <h1 className="text-lavendar-blush mx-auto">Loading...</h1>
-      </div>
-    );
-  }
-  if (error) {
-    console.log(error);
-    return (
-      <Link href={`/auth/login`}>Error! Please try again {`${error}`}</Link>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <div className=" w-full flex">
+  //       <h1 className="text-lavendar-blush mx-auto">Loading...</h1>
+  //     </div>
+  //   );
+  // }
+  // if (error) {
+  //   console.log(error);
+  //   return (
+  //     <Link href={`/auth/login`}>Error! Please try again {`${error}`}</Link>
+  //   );
+  // }
   if (!user) {
     return (
       <Link href={`/auth/login`} style={{ color: "white" }}>
@@ -80,7 +80,7 @@ export default function RecipeOptions({
         }}
         className="w-1/2 mx-auto"
       >
-        {user!.sub === recipe.owner && (
+        {user!.email === recipe.owner && (
           <Link
             className="h-fit justify-center align-middle mx-auto"
             href={`${path}/edit`}
@@ -90,7 +90,7 @@ export default function RecipeOptions({
         )}
         <FavoriteButton
           recipeId={recipe.id!}
-          favorited={favorited}
+          session={session}
           recipeName={recipe.title}
         />
       </div>
