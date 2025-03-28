@@ -21,7 +21,6 @@ export default async function createRecipe(recipe: RecipeZype) {
       console.log(err);
     });
     const result = await sequelize.transaction(async () => {
-
       const res = await Recipe.create({
         title: recipe.title,
         description: recipe.description,
@@ -38,6 +37,27 @@ export default async function createRecipe(recipe: RecipeZype) {
         console.log(err);
         throw err;
       });
+      const test = await Recipe.findOrCreate({
+        where: { id: recipe.id },
+        defaults: {
+          title: recipe.title,
+          description: recipe.description,
+          preparationTime: recipe.preparationTime,
+          cookingTime: recipe.cookingTime,
+          difficulty: recipe.difficulty,
+          image: recipe.image || undefined,
+          video: recipe.video || undefined,
+          tags: recipe.tags || undefined,
+          servings: recipe.servings,
+          owner: recipe.owner,
+          aigenerated: recipe.aigenerated,
+        },
+    })
+    // .catch((err) => {
+    //   console.log(err);
+    //   throw err;
+    // });
+    console.log(test)
       const recipeId = res.dataValues.id;
       // const recipeResponse = res![0];
       // console.log(recipeResponse)

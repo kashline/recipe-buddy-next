@@ -58,6 +58,7 @@ export default function RecipeStepsForm() {
         sensors={sensors}
         collisionDetection={closestCenter}
         onDragEnd={handleDragEnd}
+        id="1"
       >
         <SortableContext items={itemIds} strategy={verticalListSortingStrategy}>
           {items.map((id, index) => {

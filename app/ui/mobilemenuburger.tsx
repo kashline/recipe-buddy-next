@@ -12,9 +12,13 @@ import ProfileIcon from "./icons/profileicon";
 import RecipeIcon from "./icons/recipeicon";
 import { Session } from "next-auth";
 
-export default function MobileMenuBurger({session}: {session: Session|null}) {
+export default function MobileMenuBurger({
+  session,
+}: {
+  session: Session | null;
+}) {
   const [menuToggle, setMenuToggle] = React.useState(false);
-  const user = session?.user
+  const user = session?.user;
   const handleClick = () => {
     setMenuToggle(!menuToggle);
   };
@@ -51,11 +55,6 @@ export default function MobileMenuBurger({session}: {session: Session|null}) {
               href="/recipes"
               Icon={MenuIcon({ fill: "#eee5e9", width: 25, height: 25 })}
             />
-            <BurgerMenuButton
-              title="New Recipe"
-              href="/recipes/create"
-              Icon={EditIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-            />
           </ul>
           {user && (
             <div>
@@ -71,6 +70,11 @@ export default function MobileMenuBurger({session}: {session: Session|null}) {
                   title="My Recipes"
                   href="/profile/recipes"
                   Icon={RecipeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
+                />
+                <BurgerMenuButton
+                  title="New Recipe"
+                  href="/recipes/create"
+                  Icon={EditIcon({ fill: "#eee5e9", width: 25, height: 25 })}
                 />
               </ul>
               <LogoutButton />
