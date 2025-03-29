@@ -18,16 +18,21 @@ import { useAppDispatch, useAppSelector } from "@/app/lib/hooks";
 import "./styles.css";
 import CancelRecipe from "@/app/ui/popups/cancelrecipe";
 import { Session } from "next-auth";
+import Link from "next/link";
 
 export default function Page({ session }: { session: Session | null }) {
   const selectRecipe = useAppSelector(selectCreateRecipe);
   const dispatch = useAppDispatch();
   const [submit, setSubmit] = React.useState("idle");
   const [formValid, setFormValid] = React.useState(true);
-  if (!session){
-    return(<div className="text-lavendar-blush">You must be logged in to view this page!</div>)
+  if (!session) {
+    return (
+      <div className="text-lavendar-blush">
+        You must be logged in to view this page!
+      </div>
+    );
   }
-  const user = session.user
+  const user = session.user;
   // if (isLoading) {
   //   return <>Loading</>;
   // }
@@ -244,19 +249,26 @@ export default function Page({ session }: { session: Session | null }) {
             })}
             <RecipeStepsForm />
           </div> */}
-          <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
-            <div className="">
-              <button
-                className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
-                type="submit"
-              >
-                Submit
-              </button>
+          {/* {submit === "idle" && ( */}
+            <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
+              <div className="">
+                <button
+                  className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+              <div>
+                <CancelRecipe />
+              </div>
             </div>
-            <div>
-              <CancelRecipe />
+          {/* )} */}
+          {submit !== "idle" && (
+            <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
+              <Link href={'/recipes'} className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8">Back</Link>
             </div>
-          </div>
+          )}
           <div className="text-center h-8">
             {submit === "success" && (
               <div className="text-lavendar-blush">

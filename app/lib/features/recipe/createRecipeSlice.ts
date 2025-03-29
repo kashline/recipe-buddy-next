@@ -21,8 +21,16 @@ export interface CreateRecipeState {
   video: string;
   image: string;
   id?: number;
-  Ingredients: { name: string; RecipeIngredient: RecipeIngredient }[];
-  RecipeSteps: { step_number: number; description: string, ingredients: string[] }[];
+  Ingredients: {
+    id: number | null;
+    name: string;
+    RecipeIngredient: RecipeIngredient;
+  }[];
+  RecipeSteps: {
+    step_number: number;
+    description: string;
+    ingredients: string[];
+  }[];
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
@@ -43,7 +51,7 @@ const initialState: CreateRecipeState = {
   aigenerated: false,
   video: "",
   image: "",
-  Ingredients: [{ name: "", RecipeIngredient: { quantity: "" } }],
+  Ingredients: [{ id: null, name: "", RecipeIngredient: { quantity: "" } }],
   RecipeSteps: [{ step_number: 1, description: "", ingredients: [] }],
   status: "idle",
   error: null,
@@ -88,11 +96,16 @@ export const createRecipeSlice = createSlice({
     },
     setIngredientField: (
       state,
-      action: PayloadAction<{ type: string; index?: number; value?: string }>,
+      action: PayloadAction<{
+        type: string;
+        index?: number;
+        value?: string | any;
+      }>
     ) => {
       switch (action.payload.type) {
         case "add":
           state.Ingredients.push({
+            id: null,
             name: "",
             RecipeIngredient: { quantity: "" },
           });
@@ -107,6 +120,12 @@ export const createRecipeSlice = createSlice({
             }
           });
           break;
+        case "setIngredient":
+          state.Ingredients[action.payload.index!].name =
+            action.payload.value!.name;
+          state.Ingredients[action.payload.index!].id =
+            action.payload.value!.id;
+          break;
         case "setName":
           state.Ingredients[action.payload.index!].name = action.payload.value!;
           break;
@@ -116,14 +135,14 @@ export const createRecipeSlice = createSlice({
           break;
         default:
           console.error(
-            new Error("Invalid payload type for setIngredientField"),
+            new Error("Invalid payload type for setIngredientField")
           );
           break;
       }
     },
     setStepField: (
       state,
-      action: PayloadAction<{ type: string; index?: number; value?: string }>,
+      action: PayloadAction<{ type: string; index?: number; value?: string }>
     ) => {
       switch (action.payload.type) {
         case "add":
@@ -148,7 +167,8 @@ export const createRecipeSlice = createSlice({
           validateStepNumbers(state);
           break;
         case "setStep":
-          state.RecipeSteps[action.payload.index!].description = action.payload.value!;
+          state.RecipeSteps[action.payload.index!].description =
+            action.payload.value!;
           break;
         default:
           console.error(new Error("Invalid payload type for setStepField"));
@@ -162,20 +182,28 @@ export const createRecipeSlice = createSlice({
             return { step: step.step, step_number: index + 1 };
           }
           return { step: step.step, step_number: step.step_number };
-        },
+        }
       );
     },
     rearrangeSteps: (state, action) => {
       const movedArray = arrayMove(
         action.payload.items,
         action.payload.oldIndex,
-        action.payload.newIndex,
+        action.payload.newIndex
       );
       state.RecipeSteps = movedArray.map((step: any, index: number) => {
         if (step.step_number !== index + 1) {
-          return { description: step.description, step_number: index + 1, ingredients: step.ingredients };
+          return {
+            description: step.description,
+            step_number: index + 1,
+            ingredients: step.ingredients,
+          };
         }
-        return { description: step.description, step_number: step.step_number, ingredients: step.ingredients };
+        return {
+          description: step.description,
+          step_number: step.step_number,
+          ingredients: step.ingredients,
+        };
       });
     },
   },
@@ -217,9 +245,9 @@ export const {
 export const fetchRecipe = createAsyncThunk(
   "recipes/fetchRecipe",
   async (query: string) => {
-    const res = await (await fetch(`/api/recipes/${query}`)).json()
-    return res.data
-  },
+    const res = await (await fetch(`/api/recipes/${query}`)).json();
+    return res.data;
+  }
 );
 
 export const fetchGeneratedRecipe = createAsyncThunk(
@@ -243,7 +271,7 @@ export const fetchGeneratedRecipe = createAsyncThunk(
       .then((data) => {
         return data;
       });
-  },
+  }
 );
 
 export const selectCreateRecipe = (state: RootState) => state.createRecipe;

@@ -10,13 +10,15 @@ import Button from "@/app/ui/button";
 import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 import Trashcan from "@/app/ui/icons/trashcan";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";
-import './typeahead.css'
+import "./typeahead.css";
+import Ingredient from "@/app/data/models/Ingredient";
 
 export default function IngredientsForm() {
   const [isLoading, setIsLoading] = React.useState(false);
-  const [ingredients, setIngredients] = React.useState<String[]>([]);
+  const [ingredients, setIngredients] = React.useState<
+    { id: number; name: string }[]
+  >([]);
   const typaheadRef = React.useRef(null);
-
   const selectRecipe = useAppSelector(selectCreateRecipe);
   const dispatch = useAppDispatch();
   const handleChange = (query: string, index: number) => {
@@ -35,14 +37,36 @@ export default function IngredientsForm() {
         setIsLoading(false);
       });
   };
-  const handleMenuClick = (query: string, index: number) => {
-    dispatch(
-      setIngredientField({
-        type: "setName",
-        index: index,
-        value: query,
-      })
-    );
+  const handleMenuClick = async (
+    query: string,
+    index: number,
+    innerIndex: number
+  ) => {
+    const res = await (await fetch(`/api/recipes/ingredients?name=${query}`)).json()
+        const value = res.data[innerIndex];
+        dispatch(
+          setIngredientField({
+            type: "setIngredient",
+            index: index,
+            value: value,
+          })
+        );
+        // dispatch(
+        //   setIngredientField({
+        //     type: "setName",
+        //     index: index,
+        //     value: value.name,
+        //   })
+        // )
+        // setIngredients(data.data.length !== 0 ? data.data : [""]);
+      ;
+    // dispatch(
+    //   setIngredientField({
+    //     type: "setName",
+    //     index: index,
+    //     value: query,
+    //   })
+    // );
   };
   if (selectRecipe.status === "loading")
     return <AnimatedLoading name="Ingredient"></AnimatedLoading>;
@@ -106,13 +130,18 @@ export default function IngredientsForm() {
                 >
                   <Typeahead
                     placeholder={"Ingredient..."}
-                    options={ingredients}
+                    options={ingredients.map(
+                      (ingredient: { id: number; name: string }) => {
+                        return ingredient.name;
+                      }
+                    )}
                     isLoading={isLoading}
                     ref={typaheadRef}
                     defaultSelected={[ingredient.name]}
                     onInputChange={(query) => handleChange(query, index)}
                     emptyLabel={"Start typing to search"}
                     allowNew={true}
+                    selected={[ingredient.name]}
                     inputProps={{
                       className:
                         "text-lavendar-blush bg-gunmetal rounded-md w-full",
@@ -146,7 +175,11 @@ export default function IngredientsForm() {
                                     >
                                   ) => {
                                     const target = item.target as HTMLElement;
-                                    handleMenuClick(target.innerText, index);
+                                    handleMenuClick(
+                                      target.innerText,
+                                      index,
+                                      innerIndex
+                                    );
                                   }}
                                 >
                                   {typeof result === "string"
@@ -215,7 +248,7 @@ export default function IngredientsForm() {
                       paddingLeft: 0,
                       paddingRight: 10,
                     }}
-                    type={'button'}
+                    type={"button"}
                     onClick={() => {
                       dispatch(
                         setIngredientField({
@@ -239,7 +272,7 @@ export default function IngredientsForm() {
         onClick={() => {
           dispatch(setIngredientField({ type: "add" }));
         }}
-        type={'button'}
+        type={"button"}
       >
         Add Ingredient
       </Button>

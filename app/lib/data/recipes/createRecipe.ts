@@ -14,6 +14,11 @@ import Ingredient from "@/app/data/models/Ingredient";
 import _ from "lodash";
 import sequelize from "@/app/data/connection";
 import Test from "../../../data/models/Test";
+import { Op } from "sequelize";
+
+type RecipeWith_options = Recipe & {
+  _options?: any;
+};
 
 export default async function createRecipe(recipe: RecipeZype) {
   try {
@@ -21,23 +26,7 @@ export default async function createRecipe(recipe: RecipeZype) {
       console.log(err);
     });
     const result = await sequelize.transaction(async () => {
-      const res = await Recipe.create({
-        title: recipe.title,
-        description: recipe.description,
-        preparationTime: recipe.preparationTime,
-        cookingTime: recipe.cookingTime,
-        difficulty: recipe.difficulty,
-        image: recipe.image || undefined,
-        video: recipe.video || undefined,
-        tags: recipe.tags || undefined,
-        servings: recipe.servings,
-        owner: recipe.owner,
-        aigenerated: recipe.aigenerated,
-      }).catch((err) => {
-        console.log(err);
-        throw err;
-      });
-      const test = await Recipe.findOrCreate({
+      const res: [RecipeWith_options, boolean] = await Recipe.findOrCreate({
         where: { id: recipe.id },
         defaults: {
           title: recipe.title,
@@ -52,13 +41,68 @@ export default async function createRecipe(recipe: RecipeZype) {
           owner: recipe.owner,
           aigenerated: recipe.aigenerated,
         },
-    })
-    // .catch((err) => {
-    //   console.log(err);
-    //   throw err;
-    // });
-    console.log(test)
-      const recipeId = res.dataValues.id;
+        include: [{ model: Ingredient }, { model: RecipeStep }],
+      });
+      if (res[0]._options.isNewRecord) {
+        const recipeId = res[0].dataValues.id;
+        recipe.Ingredients!.map(async (ingredient) => {
+          const res = await createIngredient(ingredient);
+          await createRecipeIngredient(
+            RecipeIngredientZodel.parse({
+              quantity: ingredient.RecipeIngredient.quantity,
+              recipe_id: recipeId,
+              ingredient_id: res?.dataValues.id,
+            })
+          );
+        });
+        recipe.RecipeSteps!.map(async (step) => {
+          await createRecipeStep(
+            RecipeStepZodel.parse({
+              description: step.description,
+              recipe_id: recipeId,
+              step_number: step.step_number,
+              ingredients: step.ingredients || undefined,
+            })
+          );
+        });
+      } else {
+        res[0].set({ ...recipe });
+        await res[0].save();
+        // Handle Ingredients updates
+        res[0].dataValues.Ingredients.map(
+          async (ingredient: Ingredient, index: number) => {
+            const recipeIngredient: any = await RecipeIngredient.findOrCreate({
+              where: {
+                ingredient_id: ingredient.dataValues.id,
+                recipe_id: recipe.id,
+              },
+              defaults: {
+                quantity:
+                  ingredient.dataValues.RecipeIngredient.dataValues.quantity,
+                ingredient_id: ingredient.dataValues.id,
+                recipe_id: recipe.id,
+              },
+            });
+            if (!recipeIngredient[0]._options.isNewRecord) {
+              res[0].dataValues.Ingredients[index].RecipeIngredient.save();
+            }
+          }
+        );
+        // Handle deleting unwanted ingredients
+        const ingredientIds = res[0].dataValues.Ingredients.map(
+          (ingredient: any) => {
+            return ingredient.id;
+          }
+        );
+        const unwantedRecipeIngredients = await RecipeIngredient.findAll({
+          where: { ingredient_id: { [Op.notIn]: ingredientIds }, recipe_id: recipe.id },
+        });
+        unwantedRecipeIngredients.map(async (val: RecipeIngredient) => await val.destroy())
+
+        // Handle RecipeSteps updates
+        res[0].dataValues.RecipeSteps.map((step: RecipeStep) => {console.log(step)})
+      }
+
       // const recipeResponse = res![0];
       // console.log(recipeResponse)
       // const recipeResponseZodel = RecipeZodel.parse(recipeResponse);
@@ -81,35 +125,6 @@ export default async function createRecipe(recipe: RecipeZype) {
       //       recipe_id: recipe.id,
       //     },
       //   });
-
-      recipe.Ingredients!.map(async (ingredient) => {
-        const res = await createIngredient(ingredient);
-        await createRecipeIngredient(
-          RecipeIngredientZodel.parse({
-            quantity: ingredient.RecipeIngredient.quantity,
-            recipe_id: recipeId,
-            ingredient_id: res?.dataValues.id,
-          })
-        );
-      });
-
-      //   // Destroy all associated RecipeSteps because it's easier than managing updates :/
-      //   RecipeStep.destroy({
-      //     where: {
-      //       recipe_id: recipe.id,
-      //     },
-      //   });
-
-      recipe.RecipeSteps!.map(async (step) => {
-        await createRecipeStep(
-          RecipeStepZodel.parse({
-            description: step.description,
-            recipe_id: recipeId,
-            step_number: step.step_number,
-            ingredients: step.ingredients || undefined,
-          })
-        );
-      });
 
       // });
     });
