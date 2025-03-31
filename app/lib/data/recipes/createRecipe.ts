@@ -95,12 +95,19 @@ export default async function createRecipe(recipe: RecipeZype) {
           }
         );
         const unwantedRecipeIngredients = await RecipeIngredient.findAll({
-          where: { ingredient_id: { [Op.notIn]: ingredientIds }, recipe_id: recipe.id },
+          where: {
+            ingredient_id: { [Op.notIn]: ingredientIds },
+            recipe_id: recipe.id,
+          },
         });
-        unwantedRecipeIngredients.map(async (val: RecipeIngredient) => await val.destroy())
+        unwantedRecipeIngredients.map(
+          async (val: RecipeIngredient) => await val.destroy()
+        );
 
         // Handle RecipeSteps updates
-        res[0].dataValues.RecipeSteps.map((step: RecipeStep) => {console.log(step)})
+        res[0].dataValues.RecipeSteps.map((step: RecipeStep) => {
+          console.log(step), step.save();
+        });
       }
 
       // const recipeResponse = res![0];

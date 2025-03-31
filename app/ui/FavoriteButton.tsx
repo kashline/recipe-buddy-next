@@ -51,6 +51,7 @@ export default function FavoriteButton({
     <div>
       <button
         className="shadow-none w-fit h-fit px-0"
+        data-cy="favoritebutton"
         onClick={() => {
           fetch(`/api/favorite/add`, {
             method: "POST",
