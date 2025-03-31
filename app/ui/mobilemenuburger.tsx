@@ -36,6 +36,7 @@ export default function MobileMenuBurger({
       <button
         onClick={handleClick}
         className={`px-0 hover:shadow-none py-0 shadow-none float-right ${!menuToggle ? "visible" : "invisible"}`}
+        data-cy='menuburgerbutton'
       >
         <BurgerMenu />
       </button>

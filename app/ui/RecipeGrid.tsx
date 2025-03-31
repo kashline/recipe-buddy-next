@@ -30,7 +30,8 @@ export default function RecipeGrid({
               session={session}
               data={recipe}
               key={`RecipeCard-${index}`}
-            ></RecipeCard>
+              props={{ "data-cy": `recipecard-${index}` }}
+            />
           </div>
         );
       })}

@@ -14,16 +14,19 @@ import { Session } from "next-auth";
 export default function RecipeCard({
   data,
   session,
+  props,
 }: {
   data: RecipeZype;
   session: Session | null;
+  props?: any;
 }) {
   const router = useRouter();
   const [imageLoaded, setImageLoaded] = useState(false);
   const favorited =
     "UserRecipes" in data && data.UserRecipes?.length === 1 ? true : false;
+    console.log(props)
   return (
-    <div className="border">
+    <div className="border" {...props}>
       <Card
         sx={{
           width: "20rem",
