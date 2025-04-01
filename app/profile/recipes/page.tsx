@@ -5,7 +5,7 @@ import SearchWithCards from "@/app/ui/searchWithCards";
 import { auth } from "@/auth";
 
 export default async function Page() {
-  const session = await auth()
+  const session = await auth();
   // if (isLoading) return <div className="text-lavendar-blush mx-auto">Logging you in...</div>;
   if (!session) {
     return (
@@ -16,8 +16,10 @@ export default async function Page() {
   }
   return (
     // Need suspense boundary around useSearchParams: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
-    <Suspense>
-      <SearchWithCards session={session} title="My Recipes" favorited={true} />
-    </Suspense>
+    <div>
+      <Suspense>
+        <SearchWithCards session={session} title="Favorites" favorited={true} />
+      </Suspense>
+    </div>
   );
 }

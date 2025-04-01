@@ -64,13 +64,13 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         `${env.APP_URL}/api/recipes/${id}${user !== undefined ? `?userSub=${user!.email}` : ``}`
       )
     ).json();
-    
     const recipe: RecipeZype = data;
     const friendlyName = friendifyWords(recipe.title);
     const favorited =
       "UserRecipes" in recipe && recipe.UserRecipes?.length === 1
         ? true
         : false;
+    
     return (
       <div style={{ color: "white" }}>
         <div

@@ -11,6 +11,7 @@ import AnimatedLoading from "@/app/ui/loading/animatedloading";
 import Button from "@/app/ui/button";
 import Link from "next/link";
 import { Session } from "next-auth";
+import DangerZone from "@/app/ui/dangerzone";
 
 export default function EditRecipeForm({
   query,
@@ -22,7 +23,7 @@ export default function EditRecipeForm({
   const selectRecipe = useAppSelector(selectCreateRecipe);
   const dispatch = useAppDispatch();
   const fetchStatus = useAppSelector((state: any) => state.status);
-  const user = session?.user
+  const user = session?.user;
   React.useEffect(() => {
     if (selectRecipe.status === "idle") {
       dispatch(fetchRecipe(query));
@@ -46,6 +47,12 @@ export default function EditRecipeForm({
   return (
     <>
       <CreateRecipeForm session={session} />
+      <div className="max-w-[600px] mx-auto">
+        <DangerZone
+          recipeName={selectRecipe.title}
+          recipeID={selectRecipe.id!}
+        />
+      </div>
     </>
   );
 }

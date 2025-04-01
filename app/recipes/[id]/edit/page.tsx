@@ -2,7 +2,6 @@
 
 import { StoreProvider } from "@/app/StoreProvider";
 import EditRecipeForm from "./EditRecipeForm";
-// import { useUser } from "@auth0/nextjs-auth0";
 import * as React from "react";
 import { auth } from "@/auth";
 

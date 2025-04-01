@@ -29,7 +29,7 @@ export default function DeleteRecipe({
 
   const handleDelete = async () => {
     try {
-      const res = await fetch(`/api/recipes/delete?id=${recipeID}`, {
+      const res = await fetch(`/api/recipes/${recipeID}/`, {
         method: "DELETE",
       });
       if (res.status !== 200) {
@@ -62,8 +62,8 @@ export default function DeleteRecipe({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleDelete}>Delete</Button>
+          <Button className="text-gunmetal" onClick={handleClose}>Cancel</Button>
+          <Button className="text-gunmetal" onClick={handleDelete}>Delete</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

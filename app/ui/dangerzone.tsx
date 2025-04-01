@@ -13,51 +13,49 @@ export default function DangerZone({
   recipeID: number;
 }) {
   const [toggle, setToggle] = React.useState(false);
-  if (!toggle) {
-    return (
-      <div>
-        <button
-          style={{ width: "100%", height: 4 }}
-          onClick={() => {
-            setToggle(!toggle);
-          }}
-        >
-          <div style={{ display: "flex" }}>
-            <ChevronRightIcon style={{ height: 16 }} />
-            <p className="pl-4" style={{ paddingLeft: "4px" }}>
-              Danger Zone
-            </p>
-          </div>
-          <hr className=" h-px border-none bg-gray-400"></hr>
-        </button>
-      </div>
-    );
-  }
+  const myRef = React.useRef(null);
   return (
-    <div>
+    <div className="border-[1px] border-chili-red">
       <button
         style={{ width: "100%", height: 4 }}
         onClick={() => {
           setToggle(!toggle);
+          window.scroll({
+            top: document.body.offsetHeight,
+            left: 0,
+            behavior: "smooth",
+          });
         }}
       >
-        <div style={{ display: "flex" }}>
-          <ChevronDownIcon style={{ height: 16 }} />
-          <p className="pl-4" style={{ paddingLeft: "4px" }}>
-            Danger Zone
-          </p>
+        <div className="flex">
+          {toggle && (
+            <ChevronDownIcon
+              className="stroke-lavendar-blush my-auto"
+              style={{ height: 16 }}
+            />
+          )}
+          {!toggle && (
+            <ChevronRightIcon
+              className="stroke-lavendar-blush my-auto"
+              style={{ height: 16 }}
+            />
+          )}
+          <p className="pl-4 text-lavendar-blush">Danger Zone</p>
         </div>
-        <hr className=" h-px border-none bg-gray-400"></hr>
       </button>
-      <div style={{ display: "flex", borderWidth: 3, borderColor: "red" }}>
-        <p style={{ marginLeft: "1%", marginTop: "2%", marginRight: "70%" }}>
-          Delete Recipe
-        </p>
-        <DeleteRecipe
-          recipeName={recipeName}
-          recipeID={recipeID}
-        />
-      </div>
+      {toggle && (
+        <div className="pt-5">
+          <hr className=" h-px border-none bg-gray-500 w-[95%] mx-auto"></hr>{" "}
+          <div className="flex w-full pt-5">
+            <p className="text-lavendar-blush mr-auto ml-[2%] my-auto">
+              Delete Recipe
+            </p>
+            <div className="mr-0">
+              <DeleteRecipe recipeName={recipeName} recipeID={recipeID} />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

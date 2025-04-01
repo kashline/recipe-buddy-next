@@ -33,15 +33,6 @@ export default function Page({ session }: { session: Session | null }) {
     );
   }
   const user = session.user;
-  // if (isLoading) {
-  //   return <>Loading</>;
-  // }
-  // if (!user) {
-  //   return <>You must login</>;
-  // }
-  // if (error) {
-  //   return <>error</>;
-  // }
   const handleChange = (val: any, setFunction: Function) => {
     if (selectRecipe.owner === "") {
       dispatch(setOwner(user!.email!));
@@ -250,23 +241,28 @@ export default function Page({ session }: { session: Session | null }) {
             <RecipeStepsForm />
           </div> */}
           {/* {submit === "idle" && ( */}
-            <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
-              <div className="">
-                <button
-                  className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
-                  type="submit"
-                >
-                  Submit
-                </button>
-              </div>
-              <div>
-                <CancelRecipe />
-              </div>
+          <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
+            <div className="">
+              <button
+                className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
+                type="submit"
+              >
+                Submit
+              </button>
             </div>
+            <div>
+              <CancelRecipe />
+            </div>
+          </div>
           {/* )} */}
           {submit !== "idle" && (
             <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
-              <Link href={'/recipes'} className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8">Back</Link>
+              <Link
+                href={"/recipes"}
+                className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
+              >
+                Back
+              </Link>
             </div>
           )}
           <div className="text-center h-8">

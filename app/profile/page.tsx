@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import Login from "../ui/login";
-import { useSession } from "next-auth/react";
 import { auth } from "../../auth";
 
 export default async function Page() {
@@ -16,10 +15,6 @@ export default async function Page() {
       </div>
     );
   }
-  // if (isLoading) return <div>Logging you in...</div>;
-  // if (error) {
-  //   return <div>{error}</div>;
-  // }
   return (
     <div>
       <div className="mx-auto justify-center max-w-fit">
