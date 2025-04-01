@@ -24,7 +24,6 @@ export default function RecipeCard({
   const [imageLoaded, setImageLoaded] = useState(false);
   const favorited =
     "UserRecipes" in data && data.UserRecipes?.length === 1 ? true : false;
-    console.log(props)
   return (
     <div className="border" {...props}>
       <Card

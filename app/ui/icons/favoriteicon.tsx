@@ -1,5 +1,4 @@
 export default function FavoriteIcon(props?: any) {
-    console.log(props.props)
   return (
     <svg
       viewBox="0 0 24 24"

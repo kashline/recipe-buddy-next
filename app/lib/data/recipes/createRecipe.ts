@@ -77,23 +77,28 @@ export default async function createRecipe(recipe: RecipeZype) {
           // Handle Ingredients updates
           res[0].dataValues.Ingredients.map(
             async (ingredient: Ingredient, index: number) => {
+              const ingredientId = ingredient.dataValues.id
+                ? ingredient.dataValues.id
+                : (await Ingredient.findOrCreate({
+                    where: { name: ingredient.dataValues.name },
+                  }))[0].dataValues.id;
               const recipeIngredient: any = await RecipeIngredient.findOrCreate(
                 {
                   where: {
-                    ingredient_id: ingredient.dataValues.id,
+                    ingredient_id: ingredientId,
                     recipe_id: recipe.id,
                   },
                   defaults: {
                     quantity:
                       ingredient.dataValues.RecipeIngredient.dataValues
                         .quantity,
-                    ingredient_id: ingredient.dataValues.id,
+                    ingredient_id: ingredientId,
                     recipe_id: recipe.id,
                   },
                 }
               );
               if (!recipeIngredient[0]._options.isNewRecord) {
-                res[0].dataValues.Ingredients[index].RecipeIngredient.save();
+                recipeIngredient[0].dataValues = {...res[0].dataValues.Ingredients[index].RecipeIngredient};
               }
             }
           );

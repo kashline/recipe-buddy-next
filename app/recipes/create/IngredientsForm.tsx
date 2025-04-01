@@ -33,40 +33,25 @@ export default function IngredientsForm() {
     fetch(`/api/recipes/ingredients?name=${query}`)
       .then((res) => res.json())
       .then((data) => {
-        setIngredients(data.data.length !== 0 ? data.data : [""]);
+        setIngredients(data.data.length !== 0 ? data.data : []);
         setIsLoading(false);
       });
   };
   const handleMenuClick = async (
     query: string,
-    index: number,
-    innerIndex: number
+    ingredientIndex: number,
+    menuIndex: number
   ) => {
-    const res = await (await fetch(`/api/recipes/ingredients?name=${query}`)).json()
-        const value = res.data[innerIndex];
-        dispatch(
-          setIngredientField({
-            type: "setIngredient",
-            index: index,
-            value: value,
-          })
-        );
-        // dispatch(
-        //   setIngredientField({
-        //     type: "setName",
-        //     index: index,
-        //     value: value.name,
-        //   })
-        // )
-        // setIngredients(data.data.length !== 0 ? data.data : [""]);
-      ;
-    // dispatch(
-    //   setIngredientField({
-    //     type: "setName",
-    //     index: index,
-    //     value: query,
-    //   })
-    // );
+    const res = await (
+      await fetch(`/api/recipes/ingredients?name=${query}`)
+    ).json();
+      dispatch(
+        setIngredientField({
+          type: "setName",
+          index: ingredientIndex,
+          value: query,
+        })
+      );
   };
   if (selectRecipe.status === "loading")
     return <AnimatedLoading name="Ingredient"></AnimatedLoading>;
@@ -158,16 +143,16 @@ export default function IngredientsForm() {
                         delete menuProps.newSelectionPrefix,
                         (
                           <Menu className="h-28 z-10" style={{}} {...menuProps}>
-                            {results.map((result, innerIndex) => (
+                            {results.map((result, menuIndex) => (
                               <div
                                 className="bg-lavendar-blush"
                                 style={{ width: "100%" }}
-                                key={`ingredient-menuitem-${innerIndex}`}
+                                key={`ingredient-menuitem-${menuIndex}`}
                               >
                                 <MenuItem
                                   style={{}}
                                   option={result}
-                                  position={innerIndex}
+                                  position={menuIndex}
                                   onClick={(
                                     item: React.MouseEvent<
                                       HTMLAnchorElement,
@@ -178,7 +163,7 @@ export default function IngredientsForm() {
                                     handleMenuClick(
                                       target.innerText,
                                       index,
-                                      innerIndex
+                                      menuIndex
                                     );
                                   }}
                                 >

@@ -22,9 +22,10 @@ export interface CreateRecipeState {
   image: string;
   id?: number;
   Ingredients: {
-    id: number | null;
+    id?: number;
     name: string;
     RecipeIngredient: RecipeIngredient;
+    tags: [];
   }[];
   RecipeSteps: {
     step_number: number;
@@ -51,7 +52,7 @@ const initialState: CreateRecipeState = {
   aigenerated: false,
   video: "",
   image: "",
-  Ingredients: [{ id: null, name: "", RecipeIngredient: { quantity: "" } }],
+  Ingredients: [{ name: "", RecipeIngredient: { quantity: "" }, tags: [] }],
   RecipeSteps: [{ step_number: 1, description: "", ingredients: [] }],
   status: "idle",
   error: null,
@@ -105,9 +106,9 @@ export const createRecipeSlice = createSlice({
       switch (action.payload.type) {
         case "add":
           state.Ingredients.push({
-            id: null,
             name: "",
             RecipeIngredient: { quantity: "" },
+            tags: [],
           });
           break;
         case "removeAtIndex":
@@ -120,12 +121,14 @@ export const createRecipeSlice = createSlice({
             }
           });
           break;
-        case "setIngredient":
-          state.Ingredients[action.payload.index!].name =
-            action.payload.value!.name;
-          state.Ingredients[action.payload.index!].id =
-            action.payload.value!.id;
-          break;
+        // case "setIngredient":
+        //   state.Ingredients[action.payload.index!].name =
+        //     action.payload.value!.name;
+        //   if (action.payload.value.id) {
+        //     state.Ingredients[action.payload.index!].id =
+        //       action.payload.value!.id;
+        //   }
+        //   break;
         case "setName":
           state.Ingredients[action.payload.index!].name = action.payload.value!;
           break;
