@@ -1,11 +1,26 @@
 "use server";
 
+import Ingredient from "@/app/data/models/Ingredient";
 import Recipe from "@/app/data/models/Recipe";
+import RecipeIngredient from "@/app/data/models/RecipeIngredient";
+import RecipeStep from "@/app/data/models/RecipeStep";
 import createRecipe from "@/app/lib/data/recipes/createRecipe";
 import { RecipeZodel } from "@/app/lib/data/zodels/Recipe";
 import { auth } from "@/auth";
 
 export const POST = async (request: Request) => {
+  await Recipe.sync().catch((err) => {
+    console.log(err);
+  });
+  await RecipeStep.sync().catch((err) => {
+    console.log(err);
+  });
+  await Ingredient.sync().catch((err) => {
+    console.log(err);
+  });
+  await RecipeIngredient.sync().catch((err) => {
+    console.log(err);
+  });
   try {
     const data = RecipeZodel.parse(await request.json());
     const session = await auth();

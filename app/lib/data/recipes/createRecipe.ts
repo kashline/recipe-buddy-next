@@ -25,20 +25,7 @@ export default async function createRecipe(recipe: RecipeZype) {
     Promise.reject(`No valid user session`);
   }
   try {
-    await Recipe.sync().catch((err) => {
-      console.log(err);
-    });
-    await RecipeStep.sync().catch((err) => {
-      console.log(err);
-    });
-    await Ingredient.sync().catch((err) => {
-      console.log(err);
-    });
-    await RecipeIngredient.sync().catch((err) => {
-      console.log(err);
-    });
     const result = await sequelize.transaction(async () => {
-      
       const res: [RecipeWith_options, boolean] = await Recipe.findOrCreate({
         where: { id: recipe.id },
         defaults: {
