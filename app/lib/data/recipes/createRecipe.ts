@@ -28,8 +28,16 @@ export default async function createRecipe(recipe: RecipeZype) {
     await Recipe.sync().catch((err) => {
       console.log(err);
     });
+    await RecipeStep.sync().catch((err) => {
+      console.log(err);
+    });
+    await Ingredient.sync().catch((err) => {
+      console.log(err);
+    });
+    await RecipeIngredient.sync().catch((err) => {
+      console.log(err);
+    });
     const result = await sequelize.transaction(async () => {
-      console.log(recipe.id)
       const res: [RecipeWith_options, boolean] = await Recipe.findOrCreate({
         where: { id: recipe.id },
         defaults: {
@@ -47,7 +55,7 @@ export default async function createRecipe(recipe: RecipeZype) {
         },
         include: [{ model: Ingredient }, { model: RecipeStep }],
       });
-      console.log(res)
+      console.log(res);
       if (res[0].dataValues.owner !== session?.user?.email) {
         return `You can't edit recipes you don't own!`;
       } else {
@@ -81,9 +89,11 @@ export default async function createRecipe(recipe: RecipeZype) {
             async (ingredient: Ingredient, index: number) => {
               const ingredientId = ingredient.dataValues.id
                 ? ingredient.dataValues.id
-                : (await Ingredient.findOrCreate({
-                    where: { name: ingredient.dataValues.name },
-                  }))[0].dataValues.id;
+                : (
+                    await Ingredient.findOrCreate({
+                      where: { name: ingredient.dataValues.name },
+                    })
+                  )[0].dataValues.id;
               const recipeIngredient: any = await RecipeIngredient.findOrCreate(
                 {
                   where: {
@@ -100,7 +110,9 @@ export default async function createRecipe(recipe: RecipeZype) {
                 }
               );
               if (!recipeIngredient[0]._options.isNewRecord) {
-                recipeIngredient[0].dataValues = {...res[0].dataValues.Ingredients[index].RecipeIngredient};
+                recipeIngredient[0].dataValues = {
+                  ...res[0].dataValues.Ingredients[index].RecipeIngredient,
+                };
               }
             }
           );
