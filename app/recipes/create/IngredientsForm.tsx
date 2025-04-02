@@ -120,6 +120,7 @@ export default function IngredientsForm() {
                         return ingredient.name;
                       }
                     )}
+                    data-cy={"ingredientfield"}
                     isLoading={isLoading}
                     ref={typaheadRef}
                     defaultSelected={[ingredient.name]}
@@ -202,6 +203,7 @@ export default function IngredientsForm() {
                   <input
                     className="w-full text-right rounded-md bg-gunmetal text-lavendar-blush"
                     type="text"
+                    data-cy="quantityfield"
                     value={
                       selectRecipe.Ingredients[index].RecipeIngredient.quantity
                     }

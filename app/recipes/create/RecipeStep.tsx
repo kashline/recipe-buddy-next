@@ -38,6 +38,7 @@ export default function RecipeStep({
           <textarea
             className="rounded-md bg-gunmetal text-lavendar-blush w-full"
             placeholder="Description"
+            data-cy="stepdescription"
             value={recipe.description}
             key={`${recipe.step_number}-text`}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {

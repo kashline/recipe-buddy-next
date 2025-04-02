@@ -12,7 +12,7 @@ module.exports = {
       "recipebuddy-images.s3.us-west-1.amazonaws.com",
       "s.gravatar.com",
     ],
-    formats: ["image/avif", "image/webp"],
+    formats: ["image/webp"],
     
   },
   transpilePackages: ['next-auth'],
