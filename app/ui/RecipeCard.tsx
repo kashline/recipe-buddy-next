@@ -40,6 +40,7 @@ export default function RecipeCard({
             width: "20rem",
             border: "none",
           }}
+          data-cy={`imagebutton`}
           onClick={() => {
             router.push(`/recipes/${data.id}`);
           }}
@@ -54,7 +55,6 @@ export default function RecipeCard({
             }
             alt="tasty food"
             sizes="100vw"
-            data-cy={`imagebutton`}
             priority
             onLoad={() => {
               setImageLoaded(true);
