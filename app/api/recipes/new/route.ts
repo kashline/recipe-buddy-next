@@ -7,8 +7,9 @@ import { auth } from "@/auth";
 
 export const POST = async (request: Request) => {
   try {
-    // console.log(await request.json())
+    console.log(request)
     const data = RecipeZodel.parse(await request.json());
+    console.log(data)
     const session = await auth();
     const targetRecipe = await Recipe.findOne({ where: { id: data.id } });
     if (
