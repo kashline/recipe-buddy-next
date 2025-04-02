@@ -10,7 +10,6 @@ export default async function Page({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  // console.log(React.use(params).id)
   const { id } = await params;
   const session = await auth();
   const user = session?.user;

@@ -71,6 +71,7 @@ export default function RecipeOptions({
         {user!.email === recipe.owner && (
           <Link
             className="h-fit justify-center align-middle mx-auto"
+            data-cy="editbutton"
             href={`${path}/edit`}
           >
             <EditIcon style={{ width: "25px", height: "25px" }} />

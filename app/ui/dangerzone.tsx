@@ -18,6 +18,7 @@ export default function DangerZone({
     <div className="border-[1px] border-chili-red">
       <button
         style={{ width: "100%", height: 4 }}
+        data-cy="dangerzonebutton"
         onClick={() => {
           setToggle(!toggle);
           window.scroll({
