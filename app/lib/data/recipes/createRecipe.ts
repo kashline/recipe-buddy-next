@@ -38,6 +38,7 @@ export default async function createRecipe(recipe: RecipeZype) {
       console.log(err);
     });
     const result = await sequelize.transaction(async () => {
+      
       const res: [RecipeWith_options, boolean] = await Recipe.findOrCreate({
         where: { id: recipe.id },
         defaults: {
@@ -55,7 +56,6 @@ export default async function createRecipe(recipe: RecipeZype) {
         },
         include: [{ model: Ingredient }, { model: RecipeStep }],
       });
-      console.log(res);
       if (res[0].dataValues.owner !== session?.user?.email) {
         return `You can't edit recipes you don't own!`;
       } else {
