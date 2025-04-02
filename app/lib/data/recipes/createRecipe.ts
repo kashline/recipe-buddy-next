@@ -29,6 +29,7 @@ export default async function createRecipe(recipe: RecipeZype) {
       console.log(err);
     });
     const result = await sequelize.transaction(async () => {
+      console.log(recipe.id)
       const res: [RecipeWith_options, boolean] = await Recipe.findOrCreate({
         where: { id: recipe.id },
         defaults: {
