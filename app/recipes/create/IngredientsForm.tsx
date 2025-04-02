@@ -120,7 +120,6 @@ export default function IngredientsForm() {
                         return ingredient.name;
                       }
                     )}
-                    data-cy={"ingredientfield"}
                     isLoading={isLoading}
                     ref={typaheadRef}
                     defaultSelected={[ingredient.name]}
@@ -135,6 +134,7 @@ export default function IngredientsForm() {
                         height: "35px",
                         width: "100%",
                       },
+                      // "data-cy": "ingredient"
                     }}
                     renderMenu={(results, menuProps) =>
                       (
