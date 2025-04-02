@@ -54,7 +54,7 @@ export default function RecipeCard({
             }
             alt="tasty food"
             sizes="100vw"
-            data-cy={`${data.title}imagebutton`}
+            data-cy={`imagebutton`}
             priority
             onLoad={() => {
               setImageLoaded(true);
