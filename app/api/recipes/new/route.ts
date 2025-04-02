@@ -10,7 +10,6 @@ export const POST = async (request: Request) => {
     const data = RecipeZodel.parse(await request.json());
     const session = await auth();
     const targetRecipe = await Recipe.findOne({ where: { id: data.id } });
-    console.log(targetRecipe)
     if (
       !session ||
       (targetRecipe !== null &&
