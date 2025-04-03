@@ -237,6 +237,7 @@ export default function IngredientsForm() {
                       paddingRight: 10,
                     }}
                     type={"button"}
+                    data-cy={"deleteingredientbutton"}
                     onClick={() => {
                       dispatch(
                         setIngredientField({
