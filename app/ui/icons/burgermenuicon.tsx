@@ -1,6 +1,6 @@
 import "./styles.css";
 
-export default function BurgerMenu(props?: any) {
+export default function BurgerMenuIcon(props?: any) {
   return (
     <div>
       <svg

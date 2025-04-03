@@ -12,7 +12,7 @@ import RecipeIngredient from "@/app/data/models/RecipeIngredient";
 import Ingredient from "@/app/data/models/Ingredient";
 import _ from "lodash";
 import sequelize from "@/app/data/connection";
-import { Op } from "sequelize";
+import { Op, Transaction } from "sequelize";
 import { auth } from "@/auth";
 
 type RecipeWith_options = Recipe & {
@@ -25,7 +25,7 @@ export default async function createRecipe(recipe: RecipeZype) {
     Promise.reject(`No valid user session`);
   }
   try {
-    const result = await sequelize.transaction(async () => {
+    const result = await sequelize.transaction(async (t: Transaction) => {
       const res: [RecipeWith_options, boolean] = await Recipe.findOrCreate({
         where: { id: recipe.id },
         defaults: {
@@ -42,6 +42,7 @@ export default async function createRecipe(recipe: RecipeZype) {
           aigenerated: recipe.aigenerated,
         },
         include: [{ model: Ingredient }, { model: RecipeStep }],
+        transaction: t,
       });
       if (res[0].dataValues.owner !== session?.user?.email) {
         return `You can't edit recipes you don't own!`;
@@ -70,55 +71,29 @@ export default async function createRecipe(recipe: RecipeZype) {
           });
         } else {
           res[0].set({ ...recipe });
-          await res[0].save();
+          await res[0].save({ transaction: t });
           // Handle Ingredients updates
+          const recipeIngredientData = await RecipeIngredient.findAll({
+            where: { recipe_id: recipe.id },
+          });
+          recipeIngredientData.map((ri: any) => {
+            ri.destroy();
+          });
           res[0].dataValues.Ingredients.map(
             async (ingredient: Ingredient, index: number) => {
-              const ingredientId = ingredient.dataValues.id
-                ? ingredient.dataValues.id
-                : (
-                    await Ingredient.findOrCreate({
-                      where: { name: ingredient.dataValues.name },
-                    })
-                  )[0].dataValues.id;
-              const recipeIngredient: any = await RecipeIngredient.findOrCreate(
-                {
-                  where: {
-                    ingredient_id: ingredientId,
-                    recipe_id: recipe.id,
-                  },
-                  defaults: {
-                    quantity:
-                      ingredient.dataValues.RecipeIngredient.dataValues
-                        .quantity,
-                    ingredient_id: ingredientId,
-                    recipe_id: recipe.id,
-                  },
-                }
-              );
-              if (!recipeIngredient[0]._options.isNewRecord) {
-                recipeIngredient[0].dataValues = {
-                  ...res[0].dataValues.Ingredients[index].RecipeIngredient,
-                };
-              }
+              const ingredientId = (await Ingredient.findOrCreate({
+                where: { name: ingredient.dataValues.name },
+                defaults: { name: ingredient.dataValues.name, tags: [] },
+              }))[0].dataValues.id;
+              await RecipeIngredient.create({
+                quantity:
+                  ingredient.dataValues.RecipeIngredient.dataValues.quantity,
+                ingredient_id: ingredientId,
+                recipe_id: recipe.id,
+                transaction: t,
+              });
             }
           );
-          // Handle deleting unwanted ingredients
-          const ingredientIds = res[0].dataValues.Ingredients.map(
-            (ingredient: any) => {
-              return ingredient.id;
-            }
-          );
-          const unwantedRecipeIngredients = await RecipeIngredient.findAll({
-            where: {
-              ingredient_id: { [Op.notIn]: ingredientIds },
-              recipe_id: recipe.id,
-            },
-          });
-          unwantedRecipeIngredients.map(
-            async (val: RecipeIngredient) => await val.destroy()
-          );
-
           // Handle RecipeSteps updates
           const currentSteps = await RecipeStep.findAll({
             where: { recipe_id: res[0].dataValues.id },
@@ -127,17 +102,17 @@ export default async function createRecipe(recipe: RecipeZype) {
             await RecipeStep.destroy({ where: { id: step.dataValues.id } });
           });
           res[0].dataValues.RecipeSteps.map(async (step: RecipeStep) => {
-            if (step.dataValues.id === undefined) {
-              await RecipeStep.create({
-                ...step.dataValues,
-                recipe_id: res[0].dataValues.id,
-              });
-            } else {
-              return await step.save();
-            }
+            await RecipeStep.create({
+              description: step.dataValues.description,
+              step_number: step.dataValues.step_number,
+              ingredients: [],
+              recipe_id: res[0].dataValues.id,
+              transaction: t,
+            });
           });
         }
       }
+      return recipe;
     });
     return Promise.resolve(result);
   } catch (error) {

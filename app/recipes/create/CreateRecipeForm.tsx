@@ -137,6 +137,9 @@ export default function Page({ session }: { session: Session | null }) {
               />
               <span className="text-lavendar-blush pl-2">minutes</span>
             </div>
+            {Number.isNaN(selectRecipe.preparationTime) && !formValid && (
+              <div className="text-chili-red">{`Preparation time is required`}</div>
+            )}
           </div>
           <div className=" w-full px-2">
             <label className="text-lavendar-blush my-auto pr-2 font-sans">
@@ -156,6 +159,9 @@ export default function Page({ session }: { session: Session | null }) {
               />
               <span className="text-lavendar-blush pl-2">minutes</span>
             </div>
+            {Number.isNaN(selectRecipe.cookingTime) && !formValid && (
+              <div className="text-chili-red">{`Cooking time is required`}</div>
+            )}
           </div>
           <div className=" w-full px-2">
             <label className="text-lavendar-blush my-auto pr-2 font-sans">

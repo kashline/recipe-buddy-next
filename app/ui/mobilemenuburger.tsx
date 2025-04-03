@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import BurgerMenu from "./icons/burgermenu";
+import BurgerMenuIcon from "./icons/burgermenuicon";
 import LogoutButton from "./buttons/logoutbutton";
 import LoginButton from "./buttons/loginbutton";
 import HomeIcon from "./icons/sidebaricons/homeicon";
@@ -38,7 +38,7 @@ export default function MobileMenuBurger({
         className={`px-0 hover:shadow-none py-0 shadow-none float-right ${!menuToggle ? "visible" : "invisible"}`}
         data-cy='menuburgerbutton'
       >
-        <BurgerMenu />
+        <BurgerMenuIcon />
       </button>
       <div
         className={`text-lavendar-blush gap-10 fixed z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-200 border-solid border-gray-500 border-2 rounded-lg ${!menuToggle ? "-left-64" : "left-0"}`}
