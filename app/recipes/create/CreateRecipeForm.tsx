@@ -268,7 +268,7 @@ export default function Page({ session }: { session: Session | null }) {
           <div className="text-center h-8">
             {submit === "success" && (
               <div className="text-lavendar-blush">
-                Sucessfully submitted recipe
+                Successfully submitted recipe
               </div>
             )}
             {submit === "failed" && (
