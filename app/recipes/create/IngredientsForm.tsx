@@ -154,6 +154,7 @@ export default function IngredientsForm() {
                                   style={{}}
                                   option={result}
                                   position={menuIndex}
+                                  data-cy={`ingredientchoice${menuIndex}`}
                                   onClick={(
                                     item: React.MouseEvent<
                                       HTMLAnchorElement,
