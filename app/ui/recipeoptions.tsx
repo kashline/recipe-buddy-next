@@ -37,6 +37,7 @@ export default function RecipeOptions({
   const subject = "Check out this recipe I found on RecipeBuddy!";
   const [isMobile] = useResponsiveBreakpoints();
   const shareSize = isMobile ? 50 : 75;
+  const iconSize = isMobile ? 25 : 50;
   const [url, setUrl] = React.useState("");
   const selectRecipe = useAppSelector(selectCreateRecipe);
   const dispatch = useAppDispatch();
@@ -74,7 +75,7 @@ export default function RecipeOptions({
             data-cy="editbutton"
             href={`${path}/edit`}
           >
-            <EditIcon style={{ width: "25px", height: "25px" }} />
+            <EditIcon style={{ width: iconSize }} />
           </Link>
         )}
         <div className="relative flex justify-center items-center">
