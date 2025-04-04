@@ -13,7 +13,16 @@ export default function DangerZone({
   recipeID: number;
 }) {
   const [toggle, setToggle] = React.useState(false);
-  const myRef = React.useRef(null);
+  const myRef = React.useRef<null | HTMLDivElement>(null);
+  React.useEffect(() => {
+    if (myRef.current !== null) {
+      myRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
+    }
+  });
   return (
     <div className="border-[1px] border-chili-red">
       <button
@@ -21,11 +30,6 @@ export default function DangerZone({
         data-cy="dangerzonebutton"
         onClick={() => {
           setToggle(!toggle);
-          window.scroll({
-            top: document.body.offsetHeight,
-            left: 0,
-            behavior: "smooth",
-          });
         }}
       >
         <div className="flex">
@@ -45,7 +49,7 @@ export default function DangerZone({
         </div>
       </button>
       {toggle && (
-        <div className="pt-5">
+        <div className="pt-5" ref={myRef}>
           <hr className=" h-px border-none bg-gray-500 w-[95%] mx-auto"></hr>{" "}
           <div className="flex w-full pt-5">
             <p className="text-lavendar-blush mr-auto ml-[2%] my-auto">
