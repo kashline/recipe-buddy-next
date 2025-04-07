@@ -7,6 +7,7 @@ import RecipeStep from "@/app/data/models/RecipeStep";
 import createRecipe from "@/app/lib/data/recipes/createRecipe";
 import { RecipeZodel } from "@/app/lib/data/zodels/Recipe";
 import { auth } from "@/auth";
+import { NextResponse } from "next/server";
 
 export const POST = async (request: Request) => {
   await Recipe.sync().catch((err) => {
@@ -30,7 +31,7 @@ export const POST = async (request: Request) => {
       (targetRecipe !== null &&
         targetRecipe?.dataValues.owner !== session.user?.email)
     ) {
-      return Response.json({
+      return NextResponse.json({
         success: false,
         message: "You must be logged in to access this endpoint",
         status: 401,
@@ -38,12 +39,12 @@ export const POST = async (request: Request) => {
     }
     const recipe = await createRecipe(data);
     if (recipe) {
-      return Response.json({ success: true, Recipe: recipe }, { status: 200 });
+      return NextResponse.json({ success: true, recipe: recipe, status: 200 });
     } else {
-      return Response.json({ success: false, message: 'Failed to create recipe' }, { status: 500 });
+      return NextResponse.json({ success: false, message: 'Failed to create recipe', status: 500 });
     }
   } catch (error) {
     console.log(error);
-    return Response.json({ success: false, message: error }, { status: 500 });
+    return NextResponse.json({ success: false, message: error }, { status: 500 });
   }
 };

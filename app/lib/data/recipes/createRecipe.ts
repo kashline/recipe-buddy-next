@@ -12,7 +12,7 @@ import RecipeIngredient from "@/app/data/models/RecipeIngredient";
 import Ingredient from "@/app/data/models/Ingredient";
 import _ from "lodash";
 import sequelize from "@/app/data/connection";
-import { Op, Transaction } from "sequelize";
+import { Transaction } from "sequelize";
 import { auth } from "@/auth";
 
 type RecipeWith_options = Recipe & {
@@ -112,7 +112,7 @@ export default async function createRecipe(recipe: RecipeZype) {
           });
         }
       }
-      return recipe;
+      return res;
     });
     return Promise.resolve(result);
   } catch (error) {

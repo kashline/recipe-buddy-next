@@ -10,7 +10,6 @@ import {
   setOwner,
   setPreparationTime,
   setServings,
-  setTags,
   setTitle,
 } from "@/app/lib/features/recipe/createRecipeSlice";
 import { selectCreateRecipe } from "@/app/lib/features/recipe/createRecipeSlice";
@@ -24,6 +23,7 @@ export default function Page({ session }: { session: Session | null }) {
   const selectRecipe = useAppSelector(selectCreateRecipe);
   const dispatch = useAppDispatch();
   const [submit, setSubmit] = React.useState("idle");
+  const [recipe, setRecipe] = React.useState<any>()
   const [formValid, setFormValid] = React.useState(true);
   if (!session) {
     return (
@@ -50,18 +50,19 @@ export default function Page({ session }: { session: Session | null }) {
     firstInvalidField?.focus();
     if (isValid) {
       try {
-        const res = await fetch(`/api/recipes/new`, {
+        const res = await (await fetch(`/api/recipes/new`, {
           body: JSON.stringify(selectRecipe),
           method: "POST",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
-        });
+        })).json();
         if (res.status !== 200) {
           setSubmit("failed");
         } else {
           setSubmit("success");
+          setRecipe(res)
         }
       } catch (error) {
         console.log(`There was an error sumbitting the recipe: ${error}`);
@@ -99,7 +100,6 @@ export default function Page({ session }: { session: Session | null }) {
               <div className="text-chili-red">{`Title is required`}</div>
             )}
           </div>
-          {/* <TextInput setFunction={setTitle} errorText="Title is required"/> */}
           <div className=" w-full px-2">
             <label className="text-lavendar-blush my-auto pr-2 font-sans">
               Description:
@@ -202,19 +202,6 @@ export default function Page({ session }: { session: Session | null }) {
                 }
               )}
             </select>
-            {/* <div>
-              <label className="text-lavendar-blush my-auto pr-2 font-sans">
-                Tags:
-              </label>
-              <TagsInput
-                value={selectRecipe.tags}
-                onChange={(e) => {
-                  handleChange(e, setTags);
-                }}
-                name="tags"
-                placeHolder="Enter tags..."
-              />
-            </div> */}
           </div>
           <div className="border-t-2 border-black mt-4">
             <h1 className="text-4xl text-center text-lavendar-blush pt-2">
@@ -228,26 +215,7 @@ export default function Page({ session }: { session: Session | null }) {
             </h1>
             <RecipeStepsForm />
           </div>
-          {/* <div className="border-t-2 border-black">
-            <h1 className="text-4xl text-center text-lavendar-blush pt-2">
-              Step Ingredients
-            </h1>
-            <div className="flex">
-              <span className="text-lavendar-blush justify-center mx-auto">
-                Here you can associate ingredients with each step
-              </span>
-            </div>
-            {selectRecipe.Ingredients.map((ingredient, index) => {
-              return (
-                <div className="" key={index}>
-                  <table></table>
-                </div>
-              );
-            })}
-            <RecipeStepsForm />
-          </div> */}
-          {/* {submit === "idle" && ( */}
-          <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
+          {submit !== "success" && <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
             <div className="">
               <button
                 className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
@@ -259,8 +227,7 @@ export default function Page({ session }: { session: Session | null }) {
             <div>
               <CancelRecipe />
             </div>
-          </div>
-          {/* )} */}
+          </div>}
           {submit !== "idle" && (
             <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
               <Link
@@ -268,6 +235,12 @@ export default function Page({ session }: { session: Session | null }) {
                 className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
               >
                 Back
+              </Link>
+              <Link
+                href={`/recipes/${recipe.recipe![0].id}`}
+                className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
+              >
+                View Recipe
               </Link>
             </div>
           )}
