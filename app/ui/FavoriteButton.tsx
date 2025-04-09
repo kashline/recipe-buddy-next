@@ -82,7 +82,7 @@ export default function FavoriteButton({
         <FavoriteIcon
           props={{
             style: { height: `${size}`, width: `${size}` },
-            fill: `${favorite ? "yellow" : "none"}`,
+            fill: `${favorite ? "#d64933" : "none"}`,
           }}
         />
       </button>
