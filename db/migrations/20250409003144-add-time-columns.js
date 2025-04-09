@@ -2,9 +2,9 @@
 
 const { DataTypes } = require("sequelize");
 const tables = [
-  "Recipes",
-  "Ingredients",
-  "RecipeIngredients",
+  // "Recipes",
+  // "Ingredients",
+  // "RecipeIngredients",
   // "RecipeComments",
   "RecipeSteps",
   "UserRecipes",
