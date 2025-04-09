@@ -5,7 +5,7 @@ const tables = [
   "Recipes",
   "Ingredients",
   "RecipeIngredients",
-  "RecipeComments",
+  // "RecipeComments",
   "RecipeSteps",
   "UserRecipes",
   "Users",
@@ -15,7 +15,7 @@ const tables = [
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    return queryInterface.sequelize.transaction((t) => {
+    return queryInterface.sequelize.transaction(async (t) => {
       return Promise.all([
         tables.map((table) => {
           queryInterface.addColumn(table, "createdAt", {
