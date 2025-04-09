@@ -7,39 +7,9 @@ import IngredientsTable from "@/app/ui/ingredientstable";
 import RecipeQuickInfo from "@/app/ui/recipequickinfo";
 import React from "react";
 import { env } from "process";
-import type { Metadata, ResolvingMetadata } from "next";
 import { auth } from "@/auth";
-
-type Props = {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-};
-
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  // read route params
-  const id = (await params).id;
-
-  // fetch data
-  const { data } = await fetch(`${env.APP_URL}/api/recipes/${id}`).then((res) =>
-    res.json()
-  );
-  const recipe: RecipeZype = data;
-
-  // optionally access and extend (rather than replace) parent metadata
-  return {
-    title: recipe.title,
-    openGraph: {
-      images: [recipe.image!],
-      description: recipe.description,
-      url: `${env.APP_URL}/recipes/${id}`,
-      type: "article",
-      title: `${friendifyWords(recipe.title)}`,
-    },
-  };
-}
+import CommentWindow from "@/app/ui/commentwindow";
+import AddCommentForm from "@/app/ui/addcommentform";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -47,18 +17,6 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     const id = Number(params.id);
     const session = await auth();
     const user = session?.user;
-    const attributes: string[] = [
-      "title",
-      "difficulty",
-      "preparationTime",
-      "cookingTime",
-      "image",
-      "video",
-      "id",
-      "description",
-      "owner",
-      "aigenerated",
-    ];
     const { data } = await (
       await fetch(
         `${env.APP_URL}/api/recipes/${id}${user !== undefined ? `?userSub=${user!.email}` : ``}`
@@ -66,13 +24,8 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     ).json();
     const recipe: RecipeZype = data;
     const friendlyName = friendifyWords(recipe.title);
-    const favorited =
-      "UserRecipes" in recipe && recipe.UserRecipes?.length === 1
-        ? true
-        : false;
-    
     return (
-      <div style={{ color: "white" }}>
+      <div style={{ color: "white" }} className="w-[70%] mx-auto">
         <div
           style={{
             textAlign: "center",
@@ -93,11 +46,12 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           )}
         </div>
         <RecipeQuickInfo recipe={recipe} session={session} />
-        <div className="flex">
+        <div className="flex justify-center">
           <div
             style={{
               marginRight: 20,
               width: "100%",
+              maxWidth: 1200,
             }}
           >
             <div>
@@ -147,6 +101,25 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                     );
                   }
                 )}
+                {/* Comments */}
+                <div className="pb-10 mx-auto">
+                  <h1 className="text-lavendar-blush text-center text-2xl pb-10 pt-10 mx-auto">
+                    Comments
+                  </h1>
+                  <div className="mb-16">
+                    {user && <AddCommentForm user={user} recipeId={id} />}
+                  </div>
+
+                  <div className="text-center pb-5">
+                    {recipe.RecipeComments?.length === 0 && (
+                      <p className="text-lavendar-blush">There are no comments here... yet. Start the discussion!</p>
+                    )}
+                    {recipe.RecipeComments &&
+                      recipe.RecipeComments.map((comment, index) => {
+                        return <CommentWindow key={index} data={comment} />;
+                      })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>

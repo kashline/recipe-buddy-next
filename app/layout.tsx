@@ -27,7 +27,7 @@ export default function RootLayout({
       <StoreProvider>
         <UserMetadata>
           <SpeedInsights></SpeedInsights>
-          <body className="">
+          <body className="pb-10">
             {/* <Script src="../node_modules/flowbite/dist/flowbite.min.js"></Script> */}
             <DefaultTopbar />
             {/* <TopNav></TopNav> */}

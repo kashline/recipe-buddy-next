@@ -24,6 +24,13 @@ export const RecipeStepZodel = z.object({
   ingredients: z.array(z.string()).optional(),
 });
 
+export const RecipeCommentZodel = z.object({
+  id: z.number().optional(),
+  userId: z.number(),
+  recipeId: z.number(),
+  comment: z.string(),
+})
+
 export const RecipeZodel = z.object({
   id: z
     .number()
@@ -62,6 +69,7 @@ export const RecipeZodel = z.object({
     )
     .optional(),
   UserRecipes: z.array(UserRecipeZodel).optional(),
+  RecipeComments: z.array(RecipeCommentZodel).optional(),
 });
 
 export type RecipeZype = z.infer<typeof RecipeZodel>;

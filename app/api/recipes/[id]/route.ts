@@ -36,18 +36,18 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const attributes: string[] = [
-      "title",
-      "difficulty",
-      "preparationTime",
-      "cookingTime",
-      "image",
-      "video",
-      "id",
-      "description",
-      "owner",
-      "aigenerated",
-    ];
+    // const attributes: string[] = [
+    //   "title",
+    //   "difficulty",
+    //   "preparationTime",
+    //   "cookingTime",
+    //   "image",
+    //   "video",
+    //   "id",
+    //   "description",
+    //   "owner",
+    //   "aigenerated",
+    // ];
     const slug = await params;
     const { searchParams } = new URL(request.url!);
     const userSub = searchParams.get("userSub");

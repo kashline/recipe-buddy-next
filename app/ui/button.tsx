@@ -10,7 +10,7 @@ export default function Button(props: any) {
       )
     : `text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8`;
   return (
-    <button  {...props} className={`${className}`}>
+    <button {...props} className={`${className}`}>
       {props.children}
     </button>
   );

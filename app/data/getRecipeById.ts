@@ -4,6 +4,8 @@ import RecipeStep from "./models/RecipeStep";
 import UserRecipe from "./models/UserRecipe";
 import RecipeIngredient from "./models/RecipeIngredient";
 import Recipe from "./models/Recipe";
+import RecipeComment from "@/app/data/models/RecipeComment";
+import User from "@/app/data/models/User";
 
 export default async function getRecipeById(
   id: number,
@@ -12,6 +14,7 @@ export default async function getRecipeById(
   try {
     // This is required since the Recipe/Ingredient association is defined in RecipeIngredient
     RecipeIngredient.associations;
+    await RecipeComment.sync();
     const include: any = userSub
       ? [
           {
@@ -20,9 +23,14 @@ export default async function getRecipeById(
           {
             model: RecipeStep,
           },
-          { model: UserRecipe, where: { RecipeId: id, UserEmail: userSub }, required: false },
+          {
+            model: UserRecipe,
+            where: { RecipeId: id, UserEmail: userSub },
+            required: false,
+          },
+          { model: RecipeComment, include: { model: User } },
         ]
-      : [{ model: Ingredient }, { model: RecipeStep }];
+      : [{ model: Ingredient }, { model: RecipeStep }, { model: RecipeComment, include: { model: User } }];
     const recipes = await Recipe.findOne({
       where: {
         id: id,
@@ -30,6 +38,7 @@ export default async function getRecipeById(
       order: [
         ["title", "ASC"],
         [RecipeStep, "step_number", "ASC"],
+        [RecipeComment, "updatedAt", "DESC"],
       ],
       include: include,
     });
