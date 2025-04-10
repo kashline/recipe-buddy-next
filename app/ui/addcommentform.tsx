@@ -75,6 +75,7 @@ export default function AddCommentForm({
         className="bg-gunmetal text-lavendar-blush w-full rounded-md border-gray-500"
         id="commentInput"
         required={true}
+        data-cy={"commentInput"}
         onChange={(e) => {
           console.log(matcher.hasMatch(e.target.value));
           setIsInputValid(!matcher.hasMatch(e.target.value));
@@ -94,6 +95,7 @@ export default function AddCommentForm({
         <div className="float-right mt-4">
           <Button
             type="submit"
+            data-cy="commentsubmitbutton"
             disabled={!isInputValid}
             onClick={() => {
               router.refresh();

@@ -41,7 +41,7 @@ export default function MobileMenuBurger({
         <BurgerMenuIcon />
       </button>
       <div
-        className={`text-lavendar-blush gap-10 fixed z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-200 border-solid border-gray-500 border-2 rounded-lg ${!menuToggle ? "-left-64" : "left-0"}`}
+        className={`text-lavendar-blush gap-10 absolute z-50 bg-gunmetal w-64 h-dvh transition-all ease-in duration-200 border-solid border-gray-500 border-2 rounded-lg ${!menuToggle ? "-left-64" : "left-0"}`}
         ref={wrapperRef}
       >
         <nav className="">
