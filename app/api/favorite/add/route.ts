@@ -9,7 +9,6 @@ export const POST = async (request: NextRequest) => {
     const data = UserRecipeZodel.parse(await request.json());
     const session = await auth();
     if (data.recipeId !== undefined || data.recipeId !== null) {
-      console.log(session?.user?.email)
       const res = await UserRecipe.findOrCreate({
         where: {
           UserEmail: session?.user?.email,

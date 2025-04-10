@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import Recipe from "@/app/data/models/Recipe";
 import { Op } from "sequelize";
-import { parseResponse } from "@/app/lib/utils/parseResponse";
 import UserRecipe from "@/app/data/models/UserRecipe";
 import { RecipeZodel } from "../../../../lib/data/zodels/Recipe";
-import { count } from "console";
 import { auth } from "../../../../../auth";
+import RecipeRating from "@/app/data/models/RecipeRating";
 
 export async function GET(request: NextRequest) {
   if (request.url?.split("?")[1] === undefined) {
@@ -47,19 +46,29 @@ export async function GET(request: NextRequest) {
           },
         }),
         ...(favorited && {
-          include: {
-            model: UserRecipe,
-            where: { UserEmail: session?.user?.email },
-            required: true,
-          },
+          include: [
+            {
+              model: UserRecipe,
+              where: { UserEmail: session?.user?.email },
+              required: true,
+            },
+          ],
         }),
+        include: { model: RecipeRating },
         limit: itemsPerPage,
         offset: itemsPerPage * (page! - 1),
       });
       const recipes = data.rows.map((row) => {
         return RecipeZodel.parse(row.dataValues);
       });
-      return Response.json({ status: 200, recipes: recipes, success: true, count: data.count });
+      return Response.json(
+        {
+          recipes: recipes,
+          success: true,
+          count: data.count,
+        },
+        { status: 200 }
+      );
     } catch (error) {
       console.log(error);
       return NextResponse.json(

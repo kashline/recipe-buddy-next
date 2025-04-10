@@ -30,7 +30,7 @@ export default function AddCommentForm({
     ...englishDataset.build(),
     ...englishRecommendedTransformers,
   });
-  const router = useRouter()
+  const router = useRouter();
   return (
     <form
       onSubmit={async (event: React.FormEvent<CommentFormElement>) => {
@@ -76,7 +76,7 @@ export default function AddCommentForm({
         id="commentInput"
         required={true}
         onChange={(e) => {
-          console.log(matcher.hasMatch(e.target.value))
+          console.log(matcher.hasMatch(e.target.value));
           setIsInputValid(!matcher.hasMatch(e.target.value));
         }}
       />
@@ -90,14 +90,24 @@ export default function AddCommentForm({
           No obscene language allowed in comments!
         </div>
       )}
-      {submit !== "success" && (<div className="float-right mt-4">
-        <Button type="submit" disabled={!isInputValid} onClick={() => {router.refresh()}}>
-          Add Comment
-        </Button>
-      </div>)}
-      {submit === "success" && (<div className="float-right mt-4 text-lavendar-blush">
-        Comment successfully submitted!
-      </div>)}
+      {submit !== "success" && isInputValid && (
+        <div className="float-right mt-4">
+          <Button
+            type="submit"
+            disabled={!isInputValid}
+            onClick={() => {
+              router.refresh();
+            }}
+          >
+            Add Comment
+          </Button>
+        </div>
+      )}
+      {submit === "success" && (
+        <div className="float-right mt-4 text-lavendar-blush">
+          Comment successfully submitted!
+        </div>
+      )}
     </form>
   );
 }

@@ -1,23 +1,23 @@
-import useResponsiveBreakpoints from "@/app/lib/utils/useResponsiveBreakpoints";
-
 export default function RatingIcon(props?: any) {
-  // const [isMobile, isPortrait] = useResponsiveBreakpoints();
-  // const size = isMobile ? "25px" : "50px";
   return (
     <svg
       viewBox="0 0 24 24"
       xmlns="http://www.w3.org/2000/svg"
       data-tooltip-target="tooltip"
-      {...props.props}
+      {...props}
     >
-      <div
-        id="tooltip"
-        role="tooltip"
-        className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-      >
-        Favorite
-        <div className="tooltip-arrow" data-popper-arrow></div>
-      </div>
+      {props.fillpercent && (
+        <defs>
+          <linearGradient id="favoriteicongradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop
+              id="stop1"
+              offset="0%"
+              stopColor="transparent"
+            />
+            <stop id="stop2" offset={`100%`} stopColor="yellow" />
+          </linearGradient>
+        </defs>
+      )}
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g
         id="SVGRepo_tracerCarrier"
@@ -32,6 +32,7 @@ export default function RatingIcon(props?: any) {
           strokeWidth="1"
           strokeLinecap="round"
           strokeLinejoin="round"
+          fill={`${props.fillpercent !== undefined ? "url(#favoriteicongradient)" : ""}`}
         ></path>{" "}
       </g>
     </svg>

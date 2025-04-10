@@ -3,6 +3,8 @@ import Google from "next-auth/providers/google";
 import PostgresAdapter from "@auth/pg-adapter";
 import { Pool } from "@neondatabase/serverless";
 import createUser from "@/app/lib/data/users/createUser";
+import { useAppSelector } from "@/app/lib/hooks";
+import { selectCreateRecipe } from "@/app/lib/features/recipe/createRecipeSlice";
 
 const pool = new Pool({
   host: process.env.DATABASE_HOST,
@@ -23,7 +25,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth(() => {
           const baseUrl = process.env.BASEURL
             ? "https://" + process.env.BASEURL
             : "http://localhost:3000";
-          //   const res = await createUser(profile!);
           fetch(`${baseUrl}/api/user/create`, {
             body: JSON.stringify(profile),
             method: "POST",

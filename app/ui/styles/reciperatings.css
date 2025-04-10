@@ -1,0 +1,95 @@
+#ratingicon-1:hover {
+  fill: yellow !important;
+}
+
+#ratingicon-2:hover {
+  fill: yellow !important;
+}
+
+#ratingicon-3:hover {
+  fill: yellow !important;
+}
+
+#ratingicon-4:hover {
+  fill: yellow !important;
+}
+
+#ratingicon-5:hover {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-2:hover) #ratingicon-1 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-3:hover) #ratingicon-2 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-3:hover) #ratingicon-1 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-4:hover) #ratingicon-3 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-4:hover) #ratingicon-2 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-4:hover) #ratingicon-1 {
+  fill: yellow !important;
+}
+body:has(#ratingicon-5:hover) #ratingicon-4 {
+  fill: yellow !important;
+}
+body:has(#ratingicon-5:hover) #ratingicon-3 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-5:hover) #ratingicon-2 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-5:hover) #ratingicon-1 {
+  fill: yellow !important;
+}
+
+body:has(#ratingicon-4:hover) #ratingicon-5 {
+  fill: none !important;
+}
+
+body:has(#ratingicon-3:hover) #ratingicon-5 {
+  fill: none !important;
+}
+
+body:has(#ratingicon-3:hover) #ratingicon-4 {
+  fill: none !important;
+}
+
+body:has(#ratingicon-2:hover) #ratingicon-5 {
+  fill: none !important;
+}
+
+body:has(#ratingicon-2:hover) #ratingicon-4 {
+  fill: none !important;
+}
+
+body:has(#ratingicon-2:hover) #ratingicon-3 {
+  fill: none !important;
+}
+body:has(#ratingicon-1:hover) #ratingicon-4 {
+  fill: none !important;
+}
+body:has(#ratingicon-1:hover) #ratingicon-3 {
+  fill: none !important;
+}
+
+body:has(#ratingicon-1:hover) #ratingicon-2 {
+  fill: none !important;
+}
+
+body:has(#ratingicon-1:hover) #ratingicon-5 {
+  fill: none !important;
+}

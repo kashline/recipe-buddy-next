@@ -6,6 +6,7 @@ import RecipeIngredient from "./models/RecipeIngredient";
 import Recipe from "./models/Recipe";
 import RecipeComment from "@/app/data/models/RecipeComment";
 import User from "@/app/data/models/User";
+import RecipeRating from "@/app/data/models/RecipeRating";
 
 export default async function getRecipeById(
   id: number,
@@ -29,8 +30,14 @@ export default async function getRecipeById(
             required: false,
           },
           { model: RecipeComment, include: { model: User } },
+          { model: RecipeRating },
         ]
-      : [{ model: Ingredient }, { model: RecipeStep }, { model: RecipeComment, include: { model: User } }];
+      : [
+          { model: Ingredient },
+          { model: RecipeStep },
+          { model: RecipeComment, include: { model: User } },
+          { model: RecipeRating },
+        ];
     const recipes = await Recipe.findOne({
       where: {
         id: id,

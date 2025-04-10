@@ -22,6 +22,7 @@ import {
 } from "../lib/features/recipe/createRecipeSlice";
 import { Session } from "next-auth";
 import { signIn } from "next-auth/react";
+import RecipeRating from "@/app/ui/reciperatingbutton";
 
 export default function RecipeOptions({
   recipe,
@@ -65,9 +66,9 @@ export default function RecipeOptions({
         style={{
           display: "grid",
           gridAutoColumns: "minmax(0, 1fr)",
-          gridAutoFlow: "column",
+          gridAutoFlow: `${isMobile ? 'row' : 'column'}`,
         }}
-        className="w-1/2 mx-auto"
+        className=" mx-auto"
       >
         {user!.email === recipe.owner && (
           <Link
@@ -84,6 +85,9 @@ export default function RecipeOptions({
             session={session}
             recipeName={recipe.title}
           />
+        </div>
+        <div className="my-auto">
+          <RecipeRating userEmail={user.email!} recipeId={recipe.id!}/>
         </div>
       </div>
       <div className={`mx-auto justify-center items-center flex h-32`}>

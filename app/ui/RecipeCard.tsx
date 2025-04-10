@@ -10,6 +10,8 @@ import { RecipeZype } from "../lib/data/zodels/Recipe";
 import FavoriteButton from "./FavoriteButton";
 import friendifyWords from "../lib/utils/wordfriendifier";
 import { Session } from "next-auth";
+import RecipeRatingButton from "@/app/ui/reciperatingbutton";
+import AverageRating from "@/app/ui/averagerating";
 
 export default function RecipeCard({
   data,
@@ -24,6 +26,13 @@ export default function RecipeCard({
   const [imageLoaded, setImageLoaded] = useState(false);
   const favorited =
     "UserRecipes" in data && data.UserRecipes?.length === 1 ? true : false;
+  const averageRating =
+    data
+      .RecipeRatings!.map((rating) => {
+        return rating.rating;
+      })
+      .reduce((acc, current) => acc + current, 0) /
+    data.RecipeRatings!.length;
   return (
     <div className="border" {...props}>
       <Card
@@ -104,12 +113,18 @@ export default function RecipeCard({
           >
             {friendifyWords(data.title)}
           </div>
-          <FavoriteButton
-            recipeId={data.id!}
-            recipeName={data.title}
-            size="25px"
-            session={session}
-          />
+          <div className="flex gap-10 mx-auto justify-center">
+            <FavoriteButton
+              recipeId={data.id!}
+              recipeName={data.title}
+              size="25px"
+              session={session}
+            />
+            <div>
+              <p className="text-lavendar-blush text-xs">Average rating</p>
+              <AverageRating rating={averageRating} />
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>

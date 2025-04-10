@@ -10,6 +10,7 @@ import { env } from "process";
 import { auth } from "@/auth";
 import CommentWindow from "@/app/ui/commentwindow";
 import AddCommentForm from "@/app/ui/addcommentform";
+import AverageRating from "@/app/ui/averagerating";
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
@@ -24,6 +25,13 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     ).json();
     const recipe: RecipeZype = data;
     const friendlyName = friendifyWords(recipe.title);
+    const averageRating =
+      recipe
+        .RecipeRatings!.map((rating) => {
+          return rating.rating;
+        })
+        .reduce((acc, current) => acc + current, 0) /
+      data.RecipeRatings!.length;
     return (
       <div style={{ color: "white" }} className="w-[70%] mx-auto">
         <div
@@ -36,6 +44,10 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
           className="text-lavendar-blush"
         >
           <strong className="text-lavendar-blush">{friendlyName}</strong>
+          <div className="mx-auto">
+            <p className="text-sm">Average rating</p>
+            <AverageRating rating={averageRating} />
+          </div>
         </div>
         <div>
           <p className="mx-auto text-center">Submitted by: {recipe.owner}</p>
@@ -112,7 +124,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
 
                   <div className="text-center pb-5">
                     {recipe.RecipeComments?.length === 0 && (
-                      <p className="text-lavendar-blush">There are no comments here... yet. Start the discussion!</p>
+                      <p className="text-lavendar-blush">
+                        There are no comments here... yet. Start the discussion!
+                      </p>
                     )}
                     {recipe.RecipeComments &&
                       recipe.RecipeComments.map((comment, index) => {
