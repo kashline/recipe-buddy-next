@@ -41,11 +41,16 @@ export default function RecipeRatingButton({
         Please log in to edit and favorite recipies!
       </button>
     );
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading)
+    return (
+      <div  className={`w-full text-center`}>
+        <h1>Loading...</h1>
+      </div>
+    );
   if (error) return <Link href={`/auth/login`}>Error! Please try again</Link>;
 
   return (
-    <div className="text-center">
+    <div className={`text-center h-[${size}]`}>
       <p className="text-lavendar-blush">Your rating</p>
       <div className="flex justify-center">
         {Array.from({ length: 5 }).map((_, index) => {

@@ -79,7 +79,7 @@ export default function RecipeOptions({
             <EditIcon style={{ width: iconSize }} />
           </Link>
         )}
-        <div className="relative flex justify-center items-center">
+        <div className="mx-auto" style={{height: `${iconSize}px`}}>
           <FavoriteButton
             recipeId={recipe.id!}
             session={session}

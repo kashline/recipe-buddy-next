@@ -38,17 +38,20 @@ export default function FavoriteButton({
   }, [data]);
   if (!user)
     return (
-      <button onClick={() => signIn()} className="text-lavendar-blush hover:text-non-photo-blue">
+      <button
+        onClick={() => signIn()}
+        className="text-lavendar-blush hover:text-non-photo-blue"
+      >
         Please log in to edit and favorite recipies!
       </button>
     );
   if (!size) {
     size = isMobile ? "25px" : "50px";
   }
-  if (isLoading) return <h1>Loading...</h1>;
-  if (error) return <Link href={`/auth/login`} >Error! Please try again</Link>;
+  if (isLoading) return <div className="" style={{ width: size, height: size }}>Loading...</div>;
+  if (error) return <Link href={`/auth/login`}>Error! Please try again</Link>;
   return (
-    <div>
+    <div style={{ height: `${size}` }}>
       <button
         className="shadow-none w-fit h-fit px-0"
         data-cy="favoritebutton"
