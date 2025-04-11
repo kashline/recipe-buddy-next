@@ -4,20 +4,7 @@ import sequelize from "../connection";
 /**
  * Model for a recipe.  Contains the name, difficulty, length, mealdb_id, image url, and video url.
  */
-export default class Recipe extends Model {
-  // _options: any;
-  // title: any;
-  // difficulty: any;
-  // description: any;
-  // preparationTime: any;
-  // cookingTime: any;
-  // image: any;
-  // video: any;
-  // tags: any;
-  // servings: any;
-  // owner: any;
-  // aigenerated: any;
-}
+export default class Recipe extends Model {}
 
 Recipe.init(
   {
