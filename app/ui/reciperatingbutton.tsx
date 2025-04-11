@@ -43,7 +43,7 @@ export default function RecipeRatingButton({
     );
   if (isLoading)
     return (
-      <div  className={`w-full text-center`}>
+      <div  className={`w-full text-center h-[55]`}>
         <h1>Loading...</h1>
       </div>
     );
