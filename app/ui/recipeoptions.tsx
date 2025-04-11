@@ -68,7 +68,7 @@ export default function RecipeOptions({
           gridAutoColumns: "minmax(0, 1fr)",
           gridAutoFlow: `${isMobile ? 'row' : 'column'}`,
         }}
-        className=" mx-auto"
+        className=" mx-auto h-[50]"
       >
         {user!.email === recipe.owner && (
           <Link
