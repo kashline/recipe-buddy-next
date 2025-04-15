@@ -13,6 +13,7 @@ module.exports = {
       "s.gravatar.com",
     ],
     formats: ["image/webp"],
+    minimumCacheTTL: 2678400,
   },
   transpilePackages: ["next-auth"],
   async headers() {
