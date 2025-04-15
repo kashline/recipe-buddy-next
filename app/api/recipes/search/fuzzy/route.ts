@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
       {
         message: `You must provide 3 query parameters: {term: term to search by, page: current page, recipesPerPage: items per page}`,
       },
-      { status: 400 },
+      { status: 400 }
     );
   } else {
     try {
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
           {
             message: `One of the query parameters is missing`,
           },
-          { status: 500 },
+          { status: 500 }
         );
       }
       const whereClause = [
@@ -43,22 +43,21 @@ export async function GET(request: NextRequest) {
         !isNaN(Number(term)) ? { preparationTime: Number(term) } : {},
         !isNaN(Number(term)) ? { cookingTime: Number(term) } : {},
       ];
+      const include: any[] = [{ model: RecipeRating }];
+      if (favorited) {
+        include.push({
+          model: UserRecipe,
+          where: { UserEmail: session?.user?.email },
+          required: true,
+        });
+      }
       const data = await Recipe.findAndCountAll({
         ...(term && {
           where: {
             [Op.or]: whereClause,
           },
         }),
-        ...(favorited && {
-          include: [
-            {
-              model: UserRecipe,
-              where: { UserEmail: session?.user?.email },
-              required: true,
-            },
-          ],
-        }),
-        include: { model: RecipeRating },
+        include: include,
         limit: itemsPerPage,
         offset: itemsPerPage * (page! - 1),
       });
@@ -71,7 +70,7 @@ export async function GET(request: NextRequest) {
           success: true,
           count: data.count,
         },
-        { status: 200 },
+        { status: 200 }
       );
     } catch (error) {
       console.log(error);
@@ -79,7 +78,7 @@ export async function GET(request: NextRequest) {
         {
           message: `There was an error ${error}`,
         },
-        { status: 500 },
+        { status: 500 }
       );
     }
   }
