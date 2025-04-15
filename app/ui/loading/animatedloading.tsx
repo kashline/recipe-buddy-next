@@ -8,7 +8,7 @@ export default function AnimatedLoading({ name }: { name: string }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: 'invisible'
+        background: "invisible",
       }}
     >
       <CircularProgress style={{ paddingRight: "3px" }}></CircularProgress>

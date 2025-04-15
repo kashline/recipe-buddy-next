@@ -12,6 +12,11 @@ import CommentWindow from "@/app/ui/commentwindow";
 import AddCommentForm from "@/app/ui/addcommentform";
 import AverageRating from "@/app/ui/averagerating";
 
+/**
+ * Gets recipeById, serializes it into a RecipeZype, then displays the data to the user
+ * @param props id: string
+ * @returns
+ */
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   try {
@@ -20,7 +25,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     const user = session?.user;
     const { data } = await (
       await fetch(
-        `${env.APP_URL}/api/recipes/${id}${user !== undefined ? `?userSub=${user!.email}` : ``}`
+        `${env.APP_URL}/api/recipes/${id}${user !== undefined ? `?userSub=${user!.email}` : ``}`,
       )
     ).json();
     const recipe: RecipeZype = data;
@@ -111,7 +116,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
                         ></hr>
                       </div>
                     );
-                  }
+                  },
                 )}
                 {/* Comments */}
                 <div className="pb-10 mx-auto">

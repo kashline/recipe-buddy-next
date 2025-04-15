@@ -12,6 +12,6 @@ jest.mock("next/navigation", () => ({
 
 describe("DeleteRecipe", () => {
   it("renders a DeleteRecipe", () => {
-    render(<DeleteRecipe recipeID={1} recipeName="test"/>);
+    render(<DeleteRecipe recipeID={1} recipeName="test" />);
   });
 });

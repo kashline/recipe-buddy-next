@@ -27,7 +27,7 @@ export const POST = async (request: NextRequest) => {
             success: true,
             message: `Successfully deleted recipe ${data.recipeId} from user ${data.userSub}'s favorites.`,
           },
-          { status: 200 }
+          { status: 200 },
         );
       }
       return Response.json(
@@ -35,7 +35,7 @@ export const POST = async (request: NextRequest) => {
           success: true,
           message: `Successfully added recipe ${data.recipeId} to user ${data.userSub}'s favorites.`,
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
   } catch (error) {
@@ -45,7 +45,7 @@ export const POST = async (request: NextRequest) => {
         success: false,
         message: `There was an error adding or removing a favorite recipe: ${error}`,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

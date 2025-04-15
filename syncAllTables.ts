@@ -1,4 +1,3 @@
-import Assistant from "@/app/data/models/Assistant";
 import Ingredient from "@/app/data/models/Ingredient";
 import Recipe from "@/app/data/models/Recipe";
 import RecipeIngredient from "@/app/data/models/RecipeIngredient";
@@ -8,7 +7,6 @@ import UserRecipe from "@/app/data/models/UserRecipe";
 
 async function syncAllTables() {
   try {
-    await Assistant.sync();
     await Ingredient.sync();
     await Recipe.sync();
     await RecipeIngredient.sync();

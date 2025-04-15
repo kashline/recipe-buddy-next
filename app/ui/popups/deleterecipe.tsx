@@ -45,7 +45,9 @@ export default function DeleteRecipe({
 
   return (
     <React.Fragment>
-      <Button onClick={handleClickOpen} data-cy="deleterecipebutton">Delete</Button>
+      <Button onClick={handleClickOpen} data-cy="deleterecipebutton">
+        Delete
+      </Button>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -62,8 +64,16 @@ export default function DeleteRecipe({
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button className="text-gunmetal" onClick={handleClose}>Cancel</Button>
-          <Button className="text-gunmetal" onClick={handleDelete} data-cy="confirmdeletebutton">Delete</Button>
+          <Button className="text-gunmetal" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button
+            className="text-gunmetal"
+            onClick={handleDelete}
+            data-cy="confirmdeletebutton"
+          >
+            Delete
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

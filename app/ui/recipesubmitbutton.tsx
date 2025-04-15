@@ -1,9 +1,13 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "../lib/hooks";
-import { selectCreateRecipe, setOwner } from "../lib/features/recipe/createRecipeSlice";
+import { useAppSelector } from "../lib/hooks";
+import { selectCreateRecipe } from "../lib/features/recipe/createRecipeSlice";
 import Button from "./button";
 import Link from "next/link";
 
+/**
+ * Submit button for create/edit recipe forms
+ * @returns React.JSX.Element
+ */
 export default function RecipeSubmitButton() {
   const [submit, setSubmit] = React.useState("idle");
   const createRecipe = useAppSelector(selectCreateRecipe);

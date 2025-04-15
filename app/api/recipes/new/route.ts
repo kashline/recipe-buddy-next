@@ -9,6 +9,11 @@ import { RecipeZodel } from "@/app/lib/data/zodels/Recipe";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
+/**
+ *
+ * @param request Request
+ * @returns NextResponse: {success: bool, status: number, message?: error | string, recipe?: Recipe}
+ */
 export const POST = async (request: Request) => {
   await Recipe.sync().catch((err) => {
     console.log(err);
@@ -41,10 +46,17 @@ export const POST = async (request: Request) => {
     if (recipe) {
       return NextResponse.json({ success: true, recipe: recipe, status: 200 });
     } else {
-      return NextResponse.json({ success: false, message: 'Failed to create recipe', status: 500 });
+      return NextResponse.json({
+        success: false,
+        message: "Failed to create recipe",
+        status: 500,
+      });
     }
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ success: false, message: error }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: error },
+      { status: 500 },
+    );
   }
 };

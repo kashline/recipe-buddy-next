@@ -1,6 +1,10 @@
 import RecipeIngredient from "@/app/data/models/RecipeIngredient";
 import { RecipeIngredientZype } from "../zodels/Recipe";
 
+/**
+ * Creates RecipeIngredient association with provided RecipeIngredientZype
+ * @param recipeIngredient RecipeIngredientZype
+ */
 export default async function createRecipeIngredient(
   recipeIngredient: RecipeIngredientZype,
 ) {

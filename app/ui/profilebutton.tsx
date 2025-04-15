@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import Image from "next/image";
 import React from "react";
@@ -6,8 +6,8 @@ import Link from "next/link";
 import { auth } from "../../auth";
 
 export default async function ProfileButton() {
-  const session = await auth()
-  const user = session?.user
+  const session = await auth();
+  const user = session?.user;
   return (
     <>
       <Link

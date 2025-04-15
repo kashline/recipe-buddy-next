@@ -1,5 +1,10 @@
 import Image from "next/image";
 
+/**
+ * Displays a comment with the author's picture and comment date
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function CommentWindow({
   data,
   props,
@@ -7,8 +12,8 @@ export default function CommentWindow({
   data: any;
   props?: any;
 }) {
-  const parsedDate = new Date(Date.parse(data.updatedAt))
-  const date = `${parsedDate.getHours()}:${parsedDate.getMinutes()} ${parsedDate.getMonth()+1}/${parsedDate.getDate()} ${parsedDate.getFullYear()}`
+  const parsedDate = new Date(Date.parse(data.updatedAt));
+  const date = `${parsedDate.getHours()}:${parsedDate.getMinutes()} ${parsedDate.getMonth() + 1}/${parsedDate.getDate()} ${parsedDate.getFullYear()}`;
   return (
     <div className="mb-14 mx-auto">
       <div className="flex">

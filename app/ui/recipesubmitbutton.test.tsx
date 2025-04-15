@@ -17,7 +17,7 @@ describe("RecipeSubmitButton", () => {
       render(
         <StoreProvider>
           <RecipeSubmitButton />
-        </StoreProvider>
+        </StoreProvider>,
       );
     });
     expect(component).toMatchSnapshot();

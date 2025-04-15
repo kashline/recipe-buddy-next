@@ -6,7 +6,7 @@ import Recipe from "./Recipe";
 export default class RecipeIngredient extends Model {}
 
 /**
- * Model for a recipe's ingredients and quantities.  Contains associated recipe_id, ingredient_id, and quantity
+ * Model for a recipe's ingredients and quantities.  Contains id, recipe_id, ingredient_id, and quantity
  */
 RecipeIngredient.init(
   {

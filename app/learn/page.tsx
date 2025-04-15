@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+/**
+ * WIP
+ * @returns
+ */
 export default function Page() {
   return (
     <div

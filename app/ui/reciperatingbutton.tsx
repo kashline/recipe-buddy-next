@@ -9,6 +9,11 @@ import useResponsiveBreakpoints from "@/app/lib/utils/useResponsiveBreakpoints";
 import useSWR from "swr";
 import { useRouter } from "next/navigation";
 
+/**
+ * Rating buttons for a recipe.
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function RecipeRatingButton({
   userEmail,
   recipeId,
@@ -27,7 +32,7 @@ export default function RecipeRatingButton({
     {
       revalidateOnFocus: false,
       refreshInterval: 30000,
-    }
+    },
   );
   React.useEffect(() => {
     setRating(data ? data.data.rating : null);
@@ -43,7 +48,7 @@ export default function RecipeRatingButton({
     );
   if (isLoading)
     return (
-      <div  className={`w-full text-center`}>
+      <div className={`w-full text-center`}>
         <h1>Loading...</h1>
       </div>
     );

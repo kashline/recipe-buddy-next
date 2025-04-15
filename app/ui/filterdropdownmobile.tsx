@@ -1,7 +1,10 @@
 import React from "react";
-import Search from "./search";
 import FilterMenuIcon from "./icons/filtermenuicon";
 
+/**
+ * Mobile version of FilterDropdown.  Handles search filtering (WIP)
+ * @returns React.JSX.Element
+ */
 export default function FilterDropdownMobile() {
   const [menuToggle, setMenuToggle] = React.useState(false);
   const handleClick = () => {
@@ -40,14 +43,9 @@ export default function FilterDropdownMobile() {
         <div className={`h-32 w-[90%]`}>
           <div className="flex w-full pb-4">
             <span className="pr-2">Name</span>
-            {/* <Search placeholder="Begin typing a recipe name" param="name" /> */}
           </div>
           <div className="flex w-full">
             <span className="pr-2">Ingredients</span>
-            {/* <Search
-              placeholder="Begin typing a recipe name"
-              param="ingredients"
-            /> */}
           </div>
         </div>
       </div>

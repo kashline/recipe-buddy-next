@@ -3,9 +3,14 @@ import User from "@/app/data/models/User";
 import { auth } from "@/auth";
 import { NextResponse } from "next/server";
 
+/**
+ *
+ * @param param1
+ * @returns NextResponse: {status: number, data: string, error?: error}
+ */
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: number }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     const session = await auth();
@@ -19,24 +24,24 @@ export async function GET(
     if (!recipeRating) {
       return NextResponse.json(
         {
-          data: { message: "No valid rating" },
+          data: "No valid rating",
         },
-        { status: 200 }
+        { status: 200 },
       );
     }
     return NextResponse.json(
       {
         data: recipeRating?.dataValues,
       },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     console.log(error);
     return NextResponse.json(
       {
-        message: `There was an error ${error}`,
+        error: `There was an error ${error}`,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

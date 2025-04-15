@@ -5,6 +5,11 @@ import ChevronRightIcon from "@heroicons/react/24/outline/ChevronRightIcon";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import DeleteRecipe from "./popups/deleterecipe";
 
+/**
+ * DangerZone wrapper.  User must click dropdown to interact.  Only suitable for dangerous activities i.e. deleting a recipe.
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function DangerZone({
   recipeName,
   recipeID,

@@ -5,15 +5,21 @@ import { useDebouncedCallback } from "use-debounce";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import * as React from "react";
 
+/**
+ * Search input for RecipeGrid
+ * @param param0
+ * @param props
+ * @returns React.JSX.Element
+ */
 export default function Search(
   {
     placeholder,
     state,
-    setState
+    setState,
   }: {
     placeholder: string;
     state: string;
-    setState: Function
+    setState: Function;
   },
   props?: any,
 ) {
@@ -21,7 +27,7 @@ export default function Search(
 
   const handleSearch = useDebouncedCallback((term) => {
     const params = new URLSearchParams(searchParams);
-    setState(term)
+    setState(term);
   }, 300);
 
   return (

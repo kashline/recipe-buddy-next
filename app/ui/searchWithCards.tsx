@@ -10,6 +10,11 @@ import * as React from "react";
 import Link from "next/link";
 import { Session } from "next-auth";
 
+/**
+ * Wrapper for searching instead of using the Search component.  WIP
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function SearchWithCards({
   title,
   favorited,
@@ -30,7 +35,11 @@ export default function SearchWithCards({
           setState={setSearchTerm}
         />
       </div>
-      <RecipeCards searchTerm={searchTerm} favorited={favorited} session={session} />
+      <RecipeCards
+        searchTerm={searchTerm}
+        favorited={favorited}
+        session={session}
+      />
     </>
   );
 }
@@ -54,7 +63,7 @@ function RecipeCards({
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
   React.useEffect(() => {
     if (
@@ -62,7 +71,7 @@ function RecipeCards({
       searchParams.get("page") === null
     ) {
       router.push(
-        `${pathName}?${createQueryString("page", "1")}&${createQueryString("recipesPerPage", "12")}`
+        `${pathName}?${createQueryString("page", "1")}&${createQueryString("recipesPerPage", "12")}`,
       );
     } else {
       if (searchParams.get("recipesPerPage") === null) {

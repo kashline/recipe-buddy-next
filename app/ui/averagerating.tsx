@@ -3,12 +3,17 @@
 import RatingIcon from "@/app/ui/icons/ratingicon";
 import * as React from "react";
 
+/**
+ * Uses the provided recipe rating to generate the rating stars with partially filled in gradient for decimal ratings
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function AverageRating({ rating }: { rating: number }) {
   let val = -1;
   let remainder = 0;
   if (Math.floor(rating) < Math.ceil(rating)) {
     val = Math.floor(rating);
-    remainder = (Math.round((rating % val) * 10) / 10);
+    remainder = Math.round((rating % val) * 10) / 10;
   }
   return (
     <div className="flex w-fit mx-auto">
@@ -39,7 +44,7 @@ export default function AverageRating({ rating }: { rating: number }) {
                   height: `${"15px"}`,
                   width: `${"15px"}`,
                 }}
-                fillpercent={remainder*100}
+                fillpercent={remainder * 100}
               />
             )}
           </div>

@@ -10,9 +10,13 @@ import { RecipeZype } from "../lib/data/zodels/Recipe";
 import FavoriteButton from "./FavoriteButton";
 import friendifyWords from "../lib/utils/wordfriendifier";
 import { Session } from "next-auth";
-import RecipeRatingButton from "@/app/ui/reciperatingbutton";
 import AverageRating from "@/app/ui/averagerating";
 
+/**
+ * RecipeCard component showing quick info about a recipe.  Only requires top-level data of a recipe, i.e. no associations
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function RecipeCard({
   data,
   session,
@@ -31,8 +35,7 @@ export default function RecipeCard({
       .RecipeRatings!.map((rating) => {
         return rating.rating;
       })
-      .reduce((acc, current) => acc + current, 0) /
-    data.RecipeRatings!.length;
+      .reduce((acc, current) => acc + current, 0) / data.RecipeRatings!.length;
   return (
     <div className="border" {...props}>
       <Card

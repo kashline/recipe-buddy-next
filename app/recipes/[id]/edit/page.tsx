@@ -5,6 +5,11 @@ import EditRecipeForm from "./EditRecipeForm";
 import * as React from "react";
 import { auth } from "@/auth";
 
+/**
+ * Gets user auth information and forwards it to the EditRecipeForm client component.
+ * @param Promise<{ id: string }>
+ * @returns
+ */
 export default async function Page({
   params,
 }: {

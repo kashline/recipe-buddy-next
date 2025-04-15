@@ -24,6 +24,11 @@ import { Session } from "next-auth";
 import { signIn } from "next-auth/react";
 import RecipeRating from "@/app/ui/reciperatingbutton";
 
+/**
+ * Various options for a recipe depending on whether the session is valid and the user is the recipe's owner.
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function RecipeOptions({
   recipe,
   session,
@@ -54,7 +59,10 @@ export default function RecipeOptions({
   }, []);
   if (!user) {
     return (
-      <button onClick={() => signIn()} className="relative flex mx-auto items-center text-lavendar-blush hover:text-non-photo-blue">
+      <button
+        onClick={() => signIn()}
+        className="relative flex mx-auto items-center text-lavendar-blush hover:text-non-photo-blue"
+      >
         Please log in to edit and favorite recipies!
       </button>
     );
@@ -66,7 +74,7 @@ export default function RecipeOptions({
         style={{
           display: "grid",
           gridAutoColumns: "minmax(0, 1fr)",
-          gridAutoFlow: `${isMobile ? 'row' : 'column'}`,
+          gridAutoFlow: `${isMobile ? "row" : "column"}`,
         }}
         className=" mx-auto h-[50]"
       >
@@ -79,7 +87,7 @@ export default function RecipeOptions({
             <EditIcon style={{ width: iconSize }} />
           </Link>
         )}
-        <div className="mx-auto" style={{height: `${iconSize}px`}}>
+        <div className="mx-auto" style={{ height: `${iconSize}px` }}>
           <FavoriteButton
             recipeId={recipe.id!}
             session={session}
@@ -87,7 +95,7 @@ export default function RecipeOptions({
           />
         </div>
         <div className="my-auto">
-          <RecipeRating userEmail={user.email!} recipeId={recipe.id!}/>
+          <RecipeRating userEmail={user.email!} recipeId={recipe.id!} />
         </div>
       </div>
       <div className={`mx-auto justify-center items-center flex h-32`}>

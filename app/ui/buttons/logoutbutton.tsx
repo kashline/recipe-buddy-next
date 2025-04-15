@@ -8,7 +8,10 @@ export default function LogoutButton(props?: any) {
       className="w-full h-10 bottom-0 absolute border-solid border-chili-red hover:border-red-800 border"
       {...props}
     >
-      <button className="flex text-lavendar-blush w-full" onClick={() => signOut()}>
+      <button
+        className="flex text-lavendar-blush w-full"
+        onClick={() => signOut()}
+      >
         <p className="ml-3 my-auto">Logout</p>
         <div className="pt-1 ml-auto pr-2 my-auto">
           <LogoutIcon />

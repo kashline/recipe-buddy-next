@@ -1,6 +1,11 @@
 import Ingredient from "@/app/data/models/Ingredient";
 import { Op } from "sequelize";
 
+/**
+ *
+ * @param request API request
+ * @returns Response {data: Ingredient[], status: number, error: error | undefined}
+ */
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url!);
@@ -10,19 +15,10 @@ export async function GET(request: Request) {
           [Op.like]: `%${searchParams.get("name")}%`,
         },
       },
-      // attributes: ["name"],
       order: [["name", "ASC"]],
     });
     return Response.json({
       data: ingredients,
-      // ingredients.map((ingredient) => {
-      //   return ingredient.dataValues.name
-      //     .split(" ")
-      //     .map((word: string) => {
-      //       return `${word[0].toUpperCase()}${word.slice(1)}`;
-      //     })
-      //     .join(" ");
-      // }),
       status: 200,
     });
   } catch (error) {

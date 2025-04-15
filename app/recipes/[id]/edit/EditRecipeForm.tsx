@@ -13,6 +13,11 @@ import Link from "next/link";
 import { Session } from "next-auth";
 import DangerZone from "@/app/ui/dangerzone";
 
+/**
+ * Form for editing recipes.  Uses fetchRecipe redux thunk to GET recipeById and serialize into redux object.  Then uses CreateRecipeForm to allow user edits
+ * @param query: string, session: Session|null
+ * @returns
+ */
 export default function EditRecipeForm({
   query,
   session,

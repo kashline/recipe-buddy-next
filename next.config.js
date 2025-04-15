@@ -1,7 +1,7 @@
-const esModules = ['next-auth',]
+const esModules = ["next-auth"];
 const customConfig = {
-  transformIgnorePatterns: [`/node_modules/(?!(${esModules.join('|')})/)`],
-}
+  transformIgnorePatterns: [`/node_modules/(?!(${esModules.join("|")})/)`],
+};
 
 module.exports = {
   images: {
@@ -13,9 +13,8 @@ module.exports = {
       "s.gravatar.com",
     ],
     formats: ["image/webp"],
-    
   },
-  transpilePackages: ['next-auth'],
+  transpilePackages: ["next-auth"],
   async headers() {
     return [
       {
@@ -35,7 +34,7 @@ module.exports = {
           },
         ],
       },
-      
+
       {
         source: "/auth/:path*",
         headers: [

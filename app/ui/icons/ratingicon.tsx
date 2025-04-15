@@ -8,12 +8,14 @@ export default function RatingIcon(props?: any) {
     >
       {props.fillpercent && (
         <defs>
-          <linearGradient id="favoriteicongradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop
-              id="stop1"
-              offset="0%"
-              stopColor="transparent"
-            />
+          <linearGradient
+            id="favoriteicongradient"
+            x1="0%"
+            y1="0%"
+            x2="0%"
+            y2="100%"
+          >
+            <stop id="stop1" offset="0%" stopColor="transparent" />
             <stop id="stop2" offset={`100%`} stopColor="yellow" />
           </linearGradient>
         </defs>

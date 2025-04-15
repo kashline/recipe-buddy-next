@@ -3,6 +3,11 @@
 import RecipeCard from "@/app/ui/RecipeCard";
 import { Session } from "next-auth";
 
+/**
+ * Grid of RecipeCards
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function RecipeGrid({
   data,
   session,

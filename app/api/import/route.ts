@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     if (!response.ok) {
       return NextResponse.json(
         { error: `Failed to fetch: ${response.status}` },
-        { status: response.status }
+        { status: response.status },
       );
     }
 
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
     const fetchedOutput = data;
     const recipeData = await parseStuff(data);
-    console.log(recipeData)
+    console.log(recipeData);
     if (recipeData !== undefined) {
       await validateImport(recipeData);
     }
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       { error: "Unexpected server error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -47,11 +47,11 @@ async function parseStuff(data: string) {
         recipe = JSON.parse(text)[0];
       }
     },
-    async onend(){
-        return Promise.resolve(recipe)
-    }
+    async onend() {
+      return Promise.resolve(recipe);
+    },
   });
   parser.write(data);
   parser.end();
-  return parser.onend()
+  return parser.onend();
 }

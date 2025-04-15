@@ -12,6 +12,11 @@ import ProfileIcon from "./icons/profileicon";
 import RecipeIcon from "./icons/recipeicon";
 import { Session } from "next-auth";
 
+/**
+ * Burger menu for navigating the site.  Provides links dependent on session validation
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function MobileMenuBurger({
   session,
 }: {
@@ -36,7 +41,7 @@ export default function MobileMenuBurger({
       <button
         onClick={handleClick}
         className={`px-0 hover:shadow-none py-0 shadow-none float-right ${!menuToggle ? "visible" : "invisible"}`}
-        data-cy='menuburgerbutton'
+        data-cy="menuburgerbutton"
       >
         <BurgerMenuIcon />
       </button>

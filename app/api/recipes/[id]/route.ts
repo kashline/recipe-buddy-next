@@ -3,9 +3,15 @@ import { NextResponse } from "next/server";
 import Recipe from "@/app/data/models/Recipe";
 import { auth } from "@/auth";
 
+/**
+ *
+ * @param request Request
+ * @param param1 {id: number}
+ * @returns Response {success: bool, message: string, status: number}
+ */
 export const DELETE = async (
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: number }> },
 ) => {
   try {
     const slug = await params;
@@ -22,7 +28,7 @@ export const DELETE = async (
       const res = Recipe.destroy({ where: { id: id } });
       return Response.json(
         { success: true, message: JSON.stringify("res") },
-        { status: 200 }
+        { status: 200 },
       );
     }
   } catch (error) {
@@ -31,39 +37,36 @@ export const DELETE = async (
   }
 };
 
+/**
+ *
+ * @param request Request
+ * @param param1 {id: string}
+ * @returns NextResponse {status: number, data?: Recipe, message: string}
+ */
 export async function GET(
   request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
-    // const attributes: string[] = [
-    //   "title",
-    //   "difficulty",
-    //   "preparationTime",
-    //   "cookingTime",
-    //   "image",
-    //   "video",
-    //   "id",
-    //   "description",
-    //   "owner",
-    //   "aigenerated",
-    // ];
     const slug = await params;
     const { searchParams } = new URL(request.url!);
     const userSub = searchParams.get("userSub");
     const recipe = await getRecipeById(
       Number(slug.id),
-      userSub ? userSub : null
+      userSub ? userSub : null,
     );
-    return NextResponse.json({
-      data: recipe,
-    });
+    return NextResponse.json(
+      {
+        data: recipe,
+      },
+      { status: 200 },
+    );
   } catch (error) {
     return NextResponse.json(
       {
         message: `There was an error ${error}`,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

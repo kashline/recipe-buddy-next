@@ -1,6 +1,11 @@
 import User from "@/app/data/models/User";
 import UserRecipe from "@/app/data/models/UserRecipe";
 
+/**
+ *
+ * @param request Request
+ * @returns Response: {success: bool, status: number, user: User}
+ */
 export const POST = async (request: Request) => {
   try {
     await User.sync();
@@ -23,9 +28,7 @@ export const POST = async (request: Request) => {
       { status: 200 },
     );
   } catch (error) {
-    console.log(
-      `There was an error during callback user creation: ${error}`,
-    );
+    console.log(`There was an error during callback user creation: ${error}`);
     return Response.json({ success: false }, { status: 500 });
   }
 };

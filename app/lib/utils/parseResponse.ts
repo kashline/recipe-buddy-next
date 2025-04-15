@@ -3,7 +3,7 @@ export function parseResponse(res: any) {
     JSON.parse(
       JSON.stringify(res, (key, value) => {
         return value instanceof Map ? [...value] : value;
-      })
-    )
+      }),
+    ),
   );
 }

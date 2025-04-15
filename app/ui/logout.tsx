@@ -3,6 +3,10 @@
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
+/**
+ * Basic logout link
+ * @returns React.JSX.Element
+ */
 export default function Logout() {
   return (
     <Link

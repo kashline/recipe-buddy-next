@@ -1,8 +1,13 @@
-'use client'
+"use client";
 
 import React from "react";
-import './ingredientstable.css'
+import "./ingredientstable.css";
 
+/**
+ * Table showing a recipe step's associated ingredients
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function IngredientsTable({ data }: { data: string[] }) {
   return (
     <div className="text-lavendar-blush w-1/5 max-w-1/5 max-h-full text-sm mx-auto my-auto">

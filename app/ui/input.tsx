@@ -5,6 +5,11 @@ import {
 } from "../lib/features/recipe/createRecipeSlice";
 import "./styles/Input.scss";
 
+/**
+ * Generic Input element for updating redux store's recipe values.
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function Input({
   label,
   setFunction,

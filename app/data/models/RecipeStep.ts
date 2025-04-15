@@ -3,7 +3,7 @@ import sequelize from "../connection";
 import Recipe from "./Recipe";
 
 /**
- * Model of a recipe's steps containing the id, step, step number, and associated recipe_id
+ * Model of a recipe's steps containing the id, description, recipe_id, step_number, and ingredients
  */
 export default class RecipeStep extends Model {}
 
@@ -29,8 +29,8 @@ RecipeStep.init(
       type: DataTypes.INTEGER,
     },
     ingredients: {
-      type: DataTypes.ARRAY(DataTypes.JSON)
-    }
+      type: DataTypes.ARRAY(DataTypes.JSON),
+    },
   },
   {
     sequelize,

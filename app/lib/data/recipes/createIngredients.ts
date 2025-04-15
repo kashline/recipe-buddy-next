@@ -1,6 +1,11 @@
 import Ingredient from "@/app/data/models/Ingredient";
 import { IngredientZype } from "../zodels/Recipe";
 
+/**
+ * findOrCreate on provided ingredient name
+ * @param ingredient IngredientZype
+ * @returns Promise<Ingredient | undefined>
+ */
 export default async function createIngredient(ingredient: IngredientZype) {
   try {
     await Ingredient.sync().catch((err) => {

@@ -19,11 +19,16 @@ import CancelRecipe from "@/app/ui/popups/cancelrecipe";
 import { Session } from "next-auth";
 import Link from "next/link";
 
+/**
+ * CreateRecipeForm uses redux selectCreateRecipe to manage user updates to the recipe object locally.  Provides a form for users to edit the recipe definition.  Handles some form validation.
+ * @param session: Session | null
+ * @returns React.JSX.Element
+ */
 export default function Page({ session }: { session: Session | null }) {
   const selectRecipe = useAppSelector(selectCreateRecipe);
   const dispatch = useAppDispatch();
   const [submit, setSubmit] = React.useState("idle");
-  const [recipe, setRecipe] = React.useState<any>()
+  const [recipe, setRecipe] = React.useState<any>();
   const [formValid, setFormValid] = React.useState(true);
   if (!session) {
     return (
@@ -45,24 +50,26 @@ export default function Page({ session }: { session: Session | null }) {
     const isValid = formElement.checkValidity();
     setFormValid(isValid);
     const firstInvalidField = formElement.querySelector(
-      ":invalid"
+      ":invalid",
     ) as HTMLInputElement;
     firstInvalidField?.focus();
     if (isValid) {
       try {
-        const res = await (await fetch(`/api/recipes/new`, {
-          body: JSON.stringify(selectRecipe),
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        })).json();
+        const res = await (
+          await fetch(`/api/recipes/new`, {
+            body: JSON.stringify(selectRecipe),
+            method: "POST",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+          })
+        ).json();
         if (res.status !== 200) {
           setSubmit("failed");
         } else {
           setSubmit("success");
-          setRecipe(res)
+          setRecipe(res);
         }
       } catch (error) {
         console.log(`There was an error sumbitting the recipe: ${error}`);
@@ -199,7 +206,7 @@ export default function Page({ session }: { session: Session | null }) {
               {["very short", "short", "medium", "hard", "very hard"].map(
                 (num, index) => {
                   return <option value={num} key={index}>{`${num}`}</option>;
-                }
+                },
               )}
             </select>
           </div>
@@ -215,19 +222,21 @@ export default function Page({ session }: { session: Session | null }) {
             </h1>
             <RecipeStepsForm />
           </div>
-          {submit !== "success" && <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
-            <div className="">
-              <button
-                className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
-                type="submit"
-              >
-                Submit
-              </button>
+          {submit !== "success" && (
+            <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
+              <div className="">
+                <button
+                  className="text-lavendar-blush border-2 border-gray-500 w-fit px-5 rounded-md hover:border-non-photo-blue h-8"
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </div>
+              <div>
+                <CancelRecipe />
+              </div>
             </div>
-            <div>
-              <CancelRecipe />
-            </div>
-          </div>}
+          )}
           {submit !== "idle" && (
             <div className="py-2 w-full max-w-[600px] justify-center mx-auto flex gap-6 pt-8">
               <Link

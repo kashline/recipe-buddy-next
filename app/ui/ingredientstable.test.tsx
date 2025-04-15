@@ -11,7 +11,7 @@ describe("IngredientsTable", () => {
             `{"name":"Water","quantity":"30 minutes","unit":"soaking"}`,
             '{"name":"Basmati Rice","quantity":"2 cups","unit":"cups"}',
           ]}
-        />
+        />,
       );
     });
     expect(component).toMatchSnapshot();

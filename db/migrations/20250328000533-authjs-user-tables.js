@@ -8,7 +8,10 @@ module.exports = {
     return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
         queryInterface.addColumn("Users", "name", { type: DataTypes.STRING }),
-        queryInterface.addColumn("Users", "email", { type: DataTypes.STRING, unique: true }),
+        queryInterface.addColumn("Users", "email", {
+          type: DataTypes.STRING,
+          unique: true,
+        }),
         queryInterface.addColumn("Users", "emailVerified", {
           type: DataTypes.BOOLEAN,
         }),
@@ -30,8 +33,12 @@ module.exports = {
         queryInterface.removeColumn("Users", "emailVerified"),
         queryInterface.removeColumn("Users", "image"),
         queryInterface.renameColumn("Users", "sub", "auth0Id"),
-        queryInterface.addColumn("Users", "firstName", { type: DataTypes.STRING }),
-        queryInterface.addColumn("Users", "lastName", { type: DataTypes.STRING }),
+        queryInterface.addColumn("Users", "firstName", {
+          type: DataTypes.STRING,
+        }),
+        queryInterface.addColumn("Users", "lastName", {
+          type: DataTypes.STRING,
+        }),
         // queryInterface.renameColumn("UserRecipes", "UserEmail", "UserSub"),
         // queryInterface.addColumn("Users", "auth0Id", {
         //   type: DataTypes.STRING,

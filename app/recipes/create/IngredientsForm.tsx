@@ -11,8 +11,11 @@ import { Menu, MenuItem, Typeahead } from "react-bootstrap-typeahead";
 import Trashcan from "@/app/ui/icons/trashcan";
 import AnimatedLoading from "@/app/ui/loading/animatedloading";
 import "./typeahead.css";
-import Ingredient from "@/app/data/models/Ingredient";
 
+/**
+ * Component for updating recipe ingredients assicated with the current recipe.  Handles redux state updates
+ * @returns React.JSX.Element
+ */
 export default function IngredientsForm() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [ingredients, setIngredients] = React.useState<
@@ -27,7 +30,7 @@ export default function IngredientsForm() {
         type: "setName",
         index: index,
         value: query,
-      })
+      }),
     );
     setIsLoading(true);
     fetch(`/api/recipes/ingredients?name=${query}`)
@@ -40,18 +43,18 @@ export default function IngredientsForm() {
   const handleMenuClick = async (
     query: string,
     ingredientIndex: number,
-    menuIndex: number
+    menuIndex: number,
   ) => {
     const res = await (
       await fetch(`/api/recipes/ingredients?name=${query}`)
     ).json();
-      dispatch(
-        setIngredientField({
-          type: "setName",
-          index: ingredientIndex,
-          value: query,
-        })
-      );
+    dispatch(
+      setIngredientField({
+        type: "setName",
+        index: ingredientIndex,
+        value: query,
+      }),
+    );
   };
   if (selectRecipe.status === "loading")
     return <AnimatedLoading name="Ingredient"></AnimatedLoading>;
@@ -118,7 +121,7 @@ export default function IngredientsForm() {
                     options={ingredients.map(
                       (ingredient: { id: number; name: string }) => {
                         return ingredient.name;
-                      }
+                      },
                     )}
                     isLoading={isLoading}
                     ref={typaheadRef}
@@ -159,13 +162,13 @@ export default function IngredientsForm() {
                                     item: React.MouseEvent<
                                       HTMLAnchorElement,
                                       MouseEvent
-                                    >
+                                    >,
                                   ) => {
                                     const target = item.target as HTMLElement;
                                     handleMenuClick(
                                       target.innerText,
                                       index,
-                                      menuIndex
+                                      menuIndex,
                                     );
                                   }}
                                 >
@@ -215,7 +218,7 @@ export default function IngredientsForm() {
                           type: "setQuantity",
                           index: index,
                           value: (e.target as HTMLInputElement).value,
-                        })
+                        }),
                       );
                     }}
                   />
@@ -243,7 +246,7 @@ export default function IngredientsForm() {
                         setIngredientField({
                           type: "removeAtIndex",
                           index: index,
-                        })
+                        }),
                       );
                     }}
                   >

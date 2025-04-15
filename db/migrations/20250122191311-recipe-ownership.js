@@ -1,27 +1,27 @@
-'use strict';
+"use strict";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    return queryInterface.sequelize.transaction(t => {
+  async up(queryInterface, Sequelize) {
+    return queryInterface.sequelize.transaction((t) => {
       return Promise.all([
         queryInterface.addColumn(
-          'Recipes',
-          'owner',
+          "Recipes",
+          "owner",
           {
             type: Sequelize.DataTypes.STRING,
           },
-          {transaction: t},
+          { transaction: t },
         ),
-      ])
-    })
-  },
-
-  async down (queryInterface, Sequelize) {
-    return queryInterface.sequelize.transaction(t => {
-      return Promise.all([
-        queryInterface.removeColumn('Recipes', 'owner', { transaction: t }),
       ]);
     });
-  }
+  },
+
+  async down(queryInterface, Sequelize) {
+    return queryInterface.sequelize.transaction((t) => {
+      return Promise.all([
+        queryInterface.removeColumn("Recipes", "owner", { transaction: t }),
+      ]);
+    });
+  },
 };

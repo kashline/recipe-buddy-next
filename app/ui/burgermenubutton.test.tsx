@@ -10,7 +10,7 @@ describe("BurgerMenuButton", () => {
         title="Home"
         href="/"
         Icon={HomeIcon({ fill: "#eee5e9", width: 25, height: 25 })}
-      />
+      />,
     );
   });
 });

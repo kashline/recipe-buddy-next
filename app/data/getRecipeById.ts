@@ -1,4 +1,3 @@
-import Op from "sequelize/lib/operators";
 import Ingredient from "./models/Ingredient";
 import RecipeStep from "./models/RecipeStep";
 import UserRecipe from "./models/UserRecipe";
@@ -8,9 +7,15 @@ import RecipeComment from "@/app/data/models/RecipeComment";
 import User from "@/app/data/models/User";
 import RecipeRating from "@/app/data/models/RecipeRating";
 
+/**
+ *
+ * @param id Recipe ID number
+ * @param userSub User's EMAIL address
+ * @returns Recipe model object || null
+ */
 export default async function getRecipeById(
   id: number,
-  userSub: string | null
+  userSub: string | null,
 ) {
   try {
     // This is required since the Recipe/Ingredient association is defined in RecipeIngredient
@@ -49,7 +54,11 @@ export default async function getRecipeById(
       ],
       include: include,
     });
-    return recipes?.dataValues;
+    if (recipes) {
+      return recipes.dataValues;
+    } else {
+      return null;
+    }
   } catch (error) {
     console.error(`There was an error in getRecipeById: ${error}`);
   }

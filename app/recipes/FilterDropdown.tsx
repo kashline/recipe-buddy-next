@@ -6,6 +6,10 @@ import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import useResponsiveBreakpoints from "../lib/utils/useResponsiveBreakpoints";
 import FilterDropdownMobile from "../ui/filterdropdownmobile";
 
+/**
+ * Search filters dropdown menu
+ * @returns React.JSX.Element
+ */
 export default function FilterDropdown() {
   const [toggle, setToggle] = React.useState(false);
   const [isMobile, isPortrait] = useResponsiveBreakpoints();
@@ -54,12 +58,7 @@ export default function FilterDropdown() {
                 display: "flex",
                 marginBottom: "1rem",
               }}
-            >
-              {/* <Search
-                placeholder="Begin typing to search by recipe title, keywords, description, difficulty, etc..."
-                param="term"
-              ></Search> */}
-            </div>
+            ></div>
           </form>
         )}
       </div>

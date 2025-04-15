@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// WIP
 export const AssistantZodel = z.object({
   name: z.string(),
   openaiID: z.string().optional(),

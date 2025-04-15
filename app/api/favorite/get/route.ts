@@ -4,13 +4,13 @@ import UserRecipe from "../../../data/models/UserRecipe";
 import { auth } from "@/auth";
 
 export const GET = async function (request: NextRequest) {
-  const session = await auth()
+  const session = await auth();
   const user = session?.user;
   const recipeId = request.nextUrl.searchParams.get("RecipeId") as string;
   if (user === undefined) {
     return Response.json(
       { success: false, message: `No valid user session!` },
-      { status: 403 }
+      { status: 403 },
     );
   }
   const favorited = await UserRecipe.findOne({
@@ -24,6 +24,6 @@ export const GET = async function (request: NextRequest) {
   }
   return Response.json({
     success: true,
-    message: '',
-  })
+    message: "",
+  });
 };

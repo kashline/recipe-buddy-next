@@ -1,4 +1,4 @@
-export default function ProfileIcon(props : any) {
+export default function ProfileIcon(props: any) {
   return (
     <svg
       fill="#000000"

@@ -19,5 +19,5 @@ verification_token.init(
   {
     sequelize,
     modelName: "verification_token",
-  }
+  },
 );

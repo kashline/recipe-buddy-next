@@ -2,6 +2,11 @@ import RecipeStep from "@/app/data/models/RecipeStep";
 import { RecipeStepZype } from "../zodels/Recipe";
 import _ from "lodash";
 
+/**
+ *
+ * @param recipeStep RecipeStepZype
+ * @returns Promise<void | [RecipeStep, boolean]>
+ */
 export default async function createRecipeStep(recipeStep: RecipeStepZype) {
   try {
     await RecipeStep.sync().catch((err) => {

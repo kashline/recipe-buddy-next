@@ -17,9 +17,9 @@ export const IngredientZodel = z.object({
 
 export const RecipeStepZodel = z.object({
   id: z.number().optional(),
-  description: z.string(),
+  description: z.string().optional(),
   recipe_id: z.number().optional(),
-  step_number: z.number(),
+  step_number: z.number().optional(),
   // This needs to be an array of objects!!!
   ingredients: z.array(z.string()).optional(),
 });
@@ -72,7 +72,7 @@ export const RecipeZodel = z.object({
           ...step,
           step_number: index + 1,
         };
-      })
+      }),
     )
     .optional(),
   UserRecipes: z.array(UserRecipeZodel).optional(),

@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+/**
+ * Delete recipe landing page.  User is redirected here after successfully deleting a recipe.
+ * @returns JSX.Element
+ */
 export default function Page() {
   return (
     <div>

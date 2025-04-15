@@ -4,8 +4,6 @@ import DangerZone from "./dangerzone";
 
 describe("DangerZone", () => {
   it("renders a dangerzone component", () => {
-    render(
-      <DangerZone recipeID={1} recipeName="Test"/>
-    );
+    render(<DangerZone recipeID={1} recipeName="Test" />);
   });
 });

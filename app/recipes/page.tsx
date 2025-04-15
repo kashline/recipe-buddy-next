@@ -8,10 +8,14 @@ const DynamicSearchWithCards = dynamic(() => import("../ui/searchWithCards"), {
 });
 
 export default async function Page() {
-  const session = await auth()
+  const session = await auth();
   return (
     <>
-      <DynamicSearchWithCards session={session} title="Browse Recipes" favorited={false} />
+      <DynamicSearchWithCards
+        session={session}
+        title="Browse Recipes"
+        favorited={false}
+      />
     </>
   );
 }

@@ -21,7 +21,7 @@ describe("RecipeStepsForm", () => {
       render(
         <StoreProvider>
           <RecipeStepsForm />
-        </StoreProvider>
+        </StoreProvider>,
       );
     });
     expect(component).toMatchSnapshot();

@@ -14,6 +14,11 @@ type Ratingwith_options = RecipeRating & {
   _options?: any;
 };
 
+/**
+ *
+ * @param request Request
+ * @returns NextResponse: {success: bool, status: number, message: string, recipeRating?: RecipeRating}
+ */
 export const POST = async (request: Request) => {
   await RecipeRating.sync().catch((err) => {
     console.log(err);
@@ -32,7 +37,7 @@ export const POST = async (request: Request) => {
           message:
             "You must be logged in to access this endpoint and provide a valid recipe id",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
     const recipeRating: [Ratingwith_options, boolean] =
@@ -55,7 +60,7 @@ export const POST = async (request: Request) => {
           success: true,
           recipeRating: recipeRating,
         },
-        { status: 200 }
+        { status: 200 },
       );
     } else {
       return NextResponse.json(
@@ -63,14 +68,14 @@ export const POST = async (request: Request) => {
           success: false,
           message: "Failed to create recipe rating",
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
   } catch (error) {
     console.log(error);
     return NextResponse.json(
       { success: false, message: error },
-      { status: 500 }
+      { status: 500 },
     );
   }
 };

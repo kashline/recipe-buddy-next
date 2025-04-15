@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
 
 /**
- * Model for a recipe.  Contains the name, difficulty, length, mealdb_id, image url, and video url.
+ * Model for a recipe.  Contains the id, title, description, difficulty, preparationTime, cookingTime, image, video, tags, servings, owner, and aigenerated fields
  */
 export default class Recipe extends Model {}
 
@@ -34,20 +34,20 @@ Recipe.init(
       type: DataTypes.STRING,
     },
     tags: {
-      type: DataTypes.ARRAY(DataTypes.STRING)
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     servings: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     owner: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
     },
     aigenerated: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
     },
   },
   {
     sequelize,
     modelName: "Recipe",
-  }
+  },
 );

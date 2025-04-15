@@ -10,6 +10,11 @@ import { Session } from "next-auth";
 import FavoriteIcon from "@/app/ui/icons/favoriteicon";
 import { signIn } from "next-auth/react";
 
+/**
+ * Button that handles the adding and removing of a User's favorites.
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function FavoriteButton({
   recipeId,
   recipeName,
@@ -31,7 +36,7 @@ export default function FavoriteButton({
     {
       revalidateOnFocus: false,
       refreshInterval: 30000,
-    }
+    },
   );
   React.useEffect(() => {
     setFavorite(data ? data.success : false);
@@ -48,7 +53,12 @@ export default function FavoriteButton({
   if (!size) {
     size = isMobile ? "25px" : "50px";
   }
-  if (isLoading) return <div className="" style={{ width: size, height: size }}>Loading...</div>;
+  if (isLoading)
+    return (
+      <div className="" style={{ width: size, height: size }}>
+        Loading...
+      </div>
+    );
   if (error) return <Link href={`/auth/login`}>Error! Please try again</Link>;
   return (
     <div style={{ height: `${size}` }}>
@@ -65,18 +75,18 @@ export default function FavoriteButton({
               if (!favorite) {
                 notificationOnClick(
                   "success",
-                  `Added ${recipeName} to favorites!`
+                  `Added ${recipeName} to favorites!`,
                 );
               } else {
                 notificationOnClick(
                   "success",
-                  `Removed ${recipeName} from favorites!`
+                  `Removed ${recipeName} from favorites!`,
                 );
               }
             } else {
               notificationOnClick(
                 `error`,
-                `There was an error adding ${recipeName} to favorites.  Please try again later.`
+                `There was an error adding ${recipeName} to favorites.  Please try again later.`,
               );
             }
           });

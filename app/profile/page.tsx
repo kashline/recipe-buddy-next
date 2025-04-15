@@ -4,9 +4,13 @@ import Image from "next/image";
 import Login from "../ui/login";
 import { auth } from "../../auth";
 
+/**
+ * User's profile page
+ * @returns Promise<JSX.Element>
+ */
 export default async function Page() {
-  const session = await auth()
-  const user = session?.user
+  const session = await auth();
+  const user = session?.user;
   if (!user) {
     return (
       <div className="text-white">
@@ -40,8 +44,7 @@ export default async function Page() {
           flexGrow: "column",
           gap: "1rem",
         }}
-      >
-      </div>
+      ></div>
     </div>
   );
 }

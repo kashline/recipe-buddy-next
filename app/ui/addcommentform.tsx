@@ -16,6 +16,11 @@ interface CommentFormElement extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
+/**
+ * Add comment form.  Allows user to create comments on the selected recipe.  Handles validating input, submitting comment, and rerendering to view new comment.
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function AddCommentForm({
   user,
   recipeId,
@@ -43,7 +48,7 @@ export default function AddCommentForm({
         const isValid = formElement.checkValidity();
         setFormValid(isValid);
         const firstInvalidField = formElement.querySelector(
-          ":invalid"
+          ":invalid",
         ) as HTMLInputElement;
         firstInvalidField?.focus();
         if (isValid) {

@@ -4,7 +4,7 @@ import Recipe from "./Recipe";
 import User from "./User";
 
 /**
- * Model describing favoriting or saving a recipe to a user.
+ * Model describing favoriting or saving a recipe to a user.  Contains RecipeId, and UserEmail
  */
 export default class UserRecipe extends Model {}
 
@@ -29,7 +29,7 @@ UserRecipe.init(
   {
     sequelize,
     modelName: "UserRecipe",
-  }
+  },
 );
 
 User.belongsToMany(Recipe, {

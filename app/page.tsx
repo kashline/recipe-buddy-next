@@ -25,9 +25,7 @@ export default function Page() {
           }}
           className="flex justify-center my-auto mx-auto"
         >
-          <h1 className={`text-6xl text-gunmetal`}>
-            Welcome to RecipeBuddy
-          </h1>
+          <h1 className={`text-6xl text-gunmetal`}>Welcome to RecipeBuddy</h1>
         </div>
         {/* <div className="bg-clip-content flex justify-center mx-auto">
           <div className="pt-[10%]">

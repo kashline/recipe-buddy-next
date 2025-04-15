@@ -4,7 +4,7 @@ import Recipe from "./Recipe";
 import User from "./User";
 
 /**
- * Model describing ratings for a recipe.
+ * Model describing ratings for a recipe.  Contains id, recipeId, userId, and rating.
  */
 export default class RecipeRating extends Model {}
 
@@ -42,7 +42,7 @@ RecipeRating.init(
   {
     sequelize,
     modelName: "RecipeRating",
-  }
+  },
 );
 
 Recipe.hasMany(RecipeRating, {

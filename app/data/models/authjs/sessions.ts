@@ -20,5 +20,5 @@ sessions.init(
   {
     sequelize,
     modelName: "sessions",
-  }
+  },
 );

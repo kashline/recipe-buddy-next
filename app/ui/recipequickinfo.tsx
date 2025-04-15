@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { RecipeZype } from "../lib/data/zodels/Recipe";
 import friendifyWords from "../lib/utils/wordfriendifier";
 import RecipeOptions from "./recipeoptions";
@@ -11,6 +10,11 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { Session } from "next-auth";
 
+/**
+ * Quick info dropdowns for a recipe.
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function RecipeQuickInfo({
   recipe,
   session,
@@ -96,7 +100,6 @@ export default function RecipeQuickInfo({
           <div
             className={`overflow-hidden transition-all ease-in duration-300  ${isQiToggle ? `max-h-[114px]` : "max-h-0"}`}
           >
-            {/* {isQiToggle && ( */}
             <table className="w-full">
               <tbody>
                 <tr
@@ -155,25 +158,8 @@ export default function RecipeQuickInfo({
                   </td>
                   <td style={{ textAlign: "right" }}>{recipe.cookingTime}</td>
                 </tr>
-                {/* <tr
-                  style={{
-                    borderStyle: "solid",
-                    borderWidth: 2,
-                    borderColor: "black",
-                  }}
-                >
-                  <td style={{ textAlign: "center" }} colSpan={100}>
-                    <Link
-                      href={recipe.video !== null ? recipe.video : ""}
-                      style={{ color: "white" }}
-                    >
-                      Instructional Video Link
-                    </Link>
-                  </td>
-                </tr> */}
               </tbody>
             </table>
-            {/* )} */}
           </div>
           <div
             style={{

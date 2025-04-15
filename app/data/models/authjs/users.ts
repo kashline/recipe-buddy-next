@@ -21,5 +21,5 @@ users.init(
   {
     sequelize,
     modelName: "users",
-  }
+  },
 );

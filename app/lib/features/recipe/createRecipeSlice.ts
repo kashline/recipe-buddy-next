@@ -1,11 +1,5 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  current,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../../store";
-import Ingredient from "@/app/data/models/Ingredient";
 import { arrayMove } from "@dnd-kit/sortable";
 
 export interface CreateRecipeState {
@@ -62,6 +56,7 @@ export const createRecipeSlice = createSlice({
   name: "createRecipe",
   initialState,
   reducers: {
+    // Various reducers doing essentially the same thing; modifying a string or other primative.  TODO: investigate consolidating these
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
     },
@@ -95,13 +90,14 @@ export const createRecipeSlice = createSlice({
     setImage: (state, action: PayloadAction<string>) => {
       state.image = action.payload;
     },
+    // Ingredient reducer
     setIngredientField: (
       state,
       action: PayloadAction<{
         type: string;
         index?: number;
         value?: string | any;
-      }>
+      }>,
     ) => {
       switch (action.payload.type) {
         case "add":
@@ -121,14 +117,6 @@ export const createRecipeSlice = createSlice({
             }
           });
           break;
-        // case "setIngredient":
-        //   state.Ingredients[action.payload.index!].name =
-        //     action.payload.value!.name;
-        //   if (action.payload.value.id) {
-        //     state.Ingredients[action.payload.index!].id =
-        //       action.payload.value!.id;
-        //   }
-        //   break;
         case "setName":
           state.Ingredients[action.payload.index!].name = action.payload.value!;
           break;
@@ -138,14 +126,15 @@ export const createRecipeSlice = createSlice({
           break;
         default:
           console.error(
-            new Error("Invalid payload type for setIngredientField")
+            new Error("Invalid payload type for setIngredientField"),
           );
           break;
       }
     },
+    // RecipeStep reducer
     setStepField: (
       state,
-      action: PayloadAction<{ type: string; index?: number; value?: string }>
+      action: PayloadAction<{ type: string; index?: number; value?: string }>,
     ) => {
       switch (action.payload.type) {
         case "add":
@@ -178,21 +167,22 @@ export const createRecipeSlice = createSlice({
           break;
       }
     },
-    setStepNumbers: (state, action) => {
-      state.RecipeSteps = action.payload.items.map(
-        (step: any, index: number) => {
-          if (step.step_number !== index + 1) {
-            return { step: step.step, step_number: index + 1 };
-          }
-          return { step: step.step, step_number: step.step_number };
-        }
-      );
-    },
+    // setStepNumbers: (state, action) => {
+    //   state.RecipeSteps = action.payload.items.map(
+    //     (step: any, index: number) => {
+    //       if (step.step_number !== index + 1) {
+    //         return { step: step.step, step_number: index + 1 };
+    //       }
+    //       return { step: step.step, step_number: step.step_number };
+    //     }
+    //   );
+    // },
+    // Rearrange steps to match user input
     rearrangeSteps: (state, action) => {
       const movedArray = arrayMove(
         action.payload.items,
         action.payload.oldIndex,
-        action.payload.newIndex
+        action.payload.newIndex,
       );
       state.RecipeSteps = movedArray.map((step: any, index: number) => {
         if (step.step_number !== index + 1) {
@@ -210,6 +200,7 @@ export const createRecipeSlice = createSlice({
       });
     },
   },
+  // Handle extra thunks statuses
   extraReducers(builder) {
     builder
       .addCase(fetchRecipe.pending, (state, action) => {
@@ -218,11 +209,11 @@ export const createRecipeSlice = createSlice({
       .addCase(fetchRecipe.fulfilled, (state, action) => {
         state.status = "succeeded";
         Object.assign(state, action.payload);
-      })
-      .addCase(fetchGeneratedRecipe.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        Object.assign(state, action.payload);
       });
+    // .addCase(fetchGeneratedRecipe.fulfilled, (state, action) => {
+    //   state.status = "succeeded";
+    //   Object.assign(state, action.payload);
+    // });
   },
 });
 
@@ -240,42 +231,43 @@ export const {
   setStepField,
   setVideo,
   setImage,
-  setStepNumbers,
+  // setStepNumbers,
   rearrangeSteps,
 } = createRecipeSlice.actions;
 
-//Thunks
+// fetchRecipe thunk.  Grabs the recipe with the provided id and serializes it into a redux object
 export const fetchRecipe = createAsyncThunk(
   "recipes/fetchRecipe",
   async (query: string) => {
     const res = await (await fetch(`/api/recipes/${query}`)).json();
     return res.data;
-  }
+  },
 );
 
-export const fetchGeneratedRecipe = createAsyncThunk(
-  "recipes/generatedRecipe",
-  async (recipe: Object[]) => {
-    return await fetch(`/api/buddy/generateRecipe`, {
-      method: "POST",
-      body: JSON.stringify({
-        messages: [
-          {
-            role: "user",
-            content: `Take this partially completed recipe and fill in the blanks.  Only add to it do not remove anything.`,
-          },
-        ],
-        recipe: recipe,
-      }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        return data;
-      });
-  }
-);
+// WIP.  Will fetch a recipe generated via AI and serialize it into a redux object.
+// export const fetchGeneratedRecipe = createAsyncThunk(
+//   "recipes/generatedRecipe",
+//   async (recipe: Object[]) => {
+//     return await fetch(`/api/buddy/generateRecipe`, {
+//       method: "POST",
+//       body: JSON.stringify({
+//         messages: [
+//           {
+//             role: "user",
+//             content: `Take this partially completed recipe and fill in the blanks.  Only add to it do not remove anything.`,
+//           },
+//         ],
+//         recipe: recipe,
+//       }),
+//     })
+//       .then((response) => {
+//         return response.json();
+//       })
+//       .then((data) => {
+//         return data;
+//       });
+//   }
+// );
 
 export const selectCreateRecipe = (state: RootState) => state.createRecipe;
 

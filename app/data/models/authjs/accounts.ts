@@ -28,5 +28,5 @@ accounts.init(
   {
     sequelize,
     modelName: "accounts",
-  }
+  },
 );

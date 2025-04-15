@@ -15,7 +15,7 @@ import { NextResponse, type NextRequest } from "next/server";
 //   // // }
 //   return authRes
 // }
-export { auth as middleware } from "@/auth"
+export { auth as middleware } from "@/auth";
 export const config = {
   matcher: [
     "/recipes/:path/edit",

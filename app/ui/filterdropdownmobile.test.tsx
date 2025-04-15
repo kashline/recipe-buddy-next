@@ -21,7 +21,7 @@ describe("FilterDropdownMobile", () => {
       render(
         <StoreProvider>
           <FilterDropdownMobile />
-        </StoreProvider>
+        </StoreProvider>,
       );
     });
     expect(component).toMatchSnapshot();

@@ -5,14 +5,10 @@ import * as React from "react";
 
 export default function RandomRecipeCard() {
   const fetcher = (...args: [any]) => fetch(...args).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(
-    `/api/recipes/random`,
-    fetcher,
-    {
-      revalidateOnFocus: false,
-      refreshInterval: 30000,
-    }
-  );
+  const { data, error, isLoading } = useSWR(`/api/recipes/random`, fetcher, {
+    revalidateOnFocus: false,
+    refreshInterval: 30000,
+  });
   if (error) return <div>ERROR</div>;
   if (isLoading)
     return (

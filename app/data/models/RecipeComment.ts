@@ -4,7 +4,7 @@ import Recipe from "./Recipe";
 import User from "./User";
 
 /**
- * Model describing comments on a recipe.
+ * Model describing comments on a recipe.  Contains id, recipeId, userId, and comment.
  */
 export default class RecipeComment extends Model {}
 
@@ -36,7 +36,7 @@ RecipeComment.init(
   {
     sequelize,
     modelName: "RecipeComment",
-  }
+  },
 );
 
 Recipe.hasMany(RecipeComment, {

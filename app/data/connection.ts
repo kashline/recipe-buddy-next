@@ -1,5 +1,3 @@
-// 'use server'
-
 const pg = require("pg");
 const { Sequelize } = require("sequelize");
 
@@ -16,14 +14,6 @@ const sequelize = new Sequelize({
   dialectModule: pg,
   logging: false,
   dialectOptions: dialectOptions,
-  // define: {
-  //   scopes: {
-  //     excludeId: {
-  //       attributes: { exclude: ["id", "createdAt", "updatedAt", "mealdb_id"] },
-  //     },
-  //   },
-  //   timestamps: false,
-  // },
 });
 
 export default sequelize;

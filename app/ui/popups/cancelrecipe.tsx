@@ -6,7 +6,6 @@ import {
   DialogActions,
 } from "@mui/material";
 import React from "react";
-import Button from "../button";
 import Link from "next/link";
 
 export default function CancelRecipe({ recipeName }: { recipeName?: string }) {

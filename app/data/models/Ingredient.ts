@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
 
 /**
- * Model for an ingredient containing the ingredient name.
+ * Model for an ingredient containing the ingredient name, tags, and id.
  */
 export default class Ingredient extends Model {}
 
@@ -19,7 +19,7 @@ Ingredient.init(
     },
     tags: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-    }
+    },
   },
   {
     sequelize,

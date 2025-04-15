@@ -11,7 +11,6 @@ const tables = [
   "Users",
 ];
 
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -24,7 +23,11 @@ module.exports = {
           queryInterface.addColumn(table, "updatedAt", {
             type: DataTypes.DATE,
           });
-          queryInterface.bulkUpdate(table, {createdAt: new Date(), updatedAt: new Date()}, {})
+          queryInterface.bulkUpdate(
+            table,
+            { createdAt: new Date(), updatedAt: new Date() },
+            {},
+          );
         }),
       ]);
     });

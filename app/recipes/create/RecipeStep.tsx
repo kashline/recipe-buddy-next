@@ -4,6 +4,11 @@ import Button from "@/app/ui/button";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
+/**
+ * Form for sorting redux object RecipeSteps.  Handles sorting updates only
+ * @param param0
+ * @returns React.JSX.Element
+ */
 export default function RecipeStep({
   index,
   dispatch,
@@ -47,7 +52,7 @@ export default function RecipeStep({
                   type: "setStep",
                   index: index,
                   value: e.target.value,
-                })
+                }),
               );
             }}
           ></textarea>
@@ -59,7 +64,7 @@ export default function RecipeStep({
         onClick={() => {
           dispatch(setStepField({ type: "removeAtIndex", index: index }));
         }}
-        type={'button'}
+        type={"button"}
       >
         <Trashcan style={{ stroke: "#eee5e9" }}></Trashcan>
       </Button>

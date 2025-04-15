@@ -1,12 +1,12 @@
-'use server'
+"use server";
 
 import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import { auth } from "@/auth";
 
 export default async function ProfileSidebar() {
-  const session = await auth()
-  const user = session?.user
+  const session = await auth();
+  const user = session?.user;
   return (
     <>
       <div>

@@ -11,8 +11,8 @@ export default async function validateImport(recipe: string) {
     //   },
     // ],
   });
-//   console.log(recipe);
-  return 'asdf';
+  //   console.log(recipe);
+  return "asdf";
   //   const { object } = await generateObject({
   //     model: model,
   //     prompt: `Take the following recipe and rewrite it in the provided schema.  Determine which incoming fields should correspond to the outgoing schema.  If a field does not seem to correspond to any outgoing schema fields, ignore it.  Only take data that is related to the recipe.  This is the data you are to rewrite: ${recipe[0]}`,

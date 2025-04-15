@@ -6,7 +6,6 @@ import {
   selectCreateRecipe,
   rearrangeSteps,
 } from "@/app/lib/features/recipe/createRecipeSlice";
-// import "./styles.scss";
 import RecipeStep from "./RecipeStep";
 import {
   DndContext,
@@ -22,6 +21,10 @@ import {
 } from "@dnd-kit/sortable";
 import IngredientsTable from "@/app/ui/ingredientstable";
 
+/**
+ * RecipeSteps form.  Handles redux updates for everything except sorting
+ * @returns React.JSX.Element
+ */
 export default function RecipeStepsForm() {
   const createRecipe = useAppSelector(selectCreateRecipe);
   // Need a local state of the redux store state to ensure the sortable library can do animations smoothly
@@ -44,7 +47,7 @@ export default function RecipeStepsForm() {
           items: items,
           oldIndex: items.findIndex((i) => active.id === i.step_number),
           newIndex: items.findIndex((i) => over.id === i.step_number),
-        })
+        }),
       );
     }
   };
@@ -84,7 +87,7 @@ export default function RecipeStepsForm() {
         onClick={() => {
           dispatch(setStepField({ type: "add" }));
         }}
-        type={'button'}
+        type={"button"}
       >
         Add Step
       </Button>

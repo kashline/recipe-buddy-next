@@ -2,7 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import sequelize from "../connection";
 
 /**
- * Model for a user
+ * Model for a user containing id, sub, name, email, emailVerified, and image.
  */
 export default class User extends Model {}
 
@@ -26,5 +26,5 @@ User.init(
   {
     sequelize,
     modelName: "User",
-  }
+  },
 );

@@ -10,7 +10,7 @@ describe("Input", () => {
       render(
         <StoreProvider>
           <Input label="test" setFunction={setTitle} required={true} />
-        </StoreProvider>
+        </StoreProvider>,
       );
     });
     expect(component).toMatchSnapshot();

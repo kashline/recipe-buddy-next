@@ -6,13 +6,18 @@ import { RecipeZodel } from "../../../../lib/data/zodels/Recipe";
 import { auth } from "../../../../../auth";
 import RecipeRating from "@/app/data/models/RecipeRating";
 
+/**
+ *
+ * @param request NextRequest
+ * @returns NextResponse: {status: number, message?: string, recipes?: Recipe[], success?: bool, count?: number}
+ */
 export async function GET(request: NextRequest) {
   if (request.url?.split("?")[1] === undefined) {
     return NextResponse.json(
       {
         message: `You must provide 3 query parameters: {term: term to search by, page: current page, recipesPerPage: items per page}`,
       },
-      { status: 400 }
+      { status: 400 },
     );
   } else {
     try {
@@ -26,9 +31,8 @@ export async function GET(request: NextRequest) {
         return NextResponse.json(
           {
             message: `One of the query parameters is missing`,
-            status: 500,
           },
-          { status: 500 }
+          { status: 500 },
         );
       }
       const whereClause = [
@@ -67,7 +71,7 @@ export async function GET(request: NextRequest) {
           success: true,
           count: data.count,
         },
-        { status: 200 }
+        { status: 200 },
       );
     } catch (error) {
       console.log(error);
@@ -75,7 +79,7 @@ export async function GET(request: NextRequest) {
         {
           message: `There was an error ${error}`,
         },
-        { status: 500 }
+        { status: 500 },
       );
     }
   }
