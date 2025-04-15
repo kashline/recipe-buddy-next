@@ -42,13 +42,18 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
             if (page === "...") position = "middle";
 
             return (
-              <PaginationNumber
-                key={Math.random()}
-                href={createPageURL(page)}
-                page={page}
-                position={position}
-                isActive={currentPage === page}
-              />
+              <div
+                key={index}
+                data-cy={position === "last" ? "lastpaginationbutton" : false as boolean}
+              >
+                <PaginationNumber
+                  key={Math.random()}
+                  href={createPageURL(page)}
+                  page={page}
+                  position={position}
+                  isActive={currentPage === page}
+                />
+              </div>
             );
           })}
         </div>
