@@ -44,7 +44,7 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
             return (
               <div
                 key={index}
-                data-cy={position === "last" ? "lastpaginationbutton" : false as boolean}
+                data-cy={position === "last" ? "lastpaginationbutton" : false}
               >
                 <PaginationNumber
                   key={Math.random()}
